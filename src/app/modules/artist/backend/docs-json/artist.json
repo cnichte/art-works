@@ -1,0 +1,57 @@
+[
+  {
+    "id": "2e02cfb6-c376-4e09-a296-623d1469c37c",
+    "name": "Carsten Nichte",
+    "image": "",
+    "alias": "",
+    "birthdate": "1963-08-17",
+    "owner": true,
+
+    "postalCode": "51467",
+    "city": "Bergisch Gladbach",
+    "street": "Hebborner Feld 21",
+
+    "url": "https://carsten-nichte.de",
+    "mail": "c.nichte@t-online.de",
+    "phone": "+049 151 1555 0986",
+    "shortnote": "",
+
+    "resumes": [
+      "053187f3-60ab-4909-93f7-6e0b68abb289",
+      "04440928-6516-40be-ae90-e7257be703a5",
+      "406c60d4-dded-4c18-acf1-d0ca4c141230",
+      "c31df027-b27b-4e02-a135-ade82a961baa",
+      "32fa0c9b-6e1d-43bc-a56b-e8d9602e40f1",
+      "35130b4c-ddc2-4ace-b81c-f436086b6799",
+      "28d54f54-0155-448f-b480-b28e1edd579c",
+      "3a414f2a-9bbe-4240-91cc-b5d388430811",
+      "20c2a2ca-fd97-442c-b122-48a50794a926",
+      "6707c66f-0342-4b83-b17b-965aeb7e2fef",
+      "ac43d734-c791-45f5-8b29-2ee7c1ae81c0"
+    ],
+    "artworks": [
+      "46796e5c-756e-4908-b56f-89c4ce08bdd3",
+      "e5d9b0d2-b0c9-4318-b60c-83bf2eae20b3"
+    ]
+  },
+  {
+    "id": "953405eb-79ab-473f-a793-a648324a65f8",
+    "name": "Karin Musterfrau",
+    "image": "",
+    "alias": "",
+    "birthdate": "1963-08-17",
+    "owner": true,
+
+    "postalCode": "33333",
+    "city": "Köns",
+    "street": "Friedrichstr. 24",
+
+    "url": "",
+    "mail": "",
+    "phone": "",
+    "shortnote": "",
+
+    "resumes": ["db4c469e-45b4-46d0-8315-0f775caecb1a"],
+    "artworks": ["e5d9b0d2-b0c9-4318-b60c-83bf2eae20b3"]
+  }
+]

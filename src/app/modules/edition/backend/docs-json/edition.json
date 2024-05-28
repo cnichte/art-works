@@ -1,0 +1,100 @@
+[
+  {
+    "id":"37a02672-54e1-4201-83fd-8f043aed1d5d",
+    "name": "Anderland open Edition",
+    "description": "Hierbei handelt es sich um einen signierten Fine Art Print in nicht limitierter Auflage. Die digital erstellte Aufnahme wird auf 234 g/m² starkes, mattes Foto Papier gedruckt. Die Größen liegen zwischen 20 x 29 cm (A4 Druckbogen) und 29 x 42 cm (A3 Druckbogen).",
+    "edition": 100,
+    "artistsPrint":3,
+    "prices": [
+      {
+        "id":"5846dd5b-96cb-44d7-8bd2-c2b02d6ec767",
+        "name":"A5 - 14x21cm",
+        "numberStart": 61,
+        "numberEnd": 0,
+        "price": 45,
+        "sales":[]
+      },
+      {
+        "id":"bb5bf7c9-334b-428c-90de-aeb44f49f95c",
+        "name":"A4 - 20x29cm",
+        "numberStart": 31,
+        "numberEnd": 60,
+        "price": 90,
+        "sales":[]
+      },
+      {
+        "id":"3a606148-ee08-4331-8495-9ffc5ff0fdd2",
+        "name":"A3 - 29x42cm",
+        "numberStart": 1,
+        "numberEnd": 30,
+        "price": 190,
+        "sales":[]
+      }
+    ]
+  }, {
+    "id":"35982a83-05e0-4156-845c-895a58d4677b",
+    "name": "Anderland limited Edition",
+    "description": "Hierbei handelt es sich um einen signierten und nummerierten Fine Art Print mit Zertifikat. Ausverkaufte Aufnahmen der Limitierten Edition sind nicht mehr erhältlich, außer in Publikation oder für Ausstellungen des Künstlers. Die digital erstellte Aufnahme wird auf 308 g/m² starkes Hahnemühle Photo Rag Papier gedruckt. Dieses matte, schwerere Papier hat eine sehr feiner Oberflächenstruktur und zarter Farbgebung. Die Größen liegen zwischen 42 x 59 cm (A2 Druckbogen) und 84 x 118 cm (A0 Druckbogen). Nicht alle Bilder werden in allen Größen angeboten. Für Sonderformate bitte Kontakt mit mir aufnehmen.",
+    "edition": 100,
+    "artists-print":3,
+    "prices": [
+      {
+        "id":"d57f0f43-8687-4e15-985b-2121dabbff22",
+        "description":"A2 - 42x59cm",
+        "numberStart": 16,
+        "numberEnd": 20,
+        "price": 450
+      },
+      {
+        "id":"ca00f304-6f00-4b70-a2f1-5706606a15f3",
+        "description":"A2 - 42x59cm",
+        "numberStart": 11,
+        "numberEnd": 15,
+        "price": 500
+      },
+      {
+        "id":"148ac33d-b9d6-48c0-a101-b170fb51eac0",
+        "description":"A2 - 42x59cm",
+        "numberStart": 6,
+        "numberEnd": 11,
+        "price": 550
+      },
+      {
+        "id":"a6fcc854-ee99-4dcf-88e8-dfdc6eca8ca1",
+        "description":"A2 - 42x59cm",
+        "numberStart": 1,
+        "numberEnd": 5,
+        "price": 600
+      }
+    ]
+  }
+  , {
+    "id":"7b283a9a-9b65-45e9-9cde-f63f0af4c9ef",
+    "name": "Binary Voids open Edition",
+    "description": "FineArt Druck aus der Serie `Binary Voids`. Ausstattung: Motiv: Virtuelle Fotografie aus dem Computerspiel Cyberpunk 2077 von CD Project RED. Giclee-Print, ungerahmt. UltraChrome HD PigmentTinte. Papier: Hahnemühle William Turmer, 310gsm. Dieses matte, schwerer Papier hat eine sehr schöne Textur und zarte Farbgebung. Museumsqualität Weißrand: 1–2 cm, umlaufend. Beachte, dass die Farben je nach Monitoreinstellung unterschiedlich wirken können. Rahmen und Passepartout sind nicht im Preis enthalten. Auf Wunsch erstelle ich dazu ein individuelles Angebot.",
+    "edition": -1,
+    "prices": [
+      {
+        "id":"ad532e32-3b1d-46aa-bfa2-a7bd98ecf0a9",
+        "description":"A5 - 14x21cm",
+        "numberStart": 1,
+        "numberEnd": -1,
+        "price": 30
+      },
+      {
+        "id":"7dcdce91-5b3e-4a42-9fa8-deac329f0f57",
+        "description":"A4 - 20x29cm",
+        "numberStart": 1,
+        "numberEnd": -1,
+        "price": 60
+      },
+      {
+        "id":"e69a09b2-1435-4674-b9ee-8f7392b13c5b",
+        "description":"A3 - 29x42cm",
+        "numberStart": 1,
+        "numberEnd": -1,
+        "price": 90
+      }
+    ]
+  }
+]

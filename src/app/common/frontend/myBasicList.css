@@ -1,0 +1,13 @@
+/* https://stackoverflow.com/questions/53220662/css-for-colouring-one-row-of-antd-table-in-react
+   https://v1.pro.ant.design/docs/style
+*/
+.antTableRow {
+  vertical-align: top !important;
+}
+
+/* TODO CSS anwenden: Abstand nach dem ersten Tab
+  https://www.w3schools.com/cssref/sel_nth-child.php
+*/
+.ant-tabs-nav-list:first-child {
+  margin-right: 20px;
+}

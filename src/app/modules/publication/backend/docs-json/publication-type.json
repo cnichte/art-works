@@ -1,0 +1,12 @@
+[
+  {
+    "id":"11f51946-81ce-4aa4-8229-8d64687f4e08",
+    "name": "Eigene Publikation",
+    "publications":["b7e2dd8b-529f-479a-99d1-9b167402fb4c", "c2125aea-567f-450c-8e10-39f5f3f1114b", "be3bec24-59fd-4573-88a6-e2d13fdb8854","cbc6884e-e2dd-42f2-87dd-68147bc3e022","35a01a98-7cd0-4874-b46c-4e44eb74f9f4","90c66b27-8600-487a-9d00-6771606ef10d","6d57b39c-e1a9-43d8-93df-c6c280cd3a85","a728f351-ff95-4037-b89b-5aa82d782691","04428965-9ba9-4e3c-9e52-744e5444b343","42d19ea8-e384-475d-a5c3-11503b36d175"]
+  },
+  {
+    "id":"624c4c8a-c2de-4c6f-b164-11e49e97df8f",
+    "name": "Fremdpublikation",
+    "publications":["f9a2d546-223f-48fc-872d-3d38728cb498","3e9b3ac3-32e1-4152-9813-338b23ab3a5b"]
+  }
+]

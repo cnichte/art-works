@@ -1,0 +1,84 @@
+[
+  {
+    "id":"20c6d669-68ab-4b96-b84e-8f8432fd22a7",
+    "name": "Printmedium",
+    "description":"",
+    "children": [
+      {
+        "id":"88c68507-4c4e-41cb-bf26-79f94e46b7f8",
+        "name": "Buch",
+        "description":""
+      },
+      {
+        "id":"3b097c34-b1d9-4796-82e3-1ef57ec233c1",
+        "name": "Zeitung",
+        "description":""
+      },
+      {
+        "id":"8cc7721f-6ffc-4df5-a960-84f5d05fc7b2",
+        "name": "Zeitschrift",
+        "description":""
+      },
+      {
+        "id":"597e3bbb-b4aa-4258-875b-1007168dbd3c",
+        "name": "Flugblatt",
+        "description":""
+      },
+      {
+        "id":"019e7fb4-1c44-42e5-947b-796cb2e4a8f3",
+        "name": "Plakat",
+        "description":""
+      },
+      {
+        "id":"886a7611-56c9-4535-a36c-3deee3eb61eb",
+        "name": "Blindendruck",
+        "description":""
+      }
+    ]
+  },
+  {
+    "id":"482ec40c-824d-4b20-900b-6f3e9a3d0d31",
+    "name": "Bildmedium",
+    "description":"Audiovisuelles Medium auf digitalem oder analogen Speichermedium",
+    "children": [
+      {
+        "id":"e3f5e8e0-4d58-47ee-ac45-1860e4ab0ee0",
+        "name": "Fotografie",
+        "description":""
+      }, {
+        "id":"6c3bc9cb-0085-4ad4-93e5-e11862c77c2c",
+        "name": "Kurzfilm",
+        "description":""
+      }, {
+        "id":"5fb3d638-f2c3-4121-be06-4cb4b027eb7b",
+        "name": "Kinofilm",
+        "description":""
+      }
+    ]
+  },
+  {
+    "id":"a37a34f9-6fce-4c38-b3f5-52fe5488db9c",
+    "name": "Tonmedium",
+    "description":"Audiovisuelles Medium auf digitalem oder analogen Speichermedium",
+    "children": [
+      {
+        "id":"98284541-fef0-4e74-b024-241a2e5bf140",
+        "name": "Hörbuch",
+        "description":""
+      },
+      {
+        "id":"a1cd06b4-634d-4527-bf3b-dc1bc69201f0",
+        "name": "Hörspiel",
+        "description":""
+      },
+      {
+        "id":"9d94b43f-bf17-4c7d-819a-a74d1b4794a4",
+        "name": "Podcast",
+        "description":""
+      }
+    ]
+  }
+]
+
+
+

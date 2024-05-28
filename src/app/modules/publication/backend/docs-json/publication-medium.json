@@ -1,0 +1,121 @@
+[
+  {
+    "id":"f071e9f2-83dd-4cb5-a098-4b656c84b0cb",
+    "name": "Printmedium",
+    "description":"",
+    "children": [
+      {
+        "id":"ced67c12-73bd-48d9-b460-1d03c4f92097",
+        "name": "Papier",
+        "description":""
+      }, {
+        "id":"93d845c0-7657-4a8b-8606-3fca2841f4f0",
+        "name": "Karton",
+        "description":""
+      }, {
+        "id":"d2638b7a-7df8-4768-b599-5ba1868f8cf5",
+        "name": "Folie",
+        "description":""
+      }, {
+        "id":"4ed26a4d-410a-46ca-a936-74635da8366a",
+        "name": "Betonplatte",
+        "description":"Nur ein Beispiel :-)"
+      }
+    ]
+  },
+  {
+    "id":"a9e48106-ab5c-4225-ae3c-9737474d5941",
+    "name": "Elektronische Publikation",
+    "description":"Non-Print Medium. Liegt in digitaler Form vor. Zur Benutzung ist ein Computer nötig.",
+    "children": [
+      {
+        "id":"7ee920c8-c9e0-4cef-9713-99b0f186d969",
+        "name": "ebook (pdf, epub, mobi)",
+        "description":""
+      }, {
+        "id":"9d92fbec-ec69-4b30-a98a-a7500fd824a3",
+        "name": "Online",
+        "description":"Über das Internet oder über ein Intranet verbreitet (zB. Webseite)."
+      }
+    ]
+  },
+  {
+    "id":"d1dd0108-69f0-46fd-a79d-4803d0d1f2a0",
+    "name": "Filmtonträger",
+    "description":"",
+    "children": [
+      {
+        "id":"0071aacb-d398-47b1-8ff7-94765e332648",
+        "name": "16-Millimeter-Film",
+        "description":"In Medienzentren/Bildstellen, zu Lehrzwecken"
+      },{
+        "id":"b89758b2-6576-4681-b635-97731a2b721d",
+        "name": "VHS",
+        "description":""
+      },{
+        "id":"b0ce3215-f823-48d6-8084-fae520b64aaa",
+        "name": "DVD",
+        "description":""
+      },{
+        "id":"ea966709-1bd9-4c2a-becf-31a8811636a2",
+        "name": "CD-i",
+        "description":""
+      },{
+        "id":"0818c254-82cf-473d-a897-7a990b3f01bc",
+        "name": "Blu-ray Disc",
+        "description":""
+      },{
+        "id":"1fe5db5b-e85e-4252-a87b-7c6acef63b6e",
+        "name": "HD DVD",
+        "description":""
+      },{
+        "id":"0f297ffa-ac32-4e63-b285-c7cd89c94750",
+        "name": "VMD",
+        "description":""
+      }
+    ]
+  },
+  {
+    "id":"1d7c3ed5-5b50-4803-9ac4-d607d5da4787",
+    "name": "Musiktonträger",
+    "description":"",
+    "children": [
+      {
+        "id":"02c44392-a7e0-41af-aef9-188e8828a048",
+        "name": "Vinyl-Schallplatte",
+        "description":""
+      },{
+        "id":"ec0d9b01-3503-487e-9843-123b5c6b7d04",
+        "name": "Musikkassette",
+        "description":""
+      },{
+        "id":"0bc5ee4a-17a6-4fe3-a165-cb912511358d",
+        "name": "Compact Disc",
+        "description":""
+      },{
+        "id":"08437561-e3a2-4483-aa5b-84ce0e80230e",
+        "name": "Compact Cassette",
+        "description":""
+      },{
+        "id":"b9d994af-054a-41cb-8c4e-9ccd62725cbf",
+        "name": "MiniDisc",
+        "description":""
+      }
+    ]
+  },
+  {
+    "id":"eadb4eaa-0583-4cfe-90d7-4d5821aa2e21",
+    "name": "Mikroform",
+    "description":"Verkleinerte analoge Abbildungen von gedruckten Vorlagen zwecks Archivierung.",
+    "children": [
+      {
+        "id":"baf363a2-7562-4e28-a457-c72dc3189b5b",
+        "name": "Microfilm",
+        "description":""
+      }
+    ]
+  }
+]
+
+
+

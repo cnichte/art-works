@@ -1,0 +1,27 @@
+[
+  {
+    "id":"2bb1a2b3-7cc3-4532-8441-59af2949bb1f",
+    "title": "Deutscher Fotobuchpreis 20/21",
+    "year": 2020,
+    "description":"Bildband Zwischenzeit — Singularitäten",
+    "url":"",
+    "shortnote": "Ich freu mich über Bronze in der Kategorie Selfpublishing.",
+
+    "artworks":[],
+    "compilation":"",
+    "publication":"b7e2dd8b-529f-479a-99d1-9b167402fb4c",
+    "notes":[]
+  }, {
+    "id":"5c89a88a-be7b-4c4f-a9b3-86ab7ed0c6ac",
+    "title": "Deutscher Fotobuchpreis 19/20",
+    "description":"Bildband Die Anstalt",
+    "year": 2019,
+    "url":"",
+    "shortnote": "Ich freu mich über die Nominierung, und die Platzierung auf der Longlist in der Kategorie studentische Projekte.",
+
+    "artworks":[],
+    "compilation":"",
+    "publication":"cbc6884e-e2dd-42f2-87dd-68147bc3e022",
+    "notes":[]
+  }
+]

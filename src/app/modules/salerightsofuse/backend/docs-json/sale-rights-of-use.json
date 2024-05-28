@@ -1,0 +1,20 @@
+[
+  {
+    "id":"5bccc51f-46a3-4c63-b57a-ac1928933683",
+    "name": "Einfaches Nutzungsrecht",
+    "usageType": "",
+    "descriptionShort":"Lizenz gem. § 31 Abs. 2 UrhG",
+    "descriptionLong":"Bei der Einräumung eines einfachen Nutzungsrechts kann der Urheber (bzw. Lizenzgeber) das Werk auch Dritten gegenüber lizenzieren. Der Lizenznehmer darf selbst das Werk nur in dem Umfang nutzen, in dem ihm die Rechte jeweils eingeräumt wurden. Die Lizenz kann etwa zeitlich, räumlich oder inhaltlich eingeschränkt sein. Der Urheber bleibt hier auch in der Regel allein dazu berechtigt, Rechtsverletzungen Dritter im eigenen Namen geltend zu machen.",
+    "url":"http://www.gesetze-im-internet.de/urhg/__31.html",
+    "shortnote": ""
+  },
+  {
+    "id":"ef7b9651-edb6-406d-af61-e2057af80c1c",
+    "name": "Ausschließliches Nutzungsrecht",
+    "usageType": "",
+    "descriptionShort":"Lizenz gem. § 31 Abs. 3 UrhG",
+    "descriptionLong":"Der Urheber gibt die Verfügungsgewalt über die Nutzung des Werks aus der Hand und darf es auch selbst nicht nutzen, es sei denn, ihm ist dies vom Lizenznehmer vertraglich gestattet. Der Lizenznehmer hat in diesem Fall ein eigenes Verbotsrecht, d. h. er kann selbst Rechtsverletzungen Dritter hinsichtlich dieses Rechts geltend machen. Dem Urheber selbst verbleiben bei der Übertragung ausschließlicher Nutzungsrechte jedoch noch seine Urheberpersönlichkeitsrechte hinsichtlich des jeweiligen Werks, etwa das Recht auf Benennung als Urheber oder das Verbot der Entstellung des Werks).",
+    "url":"http://www.gesetze-im-internet.de/urhg/__31.html",
+    "shortnote": ""
+  }
+]

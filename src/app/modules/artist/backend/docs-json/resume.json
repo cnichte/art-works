@@ -1,0 +1,155 @@
+[
+  {
+    "id": "053187f3-60ab-4909-93f7-6e0b68abb289",
+    "title": "Kunststudium",
+    "type": "a29e826e-1b71-4e7a-b3c2-9acd38fae3f9",
+    "what": "Schwerpunkt Malerei und Zeichnen",
+    "where": "Freie Kunstschule Köln, Alexander Rudy.",
+    "from": "2020",
+    "to": "2022",
+
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+  {
+    "id": "04440928-6516-40be-ae90-e7257be703a5",
+    "title": "Studium der Fotografie",
+    "resumeType": "a29e826e-1b71-4e7a-b3c2-9acd38fae3f9",
+    "what": "Studium der Fotografie, Frank Dürrach und Oliver Rausch",
+    "where": "Fotoakademie Köln",
+    "from": "2016",
+    "to": "2019",
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+  {
+    "id": "406c60d4-dded-4c18-acf1-d0ca4c141230",
+    "title": "Fotograf / Fotografie",
+    "resumeType": "a29e826e-1b71-4e7a-b3c2-9acd38fae3f9",
+    "what": "",
+    "where": "",
+    "from": "2010",
+    "to": "heute",
+
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+  {
+    "id": "c31df027-b27b-4e02-a135-ade82a961baa",
+    "title": "Wing Tsun Kampfkunstlehrer, eigene Schule mit Partnern.",
+    "resumeType": "a29e826e-1b71-4e7a-b3c2-9acd38fae3f9",
+    "what": "Kampfkunst seit 1981: 1. Dan Goshin-Jitsu (20 Jahre), 2. Kyu Judo (5 Jahre), 3. Kyu Ju-Jutsu (3 Jahre), mit Ausflügen ins Kickboxen, Taekwondo, LutaLivre und so weiter. Übungsleiter Breitensport beim Deutschen Sportbund. Mehre Workshops zum Thema Gewaltprävention bei der Polizei besucht. Seit circa Mitte der 80er als Übungsleiter aktiv. Die chinesische Kampfkunst Wing-Tsun betreibe ich seit dem Jahr 2000: 2. TG Wing-Tsun, 5. SG Escrima, Übungsleiter, Trainer 3 Qualifikation, Leadership 2 Ausbildung, Kids Wing-Tsun Ausbilderqualifikation & Gewaltprävention speziell für Frauen. Eigene Schule zusammen mit Horst Wehrhahn und Silvio Cara für Wing-Tsun von 2007–2013 mit rund 150 Mitgliedern. Unterrichtete dort Kinder, Jugendliche & Erwachsene in Kursen an mehreren Tagen die Woche, sowie Leitung von Seminaren- & Workshops.",
+    "where": "Kampfkunstschule Refrath",
+    "from": "2007",
+    "to": "2013",
+
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+  {
+    "id": "32fa0c9b-6e1d-43bc-a56b-e8d9602e40f1",
+    "title": "Anwendungsentwickler / BusinessAnalyst / Projektbegleitung",
+    "resumeType": "16bb81d4-4850-4341-b791-2ee9eb676967",
+    "what": [
+      "Konzeption und Realisierung von Web- und RichClient-Applikationen sowie Middleware.",
+      "Konzeption und Realisierung von Workflow Systemen und Vorsystemen mit Kopplung an das zentrale ERP-System des DLR.",
+      "Entwicklung von Schnittstellen.",
+      "Konzeption und Entwicklung von Formularen für das Lucom Formularsystem im Rahmen des Webpostkorbes.",
+      "Konzeption, Implementierung / Migration und Betrieb einer QlikView Infrastruktur.",
+      "Weiterentwicklung von QlikView Anwendungen.",
+      "Fachkonzepte, Analysen, Dokumentation, betriebliche Aufgaben"
+    ],
+    "where": "Deutsches Zentrum für Luft und Raumfahrt / DLR e.V. / Köln, vormals T‑Systems SfR GmbH / Weßling, vormals Debis Systemhaus, vormals DLR e.V. / Köln.",
+    "from": "1998",
+    "to": "heute",
+
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+  {
+    "id": "35130b4c-ddc2-4ace-b81c-f436086b6799",
+    "title": "Vertriebsbeauftrager Bereich Datenverarbeitung",
+    "resumeType": "16bb81d4-4850-4341-b791-2ee9eb676967",
+    "what": [
+      "Mitarbeiter- & Auftragsakquisition.",
+      "Erstellung von Angeboten in enger Abstimmung mit der Geschäftsleitung",
+      "Kunden und Mitarbeiterbetreuung."
+    ],
+    "where": "EDM GmbH, Engelskirchen",
+    "from": "1996",
+    "to": "1996",
+
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+  {
+    "id": "28d54f54-0155-448f-b480-b28e1edd579c",
+    "title": "Projektleiter Technische Gebäudeausrüstung",
+    "resumeType": "16bb81d4-4850-4341-b791-2ee9eb676967",
+    "what": [
+      "Angebotsmanagement, Pauschalierungen",
+      "Kunden und Lieferantenbetreuung im Profitcenter Installationen."
+    ],
+    "where": "ABB Gebäudetechnik AG, Köln.",
+    "from": "1995",
+    "to": "1996",
+
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+
+  {
+    "id": "3a414f2a-9bbe-4240-91cc-b5d388430811",
+    "title": "Softwareentwicklung",
+    "resumeType": "16bb81d4-4850-4341-b791-2ee9eb676967",
+    "what": [
+      "Hard– und Softwareentwicklung von Texteinblendungs– und Steuerungsmodulen für Videoüberwachungsgeräte / Quadrantenteiler.",
+      "Entwicklung eines BIOS. Dokumentation."
+    ],
+    "where": "VIDEV Systems GmbH, Bad Honnef.",
+    "from": "1994",
+    "to": "1995",
+
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+  {
+    "id": "20c2a2ca-fd97-442c-b122-48a50794a926",
+    "title": "15 Monate Grundwehrdienst",
+    "resumeType": "16bb81d4-4850-4341-b791-2ee9eb676967",
+    "what": [
+      "Grundausbildung Essen Kupferdreh / Luftwaffe / Luftraumbeobachtung & Objektschutz.",
+      "Ausbilder im Feuerleitbereich einer Nike Hercules Raketenbatterie in Marienheide."
+    ],
+    "where": "Essen Kupferdreh + Marienheide",
+    "from": "1986",
+    "to": "1987",
+
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+  {
+    "id": "6707c66f-0342-4b83-b17b-965aeb7e2fef",
+    "title": "Fachoberschule Für Technik",
+    "resumeType": "16bb81d4-4850-4341-b791-2ee9eb676967",
+    "what": "",
+    "where": "",
+    "from": "1985",
+    "to": "1986",
+
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+  {
+    "id": "ac43d734-c791-45f5-8b29-2ee7c1ae81c0",
+    "title": "Berufsausbildung",
+    "resumeType": "16bb81d4-4850-4341-b791-2ee9eb676967",
+    "what": ["Elektroanlageninstallateur + Energieanlagen-Elektroniker"],
+    "where": "Firma Zanders Feinpapiere AG",
+    "from": "1981",
+    "to": "1985",
+
+    "artist":"2e02cfb6-c376-4e09-a296-623d1469c37c"
+  },
+  {
+    "id": "db4c469e-45b4-46d0-8315-0f775caecb1a",
+    "title": "Karins Eintrag",
+    "type": "a29e826e-1b71-4e7a-b3c2-9acd38fae3f9",
+    "what": "Bildhauerei",
+    "where": "Irgend eine Uni.",
+    "from": "1995",
+    "to": "1999",
+
+    "artist":"953405eb-79ab-473f-a793-a648324a65f8"
+  }
+]

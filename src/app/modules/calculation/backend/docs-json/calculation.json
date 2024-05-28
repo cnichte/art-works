@@ -1,0 +1,18 @@
+[
+  {
+    "id":"b6847e5e-407e-4e7e-a03a-cfeec026ee8d",
+    "title": "Kosten A3 Fineartprint",
+    "description": "",
+    "calculationitems":["8b9bf397-fe6a-4b0a-b197-b764893ba7fd", "b6e7eefc-3a72-4eb7-849a-9c4ff1b685ea", "5337d5b7-2cd3-4452-bda7-d9b7ce3ac17e", "8737b90f-9bfe-4d01-8190-afe502ed0a35"]
+  }, {
+    "id":"89712f9c-fbfb-4b7c-9dc2-95c84695b941",
+    "title": "Kosten A4 Fineartprint",
+    "description": "",
+    "calculationitems":[]
+  }, {
+    "id":"9b7b416f-ea76-45ff-98ef-6c1843d7865c",
+    "title": "Kosten A2 Fineartprint",
+    "description": "",
+    "calculationitems":[]
+  }
+]

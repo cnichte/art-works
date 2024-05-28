@@ -1,0 +1,32 @@
+[
+  {
+    "id": "d8076799-e91c-4690-834d-9b4f3e65048f",
+    "name": "",
+    "resumes": []
+  },
+  {
+    "id": "a29e826e-1b71-4e7a-b3c2-9acd38fae3f9",
+    "name": "künstlerisch",
+    "resumes": [
+      "053187f3-60ab-4909-93f7-6e0b68abb289",
+      "04440928-6516-40be-ae90-e7257be703a5",
+      "406c60d4-dded-4c18-acf1-d0ca4c141230",
+      "c31df027-b27b-4e02-a135-ade82a961baa",
+
+      "db4c469e-45b4-46d0-8315-0f775caecb1a"
+    ]
+  },
+  {
+    "id": "16bb81d4-4850-4341-b791-2ee9eb676967",
+    "name": "technisch",
+    "resumes": [
+      "32fa0c9b-6e1d-43bc-a56b-e8d9602e40f1",
+      "35130b4c-ddc2-4ace-b81c-f436086b6799",
+      "28d54f54-0155-448f-b480-b28e1edd579c",
+      "3a414f2a-9bbe-4240-91cc-b5d388430811",
+      "20c2a2ca-fd97-442c-b122-48a50794a926",
+      "6707c66f-0342-4b83-b17b-965aeb7e2fef",
+      "ac43d734-c791-45f5-8b29-2ee7c1ae81c0"
+    ]
+  }
+]

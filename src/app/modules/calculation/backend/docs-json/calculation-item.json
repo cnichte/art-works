@@ -1,0 +1,30 @@
+[
+  {
+    "id": "8b9bf397-fe6a-4b0a-b197-b764893ba7fd",
+    "title": "Papier A3 - Hahnemühle William Turner 310g",
+    "value": 5.17,
+    "shortnote": "A3 - Hahnemühle William Turner 310g, DIN A3, 25 Blatt 129,35",
+    "group":"15b37c59-bd45-4fc9-885d-155f89b3359e"
+  },
+  {
+    "id": "b6e7eefc-3a72-4eb7-849a-9c4ff1b685ea",
+    "title": "Epson P800 - Tintenverbrauch A3",
+    "value": 0.78,
+    "shortnote": "470,70 EUR 80ml / 8 Kartuschen. P800 A3, 720 x 720 dpi, 9.6 ml per m2 -> 0,78 gemäß https://www.epson.de/de_DE/lfpinkcostcalculator",
+    "group":"15b37c59-bd45-4fc9-885d-155f89b3359e"
+  },
+  {
+    "id": "5337d5b7-2cd3-4452-bda7-d9b7ce3ac17e",
+    "title": "Verpackung Fineartprint A3",
+    "value": 5.0,
+    "shortnote": "",
+    "group":"15b37c59-bd45-4fc9-885d-155f89b3359e"
+  },
+  {
+    "id": "8737b90f-9bfe-4d01-8190-afe502ed0a35",
+    "title": "Versandkosten Fineartprint A3",
+    "value": 0,
+    "shortnote": "",
+    "group":"15b37c59-bd45-4fc9-885d-155f89b3359e"
+  }
+]

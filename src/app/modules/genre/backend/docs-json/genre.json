@@ -1,0 +1,81 @@
+[
+  {
+    "id": "9c489a7e-36f4-4199-bf6a-9a91359b5a41",
+    "name": "Streetphotography",
+    "description": "",
+    "shortnote": "",
+    "artworks": ["e13279a4-1143-4c92-bd53-21e7796b3d79"]
+  },
+  {
+    "id": "a28c9ac4-437c-4c69-b242-f0a5677e2842",
+    "name": "Inszenierte Fotografie",
+    "description": "",
+    "shortnote": "",
+    "artworks": [
+      "46796e5c-756e-4908-b56f-89c4ce08bdd3",
+      "e5d9b0d2-b0c9-4318-b60c-83bf2eae20b3"
+    ]
+  },
+  {
+    "id": "771fcbaa-4e65-415f-9169-865b5311bbc9",
+    "name": "Abstrakte Fotografie",
+    "description": "",
+    "shortnote": "",
+    "artworks": []
+  },
+  {
+    "id": "4368aa1e-4b8b-4f60-a4ce-723ff8fc03f3",
+    "name": "Portrait Fotografie",
+    "description": "",
+    "shortnote": "",
+    "artworks": []
+  },
+  {
+    "id": "eb381fd6-11dd-448f-8592-ef454c4b479c",
+    "name": "Portraitmalerei",
+    "description": "",
+    "shortnote": "",
+    "artworks": []
+  },
+  {
+    "id": "4b8dc880-9445-4690-a5e4-c9f94baea6ee",
+    "name": "Bildhauerei",
+    "description": "",
+    "shortnote": "",
+    "artworks": []
+  },
+  {
+    "id": "44902c2a-95c0-453e-a6a4-690c6e5ed445",
+    "name": "Generative Kunst",
+    "description": "",
+    "shortnote": "",
+    "artworks": []
+  },
+  {
+    "id": "b80f6857-28c2-47cf-a66a-a143bf9b52df",
+    "name": "Musik",
+    "description": "",
+    "shortnote": "",
+    "artworks": []
+  },
+  {
+    "id": "82394f2e-3fd9-4497-8761-5f1ae103479c",
+    "name": "Lyrik",
+    "description": "",
+    "shortnote": "",
+    "artworks": []
+  },
+  {
+    "id": "329c062d-dd06-4024-bf8e-cfe0cf462121",
+    "name": "Essay",
+    "description": "",
+    "shortnote": ""
+  },
+  {
+    "id": "58853657-d30c-4b5f-8fd2-f076dd65e799",
+    "name": "Werkprozessbeschreibung",
+    "description": "",
+    "shortnote": "",
+    "artworks": []
+  }
+]

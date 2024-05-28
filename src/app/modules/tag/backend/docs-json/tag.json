@@ -1,0 +1,238 @@
+[
+  {
+    "id": "f57a2892-1c09-47ec-ab6e-206faa99d1af",
+    "name": "Zu Erledigen",
+    "color": "green",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "",
+    "children": []
+  },
+  {
+    "id": "79994d3d-6a5e-436e-9043-d72c15bd54be",
+    "name": "Wichtig",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "",
+    "children": []
+  },
+  {
+    "id": "478e3986-0382-4da8-ab7f-259b791e87c5",
+    "name": "Besonders",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "",
+    "children": []
+  },
+  {
+    "id": "1301b93c-56c1-4c16-9180-26001dc5c71e",
+    "name": "Bewertung",
+    "color": "blue",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "",
+    "children": [
+      "53026a5e-cade-41b1-85cc-cc88a73fe00c",
+      "f18732c1-a070-49bc-b761-1fd1f86fca2a",
+      "65a28c03-ea0f-4ca3-9653-9bd9b861949d",
+      "207980ca-874a-4770-821e-84607b321c05",
+      "4da68f58-1ea0-461f-a081-5b2b2f0383b9"
+    ]
+  },
+  {
+    "id": "53026a5e-cade-41b1-85cc-cc88a73fe00c",
+    "name": "*",
+    "color": "blue",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "1301b93c-56c1-4c16-9180-26001dc5c71e",
+    "children": []
+  },
+  {
+    "id": "f18732c1-a070-49bc-b761-1fd1f86fca2a",
+    "name": "* *",
+    "color": "blue",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "1301b93c-56c1-4c16-9180-26001dc5c71e"
+  },
+  {
+    "id": "65a28c03-ea0f-4ca3-9653-9bd9b861949d",
+    "name": "* * *",
+    "color": "blue",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "1301b93c-56c1-4c16-9180-26001dc5c71e",
+    "children": []
+  },
+  {
+    "id": "207980ca-874a-4770-821e-84607b321c05",
+    "name": "* * * *",
+    "color": "blue",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "1301b93c-56c1-4c16-9180-26001dc5c71e",
+    "children": []
+  },
+  {
+    "id": "4da68f58-1ea0-461f-a081-5b2b2f0383b9",
+    "name": "* * * * *",
+    "color": "blue",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "1301b93c-56c1-4c16-9180-26001dc5c71e",
+    "children": []
+  },
+  {
+    "id": "73858820-2314-4e79-979e-27798e670036",
+    "name": "Themen",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "",
+    "children": [
+      "8e8b8e06-e557-416b-aab5-75b88a350199",
+      "7b10b2ad-1793-4857-95a4-b0b361994abf"
+    ]
+  },
+  {
+    "id": "8e8b8e06-e557-416b-aab5-75b88a350199",
+    "name": "Freiheit",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "73858820-2314-4e79-979e-27798e670036",
+    "children": []
+  },
+  {
+    "id": "7b10b2ad-1793-4857-95a4-b0b361994abf",
+    "name": "Reisen",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "73858820-2314-4e79-979e-27798e670036",
+    "children": []
+  },
+  {
+    "id": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "name": "Genre",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "",
+    "children": [
+      "dc8ecfb2-ddbf-47d4-971f-b2b9d0744084",
+      "aabdd35a-febf-4823-b046-780eee55fe2e",
+      "88b46702-11b3-4d0a-87e3-e9149d925886",
+      "ab7450ff-20c1-4148-8118-0c9e77403cf2",
+      "1c85a5d8-457f-47ee-a2eb-392a9d3cff7f",
+      "2caeef0d-bb81-4bd7-ba59-812dfaf2140f",
+      "e728dea6-a6dc-4ef1-94f4-9b834f6aac7a",
+      "819a4d7f-6110-40c1-87dc-32cf36e0a3ae",
+      "1453a161-9a86-41c4-bd2b-5c22fcb4ff31",
+      "985be618-bf58-410a-97a7-15455fb9673e",
+      "a79fc1f1-b57e-466b-8834-71d067efb0bd"
+    ]
+  },
+  {
+    "id": "dc8ecfb2-ddbf-47d4-971f-b2b9d0744084",
+    "name": "Streetphotography",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  },
+  {
+    "id": "aabdd35a-febf-4823-b046-780eee55fe2e",
+    "name": "Inszenierte Fotografie",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  },
+  {
+    "id": "88b46702-11b3-4d0a-87e3-e9149d925886",
+    "name": "Abstrakte Fotografie",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  },
+  {
+    "id": "ab7450ff-20c1-4148-8118-0c9e77403cf2",
+    "name": "Portrait Fotografie",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  },
+  {
+    "id": "1c85a5d8-457f-47ee-a2eb-392a9d3cff7f",
+    "name": "Portraitmalerei",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  },
+  {
+    "id": "2caeef0d-bb81-4bd7-ba59-812dfaf2140f",
+    "name": "Bildhauerei",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  },
+  {
+    "id": "e728dea6-a6dc-4ef1-94f4-9b834f6aac7a",
+    "name": "Generative Kunst",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  },
+  {
+    "id": "819a4d7f-6110-40c1-87dc-32cf36e0a3ae",
+    "name": "Musik",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  },
+  {
+    "id": "1453a161-9a86-41c4-bd2b-5c22fcb4ff31",
+    "name": "Lyrik",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  },
+  {
+    "id": "985be618-bf58-410a-97a7-15455fb9673e",
+    "name": "Essay",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  },
+  {
+    "id": "a79fc1f1-b57e-466b-8834-71d067efb0bd",
+    "name": "Werkprozessbeschreibung",
+    "color": "",
+    "shortnote": "",
+    "artworks": "",
+    "parent": "d8b8d5b0-c320-4b11-8d8d-b1932b71de97",
+    "children": []
+  }
+]

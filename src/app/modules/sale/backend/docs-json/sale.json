@@ -1,0 +1,58 @@
+[
+  {
+    "id":"ab62d331-c5e6-4f41-95c1-7e8ed90dd0ac",
+
+    "editionNumber": 10,
+
+    "calculatedPrice": 200,
+    "paid": 1000,
+    "shortnote": "Andrea, A2 Print 'Über die Freiheit des Reisens'.",
+
+    "saleType":"0ae7570a-603c-43f3-9667-5aa019dd27eb",
+    "saleRightsOfUse":"",
+
+    "customer": "0bfbfbfa-ed5b-4491-a8c3-44a9678861ed",
+
+    "artwork": "46796e5c-756e-4908-b56f-89c4ce08bdd3",
+    "edition": "",
+    "publication": ""
+
+  },
+  {
+    "id":"43aaa7bd-668d-487e-b8b9-b0bdbe40a551",
+
+    "editionNumber": 8,
+
+    "calculatedPrice": 350,
+    "paid": 900,
+    "shortnote": "Andrea Schwelle, A2 Print 'Mondfrau'.",
+
+    "saleType":"0ae7570a-603c-43f3-9667-5aa019dd27eb",
+    "saleRightsOfUse":"",
+
+    "customer": "0bfbfbfa-ed5b-4491-a8c3-44a9678861ed",
+
+    "artwork": "e5d9b0d2-b0c9-4318-b60c-83bf2eae20b3",
+    "edition": "",
+    "publication": ""
+
+  },
+  {
+    "id":"5a0e6a91-31ce-4ec9-be16-6f5086edade1",
+
+    "editionNumber": 0,
+
+    "calculatedPrice": 50,
+    "paid": 50,
+    "shortnote": "Buch Zwischenzeit 1 an FAK",
+
+    "saleType":"2932a605-48aa-4368-96b7-21aed8103e38",
+    "saleRightsOfUse":"",
+
+    "customer": "1f284fb7-4ce4-49ef-9936-6e323539234c",
+
+    "artwork": "",
+    "edition": "",
+    "publication": "b7e2dd8b-529f-479a-99d1-9b167402fb4c"
+  }
+]

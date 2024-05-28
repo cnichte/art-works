@@ -1,0 +1,195 @@
+[
+  {
+    "docType": "artwork",
+    "docScope": "user",
+    "title": "Zeitraum Jahr-Monat 2015-06 bis 2019-07",
+    "title_addition": "Das Dokument wird ordentlich geladen (titel wird angezeigt).",
+    "topic": "",
+    "description_long": "Eine lange Beschreibung zum Bild",
+    "description_short": "Eine kurze Beschreibung zum Bild",
+    "dateCreation": {
+      "dateMode": "datePeriod",
+      "dateType": "month",
+      "dateFormat": "YYYY-MM",
+      "date": [
+        "2015-06-15",
+        "2019-07-19"
+      ]
+    },
+    "implementation": "",
+    "tool": "",
+    "forsale": false,
+    "price": "",
+
+    "attachmentsMeta":[],
+
+    "shortnote": "",
+    "artists": [],
+    "groupsofwork": [],
+    "compliations": [],
+    "collections": [],
+    "publications": [],
+    "editions": [],
+    "sales": [],
+    "exhibitions": [],
+    "awards": [],
+    "genres": [],
+    "tags": [],
+    "notes": []
+  },
+  {
+    "docType": "artwork",
+    "docScope": "user",
+    "title": "Zeitpunkt YYY-MM - 1963-05",
+    "title_addition": "OKAY",
+    "topic": "",
+    "description_long": "",
+    "description_short": "",
+    "dateCreation": {
+      "date": [
+        "1963-05-12"
+      ],
+      "dateType": "month",
+      "dateMode": "dateMoment",
+      "dateFormat": "YYYY-MM"
+    },
+    "implementation": "",
+    "tool": "",
+    "forsale": false,
+    "price": "",
+
+    "attachmentsMeta":[],
+
+    "shortnote": "",
+    "artists": [],
+    "groupsofwork": [],
+    "compliations": [],
+    "collections": [],
+    "publications": [],
+    "editions": [],
+    "sales": [],
+    "exhibitions": [],
+    "awards": [],
+    "genres": [],
+    "tags": [],
+    "notes": [],
+    "dateCreationMode": "dateMoment"
+  },
+  {
+    "id": "46796e5c-756e-4908-b56f-89c4ce08bdd3",
+    "title": "Über die Freiheit des Reisens 2018-2018",
+    "title_addition": "",
+    "topic": "Freiheit, Reisen",
+    "description_long": "Hier steht der Langtext.",
+    "description_short": "Hier steht die Kurzbeschreibung.",
+    "dateCreation": {
+      "dateMode": "datePeriod",
+      "dateType": "year",
+      "dateFormat": "YYYY",
+      "date": [
+        "2018-03-18",
+        "2028-04-28"
+      ]
+     },
+    "implementation": "",
+    "tool": "",
+    "forsale": "",
+    "price": "",
+
+    "attachmentsMeta":[],
+
+    "artists": ["2e02cfb6-c376-4e09-a296-623d1469c37c"],
+    "groupsofwork": ["64df6b9f-b0fd-4ae4-9107-597027e84d6d"],
+    "compliations": [],
+    "collections": [],
+    "publications": ["35a01a98-7cd0-4874-b46c-4e44eb74f9f4"],
+    "editions": [],
+    "sales": ["ab62d331-c5e6-4f41-95c1-7e8ed90dd0ac"],
+    "exhibitions": [],
+    "awards": [],
+    "genres": ["a28c9ac4-437c-4c69-b242-f0a5677e2842"],
+    "tags": [
+      "4da68f58-1ea0-461f-a081-5b2b2f0383b9",
+      "aabdd35a-febf-4823-b046-780eee55fe2e"
+    ],
+    "notes": []
+  },
+  {
+    "id": "e5d9b0d2-b0c9-4318-b60c-83bf2eae20b3",
+    "title": "la gardienne, du lune 2014-02-14",
+    "title_addition": "",
+    "topic": "Freiheit, Reisen",
+    "description_long": "Die Wächterin der Nacht und des Mondes.",
+    "description_short": "Hier steht eine Kurzbeschreibung.",
+    "dateCreation": {
+      "dateMode": "dateMoment",
+      "dateType": "date",
+      "dateFormat": "YYYY-MM-DD",
+      "date": [
+        "2014-02-14"
+      ]
+     },
+    "implementation": "",
+    "tool": "",
+    "forsale": "",
+    "price": "",
+
+    "attachmentsMeta":[],
+
+    "artists": [
+      "2e02cfb6-c376-4e09-a296-623d1469c37c",
+      "953405eb-79ab-473f-a793-a648324a65f8"
+    ],
+    "groupsofwork": ["64df6b9f-b0fd-4ae4-9107-597027e84d6d"],
+    "compliations": [],
+    "collections": [],
+    "publications": ["35a01a98-7cd0-4874-b46c-4e44eb74f9f4"],
+    "editions": [],
+    "sales": ["43aaa7bd-668d-487e-b8b9-b0bdbe40a551"],
+    "exhibitions": [],
+    "awards": [],
+    "genres": ["a28c9ac4-437c-4c69-b242-f0a5677e2842"],
+    "tags": [
+      "4da68f58-1ea0-461f-a081-5b2b2f0383b9",
+      "aabdd35a-febf-4823-b046-780eee55fe2e"
+    ],
+    "notes": []
+  },
+  {
+    "id": "e13279a4-1143-4c92-bd53-21e7796b3d79",
+    "title": "Zwischenzeit 2007-01",
+    "title_addition": "",
+    "topic": "",
+    "description_long": "Ein Streetfotografie beispiel",
+    "description_short": "Hier steht eine Kurzbeschreibung.",
+    "dateCreation": {
+      "dateMode": "dateMoment",
+      "dateType": "month",
+      "dateFormat": "YYYY-MM",
+      "date": [
+        "2007-01-07"
+      ]
+     },
+    "implementation": "",
+    "tool": "",
+    "forsale": "",
+    "price": "",
+
+    "attachmentsMeta":[],
+
+    "artists": [
+      "2e02cfb6-c376-4e09-a296-623d1469c37c"
+    ],
+    "groupsofwork": ["4f266b5e-ed09-4496-818d-9938e53e1e5c"],
+    "compliations": [],
+    "collections": [],
+    "publications": [],
+    "editions": [],
+    "sales": [],
+    "exhibitions": [],
+    "awards": [],
+    "genres": ["9c489a7e-36f4-4199-bf6a-9a91359b5a41"],
+    "tags": [],
+    "notes": []
+  }
+]

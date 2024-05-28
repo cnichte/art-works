@@ -1,0 +1,223 @@
+[
+  {
+    "id":"b37a21d3-8f4b-45d1-9f33-9a3c8c5b4727",
+    "name":"Carsten Nichte",
+    "birthdate": "1963-08-17",
+
+    "postalCode": "51467",
+    "city": "Bergisch Gladbach",
+    "street": "Hebborner Feld 21",
+
+    "url": "https://carsten-nichte.de",
+    "mail": "c.nichte@t-online.de",
+    "phone":"",
+    "shortnote": "",
+
+    "addressType":"05eb7de5-9d40-40ba-80d1-1bbe42e2cc12",
+    "sales":[]
+  },
+  {
+    "id":"0bfbfbfa-ed5b-4491-a8c3-44a9678861ed",
+    "name":"Andrea Schwelle",
+    "birthdate": "1963-08-17",
+
+    "postalCode": "49152",
+    "city": "Bad Essen",
+    "street": "Finkenstrasse 3",
+
+    "url": "https://andrea-schwelle.de",
+    "mail": "andrea.schwelle@gmx.de",
+    "phone":"",
+    "shortnote": "Telefonfeld fehlt noch +49 176 76313897",
+
+    "addressType":"05eb7de5-9d40-40ba-80d1-1bbe42e2cc12",
+    "sales":["ab62d331-c5e6-4f41-95c1-7e8ed90dd0ac", "43aaa7bd-668d-487e-b8b9-b0bdbe40a551"]
+  },
+  {
+    "id":"65b491d6-896e-4f10-9f16-85358fba00c3",
+    "name":"Marina Doro",
+    "birthdate": "",
+
+    "postalCode": "",
+    "city": "",
+    "street": "",
+
+    "url": "https://www.kunstfabrik-darmstadt.de/kuenstler-innen-top/39-marina-doro",
+    "mail": "marina.d-oro@gmx.net",
+    "phone":"(0 69) 34 70 55 45",
+    "shortnote": "Hab ich auf der Fachtagung der DFA ein Echokammer Buch geschenkt.",
+
+    "addressType":"05eb7de5-9d40-40ba-80d1-1bbe42e2cc12",
+    "sales":["ab62d331-c5e6-4f41-95c1-7e8ed90dd0ac", "43aaa7bd-668d-487e-b8b9-b0bdbe40a551"]
+  },
+  {
+    "id":"1f284fb7-4ce4-49ef-9936-6e323539234c",
+    "name":"Fotoakademie Köln",
+    "birthdate": "",
+
+    "postalCode": "50670",
+    "city": "Köln",
+    "street": "Im Mediapark 8a",
+
+    "url": "https://fotoakademie-koeln.de",
+    "mail": "",
+    "phone":"",
+    "shortnote": "Ansprechpartner: Frank Dürrach und Oliver Rausch.",
+
+    "addressType":"bda202cf-87ae-424e-9666-c6c44b2bf4e6",
+    "sales":["5a0e6a91-31ce-4ec9-be16-6f5086edade1"]
+  },
+  {
+    "id":"b816e7bc-a52c-4bcf-ae35-6b775728d996",
+    "name":"BAYENWERFT KUNSTHAUS RHENANIA e.V.",
+    "birthdate": "",
+
+    "postalCode": "50678",
+    "city": "Köln",
+    "street": "Bayenstr. 28",
+
+    "url": "",
+    "mail": "",
+    "phone":"",
+    "shortnote": "Location Ausstellung - feld: name",
+
+    "addressType":"bda202cf-87ae-424e-9666-c6c44b2bf4e6",
+    "sales":[]
+  },
+  {
+    "id":"6e800547-1727-48d5-ba52-c4c74e962519",
+    "name": "Brandswerk in Altenberg",
+    "birthdate": "",
+
+    "postalCode": "51519",
+    "city": "Odenthal Altenberg",
+    "street": "",
+
+    "url": "",
+    "mail": "",
+    "phone":"",
+    "shortnote": "Die genaue Adresse aus dem Flyer holen.",
+
+    "addressType":"4e5d1a59-ccdb-4e3d-9538-d301f5c6f9d9",
+    "sales":[]
+  },
+  {
+    "id":"c75b1cf5-d23f-4098-8342-f52dfc6d66bf",
+    "name": "Tanja Lehmann",
+    "birthdate": "",
+
+    "postalCode": "51515",
+    "city": "Kürten",
+    "street": "Sperberweg 6",
+
+    "url": "",
+    "mail": "",
+    "phone":"+49 178 2059346",
+    "shortnote": "Gemeinsame Ausstellung, Model, ...",
+
+    "addressType":"05eb7de5-9d40-40ba-80d1-1bbe42e2cc12",
+    "sales":[]
+  },
+  {
+    "id":"08c7f6af-bfcc-47c5-9f99-168c21eb096d",
+    "name": "Karin & Joachim Nichte",
+    "birthdate": "",
+
+    "postalCode": "",
+    "city": "Bergisch Gladbach",
+    "street": "Irlenfelder Kamm 16",
+
+    "url": "",
+    "mail": "",
+    "phone":"",
+    "shortnote": "Anderland Blurb, ...",
+
+    "addressType":"05eb7de5-9d40-40ba-80d1-1bbe42e2cc12",
+    "sales":[]
+  }, {
+    "id":"bd86401e-4a99-4b27-a204-4aea34ec668f",
+    "name": "Ulrika Nuavi Rüb",
+    "birthdate": "",
+
+    "postalCode": "65345",
+    "city": "Eltville am Rhein",
+    "street": "Antoniusgasse 22",
+
+    "url": "https://www.nuavi-spirit.de/",
+    "mail": "",
+    "phone":"+049 6123 999 6050",
+    "shortnote": "Hat das blaue quadrat mit den Wolke und Schirm geschenkt bekommen.",
+
+    "addressType":"05eb7de5-9d40-40ba-80d1-1bbe42e2cc12",
+    "sales":[]
+  },{
+    "id":"bded0d15-085a-4317-84c6-e431ddb26ec6",
+    "name": "Helmut Brands",
+    "birthdate": "",
+
+    "postalCode": "51469",
+    "city": "Bergisch Gladbach",
+    "street": "Buchholzstraße 73",
+
+    "url": "https://www.helmutbrands.de/",
+    "mail": "info@helmutbrands.de",
+    "phone":"+49 173 72 444 79",
+    "shortnote": "Gemeinsame Ausstellung.",
+
+    "addressType":"05eb7de5-9d40-40ba-80d1-1bbe42e2cc12",
+    "sales":[]
+  },{
+    "id":"360260c7-4a5a-4995-998f-a2945eed518b",
+    "name": "Staatliche Bibliothek Regensburg ",
+    "birthdate": "",
+
+    "postalCode": "93047",
+    "city": "Regensburg",
+    "street": "Gesandtenstr. 13",
+
+    "url": "https://www.staatliche-bibliothek-regensburg.de",
+    "mail": "",
+    "phone":"+49 941 630806-0",
+    "shortnote": "Alle Einreichungen zum Deutschen Fotobuchpreis landen hier im Bibliothekskatalog.",
+
+    "addressType":"d8a9d305-c37c-459c-bacd-9d3a35466077",
+    "sales":[]
+  },{
+    "id":"1611dba3-7074-4743-935b-a8492d42d113",
+    "name": "Deutsche Nationalbibliothek",
+    "birthdate": "",
+
+    "postalCode": "04103",
+    "city": "Leipzig",
+    "street": "Deutscher Platz 1",
+
+    "url": "https://www.dnb.de/DE/Professionell/Sammeln/Koerperliche_Medienwerke/koerperliche_medienwerke_node.html",
+    "mail": "",
+    "phone":"",
+    "shortnote": "Abgabe Pflichtexemplare von Publikationen. Abgeliefert werden müssen Veröffentlichungen aus Nordrhein-Westfalen in zweifacher Ausfertigung.",
+
+    "addressType":"d8a9d305-c37c-459c-bacd-9d3a35466077",
+    "sales":[]
+  },{
+    "id":"587016db-396a-49be-a377-7da3face5d4d",
+    "name": "Universitäts- und Landesbibliothek Bonn",
+    "birthdate": "",
+
+    "postalCode": "53113",
+    "city": "Bonn",
+    "street": "Adenauerallee 39-41",
+
+    "url": "https://www.ulb.uni-bonn.de/de",
+    "mail": "",
+    "phone":"",
+    "shortnote": "Abgabe Pflichtexemplare von Publikationen. Abgeliefert werden müssen Veröffentlichungen aus Nordrhein-Westfalen in zweifacher Ausfertigung.",
+
+    "addressType":"d8a9d305-c37c-459c-bacd-9d3a35466077",
+    "sales":[]
+  }
+]
+
+
+
+
+

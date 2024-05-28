@@ -1,0 +1,24 @@
+[
+  {
+    "id":"0ae7570a-603c-43f3-9667-5aa019dd27eb",
+    "name": "Print (Standard)"
+  },{
+    "id":"0ad711be-179b-4fd6-b069-3ee8ada9591a",
+    "name": "Fineartprint (Edition)"
+  },{
+    "id":"d9db56c3-1a0f-4a45-882c-925160a1aca3",
+    "name": "Digitale Datei"
+  },{
+    "id":"145b773b-cec3-4de3-9c98-0aaf392275ae",
+    "name": "Originales Objekt"
+  },{
+    "id":"019e32a1-2580-405f-87a8-778821ecff3b",
+    "name": "Kopie des Original-Objektes"
+  },{
+    "id":"2fa71a66-03e5-49c5-bfeb-b98108ea49ea",
+    "name": "Dienstleistung"
+  },{
+    "id":"2932a605-48aa-4368-96b7-21aed8103e38",
+    "name": "Buchverkauf"
+  }
+]

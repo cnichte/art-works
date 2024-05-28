@@ -1,0 +1,42 @@
+[
+  {
+    "id":"05eb7de5-9d40-40ba-80d1-1bbe42e2cc12",
+    "name": "Künstler",
+    "addresses": ["b37a21d3-8f4b-45d1-9f33-9a3c8c5b4727", "0bfbfbfa-ed5b-4491-a8c3-44a9678861ed"]
+  },
+  {
+    "id":"4c45e90a-b9ba-4f00-9b15-8a289c65600f",
+    "name": "Käufer / Kunde",
+    "addresses": []
+  },
+  {
+    "id":"bda202cf-87ae-424e-9666-c6c44b2bf4e6",
+    "name": "Galerie / Ausstellungsort",
+    "addresses": ["1f284fb7-4ce4-49ef-9936-6e323539234c", "b816e7bc-a52c-4bcf-ae35-6b775728d996"]
+  },
+  {
+    "id":"1e14aa41-3b4e-47fe-87a0-d501d985f79e",
+    "name": "Urheber",
+    "addresses": []
+  },
+  {
+    "id":"513d5dd5-4a6f-4e15-a6b7-4b373b7c8689",
+    "name": "Model",
+    "addresses": []
+  },
+  {
+    "id":"4e5d1a59-ccdb-4e3d-9538-d301f5c6f9d9",
+    "name": "Ort",
+    "addresses": ["6e800547-1727-48d5-ba52-c4c74e962519"]
+  },
+  {
+    "id":"1ef22865-11b2-48db-a200-73653ad4f1d8",
+    "name": "Lagerort",
+    "addresses": []
+  },
+  {
+    "id":"d8a9d305-c37c-459c-bacd-9d3a35466077",
+    "name": "Bibliothek",
+    "addresses": ["360260c7-4a5a-4995-998f-a2945eed518b", "1611dba3-7074-4743-935b-a8492d42d113", "587016db-396a-49be-a377-7da3face5d4d"]
+  }
+]
