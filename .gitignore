@@ -1,3 +1,7 @@
+# personal excludes
+
+*.zip
+
 # temporär
 
 assets
