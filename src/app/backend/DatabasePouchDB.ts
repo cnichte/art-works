@@ -11,7 +11,7 @@
 // https://stackoverflow.com/questions/52800286/cant-use-pouchdb-with-typescript-types-problem
 // import PouchDB from 'pouchdb';
 // import { Console } from 'node:console'; // https://nodejs.org/api/console.html
-import rel from 'relational-pouch';
+import rel from 'relational-pouch'; // https://github.com/pouchdb-community/relational-pouch
 import find from 'pouchdb-find';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -712,7 +712,7 @@ export class DatabasePouchDB implements DatabaseCRUDI {
   /**
    * Creates a record in the database, using relational-pouch.
    *
-   * https://github.com/pouchdb-community/relational-pouch
+   ** https://github.com/pouchdb-community/relational-pouch
    * const _id = this.db.rel.makeDocID({ type: data.docType, id: data.id });
    *
    * use standard pouchdb: this.db.put(data);
@@ -793,22 +793,30 @@ export class DatabasePouchDB implements DatabaseCRUDI {
     return this.db.rel.del(type, data);
   }
 
-  // Die Sachen benutze ich noch nicht, da ich die Attachments im Frontend direkt in die Datenstruktur einbette.
-  // und das ganz dann einfach auf dem Standardweg speichere.
-
+  /**
+   * 
+   * https://github.com/pouchdb-community/relational-pouch?tab=readme-ov-file#dbrelputattachmenttype-object-attachmentid-attachment-attachmenttype
+   * 
+   * @param doc_type 
+   * @param doc_id -  {id:1, rev:"1-..."}
+   * @param attachment_id 
+   * @param attachment_data 
+   * @param attachment_content_type 
+   * @returns 
+   */
   addAttachment(
-    type: string,
-    data: any,
-    attachmentId: string,
-    attachment: any,
-    attachmentType: string
+    doc_type: string,
+    doc_id: any,
+    attachment_id:string,
+    attachment_data: any,
+    attachment_content_type: string
   ): Promise<any> {
     return this.db.rel.putAttachment(
-      type,
-      data,
-      attachmentId,
-      attachment,
-      attachmentType
+      doc_type,
+      doc_id,
+      attachment_id,
+      attachment_data,
+      attachment_content_type
     );
   }
 

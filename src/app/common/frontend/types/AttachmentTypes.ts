@@ -15,8 +15,9 @@ type AttachmentActionPropertyName = 'attachmentActions';
  * @interface Attachment
  */
 interface Attachment {
-  content_type: string;
+  id: string;
   data: string;
+  content_type: string;
 }
 
 /**
@@ -27,8 +28,6 @@ interface Attachment {
  */
 interface AttachmentAction {
   name: AttachmentActionName;
-
-  id: string;
   attachment: Attachment;
 }
 

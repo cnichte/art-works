@@ -25,11 +25,11 @@ export interface DatabaseCRUDI {
   objectFactory(the_type: string): Promise<any>;
 
   addAttachment(
-    type: string,
-    data: any,
-    attachmentId: string,
-    attachment: any,
-    attachmentType: string
+    doc_type: string,
+    doc_id: any,
+    attachment_id:string,
+    attachment_data: any,
+    attachment_content_type: string
   ): Promise<any>;
   getAttachment(
     type: string,

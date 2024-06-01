@@ -1,6 +1,6 @@
 # Developer Notes
 
-Probleme mit Events?
+## Probleme mit Events?
 
 ```js
 const onDateModeEvent = (e: RadioChangeEvent) => {
@@ -10,15 +10,13 @@ const onDateModeEvent = (e: RadioChangeEvent) => {
 }
 ```
 
-- Markdown + Frontmatter to Json
-  - <https://github.com/scottstanfield/markdown-to-json#readme>
+
 
 electron-forge versus <https://electron-vite.org/>
 oder gar beides? <https://www.electronforge.io/config/plugins/vite>
 
-- tldraw Assets lokal nutzen...
-  - <https://discord.com/channels/859816885297741824/1219426289681694770/1219497107811995739>
-  - <https://gist.github.com/bbudd/2a246a718b7757584950b4ed98109115>
+
+
 
 - `Type '{ onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & Props'.`
 - <https://stackoverflow.com/questions/65183883/onclick-not-assignable-to-type-intrinsicattributes-error-in-typescript-react>

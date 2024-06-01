@@ -3,28 +3,32 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { useParams } from 'react-router-dom';
-import { Space, Typography, Input, Form, Button } from 'antd';
-import { UploadOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { useParams } from "react-router-dom";
+import { Space, Typography, Input, Form, Button } from "antd";
+import { UploadOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 //* above are the default imports
 
 //* Room for additional imports
 
 //* Application imports
-import RequestFactory from '../../../common/backend/RequestFactory';
+import RequestFactory from "../../../common/backend/RequestFactory";
 
-import FormTools from '../../../common/frontend/FormTools';
-import FormPropertiesInterface from '../../../common/frontend/types/FormPropertiesInterface';
-import MyDatePickerInput from '../../../common/frontend/myDatePickerInput';
-import MyTagsInput from '../../../common/frontend/myTagsInput';
-import MyAttachmentsMetaInput from '../../../common/frontend/myAttachmentsMetaInput';
-import { AttachmentTool, AttachmentToolReturnValue } from '../../../common/frontend/AttachmentTool';
+import FormTools from "../../../common/frontend/FormTools";
+import FormPropertiesInterface from "../../../common/frontend/types/FormPropertiesInterface";
+import MyDatePickerInput from "../../../common/frontend/myDatePickerInput";
+import MyTagsInput from "../../../common/frontend/myTagsInput";
+import MyAttachmentsMetaInput from "../../../common/frontend/myAttachmentsMetaInput";
+import {
+  AttachmentTool,
+  AttachmentToolReturnValue,
+} from "../../../common/frontend/AttachmentTool";
 
 // TODO Test Logger
-import log from 'electron-log/renderer';
+import log from "electron-log/renderer";
+import { AttachmentMeta } from "../../../common/frontend/types/AttachmentTypes";
 // log.info('########################################### Log from the renderer process');
 // log.info() wird auf der Konsole im Backend ausgegeben.
 // Der electron-log hab ich in main.ts so konfiguriert, das er die console.log('') einfängt und ins backend weiter leitet.
@@ -48,7 +52,7 @@ function ArtworkForm() {
   const navigate = useNavigate();
   const { Title } = Typography;
 
-  const moduleId = 'artwork';
+  const moduleId = "artwork";
 
   /* ----------------------------------------------------------
 
@@ -63,9 +67,9 @@ function ArtworkForm() {
   const [dataOrigin, setDataOrigin] = useState(null);
   const props: FormPropertiesInterface = {
     id,
-    moduleLabel: 'Werk',
+    moduleLabel: "Werk",
     moduleId,
-    requests: RequestFactory.getFormRequestsFor(moduleId, 'ipc-database'),
+    requests: RequestFactory.getFormRequestsFor(moduleId, "ipc-database"),
     segment: `${moduleId}s`,
   };
 
@@ -74,18 +78,17 @@ function ArtworkForm() {
   // Custom Title and Save-Button
   // depends on Formulars Modus ('new' or 'edit' content from uuid)
   const theTitle =
-    id === 'new'
+    id === "new"
       ? `Neues ${props.moduleLabel} hinzufügen`
       : `${props.moduleLabel} bearbeiten`;
   const theSaveButtonLabel =
-    id === 'new' ? 'Werk anlegen' : 'Änderungen speichern';
+    id === "new" ? "Werk anlegen" : "Änderungen speichern";
 
   /* ----------------------------------------------------------
 
     Additional Actions
 
    ---------------------------------------------------------- */
-
 
   /* ----------------------------------------------------------
 
@@ -101,32 +104,28 @@ function ArtworkForm() {
     FormTools.loadDataRequest(props.requests, id);
   }, []);
 
-  FormTools.loadDataResponse(
-    dataOrigin,
-    props,
-    (data: any) => {
-      // We keep the original data,
-      // to check later if anything has changed.
-      setDataOrigin(data);
+  FormTools.loadDataResponse(dataOrigin, props, (data: any) => {
+    // We keep the original data,
+    // to check later if anything has changed.
+    setDataOrigin(data);
 
-      // TODO: Das ich hier auf .segment][0] gehe ist auch gefährlich.
-      // Ich sollte das Dokument mit der ID suchen statt die [0] zu nehmen...
-      console.log('####### SET FIELDS VALUE', data[props.segment][0]);
-      form.setFieldsValue(data[props.segment][0]);
-    }
-  );
+    // TODO: Das ich hier auf .segment][0] gehe ist auch gefährlich.
+    // Ich sollte das Dokument mit der ID suchen statt die [0] zu nehmen...
+    console.log("####### SET FIELDS VALUE", data[props.segment][0]);
+    form.setFieldsValue(data[props.segment][0]);
+  });
 
   const onFormFinish = (valuesForm: any) => {
     // Lets submit the Formdata to the backend.
 
     // before, we have to add the
-    // new Attachment Metadata & Attachments to the Form Data
+    // new Attachment Metadata & Attachments to the Form-Data
+    // and identify and separate the attachment-actions
     const result: AttachmentToolReturnValue =
-      AttachmentTool.performActionsBeforeUpload(valuesForm);
+      AttachmentTool.performActionsBeforeUpload(valuesForm, dataOrigin[props.segment][0]);
 
     valuesForm.attachmentsMeta = result.attachmentsMeta;
-    valuesForm.attachments = result.attachments;
-    const {attachmentActions} = result; // Equals: const attachmentActions: AttachmentActions[] = result.attachmentActions;
+    const { attachmentActions } = result; //* this Equals: const attachmentActions: AttachmentActions[] = result.attachmentActions;
 
     setUploading(true);
 
@@ -134,44 +133,38 @@ function ArtworkForm() {
       id,
       dataOrigin,
       valuesForm,
-      attachmentActions, // nutze ich momentan im Backend nicht.
+      attachmentActions, // TODO: Nutze ich momentan im Backend nicht ...
       props
     );
   };
 
-  FormTools.saveDataResponse(
-    dataOrigin,
-    props,
-    (result: any) => {
-      setUploading(false);
-      // We keep the original data,
-      // to check later if anything has changed.
-      if(dataOrigin!== undefined && dataOrigin!==null){
-        if (dataOrigin[props.segment][0].id === result.data.id) {
-          //* update rev
-          // The ID should of course match...
-          // The rev ID is transferred so that I can save again...
-          // TODO wie mit einem Konflikt umgehen... (Konfliktmeldung)
-          // TODO dataOrigin ist possibly nicht definiert:
-          dataOrigin[props.segment][0].rev = result.data.rev;
-  
+  FormTools.saveDataResponse(dataOrigin, props, (result: any) => {
+    setUploading(false);
+    // We keep the original data,
+    // to check later if anything has changed.
+    if (dataOrigin !== undefined && dataOrigin !== null) {
+      if (dataOrigin[props.segment][0].id === result.data.id) {
+        //* update rev
+        // The ID should of course match...
+        // The rev ID is transferred so that I can save again...
+        // TODO wie mit einem Konflikt umgehen... (Konfliktmeldung)
+        // TODO dataOrigin ist possibly nicht definiert:
+        dataOrigin[props.segment][0].rev = result.data.rev;
+
         setDataOrigin(dataOrigin);
         // TODO: Das ich hier auf .segment][0] gehe ist auch gefährlich.
         // Ich sollte das Dokument mit der ID suchen statt die [0] zu nehmen...
-        
+
         // TODO Hier gibt es data nicht:
         //! data? console.log('####### SET FIELDS VALUE', data[props.segment][0]);
         //! data? form.setFieldsValue(data[props.segment][0]);
       }
-
-      }
-
-}
-  );
-
+    }
+  });
 
   const onFormFinishFailed = (errorInfo: any) => {
-    console.info('Failed:', errorInfo);
+    // TODO ? {error, reason, status, name, message, stack, docId }
+    console.info("Failed:", errorInfo);
   };
 
   const onFormReset = () => {
@@ -180,12 +173,12 @@ function ArtworkForm() {
 
   const onFormFill = () => {
     form.setFieldsValue({
-      title: 'Eine Notiz',
+      title: "Eine Notiz",
     });
   };
 
   const onFormClose = (key: any) => {
-    console.log('---------- onFormClose', key);
+    console.log("---------- onFormClose", key);
     navigate(FormTools.getGotoViewPath(props.moduleId, id));
   };
 
@@ -206,10 +199,10 @@ function ArtworkForm() {
         style={{ maxWidth: 1000 }}
         initialValues={{
           dateCreation: {
-            dateMode: 'dateMoment',
-            dateType: 'year',
-            dateFormat: 'YYYY',
-            date: ['2023-01-01'],
+            dateMode: "dateMoment",
+            dateType: "year",
+            dateFormat: "YYYY",
+            date: ["2023-01-01"],
           },
         }}
         onFinish={onFormFinish}
@@ -242,7 +235,7 @@ function ArtworkForm() {
           label="Werktitel"
           name="title"
           rules={[
-            { required: true, message: 'Bitte den Titel des Werkes angeben!' },
+            { required: true, message: "Bitte den Titel des Werkes angeben!" },
           ]}
         >
           <Input />
@@ -253,20 +246,12 @@ function ArtworkForm() {
 
         <Form.Item label="Bilder vom Kunstwerk" name="attachmentsMeta">
           <MyAttachmentsMetaInput
-            onChange={(value: any) => {
+            onChange={(value:AttachmentMeta[] ) => {
               console.log(
-                'artworkForm -> MyAttachments -> ValueChanged:',
-                value
+                "artworkForm -> MyAttachments -> ValueChanged:", value
               );
             }}
           />
-        </Form.Item>
-        <Form.Item
-          label="Hidden Attachments Fields (to get them into the formData)"
-          name="attachments"
-          style={{ display: 'none' }}
-        >
-          <Input />
         </Form.Item>
 
         <Form.Item label="Datum" name="dateCreation">
@@ -274,7 +259,7 @@ function ArtworkForm() {
           <MyDatePickerInput
             onChange={(value: any) => {
               console.log(
-                'artworkForm -> MyDatePicker -> ValueChanged:',
+                "artworkForm -> MyDatePicker -> ValueChanged:",
                 value
               );
             }}
@@ -312,7 +297,7 @@ function ArtworkForm() {
         <Form.Item label="Tags" name="tags">
           <MyTagsInput
             onChange={(value: any) => {
-              console.log('artworkForm -> MyTags -> ValueChanged:', value);
+              console.log("artworkForm -> MyTags -> ValueChanged:", value);
             }}
           />
         </Form.Item>
@@ -320,5 +305,17 @@ function ArtworkForm() {
     </div>
   );
 }
+
+/*
+
+        <Form.Item
+          label="Hidden Attachments Fields (to get them into the formData)"
+          name="attachments"
+          style={{ display: "none" }}
+        >
+          <Input />
+        </Form.Item>
+
+*/
 
 export default ArtworkForm;

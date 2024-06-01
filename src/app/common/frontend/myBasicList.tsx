@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Space,
   Popconfirm,
@@ -9,7 +9,7 @@ import {
   message,
   Radio,
   RadioChangeEvent,
-} from 'antd';
+} from "antd";
 import {
   PlusOutlined,
   DeleteOutlined,
@@ -18,19 +18,22 @@ import {
   UnorderedListOutlined,
   SearchOutlined,
   SettingOutlined,
-} from '@ant-design/icons';
-import { useNavigate } from 'react-router';
-import type { ColumnsType } from 'antd/es/table';
+} from "@ant-design/icons";
+import { useNavigate } from "react-router";
+import type { ColumnsType } from "antd/es/table";
 
-import {RequestsListI} from '../backend/types/RequestsFactoryTypes';
-import { MySearchField } from './myInputFields';
-import { GroupOfWorkI } from '../../modules/groupofwork/types/GroupOfWorkInterface';
+import { RequestsListI } from "../backend/types/RequestsFactoryTypes";
+import { MySearchField } from "./myInputFields";
+import { GroupOfWorkI } from "../../modules/groupofwork/types/GroupOfWorkInterface";
+import ViewTool from "./ViewTools";
+import RelationResolver from "./RelationResolver";
+import { MyBasicList_Meta_I } from "./types/MyBasicListTypes";
 
 // TODO CSS import styles from './myBasicList.css';
 // <Table className={styles.antTableRow}
 
-type RowSelectionType = 'checkbox' | 'radio';
-type ViewType = 'list' | 'grid';
+type RowSelectionType = "checkbox" | "radio";
+type ViewType = "list" | "grid";
 
 type RowSelectionCallbackType = (
   // eslint-disable-next-line no-unused-vars
@@ -45,6 +48,7 @@ interface Props {
   requests: RequestsListI;
   segment: string;
   columns: Array<any>;
+  columns_meta?: MyBasicList_Meta_I[];
   rowSelectionActive?: boolean;
   rowSelectionType?: RowSelectionType; // TODO Type checkbox' | 'radio
   rowSelectionCallback?: RowSelectionCallbackType | null;
@@ -69,8 +73,9 @@ function MyBasicList({
   requests,
   segment,
   columns,
+  columns_meta,
   rowSelectionActive = false,
-  rowSelectionType = 'radio', // checkbox' | 'radio
+  rowSelectionType = "radio", // checkbox' | 'radio
   rowSelectionCallback = null,
 }: Props) {
   /* ----------------------------------------------------------
@@ -80,10 +85,10 @@ function MyBasicList({
    ---------------------------------------------------------- */
 
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
   //* PopConfirm - delete action
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [viewType, setViewType] = useState<ViewType>('list');
+  const [viewType, setViewType] = useState<ViewType>("list");
 
   /* ----------------------------------------------------------
 
@@ -94,44 +99,38 @@ function MyBasicList({
   useEffect(() => {
     //* Fordere Daten vom Backend, an.
     // console.log( `Fordere Daten vom Backend an: ${requests.channel}, ${requests.listData}.`);
-    window.app_api.ipc.sendMessage(requests.channel, [
-      requests.listData,
-    ]);
+    window.app_api.ipc.sendMessage(requests.channel, [requests.listData]);
   }, []);
 
   //* Erhalte die Daten vom Backend.
-  window.app_api.ipc.once(requests.channel, (arg:any) => {
+  window.app_api.ipc.once(requests.channel, (arg: any) => {
     console.log(arg);
     if (arg.request === requests.listData) {
-
-      if ('error' in arg) {
-        if('error' in arg.error && 'reason' in arg.error ){
-          let m = `Fehler: ${arg.error.error}`
-          + (arg.error.reason.length >0 ? `, Grund: ${arg.error.reason}` : "" );
+      if ("error" in arg) {
+        if ("error" in arg.error && "reason" in arg.error) {
+          let m =
+            `Fehler: ${arg.error.error}` +
+            (arg.error.reason.length > 0 ? `, Grund: ${arg.error.reason}` : "");
           message.error(m);
-        }else{
+        } else {
           message.error(`Fehler: ${arg.error.toString()}`);
         }
-
-      }else{
+      } else {
         console.log(arg.data);
-        setData(arg.data[segment]); // arg.data.docs
+        setData(arg.data); // arg.data.docs
       }
-
     } else if (arg.request === requests.deleteData) {
-
       setConfirmLoading(false);
-      if ('error' in arg) {
+      if ("error" in arg) {
         // object with keys {error, reason, status, name, message, stack, docId}).
         message.error(`Fehler: ${arg.error.error}, Grund: ${arg.error.reason}`);
-      } else if ('deleted' in arg.data && arg.data.deleted) {
+      } else if ("deleted" in arg.data && arg.data.deleted) {
         // data:{ deleted: true }
-        message.success('Daten erfolgreich gelöscht.');
-      } else if ('deleted' in arg.data && !arg.data.deleted) {
+        message.success("Daten erfolgreich gelöscht.");
+      } else if ("deleted" in arg.data && !arg.data.deleted) {
         // data:{ deleted: false }
-        message.warning('Daten konnten nicht gelöscht werden.');
+        message.warning("Daten konnten nicht gelöscht werden.");
       }
-
     }
   });
 
@@ -146,11 +145,11 @@ function MyBasicList({
   };
 
   const handleSearch = () => {
-    console.log('handleSearch in BasicView');
+    console.log("handleSearch in BasicView");
   };
 
   const handleExtra = () => {
-    console.log('handleExtra in BasicView');
+    console.log("handleExtra in BasicView");
   };
 
   //* popconfirm - delete action
@@ -160,10 +159,10 @@ function MyBasicList({
 
     // Das item aus der Tabelle entfernen.
     //! Das sollte erst gemacht werden, wenn erfolgreich aus DB entfernt...
-    const newData = data.filter((item) => item.id !== record.id);
+    const newData = data.filter((item: any) => item.id !== record.id);
     setData(newData);
 
-    console.info('Request data delete from backend...');
+    console.info("Request data delete from backend...");
     window.app_api.ipc.sendMessage(requests.channel, [
       requests.deleteData,
       record,
@@ -175,7 +174,7 @@ function MyBasicList({
   };
 
   const onViewTypeSelectionChange = (e: RadioChangeEvent) => {
-    console.log('onViewTypeSelectionChange', e.target.value);
+    console.log("onViewTypeSelectionChange", e.target.value);
   };
 
   /* ----------------------------------------------------------
@@ -197,10 +196,37 @@ function MyBasicList({
       }
     },
     getCheckboxProps: (record: any) => ({
-      disabled: record.name === 'Disabled User', // Column configuration not to be checked
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
       name: record.name,
     }),
   };
+
+  function getContent(): Array<any> {
+    let records: any = [];
+
+    if (segment in data) {
+      records = data[segment];
+
+      if (columns_meta != null) {
+        // resolve some uuids
+        for (let i = 0; i < records.length; i += 1) {
+          if (columns_meta != null) {
+            for (let j = 0; j < columns_meta.length; j += 1) {
+              let value = records[i][columns_meta[j].dataIndex];
+              if (RelationResolver.uuidValidateV4(value)) {
+                value = RelationResolver.resolve(data, columns_meta[j], value);
+                records[i][columns_meta[j].dataIndex] = value;
+              }
+            }
+          }
+        }
+      } else {
+        records = data[segment];
+      }
+    }
+
+    return records;
+  }
 
   /* ----------------------------------------------------------
 
@@ -213,8 +239,8 @@ function MyBasicList({
 
   const columnActions: ColumnsType<GroupOfWorkI> = [
     {
-      title: 'Aktionen',
-      key: 'action',
+      title: "Aktionen",
+      key: "action",
       render: (_, record) =>
         data.length >= 1 ? (
           <Space size="middle">
@@ -256,7 +282,7 @@ function MyBasicList({
       direction="vertical"
       size="middle"
       style={{
-        display: 'flex',
+        display: "flex",
       }}
     >
       <Space wrap>
@@ -276,7 +302,9 @@ function MyBasicList({
           </Radio.Button>
         </Radio.Group>
         <MySearchField onChange={handleSearch} />
-        <Button><SettingOutlined /></Button>
+        <Button>
+          <SettingOutlined />
+        </Button>
       </Space>
       <Row gutter={[40, 0]}>
         <Col span={24}>
@@ -290,7 +318,7 @@ function MyBasicList({
                 : null
             }
             columns={allColumns}
-            dataSource={data}
+            dataSource={getContent()}
             rowKey={(record) => record.id}
           />
         </Col>

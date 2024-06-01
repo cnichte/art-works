@@ -124,7 +124,7 @@ export default class RelationResolver {
    * @param data
    * @returns string ? eigentliche Ziel uuid ?
    */
-  public static resolveMapping(params: any, element: any, data: any): string {
+  public static resolveMapping_Key(params: any, element: any, data: any): string {
     let result = params.key;
 
     if (params.key in data) {
@@ -148,6 +148,32 @@ export default class RelationResolver {
     return result;
   }
 
+  public static resolveMapping_Name(params:any, elm:any): string {
+    let result = elm;
+    const delimiter = ' |';
+    if ('mapKeyTo' in params) {
+      let s:string ="";
+
+      for (let prop_name of params.mapKeyTo.showFields) {
+        if ( prop_name in elm) {
+          s = s.concat(elm[prop_name]).concat(delimiter);
+        }
+      }
+
+
+      result = s.substring(0, s.lastIndexOf(delimiter));
+    } else {
+      console.log(
+        `Achtung! Ich kann die Relation params.mapKeyTo.showFields nicht auflösen. Property mapKeyTo fehlt`,
+        params, elm
+      );
+    }
+
+
+
+    return result;
+  }
+
   /**
    * Resolves a relational-pouch mapping.
    * A field contains a uuid, or an array of uuids.
@@ -165,8 +191,8 @@ export default class RelationResolver {
    * @param element
    * @returns
    */
-  public static resolve(data: any, params: any, element: string): Object {
-    let result = element;
+  public static resolve(data: any, params: any, element: string): string {
+    let result:string = JSON.stringify(element);
 
     if (RelationResolver.uuidValidateV4(element)) {
       // TODO Das Element ist eine UUID. Relation auflösen.
@@ -174,13 +200,14 @@ export default class RelationResolver {
       // console.log(`Parameter `, params);
 
       // Finde das Item...
-      const key = RelationResolver.resolveMapping(params, element, data);
+      const key = RelationResolver.resolveMapping_Key(params, element, data);
 
       if (key in data) {
         for (const elm of data[key]) {
           if (elm.id === element) {
             // console.log(`gefunden!`, elm);
-            result = elm;
+            // Das Element aus dem Objekt holen
+            result = RelationResolver.resolveMapping_Name(params, elm);
             break;
           }
         }
@@ -189,7 +216,7 @@ export default class RelationResolver {
       }
     } else {
       console.log(`Tja, ${params.key} ist keine Relation (keine uuid).`);
-      console.log(`use uuid ${uuidv4()} instead of ${params.key}`);
+      console.log(`use uuid ${uuidv4()} instead of params.key}:${params.key}`);
     }
 
     return result;

@@ -3,17 +3,22 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/prefer-default-export */
 // import * as blobUtil from 'blob-util';
-import log from 'electron-log/main';
+import log from "electron-log/main";
 
-import { DatabaseCRUDI } from '../common/backend/types/DatabaseCRUDInterface';
-import { DatabaseAdapterI } from '../common/backend/types/DatabaseAdapterInterface';
-import { DatabasePouchDB } from './DatabasePouchDB';
+import { DatabaseCRUDI } from "../common/backend/types/DatabaseCRUDInterface";
+import { DatabaseAdapterI } from "../common/backend/types/DatabaseAdapterInterface";
+import { DatabasePouchDB } from "./DatabasePouchDB";
+import { AttachmentAction } from "../common/frontend/types/AttachmentTypes"; // TODO umziehen nach? /common/types/AttachmentTypes
 
-const IPC_CHANNEL: string = 'ipc-database';
+const IPC_CHANNEL: string = "ipc-database";
 
 // Methode zum konvertieren von DataURL String zu bas64String
 const getBase64StringFromBase64URL = (dataURL: string) =>
-  dataURL.replace('data:', '').replace(/^.+,/, '');
+  dataURL.replace("data:", "").replace(/^.+,/, "");
+
+
+//! https://www.cloudnweb.dev/2019/7/promises-inside-a-loop-javascript-es6
+
 
 /**
  * DBAdapter (Broker) sits between the database and the frontend (via event processing).
@@ -62,15 +67,18 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     // Beim firststart müsste man nur die ini an diesem Ort neu schreiben, bevor auf die DB zugegriffen wird.
     // Der Pfad zur ini wird sich für für macOS Win und Linux unterscheiden.
 
-    //! this.db = new DatabasePouchDB('http://admin:adminadmin@fileserver01:5984/', 'werkverzeichnis');
+    this.db = new DatabasePouchDB(
+      "http://admin:adminadmin@fileserver02:5984/",
+      "werkverzeichnis"
+    );
 
     //* local
     // Die lokal angelegte Datenbank liegt für einen dev build (npm start) hier:
     // /Users/cnichte/Documents/develop-software/werkverzeichnis-desktop/werkverzeichnisLocalTestDB
-    // TODO Für einen Production build (npm run package) funktioniert die lokale Datenbank noch nicht.
-    // TODO Es wird keine Datenbank erzeugt, und auch keine Daten angelegt.
-
-    this.db = new DatabasePouchDB(appHomePath, 'werkverzeichnis');
+    // TODO Für einen Production build (npm run package) funktioniert die lokale Datenbank noch nicht?
+    // TODO Es wird keine Datenbank erzeugt, und auch keine Daten angelegt?
+    // In der Entwicklung geht es aber.
+    //! this.db = new DatabasePouchDB(appHomePath, 'werkverzeichnis');
 
     this.db.initialize(insertExampleData, createViews); // true
   }
@@ -90,9 +98,9 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     // TODO Mode als Parameter übergeben, und nicht extrahieren...
     // 'request:artist-delete'
 
-    if (request !== undefined && request.startsWith('request:')) {
-      const s = request.indexOf(':') + 1;
-      const e = request.indexOf('-');
+    if (request !== undefined && request.startsWith("request:")) {
+      const s = request.indexOf(":") + 1;
+      const e = request.indexOf("-");
       const module = request.substring(s, e);
 
       log.info(`Request: '${request}'`);
@@ -121,7 +129,7 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
           this.create_object(module, request, options, event);
           break;
         case `request:${module}-form-create`:
-          // TODO check: 
+          // TODO check:
           // module: string, req: string, data: any, options: any, event: any
           this.query_create(module, request, data, options, event);
           break;
@@ -130,27 +138,27 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
           // TODO data enthält die ID zum löschen?
           this.query_delete(module, request, data, options, event);
           break;
-        case 'request:saleTypes-list-custom':
+        case "request:saleTypes-list-custom":
           log.info(`###### CUSTOM Request: ${request}`);
           this.query_list(module, request, options, event);
           break;
-        case 'request:publicationType-list-custom':
+        case "request:publicationType-list-custom":
           log.info(`###### CUSTOM Request: ${request}`);
           this.query_list(module, request, options, event);
           break;
-        case 'request:publicationWhat-list-custom':
+        case "request:publicationWhat-list-custom":
           log.info(`###### CUSTOM Request: ${request}`);
           this.query_list(module, request, options, event);
           break;
-        case 'request:publicationMedium-list-custom':
+        case "request:publicationMedium-list-custom":
           log.info(`###### CUSTOM Request: ${request}`);
           this.query_list(module, request, options, event);
           break;
-        case 'request:addressTypes-list-custom':
+        case "request:addressTypes-list-custom":
           log.info(`###### CUSTOM Request: ${request}`);
           this.query_list(module, request, options, event);
           break;
-        case 'request:tags-find-custom':
+        case "request:tags-find-custom":
           log.info(`###### CUSTOM Request: ${request}`);
           // TODO this.query(module, request, options, event);
           this.query_list(module, request, options, event);
@@ -165,6 +173,63 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
   }
 
   /**
+   * Handle Attachment Actions for the Document.
+   * 
+   * @param module 
+   * @param doc_id 
+   * @param options 
+   * @returns 
+   */
+    private handle_attachments(module:string, doc_id:any, options: any): Promise<any> {
+
+      let result_id:any=doc_id; // return the last result if no attachments
+  
+      if ("attachmentActions" in options) {
+
+        let actions: AttachmentAction[] = options["attachmentActions"];
+        
+        actions.forEach( async (action) => {
+
+          console.log("---------| performing attachment-action for", result_id, action.name, action.attachment.id);
+
+          // ist:  'upload' | 'remove' | 'download' | 'delete'
+          // soll: 'add' | 'download' | 'remove'
+          switch (action.name) {
+            case "upload": // add, update
+              // result = error-object, or: id {id:1, rev:"1-..."}
+
+              //* DIE result neue DOC-ID muss durch geroutet werdem zum nächsten addAttachment.
+              // TODO Das funktioniert nur beim ersten mal... 
+              //* ...am besten immer auf das Ergebnis warten.
+              // https://stackoverflow.com/questions/40328932/javascript-es6-promise-for-loop
+              // https://medium.com/@juanguardado/event-loops-promises-and-their-next-generation-counterparts-36d1eb87104d
+              // https://medium.com/developer-rants/running-promises-in-a-loop-sequentially-one-by-one-bd803181b283
+              // https://brockherion.dev/blog/posts/keep-your-async-code-fast-with-promise-all/
+              // https://www.cloudnweb.dev/2019/7/promises-inside-a-loop-javascript-es6
+              // -> https://sliceofdev.com/posts/promises-with-loops-and-array-methods-in-javascript
+              // https://www.learnwithjason.dev/blog/keep-async-await-from-blocking-execution/
+
+              // arbeitet intern jetzt mit async und await, so das jetzt eigentlich auf das Ergebnis gewartet werden sollte.
+              console.log("---------| addAttachment to before:", result_id );
+              result_id = await this.db.addAttachment(module, result_id, action.attachment.id, action.attachment.data, action.attachment.content_type);
+              console.log("---------| addAttachment to after:", result_id );
+              // TODO: Was passiert bei einem Fehler?
+              break;
+            case "remove": // TODO and not delete? wirklich?
+              break;
+            case "download":
+              break;
+            case "delete":
+              break;
+          }
+        });
+      }
+  
+      return result_id;
+    }
+
+
+  /**
    * Process the result, which means making a log output in the console, and sending the data back to the frontend.
    * TODO: That could go into a base class.
    *
@@ -175,7 +240,7 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
    * @return {*}
    * @memberof DatabasePouchDBAdapter
    */
-  handleResult(who: string, result: any, req: any, event: any): any {
+  handle_result(who: string, result: any, req: any, event: any): any {
     log.info(`############## ${who} result`, result);
     //* Schicke Daten zurück.
     event.reply(IPC_CHANNEL, {
@@ -195,16 +260,24 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
    * @param {*} event
    * @memberof DatabasePouchDBAdapter
    */
-  handleMyFuckingErrors( who: string, req: any, err: any, event: any): void {
+  handle_my_fucking_errors(who: string, req: any, err: any, event: any): void {
     log.info(`############## ${who} error`, err);
 
-    if('error' in err && 'reason' in err ){
+    // https://pouchdb.com/guides/conflicts.html
+    if (err.name === 'conflict') {
+      console.log('WE HAVE a CONFLICT!');
+    } else {
+      // some other error
+      console.log('WE HAVE no CONFLICT BUT ANOTHER ERROR');
+    }
+
+    if ("error" in err && "reason" in err) {
       // all good, that's how it should be...
-    }else if('message' in err){
+    } else if ("message" in err) {
       // i map that...
       err.error = err.message;
       err.reason = "";
-    }else{
+    } else {
       // fallback
       err.error = err.toString();
       err.reason = "";
@@ -233,10 +306,10 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     this.db
       .readFromQuery(options)
       .then((result) => {
-        this.handleResult('query', result, req, event);
+        this.handle_result("query", result, req, event);
       })
       .catch((err) => {
-        this.handleMyFuckingErrors("query", req, err, event);
+        this.handle_my_fucking_errors("query", req, err, event);
       });
   }
 
@@ -258,10 +331,10 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     this.db
       .readFromRelations(module, {})
       .then((result) => {
-        this.handleResult('query_list', result, req, event);
+        this.handle_result("query_list", result, req, event);
       })
       .catch((err) => {
-        this.handleMyFuckingErrors("query_list", req, err, event);
+        this.handle_my_fucking_errors("query_list", req, err, event);
       });
   }
 
@@ -291,10 +364,10 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
       .readFromRelationsID(module, id)
       // .readFromQuery({ selector: { docType: 'artist' },})
       .then((result) => {
-        this.handleResult('query_item', result, req, event);
+        this.handle_result("query_item", result, req, event);
       })
       .catch((err) => {
-        this.handleMyFuckingErrors("query_item", req, err, event);
+        this.handle_my_fucking_errors("query_item", req, err, event);
       });
   }
 
@@ -321,7 +394,7 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     options: any,
     event: any
   ) {
-    log.info('query_delete:');
+    log.info("query_delete:");
     // log.info(arg[1]);
     //! Prüfe arg[1] = type GroupOfWorkInterfacce
     // https://stackoverflow.com/questions/14425568/interface-type-check-with-typescript
@@ -329,10 +402,10 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     this.db
       .delete(module, id)
       .then((result) => {
-        this.handleResult('query_delete', result, req, event);
+        this.handle_result("query_delete", result, req, event);
       })
       .catch((err) => {
-        this.handleMyFuckingErrors("query_delete", req, err, event);
+        this.handle_my_fucking_errors("query_delete", req, err, event);
       });
   }
 
@@ -349,10 +422,16 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
    * @param {*} options
    * @param {Electron.IpcMainEvent} event
    * @memberof DatabasePouchDBAdapter
-   * 
+   *
    */
-  query_create(module:string, req: string, data: any, options: any, event: any) {
-    log.info('Data:');
+  query_create(
+    module: string,
+    req: string,
+    data: any,
+    options: any,
+    event: any
+  ) {
+    log.info("Data:");
     log.info(data);
 
     //! Prüfe arg[1] = type GroupOfWorkInterfacce
@@ -361,10 +440,10 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     this.db
       .create(data)
       .then((result) => {
-        this.handleResult('query_create', result, req, event);
+        this.handle_result("query_create", result, req, event);
       })
       .catch((err) => {
-        this.handleMyFuckingErrors("query_create", req, err, event);
+        this.handle_my_fucking_errors("query_create", req, err, event);
       });
   }
 
@@ -393,10 +472,11 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     this.db
       .update(module, data)
       .then((result) => {
-        this.handleResult('query_update', result, req, event);
+        // result_1 = { id: 'B715637E-EFF5-8C61-8EFD-4C360A6066A9',rev: '3-de4bc24aad8f798123e2bcbc4db8f81d'}
+        this.handle_result("query_update", result, req, event);
       })
       .catch((err) => {
-        this.handleMyFuckingErrors("query_update", req, err, event);
+        this.handle_my_fucking_errors("query_update", req, err, event);
       });
   }
 
@@ -418,10 +498,10 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     this.db
       .objectFactory(module)
       .then((result) => {
-        this.handleResult('create_object', result, req, event);
+        this.handle_result("create_object", result, req, event);
       })
       .catch((err) => {
-        this.handleMyFuckingErrors("create_object", req, err, event);
+        this.handle_my_fucking_errors("create_object", req, err, event);
       });
   }
 }

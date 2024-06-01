@@ -45,19 +45,12 @@ async function register_IPC_Listeners() {
   // ipcMain.on('message', (_, message) => {
   //  console.log(message)
   // })
-  
-  // TODO: handle_IPC
-  const rd:Request_Dispatcher = new Request_Dispatcher();
-  rd.dispatch_requests();
-
-  ipcMain.on('ipc-database', async (event, arg) => {
-    console.log('\n\n######################################################');
-    console.log(`Request received from frontend: `, arg);
-    const database = new Database();
-    database.test();
-
-    console.log('------------------------------------------------------');
-  });
+  // const rd:Request_Dispatcher = new Request_Dispatcher();
+  // rd.dispatch_requests();
+  // ipcMain.on('ipc-database', async (event, arg) => {
+  //   const database = new Database();
+  //   database.test();
+  //});
 }
 
 // This method will be called when Electron has finished

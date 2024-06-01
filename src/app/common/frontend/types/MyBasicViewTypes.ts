@@ -22,7 +22,13 @@ interface MyBasicViewFieldParameterI {
   label: string;
   mapKeyTo?: string | MyBasicViewFieldMapToParameterI;
   condition?: ConditionParameter;
-  useChilds?: string[];
+  useChilds?: string[]; // Wird in Tags verwendet
+  childs?:MyBasicView_ChildFieldParameterI[] // TODO siehe editionView
+}
+
+interface MyBasicView_ChildFieldParameterI {
+  dataIndex: string; // required for Table
+  label: string;
 }
 
 interface MyBasicViewSegmentParameterI {
@@ -50,5 +56,6 @@ export {
   MyBasicViewPropertiesI,
   MyBasicViewSegmentParameterI,
   MyBasicViewFieldParameterI,
+  MyBasicView_ChildFieldParameterI,
   MyBasicViewFieldMapToParameterI,
 };

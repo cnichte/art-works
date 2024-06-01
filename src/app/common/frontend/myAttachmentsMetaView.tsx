@@ -131,7 +131,7 @@ function MyAttachmentsMetaView(props: {
   if (value.length > 0) {
     for (let i = 0; i < cc; i += 1) {
       result.push(
-        <div
+        <div key={i}
           style={{
             marginLeft: `${i > 0 ? gap : 0}px`,
             flex: 1,

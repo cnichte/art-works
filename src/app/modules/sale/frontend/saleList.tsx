@@ -4,6 +4,7 @@ import type { ColumnsType } from 'antd/es/table';
 import RequestFactory from '../../../common/backend/RequestFactory';
 import { MyBasicList } from '../../../common/frontend/myBasicList';
 import { SaleI } from '../types/SaleInterface';
+import { MyBasicList_Meta_I } from '../../../common/frontend/types/MyBasicListTypes';
 
 /**
  * Ein Liste der Notizen.
@@ -76,6 +77,24 @@ function SaleList() {
   ];
   // Invite {record.name}
 
+// resolve some uuids
+const columns_meta: MyBasicList_Meta_I[] = [
+  {
+    dataIndex: 'saleType',
+    mapKeyTo: {
+      dataIndex: 'saleTypes',
+      showFields: ['name'],
+    }
+  },
+  {
+    dataIndex: 'customer',
+    mapKeyTo: {
+      dataIndex: 'addresses',
+      showFields: ['name'],
+    },
+  },
+]
+
   /* ----------------------------------------------------------
 
     Rendert den kompletten List View
@@ -88,6 +107,7 @@ function SaleList() {
       requests={requests}
       segment="sales"
       columns={columns}
+      columns_meta={columns_meta}
     />
   );
 }

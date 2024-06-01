@@ -12,7 +12,6 @@ import {
  */
 interface AttachmentToolReturnValue {
   attachmentsMeta: AttachmentMeta[];
-  attachments: Attachment[];
   attachmentActions: AttachmentAction[];
 }
 
@@ -37,7 +36,8 @@ class AttachmentTool {
    * @memberof AttachmentTool
    */
   public static performActionsBeforeUpload(
-    valuesForm: any
+    valuesForm: any,
+    data:any
   ): AttachmentToolReturnValue {
     const attachmentActions: AttachmentAction[] = []; // nutze ich im Moment nicht mehr...
 
@@ -47,70 +47,66 @@ class AttachmentTool {
 
     // shorthands
     let attMeta: AttachmentMeta[] = [];
-    let att: Attachment[] = [];
 
     // shorthands...
     if ('attachmentsMeta' in valuesForm) {
       attMeta = valuesForm.attachmentsMeta;
     }
-    if ('attachments' in valuesForm) {
-      att = valuesForm.attachments;
-    }
 
-    if (attMeta != null && attMeta !== null) {
-      attMeta.forEach((metaItem) => {
+    if (attMeta != null) {
+
+      var i = attMeta.length;
+      while (i--) {
+
+        let metaItem = attMeta[i];
+
+        console.log(metaItem);
+
         if ('action' in metaItem) {
-          // Separate action from meta
 
+          // Separate action from meta
           if(metaItem.action  !== undefined) {
+
             attachmentActions.push(metaItem.action);
+
             if (metaItem.action.name === 'upload') {
+
               // Here I have to convert again
               metaItem.action.attachment.data = getBase64StringFromBase64URL(
                 metaItem.action.attachment.data
               );
   
-              // Embed attachment directly in the document
-              // attachments: { 'uuid1': { content_type: 'text/plain',  data: 'aGVsbG8gd29ybGQ=' },
-              att[metaItem.id as any] = metaItem.action.attachment;
-  
+              // add attachment to data-object
+              if(!('attachments' in data)){
+                // data['attachments'] = {};
+                Object.assign(data, { attachments: {} })
+              }
+
+              data.attachments[metaItem.id] = {
+                content_type: metaItem.mimetype,
+                data: metaItem.action.attachment.data
+              }
+
               delete metaItem.action;
+
             } else if (metaItem.action.name === 'delete') {
+
+              // remove attachment from data-object
+              delete data.attachments[metaItem.id];
+              attMeta.splice(i, 1);
               // Das metaItem aus der attMeta liste löschen
               // ...während durch die Liste gelooped wird
-              // TODO UNSAUBER, das könnte crashen... vielleicht mit filter arbeiten?
               // https://stackoverflow.com/questions/9882284/looping-through-array-and-removing-items-without-breaking-for-loop
-              attMeta.every((metaFormItem) => {
-                if (metaFormItem.id === metaItem.id) {
-                  // remove metaItem from metaForm
-                  const index = attMeta.indexOf(metaItem);
-                  const newMetaList = attMeta.slice();
-                  newMetaList.splice(index, 1);
-                  attMeta = newMetaList;
-  
-                  // remove attachmentItem from attachmentsForm
-                  if(metaItem.action !== undefined){
-                    const i = att.indexOf(metaItem.action.attachment);
-                    const newAttList = att.slice();
-                    newAttList.splice(i, 1);
-                    att = newAttList;
-                  }
-
-                  return false; // break
-                }
-                return true; // continue next
-              });
             }
           } // if metaItem.action  !== undefined
           
         } else {
           // no action in it, do nothing
         }
-      });
+      }
     }
     const returnValue: AttachmentToolReturnValue = {
       attachmentsMeta: attMeta,
-      attachments: att,
       attachmentActions, // attachmentActions: attachmentActions
     };
 

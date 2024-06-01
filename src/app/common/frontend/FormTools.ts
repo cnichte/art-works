@@ -217,7 +217,7 @@ export default class FormTools {
         if (arg != null && typeof arg === 'object') {
           if ('error' in arg) {
             // TODO Fehlermeldung ausgeben
-            message.error(arg.error);
+            message.error(JSON.stringify(arg.error));
           } else {
             message.success('Daten erfolgreich gespeichert.');
           // } else if (dataOrigin[props.segment][0].id !== arg.data.id) {

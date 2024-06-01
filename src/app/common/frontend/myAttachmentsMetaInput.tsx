@@ -1,17 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
-import type { RcFile, UploadProps } from 'antd/es/upload';
-import type { UploadFile } from 'antd/es/upload/interface';
-import { Button, Upload, message, Card, Col, Row, Space, Slider } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import { v4 as uuidv4 } from 'uuid';
-import { AttachmentMeta } from './types/AttachmentTypes';
-import MyAttachmentsMetaView from './myAttachmentsMetaView';
+import { useState } from "react";
+import type { RcFile, UploadProps } from "antd/es/upload";
+import type { UploadFile } from "antd/es/upload/interface";
+import { Button, Upload, message, Card, Col, Row, Space, Slider } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { v4 as uuidv4 } from "uuid";
+import { AttachmentMeta } from "./types/AttachmentTypes";
+import MyAttachmentsMetaView from "./myAttachmentsMetaView";
 
-/*
-Momentan arbeitet das mit Bildern.
-
-*/
+/* Momentan arbeitet das mit Bildern. */
 
 /* ==========================================================
 
@@ -50,10 +47,9 @@ const getImageAsBase64 = (file: RcFile): Promise<string> =>
  * @interface Props
  */
 interface Props {
-  // eslint-disable-next-line react/require-default-props
+  id?: string;
   value?: AttachmentMeta[];
-  // eslint-disable-next-line react/require-default-props
-  onChange?: (value: any) => void;
+  onChange?: (value: AttachmentMeta[]) => void;
 }
 
 /**
@@ -66,10 +62,17 @@ interface Props {
  * until the original document is to be downloaded,
  * or until actions are performed: upload, remove, download.
  *
+ ** This is a 'Customized or third-party form control'
+ * https://ant.design/components/form
+ * Customized or third-party form controls can be used in Form, too. Controls must follow these conventions:
+ * It has a controlled property value or other name which is equal to the value of valuePropName.
+ * It has event onChange or an event which name is equal to the value of trigger.
+ * Forward the ref or pass the id property to dom to support the scrollToField method.
+ *
  * @param {Props} - React / Antd Properties
  * @return {*}  {*}
  */
-function MyAttachmentsMetaInput({ value, onChange }: Props): any {
+function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
   // console.log('MyAttachmentsMeta - value', value);
 
   /* ----------------------------------------------------------
@@ -94,24 +97,24 @@ function MyAttachmentsMetaInput({ value, onChange }: Props): any {
   };
 
   const uploadProps: UploadProps = {
-    listType: 'picture',
+    listType: "picture",
     // showUploadList: true,
     multiple: true,
-    accept: '.png,.jpg,.jpeg',
-    className: 'upload-list-inline',
+    accept: ".png,.jpg,.jpeg",
+    className: "upload-list-inline",
     defaultFileList: fileList,
     // fileList,
     beforeUpload(file) {
-      console.log('Upload - beforeUpload', file);
+      console.log("Upload - beforeUpload", file);
 
       const isJpgOrPng =
-        file.type === 'image/jpeg' || file.type === 'image/png';
+        file.type === "image/jpeg" || file.type === "image/png";
       if (!isJpgOrPng) {
-        message.error('You can only upload JPG/PNG file!');
+        message.error("You can only upload JPG/PNG file!");
       }
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isLt2M) {
-        message.error('Image must smaller than 2MB!');
+        message.error("Image must smaller than 2MB!");
       }
 
       getImageAsBase64(file as RcFile)
@@ -121,24 +124,40 @@ function MyAttachmentsMetaInput({ value, onChange }: Props): any {
 
           // Prepare Attachment
           // TODO create a smaller preview as base64String...
-          value?.push({
+          value.push({
             id: uuid,
             filename: file.name,
             mimetype: file.type,
-            title: 'A Title',
-            description: 'A brief description...',
-            preview: b64URLdata,
+            title: "A Title",
+            description: "A brief description...",
+            preview: b64URLdata, // TODO smaller preview image
             // action is a temporary 'sidecar'
             action: {
-              name: 'upload',
-              id: uuid,
+              name: "upload",
               attachment: {
+                id: uuid,
                 content_type: file.type,
                 data: b64URLdata,
               },
             },
           });
-
+/*
+          [
+            {
+              id: "1617958d-20db-440d-b590-5aff396e521a",
+              filename: "carsten-nichte-binary-voids-9432-web.jpg",
+              mimetype: "image/jpeg",
+              title: "A Title",
+              description: "A brief description...",
+              preview: "...",
+              action: {
+                name: "upload",
+                id: "1617958d-20db-440d-b590-5aff396e521a",
+                attachment: { content_type: "image/jpeg", data: "..." },
+              },
+            },
+          ];
+*/
           triggerChange(value);
 
           return value;
@@ -172,7 +191,7 @@ function MyAttachmentsMetaInput({ value, onChange }: Props): any {
     // maxCount: 1,
     // action: '',
     onChange(info: { file: { status?: any; name?: any }; fileList: any }) {
-      console.log('Upload - onChange', info);
+      console.log("Upload - onChange", info);
       // setFileList(fileList);
       /*
       const { status } = info.file;
@@ -187,7 +206,7 @@ function MyAttachmentsMetaInput({ value, onChange }: Props): any {
 */
     },
     onRemove: (file) => {
-      console.log('Upload - onRemove', file);
+      console.log("Upload - onRemove", file);
 
       // Remove Meta/Job from the list.
       value?.every((metaItem) => {
@@ -202,7 +221,7 @@ function MyAttachmentsMetaInput({ value, onChange }: Props): any {
       });
     },
     onDrop(e) {
-      console.log('Upload - onDrop', e.dataTransfer.files);
+      console.log("Upload - onDrop", e.dataTransfer.files);
     },
   };
 

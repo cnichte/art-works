@@ -2,7 +2,6 @@
 
 A catalog raisonne application.
 
-
 Based on my boilerplate [basic-electron-typescript-react-starter](https://github.com/cnichte/basic-electron-typescript-react-starter)
 
 The following libraries are also included:
@@ -22,6 +21,8 @@ npm i antd-img-crop
 npm i dayjs
 npm i exif-js
 npm i react-countup
+
+npm i markdown-to-jsx
 
 npm i recharts
 npm i tldraw

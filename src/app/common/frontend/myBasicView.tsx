@@ -27,6 +27,10 @@ import { Condition } from './Condition';
  * Todo: Was ist der Return typ von so einer React Komponente?
  * https://stackoverflow.com/questions/44133420/what-is-the-typescript-return-type-of-a-react-stateless-component
  *
+ * TODO Arrays (Zb die Preise bei den Editions, 
+ * TODO könnten automatisch unterhalb in einer Tabelle ausgegeben werden.)
+ * TODO Ich könnte auch für ein Feld einen custom-renderer übergeben.
+ * 
  * @param reactParams { id, segmentParams, record, data }
  * @returns
  */
@@ -52,7 +56,7 @@ function RenderDescriptions(reactParams: {
             // console.log('CONDITION RECORD : ', record);
             if (checkConditions(field)) {
               return (
-                <Descriptions.Item label={field.label} span={3}>
+                <Descriptions.Item label={field.label} span={3} key={field.label}>
                   {ViewTool.getMyFuckingValueFrom(
                     field,
                     segmentParams.segment,
@@ -114,7 +118,13 @@ function RenderTable(reactParams: {
           for (let x = 0; x < fields.length; x += 1) {
             const field = fields[x];
             obj.id = data[segment][i].id;
-            obj[field.dataIndex] = data[segment][i][field.dataIndex];
+            // resolve some uuids
+            let value:any = data[segment][i][field.dataIndex];
+            if (RelationResolver.uuidValidateV4(value)) {
+              value = RelationResolver.resolve(data,field,value);
+            }
+
+            obj[field.dataIndex] = value;
           }
 
           result.push(obj);
@@ -161,6 +171,9 @@ function RenderData(reactParams: {
   function getContent(): Array<any> {
     let result: any = [];
 
+    // TODO Das kann doch nur ein Hack sein.
+    ViewTool.createKeyFieldFrom('dataIndex', segmentParams.fields);
+
     if (segmentParams.render === 'component') {
       return segmentParams.component;
     }
@@ -182,7 +195,7 @@ function RenderData(reactParams: {
             ) {
               // console.log(`RenderData Descriptions: ${id} === ${aRecord[segmentParams.relationFilterIdField]} `, aRecord); // ${aRecord.id}
               //* The property 'key' is necessary for lists.
-              ViewTool.createKeyFieldFrom('dataIndex', segmentParams.fields);
+              // ViewTool.createKeyFieldFrom('dataIndex', segmentParams.fields);
 
               //* Liefere den gefundenen Datensatz fein gerendert zurück...
               // <RenderDescriptions segmentParams={segmentParams} record={aRecord} data={data} />

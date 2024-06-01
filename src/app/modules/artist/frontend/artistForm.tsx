@@ -52,7 +52,7 @@ function NoteForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState();
+  const [dataOrigin, setDataOrigin] = useState(null);
 
   const props: FormPropertiesInterface = {
     id: id,
@@ -61,6 +61,8 @@ function NoteForm() {
     requests: RequestFactory.getFormRequestsFor(moduleId, 'ipc-database'),
     segment: `${moduleId}s`,
   };
+
+  const [uploading, setUploading] = useState(false);
 
   console.log(`############### Props-ID ${props.id}`);
   /* ----------------------------------------------------------
@@ -90,6 +92,30 @@ function NoteForm() {
   const onFormHandleSubmit = (valuesForm: any) => {
     FormTools.saveDataRequest(id, dataOrigin, valuesForm, [], props);
   };
+
+  FormTools.saveDataResponse(dataOrigin, props, (result: any) => {
+    setUploading(false);
+    // We keep the original data,
+    // to check later if anything has changed.
+    if (dataOrigin !== undefined && dataOrigin !== null) {
+      if (dataOrigin[props.segment][0].id === result.data.id) {
+        //* update rev
+        // The ID should of course match...
+        // The rev ID is transferred so that I can save again...
+        // TODO wie mit einem Konflikt umgehen... (Konfliktmeldung)
+        // TODO dataOrigin ist possibly nicht definiert:
+        dataOrigin[props.segment][0].rev = result.data.rev;
+
+        setDataOrigin(dataOrigin);
+        // TODO: Das ich hier auf .segment][0] gehe ist auch gefährlich.
+        // Ich sollte das Dokument mit der ID suchen statt die [0] zu nehmen...
+
+        // TODO Hier gibt es data nicht:
+        // console.log('####### SET FIELDS VALUE', data[props.segment][0]);
+        // form.setFieldsValue(data[props.segment][0]);
+      }
+    }
+  });
 
   const onFormFinishFailed = (errorInfo: any) => {
     console.info('Failed:', errorInfo);
