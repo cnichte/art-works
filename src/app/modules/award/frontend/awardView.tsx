@@ -104,7 +104,7 @@ function AwardView() {
   return (
     <MyBasicView
       id={id}
-      moduleLabel="Kontakt"
+      moduleLabel="Auszeichnung"
       moduleId={moduleId}
       requests={requests}
       segmentSets={segmentSets}

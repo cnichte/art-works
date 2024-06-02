@@ -1,5 +1,13 @@
 # Developer Diary
 
+- List <https://ant.design/components/list> kann `load more`! und `cards` statt Tabelle lieber das nehmen?
+- react drag and drop reorder list (insbesondere für Zusammenstellungen).
+  - <https://github.com/react-dnd/react-dnd/>
+  - <https://github.com/VaishakVk/react-drag-reorder>
+  - <https://medium.com/nerd-for-tech/simple-drag-and-drop-in-react-without-an-external-library-ebf1c1b809e>
+  - <https://github.com/coopercodes/ReactDndKitList>
+    - <https://www.youtube.com/watch?v=Z8RoA_YSGDQ>
+
 ## Erledigt
 
 - 2024-05-30 Donnerstag
@@ -27,17 +35,23 @@
     - entfernen (unfertig)
     - herunterladen (unfertig)
   - ContentSecurityPolicy
+  - Fenstergröße
 
 - 2024-06-03 Montag
-  - Artwork / Artist
+  - artworkForm / myAttachmentMetaInput / View
     - Metadaten ändern (unfertig)
     - entfernen (unfertig)
     - herunterladen (unfertig)
 
+  - artworkForm / myTagsInput
+    - myTagsInput: Cascader verwenden <https://ant.design/components/cascader>?
+    - statt Option group? https://ant.design/components/select
+      - suche ans laufen bringen
+
 ## Morgen zu erledigen
 
 - artistForm
-  - Bild speichern
+  - Bild speichern. 
 
 - DatabasePouchDBAdapter
   - test: Für einen Production build (npm run package) funktioniert die lokale Datenbank noch nicht?
@@ -49,7 +63,7 @@
 Lose Sammlung, was mir auffällt.
 
 - AttachmentMeta könnte auch die Exifs der Bilder speichern.
-- AttachmentMeta - id / key: nur eins davon verwenden (key - wegen React)
+- AttachmentMeta - id / key: nur eins davon verwenden: id --- und für react: key={id}
 
 - Artist
   - Lebenslauf Einträge hinzufügen / bearbeiten / löschen.
@@ -81,7 +95,7 @@ Lose Sammlung, was mir auffällt.
 - Tags
   - Tag hinzufügen - Exception
   - Tag bearbeiten - die parents werden noch nicht berücksichtigt.
-  - Tags-List -> sollte den Tree anzeigen.
+  - Tags-List -> Expandable Row funktioniert nicht: <https://ant.design/components/table>
   
 - Whiteboard
   - tldraw - geht noch gar nicht

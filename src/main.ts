@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, screen } from 'electron';
 import { Database } from './app/backend/database';
 import { Request_Dispatcher } from './app/backend/request-dispatcher';
 import MyAppMain from './app/MyAppMain';
@@ -19,12 +19,25 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = (): void => {
+  
+  // https://www.electronjs.org/docs/latest/api/screen
+  const primaryDisplay = screen.getPrimaryDisplay()
+  const size:Electron.Size = primaryDisplay.workAreaSize
+
+  // https://stackoverflow.com/questions/59385237/electron-window-dimensions-vs-screen-resolution
+  // Retina displays have a different pixel scale factor, and that Electron uses that in its calculations...
+  let factor = primaryDisplay.scaleFactor;
+
+  // size.width = size.width * 0.8;
+  // size.height = size.height * 0.9;
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    width: size.width / factor,
+    height: size.height / factor,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      zoomFactor: 1.0 / factor
     },
   });
 
@@ -32,7 +45,7 @@ const createWindow = (): void => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools(); // TODO DevTools für Produktion auskommentieren.
 };
 
 async function register_IPC_Listeners() {

@@ -97,7 +97,7 @@ function ExhibitionView() {
   return (
     <MyBasicView
       id={id}
-      moduleLabel="Kontakt"
+      moduleLabel="Ausstellung"
       moduleId={moduleId}
       requests={requests}
       segmentSets={segmentSets}

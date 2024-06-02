@@ -13,11 +13,14 @@ import {
   Space,
   Slider,
   Divider,
+  GetProp,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
 import { AttachmentMeta } from "./types/AttachmentTypes";
 import MyAttachmentsMetaView from "./myAttachmentsMetaView";
+
+type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 /* Momentan arbeitet das mit Bildern. */
 
@@ -75,6 +78,9 @@ const onChange = async (file: RcFile) => {
     console.log(err);
   }
 };
+
+// TODO: Ich würde gern previewFile verwenden, aber es funktioniert nicht:
+// const previewFile:PreviewFileHandler = null;
 
 /* ==========================================================
 
@@ -152,7 +158,8 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
     className: "upload-list-inline",
     defaultFileList: fileList,
     // fileList,
-    beforeUpload(file) { //* Upload-Properties Callback
+    beforeUpload(file) {
+      //* Upload-Properties Callback
       console.log("Upload - beforeUpload - rcfile", file);
 
       const isJpgOrPng =
@@ -165,8 +172,8 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
       const isLt2M = file.size / 1024 / 1024 < 50;
       if (!isLt2M) {
         message.error("Image must smaller than 50 MB.");
+        // TODO sollte natürich  nicht zur Liste hinzugefügt werden
       }
-
 
       // get the original unresized image.
       getImageAsBase64(file)
@@ -206,27 +213,27 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
             })
             .catch((error: any) => console.log(`error: ${error}`)); // resizeImage
 
-            // Sollte auch ein Preview Bild rendern und zurückliefern.
-            return new Promise((resolve) => {
-              const reader = new FileReader();
-              reader.readAsDataURL(file);
-              reader.onload = () => {
-                const img = document.createElement('img');
-                img.src = reader.result as string;
-                img.onload = () => {
-                  const canvas = document.createElement('canvas');
-                  canvas.width = img.naturalWidth;
-                  canvas.height = img.naturalHeight;
-                  const ctx = canvas.getContext('2d')!;
-                  ctx.drawImage(img, 0, 0);
-                  ctx.fillStyle = 'red';
-                  ctx.textBaseline = 'middle';
-                  ctx.font = '33px Arial';
-                  ctx.fillText('Ant Design', 20, 20);
-                  canvas.toBlob((result) => resolve(result as any));
-                };
+          // Sollte auch ein Preview Bild rendern und zurückliefern.
+          return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+              const img = document.createElement("img");
+              img.src = reader.result as string;
+              img.onload = () => {
+                const canvas = document.createElement("canvas");
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+                const ctx = canvas.getContext("2d")!;
+                ctx.drawImage(img, 0, 0);
+                ctx.fillStyle = "red";
+                ctx.textBaseline = "middle";
+                ctx.font = "33px Arial";
+                ctx.fillText("Ant Design", 20, 20);
+                canvas.toBlob((result) => resolve(result as any));
               };
-            });
+            };
+          });
         })
         .catch((error: any) => console.log(`error: ${error}`)); // getImageAsBase64
 
@@ -238,21 +245,22 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
     // name: 'imageUpload',
     // maxCount: 1,
     // action: '',
-    onChange(info: { file: { status?: any; name?: any }; fileList: any }) { //* Upload-Properties Callback
+    onChange(info: { file: { status?: any; name?: any }; fileList: any }) {
+      //* Upload-Properties Callback
       console.log("Upload - onChange", info);
 
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
+      if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
-
     },
-    onRemove: (file) => {//* Upload-Properties Callback
+    onRemove: (file) => {
+      //* Upload-Properties Callback
       console.log("Upload - onRemove", file);
 
       // Remove Meta/Job from the list.
@@ -267,9 +275,27 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
         return true; // continue next
       });
     },
-    onDrop(e) { //* Upload-Properties Callback
+    onDrop(e) {
+      //* Upload-Properties Callback
       console.log("Upload - onDrop", e.dataTransfer.files);
     },
+    onPreview: async (file: UploadFile) => {
+      //* Upload-Properties Callback
+      // handles the click on th preview Image
+      let src = file.url as string;
+      if (!src) {
+        src = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file.originFileObj as FileType);
+          reader.onload = () => resolve(reader.result as string);
+        });
+      }
+      const image = new Image();
+      image.src = src;
+      //! const imgWindow = window.open(src);
+      //! imgWindow?.document.write(image.outerHTML);
+    },
+    // TODO previewFile: () => {}
   }; // uploadProps
 
   /* ----------------------------------------------------------
@@ -293,59 +319,3 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
 }
 
 export default MyAttachmentsMetaInput;
-
-/*
-
-      getImageAsBase64(file as RcFile)
-        .then((b64URLdata) => {
-          // create a nice uuid
-          const uuid = uuidv4();
-
-          // Prepare Attachment
-          // TODO create a smaller preview as base64String...
-          value.push({
-            id: uuid,
-            filename: file.name,
-            mimetype: file.type,
-            title: "A Title",
-            description: "A brief description...",
-            is_cover: false,
-            preview: b64URLdata, // TODO smaller preview image
-
-            // action is my temporary 'sidecar' until formular is saved
-            // see: AttachmentTool
-            action: {
-              name: "upload",
-              attachment: {
-                id: uuid,
-                content_type: file.type,
-                data: b64URLdata,
-              },
-            },
-          });
-
-          triggerChange(value);
-
-        return value;
-       })
-       .catch((v: any) => console.log(`error: ${v}`));
-
- */
-
-/*
-          [
-            {
-              id: "1617958d-20db-440d-b590-5aff396e521a",
-              filename: "carsten-nichte-binary-voids-9432-web.jpg",
-              mimetype: "image/jpeg",
-              title: "A Title",
-              description: "A brief description...",
-              preview: "...",
-              action: {
-                name: "upload",
-                id: "1617958d-20db-440d-b590-5aff396e521a",
-                attachment: { content_type: "image/jpeg", data: "..." },
-              },
-            },
-          ];
-*/
