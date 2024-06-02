@@ -23,6 +23,7 @@ npm i exif-js
 npm i react-countup
 
 npm i markdown-to-jsx
+npm install react-image-file-resizer
 
 npm i recharts
 npm i tldraw

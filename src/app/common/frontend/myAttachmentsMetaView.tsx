@@ -13,6 +13,7 @@ import {
   Checkbox,
   CheckboxProps,
   Image,
+  Divider,
 } from "antd";
 import {
   EditOutlined,
@@ -21,6 +22,7 @@ import {
   EyeFilled,
   SettingOutlined,
   DeleteOutlined,
+  DownloadOutlined,
 } from "@ant-design/icons";
 import { AttachmentMeta } from "./types/AttachmentTypes";
 
@@ -119,6 +121,7 @@ function MyAttachmentCard({
             onClick={() => setUseAsCover(!use_as_cover)}
             icon={!use_as_cover ? <EyeOutlined /> : <EyeFilled />}
           />,
+          <Button icon={<DownloadOutlined />} />,
           <Button onClick={() => setModalOpen(true)} icon={<EditOutlined />} />,
           <Popconfirm
             title="Bild entfernen"
@@ -204,7 +207,7 @@ function MyAttachmentsMetaView(props: {
     columnWrapper[`column${i}`] = [];
   }
 
-    // Zeige nur Items ohne actions (to add or removed)
+  // Zeige nur Items ohne actions (to add or removed)
   let filtered = value.filter((item: AttachmentMeta) => {
     return !("action" in item);
   });
@@ -213,7 +216,9 @@ function MyAttachmentsMetaView(props: {
   for (let i = 0; i < filtered.length; i += 1) {
     const columnIndex = i % cc;
     columnWrapper[`column${columnIndex}`].push(
-      <div style={{ marginBottom: `${gap}px` }}>{getCardFrom(filtered[i])} </div>
+      <div style={{ marginBottom: `${gap}px` }}>
+        {getCardFrom(filtered[i])}{" "}
+      </div>
     );
   }
 
@@ -242,6 +247,7 @@ function MyAttachmentsMetaView(props: {
 
   return (
     <>
+      <Divider />
       <Slider
         min={0}
         max={Object.keys(colCounts).length - 1}
@@ -251,9 +257,11 @@ function MyAttachmentsMetaView(props: {
         step={null}
         // TODO tooltip={{ formatter }}
       />
+      <Divider />
       <div style={{ display: "flex" }}>
         {result.length > 0 ? result : textNoImages}
       </div>
+      <Divider />
     </>
   );
 }

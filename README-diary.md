@@ -18,16 +18,26 @@
   - artworkForm
     - AttachmentMeta und die Actions im Backend verwenden um Attachments
       - mehrere hochladen (wird direkt im doc gemacht)
-      - entfernen
-      - herunter laden
 
+- 2024-06-02 Sonntag
+  - artworkForm / myAttachmentMetaInput / View
+    - große Bilder hochladen bis 50MB.
+    - Verkleinertes Vorschaubild erzeugen
+    - Metadaten ändern (unfertig)
+    - entfernen (unfertig)
+    - herunterladen (unfertig)
+  - ContentSecurityPolicy
+
+- 2024-06-03 Montag
+  - Artwork / Artist
+    - Metadaten ändern (unfertig)
+    - entfernen (unfertig)
+    - herunterladen (unfertig)
 
 ## Morgen zu erledigen
 
 - artistForm
   - Bild speichern
-- Artwork / Artist
-  - generell: Attachments (Bilder und Dokumente) wie stelle ich die vernünftig dar?
 
 - DatabasePouchDBAdapter
   - test: Für einen Production build (npm run package) funktioniert die lokale Datenbank noch nicht?
@@ -99,11 +109,52 @@ param sind eigentlich view_meta / list_meta
   - <https://discord.com/channels/859816885297741824/1219426289681694770/1219497107811995739>
   - <https://gist.github.com/bbudd/2a246a718b7757584950b4ed98109115>
 
-
 Das Kontextmenü öffnet sich nicht (um code zu analysieren)
 In der ElectronReact Boilerplate konnte man das: Inspect Element, siehe:
 
 /Users/cnichte/develop-software/03-examples/electron-react-boilerplate/src/main/menu.ts
+
+### ContentSecurityPolicy
+
+- <https://www.electronjs.org/docs/latest/tutorial/security>
+- <https://content-security-policy.com>
+
+Lösung:
+
+1. <https://stackoverflow.com/questions/69790650/contentsecuritypolicy-preventing-fetch-request-in-electron>
+2. <https://www.electronforge.io/config/plugins/webpack>
+
+Siehe einmal in Datei `src/index.html`, und für die Entwicklung in Datei `forge.config.ts`:
+
+`devContentSecurityPolicy` aus 1:
+
+```js
+{ 
+  devContentSecurityPolicy: 'default-src \'self\' \'unsafe-inline\' data:; script-src \'self\' \'unsafe-eval\' \'unsafe-inline\' data:`' 
+}
+```
+
+`devContentSecurityPolicy` aus 2:
+
+```js
+{ 
+  devContentSecurityPolicy:  'default-src * self blob: data: gap:; style-src * self \'unsafe-inline\' blob: data: gap:; script-src * \'self\' \'unsafe-eval\' \'unsafe-inline\' blob: data: gap:; object-src * \'self\' blob: data: gap:; img-src * self \'unsafe-inline\' blob: data: gap:; connect-src self * \'unsafe-inline\' blob: data: gap:; frame-src * self blob: data: gap:;' 
+}
+```
+
+aus 2, ohne die `\`:
+
+```text
+default-src * self blob: data: gap:;
+style-src * self 'unsafe-inline' blob: data: gap:;
+script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:;
+object-src * 'self' blob: data: gap:;
+img-src * self 'unsafe-inline' blob: data: gap:;
+connect-src self * 'unsafe-inline' blob: data: gap:;
+frame-src * self blob: data: gap:;
+```
+
+2 hab ich getestet, und die Vorschaubilder beim Upload werden geladen.
 
 ## Recherchen
 
@@ -123,4 +174,4 @@ In der ElectronReact Boilerplate konnte man das: Inspect Element, siehe:
 
 ### Devtools extensions
 
-- https://www.electronjs.org/de/docs/latest/tutorial/devtools-extension
+- <https://www.electronjs.org/de/docs/latest/tutorial/devtools-extension>
