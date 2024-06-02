@@ -130,7 +130,9 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
             mimetype: file.type,
             title: "A Title",
             description: "A brief description...",
+            is_cover: false,
             preview: b64URLdata, // TODO smaller preview image
+
             // action is a temporary 'sidecar'
             action: {
               name: "upload",
@@ -165,6 +167,7 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
         .catch((v: any) => console.log(`error: ${v}`));
 
       setFileList([...fileList, file]);
+      
       /*
       const reader = new FileReader();
       reader.readAsDataURL(file);

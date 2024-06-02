@@ -45,6 +45,14 @@ ipcRenderer.send('__ELECTRON_LOG__', {
 /**
  * React Component: Formular for the Modul Artwork.
  *
+ * Die Attachments selber werden nicht aus dem Daten-Obekt in das Formluar übernommen.
+ * Ich arbeite ua. deshalb mit eigenen AttachmentMeta Daten im Formular,
+ * die immer den aktuellen Stand spiegeln, 
+ * und actions enthalten, die vor dem Speichern ausgeführt werden können, 
+ * oder später im Backend.
+ * 
+ * siehe: AttachmentTool.performActionsBeforeUpload()
+ * 
  * @author Carsten Nichte - //carsten-nichte.de/apps/
  * @return {ArtworkForm}
  */
@@ -104,6 +112,9 @@ function ArtworkForm() {
     FormTools.loadDataRequest(props.requests, id);
   }, []);
 
+  // TODO dataOrigin brauch ich ier nicht - es sei denn...
+  // ich ziehe die callback logik auch noch in die Funktion.
+  // Das wäre vielleicht sinnvoll weil das echt für alle Forms gleich ist? 
   FormTools.loadDataResponse(dataOrigin, props, (data: any) => {
     // We keep the original data,
     // to check later if anything has changed.
@@ -151,13 +162,13 @@ function ArtworkForm() {
         // TODO dataOrigin ist possibly nicht definiert:
         dataOrigin[props.segment][0].rev = result.data.rev;
 
-        setDataOrigin(dataOrigin);
+        //! setDataOrigin(dataOrigin);
         // TODO: Das ich hier auf .segment][0] gehe ist auch gefährlich.
         // Ich sollte das Dokument mit der ID suchen statt die [0] zu nehmen...
 
         // TODO Hier gibt es data nicht:
-        //! data? console.log('####### SET FIELDS VALUE', data[props.segment][0]);
-        //! data? form.setFieldsValue(data[props.segment][0]);
+        //! console.log('####### SET FIELDS VALUE', data[props.segment][0]);
+        //! form.setFieldsValue(data[props.segment][0]);
       }
     }
   });

@@ -3,7 +3,7 @@ type AttachmentActionPropertyName = 'attachmentActions';
 // TODO das geht so nicht { AttachmentActionPropertyName: 'value' }
 
 /**
- * Das entspricht dem, was in der CoucdDB abgespeichert wird.
+ * Was in der CoucdDB abgespeichert wird:
  *
  * attachments: {
  *  'id': {
@@ -11,6 +11,13 @@ type AttachmentActionPropertyName = 'attachmentActions';
  *    data: 'aGVsbG8gd29ybGQ='
  *  }, ...
  * }
+ */
+interface Attachment_CouchDB {
+  data: string;
+  content_type: string;
+}
+
+/**
  *
  * @interface Attachment
  */
@@ -43,6 +50,7 @@ interface AttachmentMeta {
   mimetype: string;
   title: string;
   description: string;
+  is_cover:boolean;
   preview: string;
   action?: AttachmentAction;
 }
@@ -53,4 +61,5 @@ export {
   AttachmentAction,
   type AttachmentActionName,
   type AttachmentActionPropertyName,
+  type Attachment_CouchDB
 };

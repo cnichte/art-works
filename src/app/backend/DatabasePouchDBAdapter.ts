@@ -174,6 +174,10 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
 
   /**
    * Handle Attachment Actions for the Document.
+   * Das nutze ich nicht weil es für Bulk operationen
+   * nicht funktioniert.
+   * 
+   * Ich könnte das aber nutzen um zB. ein einzelnes Attachment (oder mehrere) herunter zu laden. 
    * 
    * @param module 
    * @param doc_id 

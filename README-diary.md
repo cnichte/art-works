@@ -17,7 +17,7 @@
 - 2024-06-01 Samstag
   - artworkForm
     - AttachmentMeta und die Actions im Backend verwenden um Attachments
-      - mehrere hochladen
+      - mehrere hochladen (wird direkt im doc gemacht)
       - entfernen
       - herunter laden
 
@@ -99,6 +99,12 @@ param sind eigentlich view_meta / list_meta
   - <https://discord.com/channels/859816885297741824/1219426289681694770/1219497107811995739>
   - <https://gist.github.com/bbudd/2a246a718b7757584950b4ed98109115>
 
+
+Das Kontextmenü öffnet sich nicht (um code zu analysieren)
+In der ElectronReact Boilerplate konnte man das: Inspect Element, siehe:
+
+/Users/cnichte/develop-software/03-examples/electron-react-boilerplate/src/main/menu.ts
+
 ## Recherchen
 
 - Markdown + Frontmatter to Json für Notizen im View rendern und fürs Formular.
@@ -114,3 +120,7 @@ param sind eigentlich view_meta / list_meta
   - Besserer Fork: <https://github.com/quantizor/markdown-to-jsx>
 - <https://github.com/markdown-it/markdown-it?tab=readme-ov-file>
 - <https://github.com/remarkjs/react-markdown>
+
+### Devtools extensions
+
+- https://www.electronjs.org/de/docs/latest/tutorial/devtools-extension
