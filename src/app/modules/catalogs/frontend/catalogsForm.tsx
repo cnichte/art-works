@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router';
 //* Application imports
 import RequestFactory from '../../../common/backend/RequestFactory';
 import FormTools from '../../../common/frontend/FormTools';
-import FormPropertiesInterface from '../../../common/frontend/types/FormPropertiesInterface';
+import { FormPropertiesInterface } from '../../../common/frontend/types/FormPropertiesInterface';
 
 // TODO Die Daten kommen alle aus den Settings, aber
 // ich kann das aber ganz normal abfackeln...

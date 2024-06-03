@@ -23,7 +23,7 @@ import ImgCrop from 'antd-img-crop';
 //* Application imports
 import RequestFactory from '../../../common/backend/RequestFactory';
 import FormTools from '../../../common/frontend/FormTools';
-import FormPropertiesInterface from '../../../common/frontend/types/FormPropertiesInterface';
+import { FormPropertiesInterface } from '../../../common/frontend/types/FormPropertiesInterface';
 import { MyInputURLField } from '../../../common/frontend/myInputFields';
 import { UploadChangeParam, UploadFile } from 'antd/es/upload';
 

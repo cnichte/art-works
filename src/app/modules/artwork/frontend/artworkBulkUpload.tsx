@@ -17,7 +17,7 @@ import {
 } from '@ant-design/icons';
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
-import MyTagsInput from '../../../common/frontend/myTagsInput';
+import MyTags_Input from '../../../common/frontend/myTags_Input';
 
 /**
  *
@@ -206,7 +206,7 @@ function ArtworkBulkUpload() {
             label="Tags"
             name="tags"
           >
-            <MyTagsInput
+            <MyTags_Input
               onChange={(value: any) => {
                 console.log('artworkForm -> MyTags -> ValueChanged:', value);
               }}

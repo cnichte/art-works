@@ -72,14 +72,14 @@ interface Props {
 }
 
 /**
- ** MyTagsInput - React Component
+ ** MyTags_Input - React Component
  *
  * 'value' is an array with the uuids of the tags.
  *
  * @param param0
  * @returns
  */
-function MyTagsInput({ value = [], onChange }: Props): any {
+function MyTags_Input({ value = [], onChange }: Props): any {
   // console.log('MyTags - value', value);
 
   /* ----------------------------------------------------------
@@ -212,7 +212,7 @@ function MyTagsInput({ value = [], onChange }: Props): any {
   );
 }
 
-export default MyTagsInput;
+export default MyTags_Input;
 
 /*
   async function fetchTagList(tagName: string): Promise<TagInterface[]> {

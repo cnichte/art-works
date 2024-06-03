@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router';
 //* Application imports
 import RequestFactory from '../../../common/backend/RequestFactory';
 import FormTools from '../../../common/frontend/FormTools';
-import FormPropertiesInterface from '../../../common/frontend/types/FormPropertiesInterface';
+import { FormPropertiesInterface } from '../../../common/frontend/types/FormPropertiesInterface';
 
 const layout = {
   labelCol: { span: 8 },

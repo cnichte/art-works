@@ -35,7 +35,12 @@
     "awards": [],
     "genres": [],
     "tags": [],
-    "notes": []
+    "notes": [],
+    "labels":{
+      "rating": 0,
+      "color": "",
+      "flag": false
+    }
   },
   {
     "docType": "artwork",
@@ -73,7 +78,12 @@
     "genres": [],
     "tags": [],
     "notes": [],
-    "dateCreationMode": "dateMoment"
+    "dateCreationMode": "dateMoment",
+    "labels":{
+      "rating": 0,
+      "color": "",
+      "flag": false
+    }
   },
   {
     "id": "46796e5c-756e-4908-b56f-89c4ce08bdd3",
@@ -112,7 +122,12 @@
       "4da68f58-1ea0-461f-a081-5b2b2f0383b9",
       "aabdd35a-febf-4823-b046-780eee55fe2e"
     ],
-    "notes": []
+    "notes": [],
+    "labels":{
+      "rating": 0,
+      "color": "",
+      "flag": false
+    }
   },
   {
     "id": "e5d9b0d2-b0c9-4318-b60c-83bf2eae20b3",
@@ -153,7 +168,12 @@
       "4da68f58-1ea0-461f-a081-5b2b2f0383b9",
       "aabdd35a-febf-4823-b046-780eee55fe2e"
     ],
-    "notes": []
+    "notes": [],
+    "labels":{
+      "rating": 0,
+      "color": "",
+      "flag": false
+    }
   },
   {
     "id": "e13279a4-1143-4c92-bd53-21e7796b3d79",
@@ -190,6 +210,11 @@
     "awards": [],
     "genres": ["9c489a7e-36f4-4199-bf6a-9a91359b5a41"],
     "tags": [],
-    "notes": []
+    "notes": [],
+    "labels":{
+      "rating": 0,
+      "color": "",
+      "flag": false
+    }
   }
 ]

@@ -6,8 +6,21 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
-import { Space, Typography, Input, Form, Button } from "antd";
-import { UploadOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import {
+  Space,
+  Typography,
+  Input,
+  Form,
+  Button,
+  Switch,
+  InputNumber,
+} from "antd";
+import {
+  UploadOutlined,
+  CloseCircleOutlined,
+  CheckOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 
 //* above are the default imports
 
@@ -17,9 +30,9 @@ import { UploadOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import RequestFactory from "../../../common/backend/RequestFactory";
 
 import FormTools from "../../../common/frontend/FormTools";
-import FormPropertiesInterface from "../../../common/frontend/types/FormPropertiesInterface";
+import { FormPropertiesInterface } from "../../../common/frontend/types/FormPropertiesInterface";
 import MyDatePickerInput from "../../../common/frontend/myDatePickerInput";
-import MyTagsInput from "../../../common/frontend/myTagsInput";
+import MyTags_Input from "../../../common/frontend/myTags_Input";
 import MyAttachmentsMetaInput from "../../../common/frontend/myAttachmentsMetaInput";
 import {
   AttachmentTool,
@@ -29,6 +42,9 @@ import {
 // TODO Test Logger
 import log from "electron-log/renderer";
 import { AttachmentMeta } from "../../../common/frontend/types/AttachmentTypes";
+import { My_Marker_Input } from "../../../common/frontend/myMarker_Input";
+import { My_Price_Input } from "../../../common/frontend/myPrice_Input";
+
 // log.info('########################################### Log from the renderer process');
 // log.info() wird auf der Konsole im Backend ausgegeben.
 // Der electron-log hab ich in main.ts so konfiguriert, das er die console.log('') einfängt und ins backend weiter leitet.
@@ -47,12 +63,12 @@ ipcRenderer.send('__ELECTRON_LOG__', {
  *
  * Die Attachments selber werden nicht aus dem Daten-Obekt in das Formluar übernommen.
  * Ich arbeite ua. deshalb mit eigenen AttachmentMeta Daten im Formular,
- * die immer den aktuellen Stand spiegeln, 
- * und actions enthalten, die vor dem Speichern ausgeführt werden können, 
+ * die immer den aktuellen Stand spiegeln,
+ * und actions enthalten, die vor dem Speichern ausgeführt werden können,
  * oder später im Backend.
- * 
+ *
  * siehe: AttachmentTool.performActionsBeforeUpload()
- * 
+ *
  * @author Carsten Nichte - //carsten-nichte.de/apps/
  * @return {ArtworkForm}
  */
@@ -114,7 +130,7 @@ function ArtworkForm() {
 
   // TODO dataOrigin brauch ich ier nicht - es sei denn...
   // ich ziehe die callback logik auch noch in die Funktion.
-  // Das wäre vielleicht sinnvoll weil das echt für alle Forms gleich ist? 
+  // Das wäre vielleicht sinnvoll weil das echt für alle Forms gleich ist?
   FormTools.loadDataResponse(dataOrigin, props, (data: any) => {
     // We keep the original data,
     // to check later if anything has changed.
@@ -133,7 +149,10 @@ function ArtworkForm() {
     // new Attachment Metadata & Attachments to the Form-Data
     // and identify and separate the attachment-actions
     const result: AttachmentToolReturnValue =
-      AttachmentTool.performActionsBeforeUpload(valuesForm, dataOrigin[props.segment][0]);
+      AttachmentTool.performActionsBeforeUpload(
+        valuesForm,
+        dataOrigin[props.segment][0]
+      );
 
     valuesForm.attachmentsMeta = result.attachmentsMeta;
     const { attachmentActions } = result; //* this Equals: const attachmentActions: AttachmentActions[] = result.attachmentActions;
@@ -257,9 +276,10 @@ function ArtworkForm() {
 
         <Form.Item label="Bilder vom Kunstwerk" name="attachmentsMeta">
           <MyAttachmentsMetaInput
-            onChange={(value:AttachmentMeta[] ) => {
+            onChange={(value: AttachmentMeta[]) => {
               console.log(
-                "artworkForm -> MyAttachments -> ValueChanged:", value
+                "artworkForm -> MyAttachments -> ValueChanged:",
+                value
               );
             }}
           />
@@ -295,38 +315,29 @@ function ArtworkForm() {
         <Form.Item label="Werkzeuge" name="tool">
           <Input />
         </Form.Item>
-        <Form.Item label="Unverkäuflich" name="forsale">
-          <Input />
+        <Form.Item label="Verkäuflich?" name="forsale">
+          <Switch />
         </Form.Item>
         <Form.Item label="Preis" name="price">
-          <Input />
+          <My_Price_Input />
         </Form.Item>
         <Form.Item label="Notiz" name="shortnote">
           <Input.TextArea rows={4} placeholder="Please enter a Shortnote." />
         </Form.Item>
 
         <Form.Item label="Tags" name="tags">
-          <MyTagsInput
+          <MyTags_Input
             onChange={(value: any) => {
               console.log("artworkForm -> MyTags -> ValueChanged:", value);
             }}
           />
         </Form.Item>
+        <Form.Item label="Markierungen" name="labels">
+          <My_Marker_Input />
+        </Form.Item>
       </Form>
     </div>
   );
 }
-
-/*
-
-        <Form.Item
-          label="Hidden Attachments Fields (to get them into the formData)"
-          name="attachments"
-          style={{ display: "none" }}
-        >
-          <Input />
-        </Form.Item>
-
-*/
 
 export default ArtworkForm;

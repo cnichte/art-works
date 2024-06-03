@@ -192,7 +192,7 @@ function MyDatePickerInput({ value = {}, onChange }: Props): any {
     // https://www.mediaevent.de/javascript/spread-operator.html
     // mixe das geänderte Objekt zusammen...
     // TODO kann man das auch noch aufräumen?
-    onChange?.({ date, dateType, dateMode, ...value, ...changedValue });
+    onChange?.({ date, dateType, dateMode, ...value, ...changedValue }); //* Beachte: spread operator / spread syntax
   };
 
   const onDateModeEvent = (e: RadioChangeEvent) => {

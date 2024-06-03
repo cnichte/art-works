@@ -1,12 +1,19 @@
 # Developer Diary
 
 - List <https://ant.design/components/list> kann `load more`! und `cards` statt Tabelle lieber das nehmen?
-- react drag and drop reorder list (insbesondere für Zusammenstellungen).
+- react drag and drop reorder list (für Zusammenstellungen).
   - <https://github.com/react-dnd/react-dnd/>
   - <https://github.com/VaishakVk/react-drag-reorder>
   - <https://medium.com/nerd-for-tech/simple-drag-and-drop-in-react-without-an-external-library-ebf1c1b809e>
   - <https://github.com/coopercodes/ReactDndKitList>
     - <https://www.youtube.com/watch?v=Z8RoA_YSGDQ>
+
+- Electron config Library: <https://github.com/alex8088/electron-conf>
+- Ein Starter: <https://github.com/alex8088/quick-start>
+  - <https://github.com/alex8088/quick-start/tree/master/packages/create-electron/playground/react>
+  - macht builds für verschiedene Plattformen.
+
+Artwork - Preis: Ein Preis kann sich auf eine Kalkulation beziehen.
 
 ## Erledigt
 
@@ -38,20 +45,24 @@
   - Fenstergröße
 
 - 2024-06-03 Montag
+  - Markierungen: rating, color, flag.
   - artworkForm / myAttachmentMetaInput / View
-    - Metadaten ändern (unfertig)
-    - entfernen (unfertig)
-    - herunterladen (unfertig)
+    - Metadaten ändern
 
-  - artworkForm / myTagsInput
-    - myTagsInput: Cascader verwenden <https://ant.design/components/cascader>?
-    - statt Option group? https://ant.design/components/select
-      - suche ans laufen bringen
+- 2024-06-04 Dienstag
+  - artworkForm / myAttachmentMetaInput / View
+    - Attachment entfernen (unfertig)
+    - Attachment herunterladen (unfertig)
 
 ## Morgen zu erledigen
 
+- artworkForm / myTagsInput
+  - myTagsInput: Cascader verwenden <https://ant.design/components/cascader>?
+  - statt Option group? <https://ant.design/components/select>
+    - suche ans laufen bringen
+
 - artistForm
-  - Bild speichern. 
+  - Bild speichern.
 
 - DatabasePouchDBAdapter
   - test: Für einen Production build (npm run package) funktioniert die lokale Datenbank noch nicht?
@@ -189,3 +200,25 @@ frame-src * self blob: data: gap:;
 ### Devtools extensions
 
 - <https://www.electronjs.org/de/docs/latest/tutorial/devtools-extension>
+
+### electron-forge versus electron-vite
+
+- <https://dev.to/navdeepm20/i-killed-electro-with-webpack-guide-to-migrate-electron-forge-webpack-to-vite-3nek>
+- <https://www.electronforge.io/config/plugins/vite>
+-
+
+### Provide a release und Auto Updater
+
+- <https://www.electronforge.io/advanced/auto-update>
+  - <https://github.com/electron-userland/electron-builder>
+
+- <https://stackoverflow.com/questions/48838051/how-to-compare-application-version-to-its-github-releases>
+  - das gebaute zip
+  - manually add release and upload zip to the repository
+  
+
+### Custom form Items
+
+- <https://atlassc.net/2021/06/05/create-a-custom-ant-design-form-item-component>
+- ... und Markdwon Editor einbinden:
+- <https://medium.com/swlh/use-custom-and-third-party-react-form-components-with-ant-design-and-typescript-2732e7849aee>

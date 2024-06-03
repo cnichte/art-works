@@ -1,5 +1,6 @@
 import path from 'path';
 import { app } from 'electron';
+import log from 'electron-log';
 
 import { AppBackend } from './backend/AppBackend';
 
@@ -24,7 +25,7 @@ export default class MyAppMain {
     return 'logs/artworks.log';
   }
 
-  public static initLogger(log: any) {
+  public static initLogger() {
     // spyRendererConsole collects logs written by console.log in the renderer process
     log.initialize({ preload: true, spyRendererConsole: true });
     log.transports.console.format = '{h}:{i}:{s} {text}';

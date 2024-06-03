@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Button,
   Card,
@@ -14,7 +14,10 @@ import {
   CheckboxProps,
   Image,
   Divider,
+  Form,
+  Switch,
 } from "antd";
+import type { GetRef } from "antd";
 import {
   EditOutlined,
   EllipsisOutlined,
@@ -28,6 +31,73 @@ import { AttachmentMeta } from "./types/AttachmentTypes";
 
 const { Meta } = Card;
 const { TextArea } = Input;
+type FormInstance = GetRef<typeof Form>;
+
+/* ==========================================================
+
+    * MyAttachmentCard - Modales Formular
+
+   ========================================================== */
+
+interface ModalFormProps {
+  id: string;
+  data: AttachmentMeta;
+  open: boolean;
+  onCancel: () => void;
+}
+
+// reset form fields when modal is form, closed
+const useResetFormOnCloseModal = ({
+  form,
+  open,
+}: {
+  form: FormInstance;
+  open: boolean;
+}) => {
+  const prevOpenRef = useRef<boolean>();
+  useEffect(() => {
+    prevOpenRef.current = open;
+  }, [open]);
+  const prevOpen = prevOpenRef.current;
+
+  useEffect(() => {
+    if (!open && prevOpen) {
+      form.resetFields();
+    }
+  }, [form, prevOpen, open]);
+};
+
+const ModalForm: React.FC<ModalFormProps> = ({ id, data, open, onCancel }) => {
+  const [form] = Form.useForm();
+
+  form.setFieldsValue(data);
+
+  useResetFormOnCloseModal({
+    form,
+    open,
+  });
+
+  const onOk = () => {
+    console.log("Modal-Form Ok");
+    form.submit();
+  };
+
+  return (
+    <Modal title="Basic Drawer" open={open} onOk={onOk} onCancel={onCancel}>
+      <Form form={form} layout="vertical" name={id}>
+        <Form.Item name="title" label="Titel">
+          <Input />
+        </Form.Item>
+        <Form.Item name="description" label="Kurze Beschreibung">
+          <TextArea placeholder="Kurze Beschreibung" autoSize />
+        </Form.Item>
+        <Form.Item name="is_cover" label="Benutze das Bild als Cover">
+          <Switch />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
 
 /* ==========================================================
 
@@ -55,21 +125,16 @@ function MyAttachmentCard({
   value: AttachmentMeta;
   onChange: any;
 }) {
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
+  const [is_cover, set_IsCover] = useState(false);
 
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [use_as_cover, setUseAsCover] = useState<boolean>(false);
+  const showUserModal = () => {
+    setOpen(true);
+  };
 
-  // effect runs on component mount
-  useEffect(() => {
-    setTitle(value.title);
-    setDescription(value.description);
-    setUseAsCover(value.is_cover);
-  }, []);
-
-  // effect runs when specific state is updated
-  useEffect(() => {}, [use_as_cover]);
+  const hideUserModal = () => {
+    setOpen(false);
+  };
 
   const confirm: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
@@ -82,35 +147,27 @@ function MyAttachmentCard({
     // message.error('Click on No');
   };
 
-  const onCoverChange: CheckboxProps["onChange"] = (e) => {
-    setUseAsCover(e.target.checked);
+  const switchFlag = (b: boolean) => {
+    set_IsCover(b);
   };
 
   return (
     <>
-      <Modal
-        title="Metadaten bearbeiten"
-        style={{ top: 20 }}
-        open={modalOpen}
-        onOk={() => setModalOpen(false)}
-        onCancel={() => setModalOpen(false)}
+      <Form.Provider
+        onFormFinish={(name, { values, forms }) => {
+          console.log("Modal-Form finished...", name);
+          if (name === value.id) {
+            value.title = values.title;
+            value.description = values.description;
+            value.is_cover = values.is_cover;
+            set_IsCover(values.is_cover)
+            setOpen(false);
+          }
+        }}
       >
-        <Flex vertical={false} gap={12}>
-          <Image width={100} src={value.preview} />
+        <ModalForm id={value.id} data={value} open={open} onCancel={hideUserModal} />
+      </Form.Provider>
 
-          <Flex vertical gap={12} align="flex-end" justify="space-between">
-            <Input placeholder="Titel" value={title} />
-            <TextArea
-              placeholder="Kurze Beschreibung"
-              autoSize
-              value={description}
-            />
-            <Checkbox onChange={onCoverChange} value={use_as_cover}>
-              Benutze das Bild als Cover.
-            </Checkbox>
-          </Flex>
-        </Flex>
-      </Modal>
       <Card
         style={{ padding: 0 }}
         hoverable
@@ -118,11 +175,11 @@ function MyAttachmentCard({
         cover={<img alt="example" src={value.preview} />}
         actions={[
           <Button
-            onClick={() => setUseAsCover(!use_as_cover)}
-            icon={!use_as_cover ? <EyeOutlined /> : <EyeFilled />}
+            onClick={() => switchFlag(!is_cover)}
+            icon={!is_cover ? <EyeOutlined /> : <EyeFilled />}
           />,
           <Button icon={<DownloadOutlined />} />,
-          <Button onClick={() => setModalOpen(true)} icon={<EditOutlined />} />,
+          <Button onClick={() => showUserModal()} icon={<EditOutlined />} />,
           <Popconfirm
             title="Bild entfernen"
             description="Möchstes du das Bild wirklich entfernen?"

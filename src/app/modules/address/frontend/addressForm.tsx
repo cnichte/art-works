@@ -31,7 +31,7 @@ import type { RcFile, UploadProps } from 'antd/es/upload';
 //* Application imports
 import RequestFactory from '../../../common/backend/RequestFactory';
 import FormTools from '../../../common/frontend/FormTools';
-import FormPropertiesInterface from '../../../common/frontend/types/FormPropertiesInterface';
+import { FormPropertiesInterface } from '../../../common/frontend/types/FormPropertiesInterface';
 import TransformerInterface from '../../../common/frontend/types/TransformerInterface';
 import { MyInputURLField } from '../../../common/frontend/myInputFields';
 

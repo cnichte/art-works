@@ -117,6 +117,10 @@ function ArtworkView() {
         showFields: ['name'],
       },
     },
+    {
+      dataIndex: 'labels',
+      label: 'Markierungen',
+    },
   ];
 
   const segmentArtworks: MyBasicViewSegmentParameterI = {

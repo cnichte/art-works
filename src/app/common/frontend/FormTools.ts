@@ -3,7 +3,7 @@
 /* eslint-disable import/prefer-default-export */
 import { message } from 'antd';
 import { AttachmentAction } from './types/AttachmentTypes';
-import FormPropertiesInterface from './types/FormPropertiesInterface';
+import { FormPropertiesInterface } from './types/FormPropertiesInterface';
 import { RequestsFormI } from '../backend/types/RequestsFactoryTypes';
 
 import { IPC_Channels } from "../types/IPC_Channels";
