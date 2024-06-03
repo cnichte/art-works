@@ -47,7 +47,7 @@ Artwork - Preis: Ein Preis kann sich auf eine Kalkulation beziehen.
 - 2024-06-03 Montag
   - Markierungen: rating, color, flag.
   - artworkForm / myAttachmentMetaInput / View
-    - Metadaten ändern
+    - Attachment-Metadaten ändern
 
 - 2024-06-04 Dienstag
   - artworkForm / myAttachmentMetaInput / View
