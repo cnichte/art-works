@@ -95,7 +95,7 @@ function RentalForm() {
   const navigate = useNavigate();
   const { Title } = Typography;
 
-  const moduleId = 'sale';
+  const moduleId = 'rental';
 
   /* ----------------------------------------------------------
 
@@ -113,7 +113,7 @@ function RentalForm() {
 
   const props: FormPropertiesInterface = {
     id,
-    moduleLabel: 'Verkauf',
+    moduleLabel: 'Verleih',
     moduleId,
     requests: RequestFactory.getFormRequestsFor(moduleId, 'ipc-database'),
     segment: `${moduleId}s`,

@@ -1,3 +1,4 @@
+// Das sind die inline-Preise
 export interface EditionPriceI {
   // Userdata
   id: string;

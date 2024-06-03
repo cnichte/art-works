@@ -8,11 +8,13 @@
     "id":"89712f9c-fbfb-4b7c-9dc2-95c84695b941",
     "title": "Kosten A4 Fineartprint",
     "description": "",
-    "calculationitems":[]
+    "calculationitems":[],
+    "calc":[]
   }, {
     "id":"9b7b416f-ea76-45ff-98ef-6c1843d7865c",
     "title": "Kosten A2 Fineartprint",
     "description": "",
-    "calculationitems":[]
+    "calculationitems":[],
+    "calc":[]
   }
 ]

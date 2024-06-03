@@ -1,5 +1,7 @@
 // import { CalculationItemI } from "./CalculationItemInterface";
 
+import { CalcPosI } from "./CalcPosInterface";
+
 export interface CalculationI {
   // System
   id: string; // _id: string;
@@ -10,7 +12,7 @@ export interface CalculationI {
   title: string;
   description: string;
   shortnote: string;
-
+  calc: CalcPosI[];
   // Userdata, Relations
   calculationgroup: string;
   calculationitems: string[];

@@ -5,6 +5,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Space, Typography, Input, Form, Button } from 'antd';
+import { v4 as uuidv4 } from "uuid";
 
 import { UploadOutlined, CloseCircleOutlined,
    PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
@@ -185,7 +186,7 @@ function EditionForm() {
                     rules={[{ required: true, message: 'ID Fehlt' }]}
                     style={{ display: 'none' }}
                    >
-                    <Input placeholder="ID" />
+                    <Input placeholder="ID" defaultValue={uuidv4()} />
                   </Form.Item>
                   <Form.Item
                     {...restField}
@@ -211,11 +212,11 @@ function EditionForm() {
                   <Form.Item
                     {...restField}
                     name={[name, 'price']}
-                    rules={[{ required: true, message: 'Preis fehlrt' }]}
+                    rules={[{ required: true, message: 'Preis fehlt' }]}
                   >
                     <Input placeholder="Price" />
                   </Form.Item>
-                  <MinusCircleOutlined onClick={() => remove(name)} />
+                  <Button onClick={() => remove(name)} type="primary" icon={<MinusCircleOutlined/>} />
                 </Space>
               ))}
               <Form.Item>

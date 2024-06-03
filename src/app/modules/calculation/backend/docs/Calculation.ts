@@ -10,6 +10,8 @@ import { DocumentBase } from "../../../../common/backend/DocumentBase";
 import { JSONableI } from "../../../../common/backend/types/JSONableInterface";
 
 import { CalculationI } from "../../types/CalculationInterface";
+import { CalcPosI } from "../../types/CalcPosInterface";
+
 
 const fs = require("fs-extra");
 
@@ -40,6 +42,8 @@ export class Calculation
 
   calculationitems: string[] = [];
 
+  calc: CalcPosI[];
+
   notes: string[] = [];
 
   /**
@@ -57,7 +61,7 @@ export class Calculation
       title: this.title,
       description: this.description,
       shortnote: this.shortnote,
-
+      calc: this.calc,
       calculationgroup: this.calculationgroup,
       calculationitems: this.calculationitems,
       notes: this.notes,

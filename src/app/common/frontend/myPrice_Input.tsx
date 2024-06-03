@@ -25,9 +25,9 @@ export function My_Price_Input({
 
   return (
 
-    <Flex gap="small" wrap>
+    <Flex gap="small">
     <InputNumber<string>
-      style={{ width: 200 }}
+      style={{ width: 50 }}
       defaultValue="0"
       min="0"
       step="0.01"

@@ -8,7 +8,7 @@ export interface CalculationItemI {
   title: string;
   value: number;
   shortnote: string;
-
+  
   // Userdata, Relations
   calculations: string[];
 }

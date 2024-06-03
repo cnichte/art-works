@@ -48,11 +48,19 @@ Artwork - Preis: Ein Preis kann sich auf eine Kalkulation beziehen.
   - Markierungen: rating, color, flag.
   - artworkForm / myAttachmentMetaInput / View
     - Attachment-Metadaten ändern
+  - calculationForm / wditionForm
+    - uuid ergänzt. Laden und speichern klappt jetzt.
 
 - 2024-06-04 Dienstag
   - artworkForm / myAttachmentMetaInput / View
     - Attachment entfernen (unfertig)
     - Attachment herunterladen (unfertig)
+  - Kalkulation
+    - Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
+    - Feld Gesamt Summe (automatisch berechnen)
+    - Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
+  - Rental
+    - da geht noch nix
 
 ## Morgen zu erledigen
 

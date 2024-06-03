@@ -22,7 +22,7 @@ function RentalList() {
 
    ---------------------------------------------------------- */
 
-  const moduleId = 'sale';
+  const moduleId = 'rental';
 
   const requests = RequestFactory.getListRequestsFor(moduleId, 'ipc-database');
 
