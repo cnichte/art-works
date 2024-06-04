@@ -4,21 +4,21 @@ import log from 'electron-log';
 
 import { AppBackend } from './backend/AppBackend';
 
-const MY_APP_NAME = 'Art.Works';
-
 /**
- *
  *
  * @export
  * @class MyAppMain
  */
 export default class MyAppMain {
+
+  static MY_APP_NAME = 'Art.Works!';
+
   public static getAppBackend(): AppBackend {
-    return new AppBackend(MY_APP_NAME, MyAppMain.getAppHomePath());
+    return new AppBackend(MyAppMain.MY_APP_NAME, MyAppMain.getAppHomePath());
   }
 
   public static getAppHomePath(): string {
-    return `${app.getPath('home')}/.${MY_APP_NAME}/`;
+    return `${app.getPath('home')}/.${MyAppMain.MY_APP_NAME}/`;
   }
 
   public static getLogfileName(): string {
