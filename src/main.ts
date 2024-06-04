@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, dialog } from "electron";
+import { app, BrowserWindow, screen } from "electron";
 import { MenuBuilder } from "./menu";
 import { MyAppMain } from "./app/MyAppMain";
 import { MyAppInfo } from "./app/MyAppInfo";
