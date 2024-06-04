@@ -32,6 +32,7 @@ const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
     width: size.width / factor,
     height: size.height / factor,
+    icon: '/assets/app-icons/icon.png',
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       zoomFactor: 1.0 / factor,

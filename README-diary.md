@@ -75,6 +75,7 @@
 
 - 2024-06-04 Dienstag
 
+  - App-Icon (Mac:getestet, Linux:ungetestet, Windows:ungetestet)
   - Es gibt jetzt ein Custom-Menü, mit Inspect-Element Kontextmenü im Developer-Mode.
   - AttachmentMeta - Kategorie: `Werk`, `Dokument` eingeführt.
     - Das sollte helfen die zwei grundlegenden Arten zu unterscheiden.
@@ -83,6 +84,10 @@
     - Tags- & Genres-Relationen werden wieder aufgelöst und angezeigt.
     - Cover-Images werden angezeigt
   
+- Heute
+
+  - 2024-06-05 Mittwoch
+
   - artworkForm / myAttachmentMetaInput / View
     - Attachment herunterladen (unfertig)
       - request, und Dialog öffnen.
@@ -92,7 +97,8 @@
 
 ## Als nächstes
 
-- 2024-06-05 Mittwoch
+- 2024-06-05 Donnerstag
+
   - Kalkulation
     - Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
     - Feld Gesamt Summe (automatisch berechnen)
