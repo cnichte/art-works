@@ -45,6 +45,10 @@ const createWindow = (): void => {
     {
       label: "Dokumentation",
       link: "https://carsten-nichte.de/docs/artworks-app-manual/",
+    },
+    {
+      label: "Gitlab Homepage",
+      link: "https://github.com/cnichte/art-works",
     }
   ];
 
