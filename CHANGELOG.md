@@ -1,6 +1,6 @@
 # Changelog
 
-## Release 1.1.0
+## Release 0.1.0
 
 ### Dependencies
 
@@ -28,6 +28,6 @@ Major   Potentially breaking API changes
   ◯ eslint                                  ^8.0.1  → ^9.3.0
 ```
 
-## Release 1.0.0
+## Release 0.0.0
 
 Initial Release
