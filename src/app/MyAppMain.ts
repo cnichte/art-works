@@ -12,13 +12,14 @@ import { AppBackend } from './backend/AppBackend';
 export default class MyAppMain {
 
   static MY_APP_NAME = 'Art.Works!';
-
+  static MY_APP_FOLDER = 'Art.Works';
+  
   public static getAppBackend(): AppBackend {
-    return new AppBackend(MyAppMain.MY_APP_NAME, MyAppMain.getAppHomePath());
+    return new AppBackend(MyAppMain.MY_APP_FOLDER, MyAppMain.getAppHomePath());
   }
 
   public static getAppHomePath(): string {
-    return `${app.getPath('home')}/.${MyAppMain.MY_APP_NAME}/`;
+    return `${app.getPath('home')}/.${MyAppMain.MY_APP_FOLDER}/`;
   }
 
   public static getLogfileName(): string {
