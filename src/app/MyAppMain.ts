@@ -3,23 +3,21 @@ import { app } from 'electron';
 import log from 'electron-log';
 
 import { AppBackend } from './backend/AppBackend';
+import { MyAppInfo } from './MyAppInfo';
 
 /**
  *
  * @export
  * @class MyAppMain
  */
-export default class MyAppMain {
+export class MyAppMain {
 
-  static MY_APP_NAME = 'Art.Works!';
-  static MY_APP_FOLDER = 'Art.Works';
-  
   public static getAppBackend(): AppBackend {
-    return new AppBackend(MyAppMain.MY_APP_FOLDER, MyAppMain.getAppHomePath());
+    return new AppBackend(MyAppInfo.MY_APP_FOLDER, MyAppMain.getAppHomePath());
   }
 
   public static getAppHomePath(): string {
-    return `${app.getPath('home')}/.${MyAppMain.MY_APP_FOLDER}/`;
+    return `${app.getPath('home')}/.${MyAppInfo.MY_APP_FOLDER}/`;
   }
 
   public static getLogfileName(): string {
