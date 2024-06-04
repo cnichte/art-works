@@ -1,7 +1,7 @@
 {
   "name": "art-works",
-  "productName": "art-works",
-  "version": "0.0.0",
+  "productName": "Art.Works!",
+  "version": "0.1.0",
   "description": "Eine Werkverzeichnis App",
   "main": ".webpack/main",
   "scripts": {

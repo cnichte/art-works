@@ -9,7 +9,7 @@
 export interface DatabaseAdapterI {
   dispatch(request: string, data: any, options: any, event: any): void;
 
-  query(       module: string, req: string, options: any, event: any): void;
+  query(        module: string, req: string, options: any, event: any): void;
 
   query_list(   module: string, req: string, options: any, event: any): void;
   query_item(   module: string, req: string, id: string, options: any, event: any): void;

@@ -7,6 +7,7 @@ import { ColorPicker, theme } from "antd";
 import type { ColorPickerProps, GetProp } from "antd";
 
 import { Props_FormItem } from "./types/FormPropertiesInterface";
+import { Tagging_Props } from "./types/Tagging_Types";
 
 type Color = GetProp<ColorPickerProps, "value">;
 type Presets = Required<ColorPickerProps>["presets"][number];
@@ -17,11 +18,7 @@ const genPresets = (presets = presetPalettes) =>
     colors,
   }));
 
-interface Props_Tagging {
-  rating: number;
-  color: string;
-  flag: boolean;
-}
+
 
 /**
  * Markierungen für ein Dokument.
@@ -36,7 +33,7 @@ interface Props_Tagging {
 export function My_Marker_Input({
   value,
   onChange,
-}: Props_FormItem<Props_Tagging>): any {
+}: Props_FormItem<Tagging_Props>): any {
 
   const [rating, setRating] = useState<number>(value?.rating);
   const [flag, setFlag] = useState<boolean>(value?.flag);

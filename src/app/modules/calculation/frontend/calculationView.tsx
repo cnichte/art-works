@@ -70,6 +70,25 @@ function CalculationView() {
       dataIndex: 'shortnote',
       label: 'Notiz',
     },
+    {
+      dataIndex: "calc",
+      label: "Kalkulation",
+      // this is an array. render inline childs in separate table.
+      childs: [
+        {
+          dataIndex: "title",
+          label: "Titel",
+        },
+        {
+          dataIndex: "value",
+          label: "Preis",
+        },
+        {
+          dataIndex: "shortnote",
+          label: "Notiz",
+        }
+      ],
+    },
   ];
 
   const segmentCalculations: MyBasicViewSegmentParameterI = {

@@ -9,29 +9,29 @@ import {
   Slider,
   message,
   Input,
-  Flex,
-  Checkbox,
-  CheckboxProps,
-  Image,
   Divider,
   Form,
   Switch,
+  Tooltip,
 } from "antd";
 import type { GetRef } from "antd";
 import {
   EditOutlined,
-  EllipsisOutlined,
   EyeOutlined,
   EyeFilled,
-  SettingOutlined,
   DeleteOutlined,
   DownloadOutlined,
 } from "@ant-design/icons";
 import { AttachmentMeta } from "./types/AttachmentTypes";
+import FormTools from "./FormTools";
 
 const { Meta } = Card;
 const { TextArea } = Input;
 type FormInstance = GetRef<typeof Form>;
+
+/**
+ * Ich u
+ */
 
 /* ==========================================================
 
@@ -83,7 +83,12 @@ const ModalForm: React.FC<ModalFormProps> = ({ id, data, open, onCancel }) => {
   };
 
   return (
-    <Modal title="Basic Drawer" open={open} onOk={onOk} onCancel={onCancel}>
+    <Modal
+      title="Metadaten bearbeiten"
+      open={open}
+      onOk={onOk}
+      onCancel={onCancel}
+    >
       <Form form={form} layout="vertical" name={id}>
         <Form.Item name="title" label="Titel">
           <Input />
@@ -101,7 +106,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ id, data, open, onCancel }) => {
 
 /* ==========================================================
 
-    * MyAttachmentCard - React Component
+    * MyAttachmentCard - Attachment-Card
 
    ========================================================== */
 
@@ -138,7 +143,9 @@ function MyAttachmentCard({
 
   const confirm: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
-    message.success("Das Bild wurde entfernt.");
+    message.success(
+      "Das Bild wurde zum löschen vorgemerkt, und wird beim speichern des Dokumentes entfernt."
+    );
     // TODO Das bedeutet 'zum löschen vorgemerkt' in dem eine action hinzu gefügt wurde.
   };
 
@@ -151,6 +158,26 @@ function MyAttachmentCard({
     set_IsCover(b);
   };
 
+  const requestDownloadImage = () => {
+    console.log("button clicked: request:attachment-download-custom");
+    // Der Save-Dialog kann nur vom main prozess aus geöffnet werden.
+    // TODO download original attachment: Hier fehlen noch genaue parameter.
+    FormTools.customRequest(
+      "ipc-database",
+      "request:attachment-download-custom",
+      "",
+      ""
+    );
+  };
+
+  FormTools.customResponse(
+    "ipc-database",
+    "request:attachment-download-custom",
+    (data: any) => {
+      message.info("Download erledigt.");
+    }
+  );
+
   return (
     <>
       <Form.Provider
@@ -160,36 +187,52 @@ function MyAttachmentCard({
             value.title = values.title;
             value.description = values.description;
             value.is_cover = values.is_cover;
-            set_IsCover(values.is_cover)
+            set_IsCover(values.is_cover);
             setOpen(false);
           }
         }}
       >
-        <ModalForm id={value.id} data={value} open={open} onCancel={hideUserModal} />
+        <ModalForm
+          id={value.id}
+          data={value}
+          open={open}
+          onCancel={hideUserModal}
+        />
       </Form.Provider>
 
       <Card
         style={{ padding: 0 }}
         hoverable
         bordered={false}
-        cover={<img alt="example" src={value.preview} />}
+        cover={<img alt={value.filename} src={value.preview} />}
         actions={[
-          <Button
-            onClick={() => switchFlag(!is_cover)}
-            icon={!is_cover ? <EyeOutlined /> : <EyeFilled />}
-          />,
-          <Button icon={<DownloadOutlined />} />,
-          <Button onClick={() => showUserModal()} icon={<EditOutlined />} />,
-          <Popconfirm
-            title="Bild entfernen"
-            description="Möchstes du das Bild wirklich entfernen?"
-            onConfirm={confirm}
-            onCancel={cancel}
-            okText="Ja"
-            cancelText="Nein"
-          >
-            <Button icon={<DeleteOutlined />} danger />
-          </Popconfirm>,
+          <Tooltip title="Als Coverbild verwenden">
+            <Button
+              onClick={() => switchFlag(!is_cover)}
+              icon={!is_cover ? <EyeOutlined /> : <EyeFilled />}
+            />
+          </Tooltip>,
+          <Tooltip title="Original herunterladen">
+            <Button
+              onClick={() => requestDownloadImage()}
+              icon={<DownloadOutlined />}
+            />
+          </Tooltip>,
+          <Tooltip title="Metadaten bearbeiten">
+            <Button onClick={() => showUserModal()} icon={<EditOutlined />} />
+          </Tooltip>,
+          <Tooltip title="Bild löschen">
+            <Popconfirm
+              title="Bild entfernen"
+              description="Möchstes du das Bild wirklich entfernen?"
+              onConfirm={confirm}
+              onCancel={cancel}
+              okText="Ja"
+              cancelText="Nein"
+            >
+              <Button icon={<DeleteOutlined />} danger />
+            </Popconfirm>
+          </Tooltip>,
         ]}
       >
         <Meta title={value.title} description={value.description} />

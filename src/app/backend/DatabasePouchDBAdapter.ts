@@ -9,6 +9,7 @@ import { DatabaseCRUDI } from "../common/backend/types/DatabaseCRUDInterface";
 import { DatabaseAdapterI } from "../common/backend/types/DatabaseAdapterInterface";
 import { DatabasePouchDB } from "./DatabasePouchDB";
 import { AttachmentAction } from "../common/frontend/types/AttachmentTypes"; // TODO umziehen nach? /common/types/AttachmentTypes
+import { dialog } from "electron";
 
 const IPC_CHANNEL: string = "ipc-database";
 
@@ -16,9 +17,7 @@ const IPC_CHANNEL: string = "ipc-database";
 const getBase64StringFromBase64URL = (dataURL: string) =>
   dataURL.replace("data:", "").replace(/^.+,/, "");
 
-
 //! https://www.cloudnweb.dev/2019/7/promises-inside-a-loop-javascript-es6
-
 
 /**
  * DBAdapter (Broker) sits between the database and the frontend (via event processing).
@@ -163,6 +162,32 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
           // TODO this.query(module, request, options, event);
           this.query_list(module, request, options, event);
           break;
+        case "request:attachment-download-custom":
+          log.info(`###### CUSTOM Request: ${request}`);
+
+          // TODO Dialog kann nur von main aus geöffnet werden...
+          // https://www.electronjs.org/docs/latest/api/dialog
+          // https://www.electronjs.org/docs/latest/api/download-item
+          dialog
+            .showSaveDialog({
+              title: "Attachment speichern",
+              filters: [
+                { name: "Images", extensions: ["jpg", "jpeg"] },
+                { name: "All Files", extensions: ["*"] },
+              ],
+              properties: ['createDirectory', 'showOverwriteConfirmation'],
+            })
+            .then((result) => {
+              console.log("showSaveDialog - canceled ", result.canceled);
+              console.log("showSaveDialog - filePath", result.filePath);
+            })
+            .catch((err) => {
+              console.log("showSaveDialog - error", err);
+            });
+
+          // Hier wird im Grunde kein Ergebnis zurück geliertert / und erwartet.
+
+          break;
         default:
           log.info(`Unbekannter Request: ${request}`);
           break;
@@ -176,62 +201,73 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
    * Handle Attachment Actions for the Document.
    * Das nutze ich nicht weil es für Bulk operationen
    * nicht funktioniert.
-   * 
-   * Ich könnte das aber nutzen um zB. ein einzelnes Attachment (oder mehrere) herunter zu laden. 
-   * 
-   * @param module 
-   * @param doc_id 
-   * @param options 
-   * @returns 
+   *
+   * Ich könnte das aber nutzen um zB. ein einzelnes Attachment (oder mehrere) herunter zu laden.
+   *
+   * @param module
+   * @param doc_id
+   * @param options
+   * @returns
    */
-    private handle_attachments(module:string, doc_id:any, options: any): Promise<any> {
+  private handle_attachments(
+    module: string,
+    doc_id: any,
+    options: any
+  ): Promise<any> {
+    let result_id: any = doc_id; // return the last result if no attachments
 
-      let result_id:any=doc_id; // return the last result if no attachments
-  
-      if ("attachmentActions" in options) {
+    if ("attachmentActions" in options) {
+      let actions: AttachmentAction[] = options["attachmentActions"];
 
-        let actions: AttachmentAction[] = options["attachmentActions"];
-        
-        actions.forEach( async (action) => {
+      actions.forEach(async (action) => {
+        console.log(
+          "---------| performing attachment-action for",
+          result_id,
+          action.name,
+          action.attachment.id
+        );
 
-          console.log("---------| performing attachment-action for", result_id, action.name, action.attachment.id);
+        // ist:  'upload' | 'remove' | 'download' | 'delete'
+        // soll: 'add' | 'download' | 'remove'
+        switch (action.name) {
+          case "upload": // add, update
+            // result = error-object, or: id {id:1, rev:"1-..."}
 
-          // ist:  'upload' | 'remove' | 'download' | 'delete'
-          // soll: 'add' | 'download' | 'remove'
-          switch (action.name) {
-            case "upload": // add, update
-              // result = error-object, or: id {id:1, rev:"1-..."}
+            //* DIE result neue DOC-ID muss durch geroutet werdem zum nächsten addAttachment.
+            // TODO Das funktioniert nur beim ersten mal...
+            //* ...am besten immer auf das Ergebnis warten.
+            // https://stackoverflow.com/questions/40328932/javascript-es6-promise-for-loop
+            // https://medium.com/@juanguardado/event-loops-promises-and-their-next-generation-counterparts-36d1eb87104d
+            // https://medium.com/developer-rants/running-promises-in-a-loop-sequentially-one-by-one-bd803181b283
+            // https://brockherion.dev/blog/posts/keep-your-async-code-fast-with-promise-all/
+            // https://www.cloudnweb.dev/2019/7/promises-inside-a-loop-javascript-es6
+            // -> https://sliceofdev.com/posts/promises-with-loops-and-array-methods-in-javascript
+            // https://www.learnwithjason.dev/blog/keep-async-await-from-blocking-execution/
 
-              //* DIE result neue DOC-ID muss durch geroutet werdem zum nächsten addAttachment.
-              // TODO Das funktioniert nur beim ersten mal... 
-              //* ...am besten immer auf das Ergebnis warten.
-              // https://stackoverflow.com/questions/40328932/javascript-es6-promise-for-loop
-              // https://medium.com/@juanguardado/event-loops-promises-and-their-next-generation-counterparts-36d1eb87104d
-              // https://medium.com/developer-rants/running-promises-in-a-loop-sequentially-one-by-one-bd803181b283
-              // https://brockherion.dev/blog/posts/keep-your-async-code-fast-with-promise-all/
-              // https://www.cloudnweb.dev/2019/7/promises-inside-a-loop-javascript-es6
-              // -> https://sliceofdev.com/posts/promises-with-loops-and-array-methods-in-javascript
-              // https://www.learnwithjason.dev/blog/keep-async-await-from-blocking-execution/
-
-              // arbeitet intern jetzt mit async und await, so das jetzt eigentlich auf das Ergebnis gewartet werden sollte.
-              console.log("---------| addAttachment to before:", result_id );
-              result_id = await this.db.addAttachment(module, result_id, action.attachment.id, action.attachment.data, action.attachment.content_type);
-              console.log("---------| addAttachment to after:", result_id );
-              // TODO: Was passiert bei einem Fehler?
-              break;
-            case "remove": // TODO and not delete? wirklich?
-              break;
-            case "download":
-              break;
-            case "delete":
-              break;
-          }
-        });
-      }
-  
-      return result_id;
+            // arbeitet intern jetzt mit async und await, so das jetzt eigentlich auf das Ergebnis gewartet werden sollte.
+            console.log("---------| addAttachment to before:", result_id);
+            result_id = await this.db.addAttachment(
+              module,
+              result_id,
+              action.attachment.id,
+              action.attachment.data,
+              action.attachment.content_type
+            );
+            console.log("---------| addAttachment to after:", result_id);
+            // TODO: Was passiert bei einem Fehler?
+            break;
+          case "remove": // TODO and not delete? wirklich?
+            break;
+          case "download":
+            break;
+          case "delete":
+            break;
+        }
+      });
     }
 
+    return result_id;
+  }
 
   /**
    * Process the result, which means making a log output in the console, and sending the data back to the frontend.
@@ -268,11 +304,11 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     log.info(`############## ${who} error`, err);
 
     // https://pouchdb.com/guides/conflicts.html
-    if (err.name === 'conflict') {
-      console.log('WE HAVE a CONFLICT!');
+    if (err.name === "conflict") {
+      console.log("WE HAVE a CONFLICT!");
     } else {
       // some other error
-      console.log('WE HAVE no CONFLICT BUT ANOTHER ERROR');
+      console.log("WE HAVE no CONFLICT BUT ANOTHER ERROR");
     }
 
     if ("error" in err && "reason" in err) {

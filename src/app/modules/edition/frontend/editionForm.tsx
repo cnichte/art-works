@@ -168,7 +168,7 @@ function EditionForm() {
           <Input />
         </Form.Item>
         <Form.Item label="Notiz" name="shortnote">
-          <Input.TextArea rows={4} placeholder="Please enter a Shortnote." />
+          <Input.TextArea rows={4} placeholder="Please enter a Shortnote" />
         </Form.Item>
         <Form.Item label="Preise" name="prices">
         <Form.List name="prices" >

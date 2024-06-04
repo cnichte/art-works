@@ -56,6 +56,14 @@ function ArtworkView() {
 
    ---------------------------------------------------------- */
 
+/*
+   TODO condition: {
+    field: 'category',
+    selector: '$eq',
+    value: 'werk', // Zeige nur Attachment-Bilder
+    action: 'showif',
+  },
+*/
   const fieldsArtwork: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: 'title',
@@ -64,6 +72,18 @@ function ArtworkView() {
     {
       dataIndex: 'title_addition',
       label: 'Untertitel',
+    },
+    {
+      dataIndex: 'artists',
+      label: 'Künstler',
+      mapKeyTo: {
+        dataIndex: 'artists',
+        showFields: ['name'],
+      },
+    },
+    {
+      dataIndex: 'attachmentsMeta',
+      label: 'Bilder vom Kunstwerk',
     },
     {
       dataIndex: 'dateCreation', // TODO Keine Objekte erlaubt. 'date' ist array, wird nicht ausgegeben

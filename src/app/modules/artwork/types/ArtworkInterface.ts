@@ -1,4 +1,6 @@
+import { Tagging_Props } from '../../../common/frontend/types/Tagging_Types';
 import { MyDateValue } from '../../../common/frontend/DateTool';
+import { AttachmentMeta } from '../../../common/frontend/types/AttachmentTypes';
 
 // https://pouchdb.com/guides/attachments.html
 export interface ArtworkI {
@@ -22,9 +24,7 @@ export interface ArtworkI {
   price: string;
   shortnote: string;
 
-  image_print: string;
-  image_small: string;
-  image_type: string;
+  attachmentsMeta:AttachmentMeta[];
 
   // Userdata, Relations
   artists: string[];
@@ -39,4 +39,5 @@ export interface ArtworkI {
   genres: string[];
   tags: string[];
   notes: string[];
+  labels: Tagging_Props
 }

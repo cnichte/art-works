@@ -304,10 +304,10 @@ function ArtworkForm() {
           <Input />
         </Form.Item>
         <Form.Item label="Beschreibung kurz" name="description_short">
-          <Input.TextArea rows={4} placeholder="Please enter a Shortnote." />
+          <Input.TextArea rows={4} placeholder="Please enter a Shortnote" />
         </Form.Item>
         <Form.Item label="Beschreibung lang" name="description_long">
-          <Input.TextArea rows={4} placeholder="Please enter a Shortnote." />
+          <Input.TextArea rows={4} placeholder="Please enter a Description" />
         </Form.Item>
         <Form.Item label="Implementation" name="implementation">
           <Input />
@@ -322,7 +322,7 @@ function ArtworkForm() {
           <My_Price_Input />
         </Form.Item>
         <Form.Item label="Notiz" name="shortnote">
-          <Input.TextArea rows={4} placeholder="Please enter a Shortnote." />
+          <Input.TextArea rows={4} placeholder="Please enter a Shortnote" />
         </Form.Item>
 
         <Form.Item label="Tags" name="tags">

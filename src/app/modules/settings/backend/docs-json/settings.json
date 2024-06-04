@@ -53,9 +53,22 @@
         "dbPassword": "",
         "dbTemplate": "${dbName}"
       }
-    ]
+    ],
+    "material":{
+      "Unbearbeitetes Material": ["Stein", "Holzstamm", "Lehm"],
+      "Natürliches Material": ["Äste", "Blumen", "Sand"],
+      "Künstliches Material": ["Schaumstoff", "Styropor", "Kunststoffe"],
+      "Organisches Material": ["Wolle", "Blätter", "Holz"],
+      "Anorganisches Material": ["Kies", "Ocker", "Terra di Siena"],
+      "Gerettetes Material": ["Altpapier", "Verpackungen", "Korken"],
+      "Alltagsmaterial": ["Wasserfarben", "Kreiden", "Wachsmalstifte"],
+      "Wertvolles Material": ["Gold", "ausgesuchte Pigmente", "Silber"],
+      "Objekte als Material": ["Trichter", "Töpfe", "Bücher"],
+      "Selbst herstellbares Material": ["Knete", "Salzteig", "Papier"],
+      "Digitales Material":["Audio", "Video", "Bild", "Code", "Text"],
+      "Szenisches Spiel, performative Prozesse":[ "Körper", "Räume", "Sprache", "Töne", "Klänge"],
+      "Brain-Material":["Gedanken", "Ideen", "Konzepte"]
+    }
+
   }
-}
-{
-  "settings": {}
 }

@@ -1,12 +1,15 @@
 import { ReactElement } from "react";
-import Markdown from 'markdown-to-jsx';
+import { Image } from 'antd';
+
+import Markdown from "markdown-to-jsx";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   MyBasicViewFieldParameterI,
   MyBasicView_ChildFieldParameterI,
 } from "./types/MyBasicViewTypes";
 import RelationResolver from "./RelationResolver";
-import { v4 as uuidv4 } from 'uuid';
+import { AttachmentMeta } from "./types/AttachmentTypes";
 
 /**
  * Map propertyName to antd required 'key' Propery.
@@ -19,9 +22,9 @@ export default class ViewTool {
     propertyName: string,
     segmentParamFields: any
   ) {
-    if(segmentParamFields!=null){
+    if (segmentParamFields != null) {
       for (let x = 0; x < segmentParamFields.length; x += 1) {
-        if(propertyName in segmentParamFields[x]){
+        if (propertyName in segmentParamFields[x]) {
           segmentParamFields[x].key = segmentParamFields[x][propertyName];
         }
       }
@@ -44,29 +47,31 @@ export default class ViewTool {
     record: any,
     data: any
   ): ReactElement {
-
     let result: ReactElement;
 
     // console.log('THE RECORD LOOKS LIKE: ', record);
 
     if (RelationResolver.heShallPass(param, segment, record, data)) {
       try {
-
         // value ist normal ein string, kann auch ein Array sein.
         // Es kann auch eine uuid oder ein Array von uuids.
         // ZB bei Edition.prices, Artist Resumes.
         const fuckingValue = record[param.dataIndex]; // Das ist der Normalfall: string
 
         if (Array.isArray(fuckingValue)) {
-
-          result = ViewTool.buildMyFuckingValue(param, fuckingValue);
-
+          //
+          result = ViewTool.buildMyFuckingValue(
+            param,
+            segment,
+            record,
+            data,
+            fuckingValue
+          );
         } else {
           // Kein Array, sondern ein string oder objekt...
           // Der kann aber auch noch eine Relation
           // in Form einer uuid enthalten.
           if (RelationResolver.uuidValidateV4(fuckingValue)) {
-
             // resolve some uuids
             const objResolved = RelationResolver.resolve(
               data,
@@ -74,14 +79,19 @@ export default class ViewTool {
               fuckingValue
             );
 
-            result = ViewTool.buildMyFuckingValue(param, objResolved);
-
+            result = ViewTool.buildMyFuckingValue(
+              param,
+              segment,
+              record,
+              data,
+              objResolved
+            );
           } else {
             // String oder Objekt?
-            if(ViewTool.is_string(fuckingValue)){
+            if (ViewTool.is_string(fuckingValue)) {
               // Ein String wird als Markdown gerendert
               result = <Markdown>{fuckingValue}</Markdown>;
-            }else {
+            } else {
               // Fallback: Objekt, das ich einfach mal als Json-String ausgebe.
               const stringified: string = JSON.stringify(fuckingValue);
               result = <span>{stringified}</span>;
@@ -96,12 +106,12 @@ export default class ViewTool {
     return result;
   }
 
-  public static is_string(obj:any):boolean {
-      try {
-        return typeof obj === 'string';
-      } catch (error) {
-        return false;
-      }
+  public static is_string(obj: any): boolean {
+    try {
+      return typeof obj === "string";
+    } catch (error) {
+      return false;
+    }
   }
 
   /**
@@ -113,6 +123,9 @@ export default class ViewTool {
    */
   public static buildMyFuckingValue(
     param: MyBasicViewFieldParameterI,
+    segment: string,
+    record: any,
+    data: any,
     fuckingValue: any
   ): ReactElement {
     let result: ReactElement; // ######## OBJECT START:
@@ -128,41 +141,84 @@ export default class ViewTool {
       // rendern wir die angegebenen Properties der Liste-Elemente als Unterliste, ansonsten als String.
       //* Nur die fields im Array rendern.
 
-      // TODO Das resolven von UUIDs müsste noch erfolgen...
-      result = ViewTool.build_list(fuckingValue, param.childs);
-    } // fuckingValue is Array
+      if ("childs" in param) {
+        //* Beispiel für childs siehe /modules/edition/frontend/editionView.tsx.
+        result = ViewTool.build_list(fuckingValue, param.childs);
+      } else {
+        //* Kein childs property in params
+        //* Beispiel Tags in /modules/artwork/frontend/artworkView.tsx
 
-    // limit the child fields
-    if ("mapKeyTo" in param) {
-      // Hab ich bestimmte Felder im Sinn?
-      // Hier prüfe ich auf MyBasicViewFieldMapToParameterI oder string
-      // TODO Das ist unsauber geprüft...
-      // weil instanceof MyBasicViewFieldMapToParameterI oder sowas geht nicht...
-      if (typeof param.mapKeyTo === "string") {
-        // Dann ist hier nur eine uuid angegeben und keine Felder, also werden alle gerendert.
-      } else if ("showFields" in param.mapKeyTo) {
-        fields = param.mapKeyTo.showFields;
+        // limit the child fields
+        if ("mapKeyTo" in param) {
+          // Hab ich bestimmte Felder im Sinn?
+          // Hier prüfe ich auf MyBasicViewFieldMapToParameterI oder string
+          // TODO Das ist unsauber geprüft...
+          // weil instanceof MyBasicViewFieldMapToParameterI oder sowas geht nicht...
+          if (typeof param.mapKeyTo === "string") {
+            // Dann ist hier nur eine uuid angegeben und keine Felder, also werden alle gerendert.
+          } else if ("showFields" in param.mapKeyTo) {
+            fields = param.mapKeyTo.showFields;
+          }
+        }
+
+        let s:string = "";
+        let separator:string = ' | ';
+        let images: ReactElement[] = [];
+
+        Object.entries(fuckingValue).forEach(([theKey, theValue]) => {
+          if (RelationResolver.uuidValidateV4(theValue)) {
+            const objResolved = RelationResolver.resolve(data, param, theValue);
+            if (typeof objResolved === "string") {
+              s = s.concat(objResolved).concat(separator);
+            } else {
+              if (fields.length > 0) {
+                // Hole alle gewünschten Felder aus dem Objekt.
+                Object.entries(fields).forEach(([fieldKey, fieldValue]) => {
+                  if (fieldValue in objResolved) {
+                    s = s.concat(`${objResolved[fieldValue]}`);
+                  } else {
+                    console.log(
+                      `Das Property ${fieldValue} befindet sich nicht im Objekt`,
+                      objResolved
+                    );
+                  }
+                });
+              } else {
+                s = JSON.stringify(objResolved);
+              }
+            }
+          }else{
+            // if(theValue instanceof AttachmentMeta){}
+            // Das könnte so schön sein, funktoiniert aber nur
+            // wenn es eine instanzierte Klasse ist
+            // und nicht wenn es ein Objekt ist (glaube ich)
+            // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#instanceof-narrowing
+            if('category' in theValue) { //! Das ist ein Hack!
+              // AttachmentMeta
+              const fv = theValue as AttachmentMeta;
+              // s = s.concat(`${fv.filename}`).concat(separator);
+
+              if(fv.category === 'werk' && fv.is_cover){ // Image
+                
+                images.push(<Image width={200} src={fv.preview} />);
+              }
+            } else {
+              s = s.concat(JSON.stringify(fuckingValue));
+            }
+          }
+        }); // loop
+
+        if(s.endsWith(separator)){
+          s = s.substring(0, s.lastIndexOf(separator));
+        }
+
+        result = <>{s} 
+        <Image.PreviewGroup>
+        {images.map(i => i)}
+        </Image.PreviewGroup>
+        </>;
       }
-    }
-
-    let x: string = "";
-    if (fields.length > 0) {
-      // Nur die gewünschten Felder.
-      // TODO bei mehreren Feldern könnte ich in den Params MyBasicViewFieldMapToParameterI
-      // ein Template angeben mit Platzhaltern, das bestimmt wie die Inhalte verknüpft / gerendert werden.
-      Object.entries(fields).forEach(([theKey, theValue]) => {
-        x = x.concat(`${fuckingValue[theValue]}`);
-      });
-      result = <span>{x}</span>;
-    } else {
-      /*
-       Object.entries(fuckingValue).forEach(([theKey, theValue]) => {
-        x = x.concat(`${theKey}:'${theValue}', `);
-      });
-
-      result = <span>{x}</span>
-      */
-    }
+    } // fuckingValue is Array
 
     return result;
   }
@@ -190,15 +246,16 @@ export default class ViewTool {
           r = r.concat(`${theKey}:'${theValue}', `);
         });
 
-        value = <span>{r}</span>;
+        value = <>{r}</>;
+
         // const test:string = JSON.stringify(listItem);
         // value = <span>{test}</span>
       }
 
-      return <li  key={uuidv4()}>Edition {value}</li>;
+      return <>{value}</>;
     });
 
-    return <ul>{list_elements}</ul>;
+    return <>{list_elements}</>;
   }
 
   public static build_child_list(

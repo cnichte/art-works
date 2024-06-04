@@ -22,7 +22,18 @@ import MyAttachmentsMetaView from "./myAttachmentsMetaView";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-/* Momentan arbeitet das mit Bildern. */
+/**
+ ** MyAttachmentsMetaInput.
+ ** Ich unterscheide (demnächst) zwischen Werken und Dokumenten.
+ ** Momentan arbeitet das nur mit Bildern (Werken).
+ *
+ * When I work with attachments, I work with my own extended metadata, because the
+ * PouchDB attachments don't offer enough options.
+ *
+ * So I only work with the metadata in the view,
+ * until the original document is to be downloaded,
+ * or until actions are performed: upload, remove, download.
+ */
 
 /* ==========================================================
 
@@ -103,17 +114,9 @@ interface Props {
   onChange?: (value: AttachmentMeta[]) => void;
 }
 
-/**
- ** MyAttachmentsMetaInput - React Component.
- *
- * When I work with attachments, I work with my own extended metadata, because the
- * PouchDB attachments don't offer enough options.
- *
- * So I only work with the metadata in the view,
- * until the original document is to be downloaded,
- * or until actions are performed: upload, remove, download.
- *
+/** MyAttachmentsMetaInput
  ** This is a 'Customized or third-party form control'
+ *
  * https://ant.design/components/form
  * Customized or third-party form controls can be used in Form, too. Controls must follow these conventions:
  * It has a controlled property value or other name which is equal to the value of valuePropName.
@@ -189,6 +192,7 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
               // prepare the Attachment-Metadata
               let meta: AttachmentMeta = {
                 id: uuid,
+                category: "werk",
                 filename: file.name,
                 mimetype: file.type,
                 title: "A Title",

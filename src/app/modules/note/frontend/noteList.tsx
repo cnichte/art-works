@@ -5,6 +5,7 @@ import type { ColumnsType } from 'antd/es/table';
 import RequestFactory from '../../../common/backend/RequestFactory';
 import { MyBasicList } from '../../../common/frontend/myBasicList';
 import { NoteI } from '../types/NoteInterface';
+import { useState } from 'react';
 
 const { Paragraph } = Typography;
 
@@ -28,7 +29,7 @@ function NoteList() {
   const moduleId = 'note';
 
   const requests = RequestFactory.getListRequestsFor(moduleId, 'ipc-database');
-
+  
   /* ----------------------------------------------------------
 
     Standard Actions

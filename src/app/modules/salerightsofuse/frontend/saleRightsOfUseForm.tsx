@@ -166,13 +166,13 @@ function SaleForm() {
           <Input />
         </Form.Item>
         <Form.Item label="Beschreibung lang" name="descriptionLong">
-          <Input.TextArea rows={4} placeholder="Please enter a Shortnote." />
+          <Input.TextArea rows={4} placeholder="Please enter a Shortnote" />
         </Form.Item>
         <Form.Item label="Webadresse" name="url">
           <Input />
         </Form.Item>
         <Form.Item label="Notiz" name="shortnote">
-          <Input.TextArea rows={4} placeholder="Please enter a Shortnote." />
+          <Input.TextArea rows={4} placeholder="Please enter a Shortnote" />
         </Form.Item>
       </Form>
     </div>

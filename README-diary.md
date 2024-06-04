@@ -1,6 +1,8 @@
 # Developer Diary
 
-- List <https://ant.design/components/list> kann `load more`! und `cards` statt Tabelle lieber das nehmen?
+- List <https://ant.design/components/list> kann `load more`! und `cards`
+  - statt Tabelle lieber das nehmen?
+  - Am  besten mal alle drei Optionen implementieren. Den Umschalter gibts ja schon in 2fach.
 - react drag and drop reorder list (für Zusammenstellungen).
   - <https://github.com/react-dnd/react-dnd/>
   - <https://github.com/VaishakVk/react-drag-reorder>
@@ -13,16 +15,31 @@
   - <https://github.com/alex8088/quick-start/tree/master/packages/create-electron/playground/react>
   - macht builds für verschiedene Plattformen.
 
-Artwork - Preis: Ein Preis kann sich auf eine Kalkulation beziehen.
+- Ein Modul Recherche / Eine Art modulübergreifende Suche.
+  - Macht das Sinn?
+  - Man könnte darin suchen "abspeichern". Das wäre wie spezielle Views anlegen.
+  - Die könnte ich schon im vorhandenen Input-search field implementieren.
+    - Option: im aktuellen Modul suchen / in allen Modulen suchen.
+    - Das Suchergebnis öffnet sich dann in einem Fenster mit vorschauen.
+    - die Ergenbisse verlinken uaf die Einträge in den Modulen.
+    - Das blöde ist das die Ergebnisse weg sin sobald sich das fenter schließt.
+    - Vielleicht was für den Drawer?
+      - Der müsste nur übergreifend implemetiert sein.
+
+- DATABASE init
+  - beim Befüllen der DB über json, sollen auch die attachments geladen werden.
+  - Es wäre an der Zeit den db inhalt zu exportieren und wieder zu importieren.
 
 ## Erledigt
 
 - 2024-05-30 Donnerstag
+  
   - myBasicView
     - Liste in Description rendern, siehe editionView.
     - markdown rendern
 
 - 2024-05-31 Freitag
+  
   - myBasicView / myBasicList
     - uuid lookup repariert
     - Each child in a list should have a unique "key" prop.
@@ -30,11 +47,13 @@ Artwork - Preis: Ein Preis kann sich auf eine Kalkulation beziehen.
     - AttachmentMeta funktioniert.
 
 - 2024-06-01 Samstag
+  
   - artworkForm
     - AttachmentMeta und die Actions im Backend verwenden um Attachments
       - mehrere hochladen (wird direkt im doc gemacht)
 
 - 2024-06-02 Sonntag
+  
   - artworkForm / myAttachmentMetaInput / View
     - große Bilder hochladen bis 50MB.
     - Verkleinertes Vorschaubild erzeugen
@@ -45,16 +64,35 @@ Artwork - Preis: Ein Preis kann sich auf eine Kalkulation beziehen.
   - Fenstergröße
 
 - 2024-06-03 Montag
+  
   - Markierungen: rating, color, flag.
+  
   - artworkForm / myAttachmentMetaInput / View
     - Attachment-Metadaten ändern
+  
   - calculationForm / wditionForm
     - uuid ergänzt. Laden und speichern klappt jetzt.
 
 - 2024-06-04 Dienstag
+
+  - Es gibt jetzt ein Custom-Menü, mit Inspect-Element Kontextmenü im Developer-Mode.
+  - AttachmentMeta - Kategorie: `Werk`, `Dokument` eingeführt.
+    - Das sollte helfen die zwei grundlegenden Arten zu unterscheiden.
+  - arworkList - Cover-Image wird angezeigt.
+  - arworkView / myBasicView
+    - Tags- & Genres-Relationen werden wieder aufgelöst und angezeigt.
+    - Cover-Images werden angezeigt
+  
   - artworkForm / myAttachmentMetaInput / View
-    - Attachment entfernen (unfertig)
     - Attachment herunterladen (unfertig)
+      - request, und Dialog öffnen.
+      - ...
+      - parameter übergeben / Attachment aus DB holen und speichern.
+    - Attachment entfernen (unfertig)
+
+## Als nächstes
+
+- 2024-06-05 Mittwoch
   - Kalkulation
     - Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
     - Feld Gesamt Summe (automatisch berechnen)
@@ -62,9 +100,16 @@ Artwork - Preis: Ein Preis kann sich auf eine Kalkulation beziehen.
   - Rental
     - da geht noch nix
 
-## Morgen zu erledigen
+## Demnächst zu erledigen
 
-- artworkForm / myTagsInput
+- artworkView
+  - Erstellungsdatum rendern
+  - Markierungen rendern
+
+- artworkForm
+  - Artwork-Preis: Ein Preis kann sich auf eine Kalkulation beziehen...
+  - Das Feld Künstler fehlt noch.
+  - Genre - da wird die uuid angezeigt. Da fehlt noch die select box.
   - myTagsInput: Cascader verwenden <https://ant.design/components/cascader>?
   - statt Option group? <https://ant.design/components/select>
     - suche ans laufen bringen
@@ -77,12 +122,19 @@ Artwork - Preis: Ein Preis kann sich auf eine Kalkulation beziehen.
   - test Es wird keine Datenbank erzeugt, und auch keine Daten angelegt?
   - Info: die Datenbank ist da, un gefüllt.
 
-## Demnächst zu erledigen
+## Backlog / TODO
 
 Lose Sammlung, was mir auffällt.
 
 - AttachmentMeta könnte auch die Exifs der Bilder speichern.
 - AttachmentMeta - id / key: nur eins davon verwenden: id --- und für react: key={id}
+
+- Arwork
+  - Medium: Malerei, Druckgraphik, Skulptur, Digitale Fotografie.
+  - Materialien: Öle, Acryl, Tinten, Ton. Bronze, Holz, Porzellan / Keramik, Stahl, Sonstige Materialien.
+
+Digital, Papier, Leinwand, Gips, Mixed-Media.
+Abmessungen: x,y,z pixel, mm, cm
 
 - Artist
   - Lebenslauf Einträge hinzufügen / bearbeiten / löschen.
@@ -95,17 +147,24 @@ Lose Sammlung, was mir auffällt.
     - Andrea Schwelle - klappt
 
 - Calculation
-  - wie bei Editionen eine Art Tabelle machen.
-  - Struktur siehe Beispiele in Datenbank (CalculationGroup, CalculationItems)
+  - CalculationGroup, CalculationItems brauch ich nicht mehr? Evtl. für Vorlagen?
+  - Unterpositionen in Positionen, die aber in der Ausgabe nicht gezeigt werden.
+    - ...
 
 - Editionen
   - Preis-Anzahl (berechnet aus start und ende)
   - Menge (View) Edition Nummer (Form) -> Anzahl gesamt
+  - Es ist noch nicht klar wie die Editionen mit den Sales verknüpft sind...
+    - Editionen sind ja erst mal nur eine Art Vorlage / Definition.
 
 - Rental
   - Verleih hinzufügen: Öffnet Verkauf-Form
   - Keine Beispiele in der DB? Die Liste ist noch leer.
 
+- Sale
+  - Da müssen die Nutzungrechte angehängt werden können.
+  - Preis aus einer Kalkulation übernehmen.
+  - In Form fehlt der Kunde noch (Auswahl aus Adressen)  
 - Settings
   - den aktiven Katalog markieren
   - Umschaltung persistent machen

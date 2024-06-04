@@ -1,5 +1,7 @@
+type Attachment_Category = "werk" | "document";
 type AttachmentActionName = 'upload' | 'remove' | 'download' | 'delete' ;
 type AttachmentActionPropertyName = 'attachmentActions';
+
 // TODO das geht so nicht { AttachmentActionPropertyName: 'value' }
 
 /**
@@ -41,13 +43,13 @@ interface AttachmentAction {
 /**
  * Das wird von der REACT Komponente verarbeitet.
  *
- *
  * @interface AttachmentMeta
  */
 interface AttachmentMeta {
   id: string;
   filename: string;
   mimetype: string;
+  category: Attachment_Category
   title: string;
   description: string;
   is_cover:boolean;
@@ -59,6 +61,7 @@ export {
   Attachment,
   AttachmentMeta,
   AttachmentAction,
+  type Attachment_Category,
   type AttachmentActionName,
   type AttachmentActionPropertyName,
   type Attachment_CouchDB

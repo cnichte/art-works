@@ -11,6 +11,8 @@ import { DocumentBase } from "../../../../common/backend/DocumentBase";
 import { JSONableI } from "../../../../common/backend/types/JSONableInterface";
 
 import { ArtworkI } from "../../types/ArtworkInterface";
+import { AttachmentMeta } from "../../../../common/frontend/types/AttachmentTypes";
+import { Tagging_Props } from "../../../../common/frontend/types/Tagging_Types";
 
 const fs = require("fs-extra");
 
@@ -60,14 +62,15 @@ export class Artwork extends DocumentBase implements ArtworkI, JSONableI {
 
   shortnote: string = "";
 
-  // Userdata, Images
-  // TODO Images as Attachments?
-  // Das sind die Filenames
-  image_print: string = "";
+  // Userdata, Images  
+  attachmentsMeta: AttachmentMeta[] = [];
 
-  image_small: string = "";
-
-  image_type: string = "";
+  // extra Tagging
+  labels: Tagging_Props = {
+    rating: 0,
+    color: "",
+    flag: false,
+  };
 
   // Userdata, Relations
 
@@ -120,11 +123,10 @@ export class Artwork extends DocumentBase implements ArtworkI, JSONableI {
       forsale: this.forsale,
       price: this.price,
 
-      image_print: this.image_print,
-      image_small: this.image_small,
-      image_type: this.image_type,
-
       shortnote: this.shortnote,
+      
+      attachmentsMeta: this.attachmentsMeta,
+      labels: this.labels,
 
       artists: this.artists,
       groupsofwork: this.groupsofwork,
