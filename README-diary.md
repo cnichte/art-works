@@ -93,18 +93,23 @@
   - artworkForm / myAttachmentMetaInput / View
     - Attachment herunterladen.
     - Attachment entfernen
+    - Generischen Tag Input
 
 - Heute
 
 - 2024-06-05 Donnerstag
 
+  - artworkView
+    - Tags im View als echte Tags rendern.
+    - <https://4x-ant-design.antgroup.com/components/tag/>
+
 - artworkForm
   - Artwork-Preis: Ein Preis kann sich auf eine Kalkulation beziehen...
   - Das Feld Künstler fehlt noch.
   - Genre - da wird die uuid angezeigt. Da fehlt noch die select box.
-  - myTagsInput: Cascader verwenden <https://ant.design/components/cascader>?
-  - statt Option group? <https://ant.design/components/select>
-    - suche ans laufen bringen
+  - Generisches Tag Feld überall einbauen.
+
+Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 
 ## Als nächstes
 
