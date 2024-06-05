@@ -11,6 +11,8 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 MyAppMain.initLogger();
 
+console.log('👋 This message is being logged by "main.ts"');
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
@@ -25,14 +27,11 @@ const createWindow = (): void => {
   // Retina displays have a different pixel scale factor, and that Electron uses that in its calculations...
   let factor = primaryDisplay.scaleFactor;
 
-  // size.width = size.width * 0.8;
-  // size.height = size.height * 0.9;
-
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: size.width / factor,
     height: size.height / factor,
-    icon: '/assets/app-icons/icon.png',
+    icon: "/assets/app-icons/icon.png",
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       zoomFactor: 1.0 / factor,
@@ -50,25 +49,17 @@ const createWindow = (): void => {
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools(); // TODO DevTools für Produktion auskommentieren.
+  // Open the DevTools for development per default.
+  if (
+    process.env.NODE_ENV === "development" ||
+    process.env.DEBUG_PROD === "true"
+  ) {
+    mainWindow.webContents.openDevTools();
+  }
 };
 
 async function register_IPC_Listeners() {
   MyAppMain.getAppBackend().handle_IPC();
-
-  /**
-   * This comes from preload.ts
-   */
-  // ipcMain.on('message', (_, message) => {
-  //  console.log(message)
-  // })
-  // const rd:Request_Dispatcher = new Request_Dispatcher();
-  // rd.dispatch_requests();
-  // ipcMain.on('ipc-database', async (event, arg) => {
-  //   const database = new Database();
-  //   database.test();
-  //});
 }
 
 // This method will be called when Electron has finished

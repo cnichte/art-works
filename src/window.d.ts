@@ -7,6 +7,6 @@ import { context_bridge_api } from "./preload";
  */
 declare global {
   interface Window {
-    app_api: typeof context_bridge_api;
+    my_app_api: typeof context_bridge_api;
   }
 }

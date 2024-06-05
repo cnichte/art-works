@@ -76,6 +76,7 @@ function EditionView() {
       dataIndex: "prices",
       label: "Preise",
       // this is an array. render inline childs in separate table.
+      childs_render:"list", // list, string
       childs: [
         {
           dataIndex: "description",

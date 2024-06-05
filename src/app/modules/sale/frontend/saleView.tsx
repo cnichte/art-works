@@ -80,6 +80,7 @@ function SaleView() {
         showFields: ['title'],
       },
       condition: {
+        scope:'field',
         field: 'saleType',
         selector: '$eq',
         value: '2932a605-48aa-4368-96b7-21aed8103e38', // Buchverkauf
@@ -94,6 +95,7 @@ function SaleView() {
         showFields: ['title'],
       },
       condition: {
+        scope:'field',
         field: 'saleType',
         selector: '$eq',
         value: '0ae7570a-603c-43f3-9667-5aa019dd27eb', // Print (Standard)
@@ -108,6 +110,7 @@ function SaleView() {
         showFields: ['title'],
       },
       condition: {
+        scope:'field',
         field: 'saleType',
         selector: '$eq',
         value: '0ad711be-179b-4fd6-b069-3ee8ada9591a', // Fineartprint (Edition)
@@ -119,6 +122,7 @@ function SaleView() {
       dataIndex: 'editionNumber',
       label: 'Nummer der Edition',
       condition: {
+        scope:'field',
         field: 'saleType',
         selector: '$eq',
         value: '0ad711be-179b-4fd6-b069-3ee8ada9591a', // Fineartprint (Edition)

@@ -5,6 +5,7 @@ import {
   BrowserWindow,
   MenuItemConstructorOptions,
 } from "electron";
+import { MyAppInfo } from "./app/MyAppInfo";
 
 /**
  * Build up a Menu.
@@ -25,12 +26,7 @@ export interface Menu_Links {
   link: string;
 }
 
-app.setAboutPanelOptions({
-  copyright: "All rights reserved.",
-  credits: "Carsten Nichte",
-  authors: ["Carsten Nichte"],
-  website: "https://carsten-nichte.de/",
-});
+app.setAboutPanelOptions(MyAppInfo.MY_ABOUT_PANEL_OPTIONS);
 
 export class MenuBuilder {
   mainWindow: BrowserWindow;

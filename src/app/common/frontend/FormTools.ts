@@ -28,7 +28,7 @@ export default class FormTools {
 
   /*
   static async invokeRequestHandler() {
-    const result = await window.app_api.ipc.invoke('my-invokable-ipc', "arg1", "arg2")
+    const result = await window.my_app_api.ipc.invoke('my-invokable-ipc', "arg1", "arg2")
     // ...
   }
 */
@@ -48,7 +48,7 @@ export default class FormTools {
     options: any
   ) {
     console.log(`------> form customRequest: ${request}`);
-    window.app_api.ipc.sendMessage(channel, [
+    window.my_app_api.ipc.sendMessage(channel, [
       request,
       module,
       options,
@@ -66,7 +66,7 @@ export default class FormTools {
     // That's why I use 'on' here and have to choose from the different
     // answers and have to choose the one that suits me.
     // If I only expect one answer, I can use once.
-    window.app_api.ipc.on(channel as IPC_Channels, (arg:any) => {
+    window.my_app_api.ipc.on(channel as IPC_Channels, (arg:any) => {
       if (arg.request === request) {
         // eslint-disable-next-line prettier/prettier
         console.log(`<------ form customResponse, for Request: ${request}, received arg.data=`, arg.data);
@@ -89,13 +89,13 @@ export default class FormTools {
     //* Operating mode is 'new' or 'edit'.
     if (id !== 'new') {
       //* The parameter is a uuid, so we query the data from the database.
-      window.app_api.ipc.sendMessage(requests.channel, [
+      window.my_app_api.ipc.sendMessage(requests.channel, [
         requests.loadData,
         id,
       ]);
     } else {
       //* The parameter is 'new', so I create a new data object, and create a uuid.
-      window.app_api.ipc.sendMessage(requests.channel, [
+      window.my_app_api.ipc.sendMessage(requests.channel, [
         requests.getObject,
       ]);
     }
@@ -120,7 +120,7 @@ export default class FormTools {
     // That's why I use 'on' here and have to choose from the different
     // answers and have to choose the one that suits me.
     // If I only expect one answer, I can use once.
-    window.app_api.ipc.on(props.requests.channel, (arg:any) => {
+    window.my_app_api.ipc.on(props.requests.channel, (arg:any) => {
       if (
         arg.request === props.requests.loadData ||
         arg.request === props.requests.getObject
@@ -162,7 +162,7 @@ export default class FormTools {
       //* Operating modes: new and edit.
       if (id !== 'new') {
         console.info(`submitHandler requests 'data save' from backend...`);
-        window.app_api.ipc.sendMessage(props.requests.channel, [
+        window.my_app_api.ipc.sendMessage(props.requests.channel, [
           props.requests.saveData,
           dataOrigin[props.segment][0],
           { attachmentActions },
@@ -175,7 +175,7 @@ export default class FormTools {
         // oder ich führe generell ein zusätzliches Parameter-Objekt ein
         // (mit mode=create oder save). Später kommen sicher noch mehr dazu.
         // TODO Das Ergebnis abholen...
-        window.app_api.ipc.sendMessage(props.requests.channel, [
+        window.my_app_api.ipc.sendMessage(props.requests.channel, [
           props.requests.createData,
           dataOrigin[props.segment][0],
           { attachmentActions },
@@ -205,7 +205,7 @@ export default class FormTools {
     // That's why I use 'on' here and have to choose from the different
     // answers and have to choose the one that suits me.
     // If I only expect one answer, I can use once.
-    window.app_api.ipc.on(props.requests.channel, (arg:any) => {
+    window.my_app_api.ipc.on(props.requests.channel, (arg:any) => {
       if (
         arg.request === props.requests.saveData ||
         arg.request === props.requests.createData

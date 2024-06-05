@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { Image } from 'antd';
+import { Image } from "antd";
 
 import Markdown from "markdown-to-jsx";
 import { v4 as uuidv4 } from "uuid";
@@ -10,6 +10,7 @@ import {
 } from "./types/MyBasicViewTypes";
 import RelationResolver from "./RelationResolver";
 import { AttachmentMeta } from "./types/AttachmentTypes";
+import { Condition } from "./Condition";
 
 /**
  * Map propertyName to antd required 'key' Propery.
@@ -142,8 +143,18 @@ export default class ViewTool {
       //* Nur die fields im Array rendern.
 
       if ("childs" in param) {
-        //* Beispiel für childs siehe /modules/edition/frontend/editionView.tsx.
-        result = ViewTool.build_list(fuckingValue, param.childs);
+        result = <>{JSON.stringify(fuckingValue)}</>;
+
+        if ("childs_render" in param) {
+          if (param.childs_render == "list") {
+            //* Beispiel für childs siehe /modules/edition/frontend/editionView.tsx.
+
+            if ("childs_condition" in param) {
+            }
+
+            result = ViewTool.build_list(fuckingValue, param.childs);
+          }
+        }
       } else {
         //* Kein childs property in params
         //* Beispiel Tags in /modules/artwork/frontend/artworkView.tsx
@@ -161,10 +172,11 @@ export default class ViewTool {
           }
         }
 
-        let s:string = "";
-        let separator:string = ' | ';
+        let s: string = "";
+        let separator: string = " | ";
         let images: ReactElement[] = [];
 
+        // AttachmentsMeta
         Object.entries(fuckingValue).forEach(([theKey, theValue]) => {
           if (RelationResolver.uuidValidateV4(theValue)) {
             const objResolved = RelationResolver.resolve(data, param, theValue);
@@ -187,36 +199,45 @@ export default class ViewTool {
                 s = JSON.stringify(objResolved);
               }
             }
-          }else{
-            // if(theValue instanceof AttachmentMeta){}
-            // Das könnte so schön sein, funktoiniert aber nur
-            // wenn es eine instanzierte Klasse ist
-            // und nicht wenn es ein Objekt ist (glaube ich)
-            // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#instanceof-narrowing
-            if('category' in theValue) { //! Das ist ein Hack!
-              // AttachmentMeta
-              const fv = theValue as AttachmentMeta;
-              // s = s.concat(`${fv.filename}`).concat(separator);
+          } else {
+            if ("condition" in param) {
+              if (Condition.showField(param, theValue, 'childs')) {
+                // if(theValue instanceof AttachmentMeta){}
+                // Das könnte so schön sein, funktioniert aber nur
+                // wenn es eine instanzierte Klasse ist
+                // und nicht wenn es ein Objekt ist (glaube ich)
+                // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#instanceof-narrowing
+                if ("category" in theValue) {
+                  //! Das ist ein Hack!
+                  // AttachmentMeta
+                  const fv = theValue as AttachmentMeta;
+                  // s = s.concat(`${fv.filename}`).concat(separator);
 
-              if(fv.category === 'werk' && fv.is_cover){ // Image
-                
-                images.push(<Image width={200} src={fv.preview} />);
-              }
-            } else {
-              s = s.concat(JSON.stringify(fuckingValue));
-            }
+                  if (fv.category === "werk" && fv.is_cover) {
+                    // Image
+
+                    images.push(<Image width={200} src={fv.preview} />);
+                  }
+                } else {
+                  s = s.concat(JSON.stringify(fuckingValue));
+                }
+              } else {
+                // condition show-not
+              } // condition shownot
+            } // condition
           }
         }); // loop
 
-        if(s.endsWith(separator)){
+        if (s.endsWith(separator)) {
           s = s.substring(0, s.lastIndexOf(separator));
         }
 
-        result = <>{s} 
-        <Image.PreviewGroup>
-        {images.map(i => i)}
-        </Image.PreviewGroup>
-        </>;
+        result = (
+          <>
+            {s}
+            <Image.PreviewGroup>{images.map((i) => i)}</Image.PreviewGroup>
+          </>
+        );
       }
     } // fuckingValue is Array
 

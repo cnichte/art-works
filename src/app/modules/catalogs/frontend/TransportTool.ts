@@ -18,7 +18,7 @@ export default class TransportTool {
    */
   public static transporRequest(request: string, module: string, options: any) {
     console.log(`------> form transporRequest: ${request}`);
-    window.app_api.ipc.sendMessage(IPC_CHANNEL, [
+    window.my_app_api.ipc.sendMessage(IPC_CHANNEL, [
       request,
       module,
       options,
@@ -35,7 +35,7 @@ export default class TransportTool {
     // That's why I use 'on' here and have to choose from the different
     // answers and have to choose the one that suits me.
     // If I only expect one answer, I can use once.
-    window.app_api.ipc.on(IPC_CHANNEL, (arg: any) => {
+    window.my_app_api.ipc.on(IPC_CHANNEL, (arg: any) => {
       if (arg.request === request) {
         // eslint-disable-next-line prettier/prettier
         console.log(`<------ form transportResponse, for Request: ${request}, received arg.data=`, arg.data);

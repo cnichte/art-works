@@ -58,5 +58,5 @@ export const context_bridge_api: ContextBridgeApi = {
   // we can also expose variables, not just functions
 };
 
-// The renderer process can access it like so: window.app_api.ipc.sendMessage(...)
-contextBridge.exposeInMainWorld("app_api", context_bridge_api);
+// The renderer process can access it like so: window.my_app_api.ipc.sendMessage(...)
+contextBridge.exposeInMainWorld("my_app_api", context_bridge_api);

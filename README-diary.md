@@ -1,5 +1,6 @@
 # Developer Diary
 
+- Im Header: Connected-Symbol bei Server + "Watchdog": `<CloudServerOutlined /> <CheckCircleOutlined /> <CloseCircleOutlined />`
 - List <https://ant.design/components/list> kann `load more`! und `cards`
   - statt Tabelle lieber das nehmen?
   - Am  besten mal alle drei Optionen implementieren. Den Umschalter gibts ja schon in 2fach.
@@ -76,6 +77,7 @@
 - 2024-06-04 Dienstag
 
   - App-Icon (Mac:getestet, Linux:ungetestet, Windows:ungetestet)
+  - AboutMe Dialog customized
   - Es gibt jetzt ein Custom-Menü, mit Inspect-Element Kontextmenü im Developer-Mode.
   - AttachmentMeta - Kategorie: `Werk`, `Dokument` eingeführt.
     - Das sollte helfen die zwei grundlegenden Arten zu unterscheiden.

@@ -42,7 +42,7 @@ function RenderDescriptions(reactParams: {
   const { segmentParams, record, data } = reactParams;
 
   function checkConditions(field: MyBasicViewFieldParameterI): boolean {
-    return Condition.showField(field, record);
+    return Condition.showField(field, record, 'field');
   }
 
   return (
@@ -329,14 +329,14 @@ function MyBasicView({
     //* Fordere Daten vom Backend, an.
     // eslint-disable-next-line prettier/prettier
     console.log(`---- ${moduleId}-view - requests data from backend ${requests.viewData}.`);
-    window.app_api.ipc.sendMessage(requests.channel, [
+    window.my_app_api.ipc.sendMessage(requests.channel, [
       requests.viewData,
       id,
     ]);
   }, []);
 
   //* Erhalte die Daten vom Backend.
-  window.app_api.ipc.once(requests.channel, (arg:any) => {
+  window.my_app_api.ipc.once(requests.channel, (arg:any) => {
     if (arg.request === requests.viewData) {
       console.log(
         `---- ${moduleId}-view - receives data from backend`,

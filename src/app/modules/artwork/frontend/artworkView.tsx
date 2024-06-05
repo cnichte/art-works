@@ -84,6 +84,13 @@ function ArtworkView() {
     {
       dataIndex: 'attachmentsMeta',
       label: 'Bilder vom Kunstwerk',
+      condition: {
+        scope:'childs',
+        field: 'category',
+        selector: '$eq',
+        value: 'werk', 
+        action: 'showif',
+      }
     },
     {
       dataIndex: 'dateCreation', // TODO Keine Objekte erlaubt. 'date' ist array, wird nicht ausgegeben
@@ -140,6 +147,17 @@ function ArtworkView() {
     {
       dataIndex: 'labels',
       label: 'Markierungen',
+    },
+    {
+      dataIndex: 'attachmentsMeta',
+      label: 'Angehängte Dateien',
+      condition: {
+        scope:"childs",
+        field: 'category',
+        selector: '$eq',
+        value: 'document', 
+        action: 'showif',
+      }
     },
   ];
 

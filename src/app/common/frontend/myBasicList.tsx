@@ -99,11 +99,11 @@ function MyBasicList({
   useEffect(() => {
     //* Fordere Daten vom Backend, an.
     // console.log( `Fordere Daten vom Backend an: ${requests.channel}, ${requests.listData}.`);
-    window.app_api.ipc.sendMessage(requests.channel, [requests.listData]);
+    window.my_app_api.ipc.sendMessage(requests.channel, [requests.listData]);
   }, []);
 
   //* Erhalte die Daten vom Backend.
-  window.app_api.ipc.once(requests.channel, (arg: any) => {
+  window.my_app_api.ipc.once(requests.channel, (arg: any) => {
     console.log(arg);
     if (arg.request === requests.listData) {
       if ("error" in arg) {
@@ -163,7 +163,7 @@ function MyBasicList({
     setData(newData);
 
     console.info("Request data delete from backend...");
-    window.app_api.ipc.sendMessage(requests.channel, [
+    window.my_app_api.ipc.sendMessage(requests.channel, [
       requests.deleteData,
       record,
     ]);

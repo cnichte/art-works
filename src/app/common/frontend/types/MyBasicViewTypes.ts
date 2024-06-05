@@ -15,6 +15,7 @@ interface MyBasicViewFieldMapToParameterI {
 // I map the dataindex to the key field where needed.
 
 type myBasicViewType = 'description' | 'table' | 'component';
+type myBasicViewChildsType = 'list' | 'string';
 
 interface MyBasicViewFieldParameterI {
   dataIndex: string; // required for Table
@@ -23,12 +24,14 @@ interface MyBasicViewFieldParameterI {
   mapKeyTo?: string | MyBasicViewFieldMapToParameterI;
   condition?: ConditionParameter;
   useChilds?: string[]; // Wird in Tags verwendet
+  childs_render?:myBasicViewChildsType, // render_type: list, string
   childs?:MyBasicView_ChildFieldParameterI[] // TODO siehe editionView
 }
 
 interface MyBasicView_ChildFieldParameterI {
   dataIndex: string; // required for Table
   label: string;
+  condition?: ConditionParameter;
 }
 
 interface MyBasicViewSegmentParameterI {
