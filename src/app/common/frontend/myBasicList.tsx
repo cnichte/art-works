@@ -25,7 +25,6 @@ import type { ColumnsType } from "antd/es/table";
 import { RequestsListI } from "../backend/types/RequestsFactoryTypes";
 import { MySearchField } from "./myInputFields";
 import { GroupOfWorkI } from "../../modules/groupofwork/types/GroupOfWorkInterface";
-import ViewTool from "./ViewTools";
 import RelationResolver from "./RelationResolver";
 import { MyBasicList_Meta_I } from "./types/MyBasicListTypes";
 
@@ -42,7 +41,7 @@ type RowSelectionCallbackType = (
   selectedRows: Array<any> // TODO ? DataType
 ) => any;
 
-interface Props {
+interface MyBasicListProps {
   moduleLabel: string;
   moduleId: string;
   requests: RequestsListI;
@@ -77,7 +76,7 @@ function MyBasicList({
   rowSelectionActive = false,
   rowSelectionType = "radio", // checkbox' | 'radio
   rowSelectionCallback = null,
-}: Props) {
+}: MyBasicListProps) {
   /* ----------------------------------------------------------
 
     Standard Data / States

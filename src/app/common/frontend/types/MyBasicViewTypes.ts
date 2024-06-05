@@ -46,7 +46,7 @@ interface MyBasicViewSegmentParameterI {
 /**
  * Parameter für MyBasicView.
  */
-interface MyBasicViewPropertiesI {
+interface MyBasicViewProps {
   id: string;
   moduleLabel: string;
   moduleId: string;
@@ -56,7 +56,7 @@ interface MyBasicViewPropertiesI {
 
 export {
   myBasicViewType,
-  MyBasicViewPropertiesI,
+  MyBasicViewProps,
   MyBasicViewSegmentParameterI,
   MyBasicViewFieldParameterI,
   MyBasicView_ChildFieldParameterI,

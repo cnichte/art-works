@@ -150,7 +150,7 @@ function ArtworkView() {
     },
     {
       dataIndex: 'attachmentsMeta',
-      label: 'Angehängte Dateien',
+      label: 'Dateianhänge',
       condition: {
         scope:"childs",
         field: 'category',

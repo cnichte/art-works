@@ -9,6 +9,7 @@ import {
   DatePickerMode,
   MyDateValue,
 } from './DateTool';
+import { FormItem_Props } from './types/FormPropertiesInterface';
 
 const { RangePicker } = DatePicker;
 
@@ -137,21 +138,6 @@ function DynamicDatePicker({
    ========================================================== */
 
 /**
- * The React-Property Definition of MyDatePickerInput React-Component.
- * 'value' and 'onChange' must necessarily be called exactly that,
- * because they are used by the parent Andt Form.Item.
- * Dont rename them.
- *
- * @interface Props
- */
-interface Props {
-  // eslint-disable-next-line react/require-default-props
-  value?: MyDateValue;
-  // eslint-disable-next-line react/require-default-props
-  onChange?: (value: MyDateValue) => void;
-}
-
-/**
  ** My special Date-Picker consists of three Components:
  *
  * Mode: Point in Time | Period
@@ -169,7 +155,7 @@ interface Props {
  * @param param0
  * @returns
  */
-function MyDatePickerInput({ value = {}, onChange }: Props): any {
+function MyDatePickerInput({ value = {}, onChange }: FormItem_Props<MyDateValue> ): any {
   // console.log('MyDatePicker - value', value);
 
   /* ----------------------------------------------------------

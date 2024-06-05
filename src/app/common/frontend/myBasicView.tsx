@@ -5,9 +5,8 @@ import { Button, Descriptions, Space, Col, Row, Tabs, Table } from 'antd';
 import { EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
 import {
-  myBasicViewType,
   MyBasicViewFieldParameterI,
-  MyBasicViewPropertiesI,
+  MyBasicViewProps,
   MyBasicViewSegmentParameterI,
 } from './types/MyBasicViewTypes';
 import ViewTool from './ViewTools';
@@ -310,7 +309,7 @@ function MyBasicView({
   moduleId,
   requests,
   segmentSets: fieldset, // [{ key: 'city', label: 'Stadt'}]
-}: MyBasicViewPropertiesI) {
+}: MyBasicViewProps) {
   /* ----------------------------------------------------------
 
     Standard Data / States

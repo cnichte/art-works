@@ -44,6 +44,7 @@ import log from "electron-log/renderer";
 import { AttachmentMeta } from "../../../common/frontend/types/AttachmentTypes";
 import { My_Marker_Input } from "../../../common/frontend/myMarker_Input";
 import { My_Price_Input } from "../../../common/frontend/myPrice_Input";
+import { MySelectMulti_Input } from "../../../common/frontend/mySelectMulti_Input";
 
 // log.info('########################################### Log from the renderer process');
 // log.info() wird auf der Konsole im Backend ausgegeben.
@@ -273,7 +274,9 @@ function ArtworkForm() {
         <Form.Item label="Untertitel" name="title_addition">
           <Input />
         </Form.Item>
-
+        <Form.Item label="Künstler" name="artists">
+          <MySelectMulti_Input ipc_request="request:artists-find-custom" />
+        </Form.Item>
         <Form.Item label="Bilder vom Kunstwerk" name="attachmentsMeta">
           <MyAttachments_ImagesMeta_Input 
             doc_id = {id}
@@ -335,6 +338,9 @@ function ArtworkForm() {
           />
         </Form.Item>
         <Form.Item label="Markierungen" name="labels">
+          <My_Marker_Input />
+        </Form.Item>
+        <Form.Item label="Dateianhänge" name="labels">
           <My_Marker_Input />
         </Form.Item>
       </Form>

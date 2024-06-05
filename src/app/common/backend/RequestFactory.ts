@@ -58,6 +58,22 @@ export default class RequestFactory {
   }
 
   /**
+   * Extracts the module from the request string.
+   * 
+   * The first part in a request is per definition the module:
+   * request = 'request:artists-find-custom'
+   * module = artists
+   * 
+   * @param request 
+   * @returns 
+   */
+  static get_module_from_request(request:string){
+    const s = request.indexOf(":") + 1;
+    const e = request.indexOf("-");
+    return request.substring(s, e);
+  }
+
+  /**
    *
    * @author Carsten Nichte - //carsten-nichte.de/apps/
    * @static

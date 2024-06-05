@@ -3,6 +3,7 @@ import { Select, Tag } from 'antd';
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect';
 // import { TagInterface } from 'app/backend/docs/TagInterface';
 import FormTools from './FormTools';
+import { FormItem_Props } from './types/FormPropertiesInterface';
 
 /** @type {*} Do some Database stuff... */
 const IPC_CHANNEL = 'ipc-database';
@@ -13,7 +14,7 @@ const IPC_REQUEST = 'request:tags-find-custom';
  * Reflects TagInterface from Database,
  * but 'slimmed down' for Formular purpose.
  *
- * TODO: Das Ding generisch machen
+ * TODO: Das Ding generisch machen: MySelectMulti_Input
  * TODO: und für Tags und PublicationWhat, und PublicationMedium verwenden...
  *
  * @interface MyTag
@@ -57,21 +58,6 @@ function getTagFromId(id: string, tags: MyTag[]): MyTag | null {
    ========================================================== */
 
 /**
- * The React-Property Definition of MyTagsInput React-Component.
- * 'value' and 'onChange' must necessarily be called exactly that,
- * because they are used by the parent Andt Form.Item.
- * Dont rename them.
- *
- * @interface Props
- */
-interface Props {
-  // eslint-disable-next-line react/require-default-props
-  value?: string[];
-  // eslint-disable-next-line react/require-default-props
-  onChange?: (value: string[]) => void;
-}
-
-/**
  ** MyTags_Input - React Component
  *
  * 'value' is an array with the uuids of the tags.
@@ -79,7 +65,7 @@ interface Props {
  * @param param0
  * @returns
  */
-function MyTags_Input({ value = [], onChange }: Props): any {
+function MyTags_Input({ value = [], onChange }: FormItem_Props<string[]> ): any {
   // console.log('MyTags - value', value);
 
   /* ----------------------------------------------------------
@@ -103,7 +89,7 @@ function MyTags_Input({ value = [], onChange }: Props): any {
 
   useEffect(() => {
     // Get all tags from the database, for the suggestion list
-    FormTools.customRequest(IPC_CHANNEL, IPC_REQUEST, '', {});
+    // FormTools.customRequest(IPC_CHANNEL, IPC_REQUEST, '', {});
   }, []);
 
   FormTools.customResponse(IPC_CHANNEL, IPC_REQUEST, (data) => {
@@ -187,7 +173,7 @@ function MyTags_Input({ value = [], onChange }: Props): any {
   return (
     <Select
       mode="multiple"
-      showArrow
+      showArrow // suffixIcon=null
       tagRender={renderTag}
       value={value || selectedTags} // TODO hier passiert noch nix!?
       defaultValue={[]}

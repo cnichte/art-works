@@ -12,6 +12,7 @@ import { AttachmentAction } from "../common/frontend/types/AttachmentTypes"; // 
 import { dialog } from "electron";
 
 import fs from "fs";
+import RequestFactory from "../common/backend/RequestFactory";
 
 const IPC_CHANNEL: string = "ipc-database";
 
@@ -100,9 +101,8 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     // 'request:artist-delete'
 
     if (request !== undefined && request.startsWith("request:")) {
-      const s = request.indexOf(":") + 1;
-      const e = request.indexOf("-");
-      const module = request.substring(s, e);
+      
+      const module = RequestFactory.get_module_from_request(request);
 
       log.info(`Request: '${request}'`);
       log.info(`Modul  : '${module}'`);
@@ -140,34 +140,17 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
           this.query_delete(module, request, data, options, event);
           break;
         case "request:saleTypes-list-custom":
-          log.info(`###### CUSTOM Request: ${request}`);
-          this.query_list(module, request, options, event);
-          break;
         case "request:publicationType-list-custom":
-          log.info(`###### CUSTOM Request: ${request}`);
-          this.query_list(module, request, options, event);
-          break;
         case "request:publicationWhat-list-custom":
-          log.info(`###### CUSTOM Request: ${request}`);
-          this.query_list(module, request, options, event);
-          break;
         case "request:publicationMedium-list-custom":
-          log.info(`###### CUSTOM Request: ${request}`);
-          this.query_list(module, request, options, event);
-          break;
         case "request:addressTypes-list-custom":
-          log.info(`###### CUSTOM Request: ${request}`);
-          this.query_list(module, request, options, event);
-          break;
         case "request:tags-find-custom":
-          log.info(`###### CUSTOM Request: ${request}`);
-          // TODO this.query(module, request, options, event);
+        case "request:artists-find-custom":
+        log.info(`###### CUSTOM Request: ${request}`);
           this.query_list(module, request, options, event);
           break;
         case "request:attachment-download-custom":
           log.info(`###### CUSTOM Request: ${request}`);
-
-          //TODO get Attachment
           this.get_attachment(module, request, options, event);
           break;
         default:
@@ -179,6 +162,13 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     }
   }
 
+  /**
+   * 
+   * @param module 
+   * @param req 
+   * @param options 
+   * @param event 
+   */
   private get_attachment(
     module: string,
     req: string,
@@ -242,78 +232,6 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
           this.handle_my_fucking_errors("get_attachment", req, err, event);
         });
     }
-  }
-
-  /**
-   * Handle Attachment Actions for the Document.
-   * Das nutze ich nicht weil es für Bulk operationen
-   * nicht funktioniert.
-   *
-   * Ich könnte das aber nutzen um zB. ein einzelnes Attachment (oder mehrere) herunter zu laden.
-   *
-   * @param module
-   * @param doc_id
-   * @param options
-   * @returns
-   */
-  private handle_attachments(
-    module: string,
-    doc_id: any,
-    options: any
-  ): Promise<any> {
-    let result_id: any = doc_id; // return the last result if no attachments
-
-    if ("attachmentActions" in options) {
-      let actions: AttachmentAction[] = options["attachmentActions"];
-
-      actions.forEach(async (action) => {
-        console.log(
-          "---------| performing attachment-action for",
-          result_id,
-          action.name,
-          action.attachment.id
-        );
-
-        // ist:  'upload' | 'remove' | 'download' | 'delete'
-        // soll: 'add' | 'download' | 'remove'
-        switch (action.name) {
-          case "upload": // add, update
-            // result = error-object, or: id {id:1, rev:"1-..."}
-
-            //* DIE result neue DOC-ID muss durch geroutet werdem zum nächsten addAttachment.
-            // TODO Das funktioniert nur beim ersten mal...
-            //* ...am besten immer auf das Ergebnis warten.
-            // https://stackoverflow.com/questions/40328932/javascript-es6-promise-for-loop
-            // https://medium.com/@juanguardado/event-loops-promises-and-their-next-generation-counterparts-36d1eb87104d
-            // https://medium.com/developer-rants/running-promises-in-a-loop-sequentially-one-by-one-bd803181b283
-            // https://brockherion.dev/blog/posts/keep-your-async-code-fast-with-promise-all/
-            // https://www.cloudnweb.dev/2019/7/promises-inside-a-loop-javascript-es6
-            // -> https://sliceofdev.com/posts/promises-with-loops-and-array-methods-in-javascript
-            // https://www.learnwithjason.dev/blog/keep-async-await-from-blocking-execution/
-
-            // arbeitet intern jetzt mit async und await, so das jetzt eigentlich auf das Ergebnis gewartet werden sollte.
-            console.log("---------| addAttachment to before:", result_id);
-            result_id = await this.db.addAttachment(
-              module,
-              result_id,
-              action.attachment.id,
-              action.attachment.data,
-              action.attachment.content_type
-            );
-            console.log("---------| addAttachment to after:", result_id);
-            // TODO: Was passiert bei einem Fehler?
-            break;
-          case "remove": // TODO and not delete? wirklich?
-            break;
-          case "download":
-            break;
-          case "delete":
-            break;
-        }
-      });
-    }
-
-    return result_id;
   }
 
   /**
@@ -589,100 +507,3 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
       });
   }
 }
-
-/*
-
-  ) {
-    const that = this;
-    this.db
-      .update(module, data)
-      .then(function handleResult(this: any, result) {
-        if ('attachmentActions' in options) {
-          data.rev = result.rev;
-
-          const getBase64StringFromBase64URL = (dataURL: string) =>
-            dataURL.replace('data:', '').replace(/^.+,/, '');
-
-          const base64 = getBase64StringFromBase64URL(
-            options.attachments[0].data
-          );
-
-          that.db
-            .addAttachment(
-              module,
-              data,
-              options.attachments[0].id,
-              base64,
-              options.attachments[0].contentType
-            )
-            .then(function handleAttResult(attResult: any) {
-              log.info('Attachment-Result:', attResult);
-              return attResult;
-            })
-            .catch(function handleAttErrors(attErr: any) {
-              log.info('Attachment-Error', attErr);
-            });
-        }
-
-        //* Schicke Ergebnis zurück.
-        log.info('Update-Result', result);
-        event.reply(IPC_CHANNEL, {
-          request: req,
-          data: result,
-        });
-        return result;
-      })
-      .catch(function handleErrors(err) {
-        log.info(err);
-
-        //* Schicke Fehler zurück.
-        event.reply(IPC_CHANNEL, {
-          request: req,
-          error: err,
-        });
-      });
-  }
-
-
-
-
-
-
-
-      if ('attachmentActions' in options && options.attachmentActions.lengh > 0) {
-      options.attachmentActions.forEach((actionItem: AttachmentAction) => {
-        const base64 = getBase64StringFromBase64URL(actionItem.attachment.data);
-
-        ! https://javascript.info/promise-chaining
-        https://stackoverflow.com/questions/28232034/put-multiple-attachments-on-a-pouchdb-document-in-one-transaction
-
-        if (actionItem.name === 'upload') {
-
-          TODO Die Frage ist ab hier ob die geänderten inhalte in data ein update erfahren.
-          TODO sonst muss ich vorher ein update machen.
-          TODO und ob der loop funktioniert...
-          TODO wie gebe ich ref weiter?
-
-          this.db
-            .addAttachment(
-              module,
-              data,
-              options.attachments[0].id,
-              base64,
-              options.attachments[0].contentType
-            )
-            .then(function handleAttResult(attResult: any) {
-              log.info('Attachment-Result:', attResult);
-              return attResult;
-            })
-            .catch(function handleAttErrors(attErr: any) {
-              log.info('Attachment-Error', attErr);
-            });
-        } else if (actionItem.name === 'remove') {
-          // TODO remove an attachment
-        }
-      }); // forEach
-    } else {
-      // standard update
-    }
-*/

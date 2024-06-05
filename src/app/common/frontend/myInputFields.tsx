@@ -2,28 +2,19 @@ import React, { useState, useRef } from 'react';
 
 import { Select, Input, Button, InputRef, Divider, Space } from 'antd';
 import { MoreOutlined, PlusOutlined } from '@ant-design/icons';
+import { FormItem_Props } from './types/FormPropertiesInterface';
 
 require('url-parse');
 
 const { Option } = Select;
 const { Search } = Input;
 
-/**
- * The Property Interface for all the Antd Formular-Inputs.
- *
- * @interface Props
- */
-interface Props {
+type URL_PREFIX = 'https://' | 'https://';
+
+interface MyInputFieldProps extends FormItem_Props<string> {
   defaultValue?: string;
   options?:any;
-
-  // eslint-disable-next-line react/require-default-props
-  value?: string;
-  // eslint-disable-next-line react/require-default-props
-  onChange?: (value: string) => void;
 }
-
-type URL_PREFIX = 'https://' | 'https://';
 
 /**
  * My URL Input-Field
@@ -31,7 +22,7 @@ type URL_PREFIX = 'https://' | 'https://';
  * @param {Props} { value = '', onChange }
  * @return {*}
  */
-function MyInputURLField({ value = '', onChange }: Props) {
+function MyInputURLField({ value = '', onChange }: MyInputFieldProps ) {
   const [inputValue, setInputValue] = useState<string>('');
   const [prefixValue, setPrefixValue] = useState<URL_PREFIX>('https://');
 
@@ -99,7 +90,7 @@ function MyInputURLField({ value = '', onChange }: Props) {
  * @param {Props} { value = '', onChange }
  * @return {*}
  */
-function MySearchField({ value = '', onChange }: Props) {
+function MySearchField({ value = '', onChange }: MyInputFieldProps ) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const triggerChange = (changedValue: string) => {
@@ -142,7 +133,7 @@ const onSearchMoreClick = () => {
  * @param {Props} { value = '', onChange }
  * @return {*}
  */
-function MySelectEditField({ value = '' ,onChange }: Props) {
+function MySelectEditField({ value = '' ,onChange }: MyInputFieldProps ) {
 
   // TODO MySelectEditField ist noch unfertig...
   const [items, setItems] = useState(['jack', 'lucy']);
