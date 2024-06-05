@@ -86,33 +86,17 @@
     - Tags- & Genres-Relationen werden wieder aufgelöst und angezeigt.
     - Cover-Images werden angezeigt
   
-- Heute
-
   - 2024-06-05 Mittwoch
 
+  - artworkView
+    - Condition arbeitet jetzt mit Childs (um Attachments zwischen Werk-Bildern und Dokumenten zu unterscheiden)
   - artworkForm / myAttachmentMetaInput / View
-    - Attachment herunterladen (unfertig)
-      - request, und Dialog öffnen.
-      - ...
-      - parameter übergeben / Attachment aus DB holen und speichern.
-    - Attachment entfernen (unfertig)
+    - Attachment herunterladen.
+    - Attachment entfernen
 
-## Als nächstes
+- Heute
 
 - 2024-06-05 Donnerstag
-
-  - Kalkulation
-    - Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
-    - Feld Gesamt Summe (automatisch berechnen)
-    - Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
-  - Rental
-    - da geht noch nix
-
-## Demnächst zu erledigen
-
-- artworkView
-  - Erstellungsdatum rendern
-  - Markierungen rendern
 
 - artworkForm
   - Artwork-Preis: Ein Preis kann sich auf eine Kalkulation beziehen...
@@ -121,6 +105,25 @@
   - myTagsInput: Cascader verwenden <https://ant.design/components/cascader>?
   - statt Option group? <https://ant.design/components/select>
     - suche ans laufen bringen
+
+## Als nächstes
+
+- Rental
+  - da geht noch nix
+- artworkForm / myAttachmentMetaInput
+  - Der Coverbild Button funktioniert noch nicht. Man muss immer über das Formular gehen.
+  - Beim löschen verschwindet das Bild nicht sofort aus der Sicht (man muss redraw erst anderweitig triggern)
+
+  - Kalkulation
+    - Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
+    - Feld Gesamt Summe (automatisch berechnen)
+    - Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
+
+## Demnächst zu erledigen
+
+- artworkView
+  - Erstellungsdatum rendern
+  - Markierungen rendern
 
 - artistForm
   - Bild speichern.

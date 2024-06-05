@@ -215,7 +215,6 @@ export default class ViewTool {
 
                   if (fv.category === "werk" && fv.is_cover) {
                     // Image
-
                     images.push(<Image width={200} src={fv.preview} />);
                   }
                 } else {

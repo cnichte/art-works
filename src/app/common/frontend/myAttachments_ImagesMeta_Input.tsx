@@ -3,22 +3,12 @@ import { useState } from "react";
 import Resizer from "react-image-file-resizer";
 import type { RcFile, UploadProps } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
-import {
-  Button,
-  Upload,
-  message,
-  Card,
-  Col,
-  Row,
-  Space,
-  Slider,
-  Divider,
-  GetProp,
-} from "antd";
+import { Button, Upload, message, GetProp } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
 import { AttachmentMeta } from "./types/AttachmentTypes";
-import MyAttachmentsMetaView from "./myAttachmentsMetaView";
+import { MyAttachments_ImagesMeta_View } from "./myAttachments_ImagesMeta_View";
+import { FormItem_Props } from "./types/FormPropertiesInterface";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -99,19 +89,9 @@ const onChange = async (file: RcFile) => {
 
    ========================================================== */
 
-/**
- * The React-Property Definition of MyAttachmentsMetaInput React-Component.
- *
- * 'value' and 'onChange' must necessarily be called exactly that,
- * because they are used by the parent Andt Form.Item.
- *! Dont rename them.
- *
- * @interface Props
- */
-interface Props {
-  id?: string;
-  value?: AttachmentMeta[];
-  onChange?: (value: AttachmentMeta[]) => void;
+interface AttachmentMetaInput_Props extends FormItem_Props<AttachmentMeta[]> {
+  doc_id: string;
+  module_id: string;
 }
 
 /** MyAttachmentsMetaInput
@@ -123,10 +103,16 @@ interface Props {
  * It has event onChange or an event which name is equal to the value of trigger.
  * Forward the ref or pass the id property to dom to support the scrollToField method.
  *
- * @param {Props} - React / Antd Properties
+ * @param {FormItemProps} - React / Antd Properties
  * @return {*}  {*}
  */
-function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
+export function MyAttachments_ImagesMeta_Input({
+  id,
+  doc_id,
+  module_id,
+  value = [],
+  onChange,
+}: AttachmentMetaInput_Props): any {
   // console.log('MyAttachmentsMeta - value', value);
 
   /* ----------------------------------------------------------
@@ -312,8 +298,10 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
       <Upload {...uploadProps}>
         <Button icon={<PlusOutlined />}>Bilder hinzufügen</Button>
       </Upload>
-      <MyAttachmentsMetaView
+      <MyAttachments_ImagesMeta_View
         value={value}
+        doc_id={doc_id}
+        module_id={module_id}
         columns={3}
         gap={10}
         textNoImages="Noch keine Bilder vorhanden. Füge Bilder hinzu in dem du sie einfach auf den [+ Bilder hinzufügen] Button ziehst."
@@ -321,5 +309,3 @@ function MyAttachmentsMetaInput({ id, value = [], onChange }: Props): any {
     </>
   );
 }
-
-export default MyAttachmentsMetaInput;

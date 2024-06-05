@@ -33,7 +33,7 @@ import FormTools from "../../../common/frontend/FormTools";
 import { FormPropertiesInterface } from "../../../common/frontend/types/FormPropertiesInterface";
 import MyDatePickerInput from "../../../common/frontend/myDatePickerInput";
 import MyTags_Input from "../../../common/frontend/myTags_Input";
-import MyAttachmentsMetaInput from "../../../common/frontend/myAttachmentsMetaInput";
+import { MyAttachments_ImagesMeta_Input } from "../../../common/frontend/myAttachments_ImagesMeta_Input";
 import {
   AttachmentTool,
   AttachmentToolReturnValue,
@@ -275,7 +275,9 @@ function ArtworkForm() {
         </Form.Item>
 
         <Form.Item label="Bilder vom Kunstwerk" name="attachmentsMeta">
-          <MyAttachmentsMetaInput
+          <MyAttachments_ImagesMeta_Input 
+            doc_id = {id}
+            module_id= {moduleId}
             onChange={(value: AttachmentMeta[]) => {
               console.log(
                 "artworkForm -> MyAttachments -> ValueChanged:",

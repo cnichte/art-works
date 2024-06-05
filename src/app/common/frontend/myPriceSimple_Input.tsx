@@ -1,10 +1,10 @@
 import { Flex, InputNumber } from "antd";
-import { Props_FormItem } from "./types/FormPropertiesInterface";
+import { FormItem_Props } from "./types/FormPropertiesInterface";
 
 export function My_PriceSimple_Input({
   value = '',
   onChange,
-}: Props_FormItem<string>): any {
+}: FormItem_Props<string>): any {
 
   const triggerChange = (changedValue: any) => {
     onChange?.(changedValue);

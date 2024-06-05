@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Flex, InputNumber, Rate, Select } from "antd";
 import { CalculatorOutlined } from "@ant-design/icons";
-import { Props_FormItem } from "./types/FormPropertiesInterface";
+import { FormItem_Props } from "./types/FormPropertiesInterface";
 
 const { Option } = Select;
 
@@ -17,7 +17,7 @@ const selectAfter = (
 export function My_Price_Input({
   value = '',
   onChange,
-}: Props_FormItem<string>): any {
+}: FormItem_Props<string>): any {
 
   const triggerChange = (changedValue: any) => {
     onChange?.(changedValue);

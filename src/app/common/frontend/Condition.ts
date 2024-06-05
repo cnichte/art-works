@@ -1,57 +1,65 @@
-// type selector: string = '$eq' | '$gt';
-
+export type ConditionSelector = '$eq' | '$gt';
 export type ConditionScope = "field" | "childs";
+export type ConditionAction = "showif";
 
-interface ConditionParameter {
+export interface ConditionParameter {
   scope: ConditionScope;
   field: string; // field (relation) with uuid
-  selector: string;
+  selector: ConditionSelector;
   value: string;
-  action: string; // TODO condition - was zu tun ist.
+  action: ConditionAction; // TODO condition - was zu tun ist.
 }
 
-interface ConditionProperty {
+export interface ConditionProperty {
   condition: ConditionParameter;
 }
+export class Condition {
 
-class Condition {
-  /**
-   * https://pouchdb.com/api.html#query_index
-   * @param obj
-   * @param forField
-   * @param selector
-   * @param compareValue
-   * @returns
-   */
-  public static addConditionTo(
-    scope: ConditionScope,
-    obj: any,
-    forField: string,
-    selector: string,
-    compareValue: string
-  ) {
-    // Es gibt momentan nur eine Condition
-    const theCondition: ConditionParameter = {
-      scope: scope,
-      field: forField,
-      selector,
-      value: compareValue,
-      action: 'showif',
-    };
+  static check_condition(fieldDef: any, record: any, scope:ConditionScope):boolean {
 
-    obj.condition = theCondition;
+    if (fieldDef !== null && 'condition' in fieldDef) {
 
-    return obj;
+      const condition:ConditionParameter = fieldDef.condition;
+
+      // condition.action; // TODO das könnte auch ein Callback sein.
+
+      if(condition.scope !== scope) return true; // geht mich nichts an, also zeige immer
+
+      if (record[condition.field] === condition.value) {
+        // console.log(`SHOW THIS FIELD 1: ${field.label}`);
+      } else {
+        // console.log(`HIDE THIS FIELD 2: ${field.label}`);
+        return false;
+      }
+    } else {
+      // console.log(`SHOW THIS FIELD 3: ${field.label}`);
+    }
+
+    return true; 
+
   }
+  
 
   /**
-   *
    * Beispiel:
    *
-   * fieldDef = { condition:{ scope:'field', field:'test', selector:'$eq' value:'uuid_wert' }}
-   * record = { test:'uuid_wert' }
+   * fieldDef = { 
+   *  ...
+   *  condition:{ 
+   *    scope:'field',
+   *    field:'test',
+   *    selector:'$eq'
+   *    value:'uuid_wert'
+   *  }
+   * }
+   * 
+   * record = { 
+   *  ...
+   *  test:'uuid_wert'
+   *  ...
+   * }
    *
-   * Liefert false, wenn der wert von record.test === fieldDef.condition.value ist.
+   * Liefert false, wenn der wert von record.test === fieldDef.condition.value ist,
    * Sonst true...
    *
    * TODO, das funktioniert zwar, ist aber von der Code-Logik noch was verdreht.
@@ -86,5 +94,3 @@ class Condition {
     return true;
   }
 }
-
-export { Condition, ConditionProperty, ConditionParameter };

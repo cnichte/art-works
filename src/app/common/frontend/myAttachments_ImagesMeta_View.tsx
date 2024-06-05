@@ -24,14 +24,11 @@ import {
 } from "@ant-design/icons";
 import { AttachmentMeta } from "./types/AttachmentTypes";
 import FormTools from "./FormTools";
+import { FormItem_Props } from "./types/FormPropertiesInterface";
 
 const { Meta } = Card;
 const { TextArea } = Input;
 type FormInstance = GetRef<typeof Form>;
-
-/**
- * Ich u
- */
 
 /* ==========================================================
 
@@ -106,12 +103,19 @@ const ModalForm: React.FC<ModalFormProps> = ({ id, data, open, onCancel }) => {
 
 /* ==========================================================
 
-    * MyAttachmentCard - Attachment-Card
+    * MyAttachment_Image_Card - Attachment-Card
 
    ========================================================== */
 
+interface MyAttachment_Image_Card_Props {
+  value: AttachmentMeta;
+  onChange: any;
+  doc_id: string;
+  module_id: string;
+}
+
 /**
- * MyAttachmentCard - React Component.
+ * MyAttachment_Image_Card - React Component.
  *
  * @author Carsten Nichte - //carsten-nichte.de/apps/
  * @param {{
@@ -123,42 +127,45 @@ const ModalForm: React.FC<ModalFormProps> = ({ id, data, open, onCancel }) => {
  * }
  * @return {*}
  */
-function MyAttachmentCard({
+function MyAttachment_Image_Card({
   value, //  AttachmentMeta
   onChange, // callback
-}: {
-  value: AttachmentMeta;
-  onChange: any;
-}) {
-  const [open, setOpen] = useState(false);
-  const [is_cover, set_IsCover] = useState(false);
+  doc_id,
+  module_id,
+}: MyAttachment_Image_Card_Props) {
 
-  const showUserModal = () => {
-    setOpen(true);
+  const [open, setModalOpen] = useState(false);
+  
+  const showModal = () => {
+    setModalOpen(true);
   };
 
-  const hideUserModal = () => {
-    setOpen(false);
+  const hideModal = () => {
+    setModalOpen(false);
   };
 
-  const confirm: PopconfirmProps["onConfirm"] = (e) => {
-    console.log(e);
+  const confirm_RemoveImageAttachment: PopconfirmProps["onConfirm"] = (e) => {
+    console.log("removeImageAttachment", e);
     message.success(
       "Das Bild wurde zum löschen vorgemerkt, und wird beim speichern des Dokumentes entfernt."
     );
-    // TODO Das bedeutet 'zum löschen vorgemerkt' in dem eine action hinzu gefügt wurde.
+    // Das bedeutet 'zum löschen vorgemerkt'
+    // in dem eine action hinzu gefügt wird.
+    // Beim Speichern wird das Attachment dann aus dem Dokument entfernt.
+    // Siehe AttachmentTool.ts
+    value["action"] = {
+      name: "delete",
+      attachment: {
+        id: value.id,
+        content_type: value.mimetype,
+        data: "", // nur bei upload
+      },
+    };
+
   };
 
-  const cancel: PopconfirmProps["onCancel"] = (e) => {
-    console.log(e);
-    // message.error('Click on No');
-  };
 
-  const switchFlag = (b: boolean) => {
-    set_IsCover(b);
-  };
-
-  const requestDownloadImage = () => {
+  const requestDownloadImageAttachment = () => {
     console.log("button clicked: request:attachment-download-custom");
     // Der Save-Dialog kann nur vom main prozess aus geöffnet werden.
     // TODO download original attachment: Hier fehlen noch genaue parameter.
@@ -166,7 +173,13 @@ function MyAttachmentCard({
       "ipc-database",
       "request:attachment-download-custom",
       "",
-      ""
+      {
+        doc_id: doc_id,
+        module_id: module_id,
+        attachment_id: value.id,
+        filename: value.filename,
+        mimeteype: value.mimetype,
+      }
     );
   };
 
@@ -187,8 +200,7 @@ function MyAttachmentCard({
             value.title = values.title;
             value.description = values.description;
             value.is_cover = values.is_cover;
-            set_IsCover(values.is_cover);
-            setOpen(false);
+            setModalOpen(false);
           }
         }}
       >
@@ -196,7 +208,7 @@ function MyAttachmentCard({
           id={value.id}
           data={value}
           open={open}
-          onCancel={hideUserModal}
+          onCancel={hideModal}
         />
       </Form.Provider>
 
@@ -208,25 +220,24 @@ function MyAttachmentCard({
         actions={[
           <Tooltip title="Als Coverbild verwenden">
             <Button
-              onClick={() => switchFlag(!is_cover)}
-              icon={!is_cover ? <EyeOutlined /> : <EyeFilled />}
+              icon={!value.is_cover ? <EyeOutlined /> : <EyeFilled />}
             />
           </Tooltip>,
           <Tooltip title="Original herunterladen">
             <Button
-              onClick={() => requestDownloadImage()}
+              onClick={() => requestDownloadImageAttachment()}
               icon={<DownloadOutlined />}
             />
           </Tooltip>,
           <Tooltip title="Metadaten bearbeiten">
-            <Button onClick={() => showUserModal()} icon={<EditOutlined />} />
+            <Button onClick={() => showModal()} icon={<EditOutlined />} />
           </Tooltip>,
           <Tooltip title="Bild löschen">
             <Popconfirm
               title="Bild entfernen"
               description="Möchstes du das Bild wirklich entfernen?"
-              onConfirm={confirm}
-              onCancel={cancel}
+              onConfirm={confirm_RemoveImageAttachment}
+              onCancel={undefined}
               okText="Ja"
               cancelText="Nein"
             >
@@ -252,6 +263,14 @@ const colCounts: Record<PropertyKey, number> = {};
   colCounts[i] = v;
 });
 
+interface AttachmentMetaView_Props extends FormItem_Props<AttachmentMeta[]> {
+  doc_id: string;
+  module_id: string;
+  columns: number;
+  gap: number;
+  textNoImages: string;
+}
+
 /**
  ** MyAttachmentsMetaView - React Component
  *
@@ -274,21 +293,14 @@ const colCounts: Record<PropertyKey, number> = {};
  * }} props
  * @return {*}
  */
-function MyAttachmentsMetaView(props: {
-  // eslint-disable-next-line react/require-default-props
-  value?: AttachmentMeta[];
-  // eslint-disable-next-line react/require-default-props
-  onChange?: (value: AttachmentMeta) => void;
-
-  columns: number;
-  gap: number;
-  textNoImages: string;
-}) {
+export function MyAttachments_ImagesMeta_View(props: AttachmentMetaView_Props) {
   const {
     value = [],
     columns = 1,
     gap = 20,
     textNoImages = "Noch keine Bilder vorhanden.",
+    doc_id,
+    module_id,
   } = props;
 
   // TODO Der Parameter 'children' ist reserviert für eingebettet React-Childs <MyAttachmentsMetaView><c1/><c2/>...</MyAttachmentsMetaView>
@@ -296,8 +308,8 @@ function MyAttachmentsMetaView(props: {
   // https://medium.com/the-andela-way/how-to-create-a-masonry-layout-component-using-react-f30ec9ca5e99
 
   const [colCountKey, setColCountKey] = useState(columns);
-
   const cc = colCounts[colCountKey];
+  const formatter = (n: number) => `${n + 1} ${n > 0 ? "Spalten" : "Spalte"}`;
 
   const columnWrapper: any = {};
   const result: any[] = [];
@@ -339,10 +351,19 @@ function MyAttachmentsMetaView(props: {
     }
   }
 
-  const formatter = (n: number) => `${n + 1} ${n > 0 ? "Spalten" : "Spalte"}`;
+  const onCardChanged = () => {
+    console.log("a card has changed");
+  };
 
   function getCardFrom(meta: AttachmentMeta): any {
-    return <MyAttachmentCard value={meta} onChange={undefined} />;
+    return (
+      <MyAttachment_Image_Card
+        value={meta}
+        doc_id={doc_id}
+        module_id={module_id}
+        onChange={undefined} // onCardChanged -> error
+      />
+    );
   }
 
   return (
@@ -365,5 +386,3 @@ function MyAttachmentsMetaView(props: {
     </>
   );
 }
-
-export default MyAttachmentsMetaView;

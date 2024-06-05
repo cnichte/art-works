@@ -6,7 +6,7 @@ import { generate, green, presetPalettes, red } from "@ant-design/colors";
 import { ColorPicker, theme } from "antd";
 import type { ColorPickerProps, GetProp } from "antd";
 
-import { Props_FormItem } from "./types/FormPropertiesInterface";
+import { FormItem_Props } from "./types/FormPropertiesInterface";
 import { Tagging_Props } from "./types/Tagging_Types";
 
 type Color = GetProp<ColorPickerProps, "value">;
@@ -33,7 +33,7 @@ const genPresets = (presets = presetPalettes) =>
 export function My_Marker_Input({
   value,
   onChange,
-}: Props_FormItem<Tagging_Props>): any {
+}: FormItem_Props<Tagging_Props>): any {
 
   const [rating, setRating] = useState<number>(value?.rating);
   const [flag, setFlag] = useState<boolean>(value?.flag);

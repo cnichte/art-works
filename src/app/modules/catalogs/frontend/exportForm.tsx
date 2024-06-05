@@ -14,7 +14,7 @@ import {
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { MySelectEditField } from '../../../common/frontend/myInputFields';
-import MyAttachmentsMetaInput from '../../../common/frontend/myAttachmentsMetaInput';
+import { MyAttachments_ImagesMeta_Input } from '../../../common/frontend/myAttachments_ImagesMeta_Input';
 import TransportTool from './TransportTool';
 
 const { TextArea } = Input;
@@ -309,7 +309,9 @@ function Step2() {
       autoComplete="off"
     >
       <Form.Item label="Quelldatei oder Ordner Auswählen " name="sourceFile">
-        <MyAttachmentsMetaInput
+        <MyAttachments_ImagesMeta_Input
+          doc_id=""
+          module_id=''
           onChange={(value: any) => {
             console.log('artworkForm -> MyAttachments -> ValueChanged:', value);
           }}

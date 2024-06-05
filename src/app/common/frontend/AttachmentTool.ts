@@ -1,5 +1,4 @@
 import {
-  Attachment,
   AttachmentAction,
   AttachmentMeta,
 } from './types/AttachmentTypes';

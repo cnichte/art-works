@@ -794,6 +794,7 @@ export class DatabasePouchDB implements DatabaseCRUDI {
   }
 
   /**
+   * Das benutze ich nicht, weil ich die Attachments direkt im document übergebe.
    * 
    * https://github.com/pouchdb-community/relational-pouch?tab=readme-ov-file#dbrelputattachmenttype-object-attachmentid-attachment-attachmenttype
    * 
@@ -820,26 +821,28 @@ export class DatabasePouchDB implements DatabaseCRUDI {
     );
   }
 
+  /**
+   * 
+   * @param doc_type 
+   * @param doc_id 
+   * @param attachment_id 
+   * @returns 
+   */
   getAttachment(
-    type: string,
-    docId: string,
-    attachmentId: string
+    doc_type: string,
+    doc_id: string,
+    attachment_id: string
   ): Promise<any> {
-
-    return new Promise<String>((resolve, reject) => {
-      //saving MyClass using http service
-      //return the saved MyClass or error
-      // var savedPackage : Package = updatedPackage;
-      // if (isSomeCondition) {
-      //   throw new Error('No reason but to reject');
-      //}
-
-      setTimeout( () => {
-          resolve("savedPackage");
-      }, 1500);
-  });
+    return this.db.rel.getAttachment(doc_type, doc_id, attachment_id);
   }
 
+  /**
+   * Das benutze ich nicht weil  ich das Attachment direkt im Dokument übergebe.
+   * @param type 
+   * @param data 
+   * @param attachmentId 
+   * @returns 
+   */
   removeAttachment(
     type: string,
     data: any,

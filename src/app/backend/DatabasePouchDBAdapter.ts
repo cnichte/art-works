@@ -11,6 +11,8 @@ import { DatabasePouchDB } from "./DatabasePouchDB";
 import { AttachmentAction } from "../common/frontend/types/AttachmentTypes"; // TODO umziehen nach? /common/types/AttachmentTypes
 import { dialog } from "electron";
 
+import fs from "fs";
+
 const IPC_CHANNEL: string = "ipc-database";
 
 // Methode zum konvertieren von DataURL String zu bas64String
@@ -165,28 +167,8 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
         case "request:attachment-download-custom":
           log.info(`###### CUSTOM Request: ${request}`);
 
-          // TODO Dialog kann nur von main aus geöffnet werden...
-          // https://www.electronjs.org/docs/latest/api/dialog
-          // https://www.electronjs.org/docs/latest/api/download-item
-          dialog
-            .showSaveDialog({
-              title: "Attachment speichern",
-              filters: [
-                { name: "Images", extensions: ["jpg", "jpeg"] },
-                { name: "All Files", extensions: ["*"] },
-              ],
-              properties: ['createDirectory', 'showOverwriteConfirmation'],
-            })
-            .then((result) => {
-              console.log("showSaveDialog - canceled ", result.canceled);
-              console.log("showSaveDialog - filePath", result.filePath);
-            })
-            .catch((err) => {
-              console.log("showSaveDialog - error", err);
-            });
-
-          // Hier wird im Grunde kein Ergebnis zurück geliertert / und erwartet.
-
+          //TODO get Attachment
+          this.get_attachment(module, request, options, event);
           break;
         default:
           log.info(`Unbekannter Request: ${request}`);
@@ -194,6 +176,71 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
       }
     } else {
       log.info(`Bad Request: ${request}`);
+    }
+  }
+
+  private get_attachment(
+    module: string,
+    req: string,
+    options: any,
+    event: any
+  ): void {
+    if (options.doc_id === "new") {
+      event.reply(IPC_CHANNEL, {
+        request: req,
+        error: {
+          error: "Sorry, ich kann das Attachment nicht ausliefern.",
+          reason: "Das Dokument muss erst gespeichert werden.",
+        },
+      });
+    } else {
+      this.db
+        .getAttachment(options.module_id, options.doc_id, options.attachment_id)
+        .then((buffer) => {
+          // Dialog kann nur von main aus geöffnet werden...
+          // https://www.electronjs.org/docs/latest/api/dialog
+          // https://www.electronjs.org/docs/latest/api/download-item
+
+          /**
+           * options:{
+           * doc_id: doc_id,
+           * module_id: module_id,
+           * attachment_id: value.id,
+           * filename: value.filename,
+           * mimeteype: value.mimetype
+           * }
+           */
+
+          dialog
+            .showSaveDialog({
+              title: "Attachment speichern",
+              defaultPath: options.filename,
+              filters: [
+                { name: "Images", extensions: ["jpg", "jpeg"] },
+                { name: "All Files", extensions: ["*"] },
+              ],
+              properties: ["createDirectory", "showOverwriteConfirmation"],
+            })
+            .then((result) => {
+              // https://medium.com/@divinehycenth8/convert-a-base64-data-into-an-image-in-node-js-d82136576e35
+              if (!result.canceled) {
+                fs.writeFileSync(result.filePath, buffer);
+              }
+            })
+            .catch((err) => {
+              this.handle_my_fucking_errors(
+                "get_attachment_save_dialog",
+                req,
+                err,
+                event
+              );
+            });
+
+          // Hier wird im Grunde kein Ergebnis zurück geliefert / und erwartet.
+        })
+        .catch((err) => {
+          this.handle_my_fucking_errors("get_attachment", req, err, event);
+        });
     }
   }
 
@@ -307,20 +354,17 @@ export class DatabasePouchDBAdapter implements DatabaseAdapterI {
     if (err.name === "conflict") {
       console.log("WE HAVE a CONFLICT!");
     } else {
-      // some other error
-      console.log("WE HAVE no CONFLICT BUT ANOTHER ERROR");
-    }
-
-    if ("error" in err && "reason" in err) {
-      // all good, that's how it should be...
-    } else if ("message" in err) {
-      // i map that...
-      err.error = err.message;
-      err.reason = "";
-    } else {
-      // fallback
-      err.error = err.toString();
-      err.reason = "";
+      if ("error" in err && "reason" in err) {
+        // all good, that's how it should be...
+      } else if ("message" in err) {
+        // i map that...
+        err.error = err.message;
+        err.reason = "";
+      } else {
+        // fallback
+        err.error = err.toString();
+        err.reason = "";
+      }
     }
 
     //* Send back errors.
