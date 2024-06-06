@@ -11,28 +11,20 @@ import { JSONableI } from '../../../../common/backend/types/JSONableInterface';
 
 import { WhiteboardI } from '../../types/WhiteboardInterface';
 
-const fs = require('fs-extra');
+import fs from 'fs-extra';
 
 export class Whiteboard extends DocumentBase implements WhiteboardI, JSONableI {
   // System
   id: string = ''; // _id: string = '';
 
-  docType: string = 'tag';
+  docType: string = 'whiteboard';
 
   docScope = 'user';
 
   // Userdata
   name: string = '';
-
-  color: string = '';
-
-  shortnote: string = '';
-
-  // Userdata, Relations
-  // TODO: Tags können noch an alles angehängt werden...
-  artworks: string[] = [];
-
-  notes: string[] = [];
+  content: string = '';
+  preview: string = '';
 
   /**
    * Creates a clean JSON object from the properties of this class.
@@ -47,7 +39,8 @@ export class Whiteboard extends DocumentBase implements WhiteboardI, JSONableI {
       docScope: this.docScope,
 
       name: this.name,
-      shortnote: this.shortnote,
+      content: this.content,
+      preview: this.preview
     };
   }
 

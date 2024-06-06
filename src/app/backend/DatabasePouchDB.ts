@@ -48,6 +48,7 @@ import { SaleRightsOfUse } from '../modules/salerightsofuse/backend/docs/SaleRig
 import { SaleRightsOfUseType } from '../modules/salerightsofuse/backend/docs/SaleRightsOfUseType';
 import { SaleType } from '../modules/sale/backend/docs/SaleType';
 import { Tag } from '../modules/tag/backend/docs/Tag';
+import { Whiteboard } from '../modules/whiteboard/backend/docs/Whiteboard';
 // import { Whiteboard } from '../modules/tag/backend/docs/Whiteboard';
 
 import { DatabaseCRUDI } from '../common/backend/types/DatabaseCRUDInterface';
@@ -460,6 +461,10 @@ export class DatabasePouchDB implements DatabaseCRUDI {
           notes: { hasMany: 'note' },
         },
       },
+      {
+        singular: 'whiteboard',
+        plural: 'whiteboards',
+      },
     ]);
 
     // TODO Index
@@ -681,6 +686,11 @@ export class DatabasePouchDB implements DatabaseCRUDI {
       case 'tags': {
         json = new Tag().toJson();
         name = 'tags';
+        break;
+      }
+      case 'whiteboard': {
+        json = new Whiteboard().toJson();
+        name = 'whiteboards';
         break;
       }
       default: {

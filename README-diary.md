@@ -27,9 +27,39 @@
     - Vielleicht was für den Drawer?
       - Der müsste nur übergreifend implemetiert sein.
 
-- DATABASE init
+- DATABASE
   - beim Befüllen der DB über json, sollen auch die attachments geladen werden.
   - Es wäre an der Zeit den db inhalt zu exportieren und wieder zu importieren.
+  - TESTEN: Liste der letzten Änderungen: <https://gist.github.com/nolanlawson/7c32861af5d31a8fac4a>
+
+- Electron - Öffne einen Link im externen Browser...
+  - <https://gist.github.com/luizcarraro/2d04d83e66e3f03bef9b2e714ea8c0d7>
+  - In dem Zusammenhang
+  - <https://www.electronjs.org/de/docs/latest/tutorial/launch-app-from-url-in-another-app>
+  - electron-fiddle://
+
+- Baue die App auf meinem
+  - alten Laptop Mac, Linux - VirtualBox / UTM
+  - Arbeits-Laptop - Windows
+
+- WHITEBOARD
+  - <https://www.geeksforgeeks.org/how-to-take-screenshots-in-electronjs/>
+  - Ich habs heute zufällig gessehen in meiner App (siehe Screenshot)...
+  - Bring das Ding ans laufen!
+  - Building assets <https://gist.github.com/bbudd/2a246a718b7757584950b4ed98109115>
+  - <https://stackoverflow.com/questions/60839621/cant-use-static-files-in-electron-forge>
+- <https://github.com/electron/forge/issues/1592> Provide an example of serving static files
+
+// STATIC_ASSETS:
+Assets für TLDRAW
+<https://stackoverflow.com/questions/60839621/cant-use-static-files-in-electron-forge>
+<https://www.electronforge.io/config/configuration>
+
+Hi, i am a newbie writing a fancy Electron-App, using electron-forge, React + andt. I try to integrate tldraw into it and it looks like this. I added https://unpkg.com to the 'img-src' Content-Security-Policy in index.html and in forge.config.ts 'devContentSecurityPolicy' to get it up runnig like so. That's a good start. But I would like to store the assets locally, and that doesn't work at all. Is there an example of how to implement this?
+
+Save and load
+https://tldraw.dev/docs/persistence
+
 
 ## Erledigt
 
@@ -236,6 +266,8 @@ Siehe einmal in Datei `src/index.html`, und für die Entwicklung in Datei `forge
 
 `devContentSecurityPolicy` aus 1:
 
+
+
 ```js
 { 
   devContentSecurityPolicy: 'default-src \'self\' \'unsafe-inline\' data:; script-src \'self\' \'unsafe-eval\' \'unsafe-inline\' data:`' 
@@ -263,6 +295,7 @@ frame-src * self blob: data: gap:;
 ```
 
 2 hab ich getestet, und die Vorschaubilder beim Upload werden geladen.
+
 
 ## Recherchen
 
@@ -299,9 +332,75 @@ frame-src * self blob: data: gap:;
   - das gebaute zip
   - manually add release and upload zip to the repository
   
-
 ### Custom form Items
 
 - <https://atlassc.net/2021/06/05/create-a-custom-ant-design-form-item-component>
 - ... und Markdwon Editor einbinden:
 - <https://medium.com/swlh/use-custom-and-third-party-react-form-components-with-ant-design-and-typescript-2732e7849aee>
+
+
+
+
+
+
+
+
+
+
+
+
+## HOW TO HANDLE STATIC ASSETS
+
+### Möglichkeit 1
+
+- <https://stackoverflow.com/questions/60839621/cant-use-static-files-in-electron-forge>
+
+
+```html
+<img src='static://assets/images/a.png'/>
+```
+
+`main.ts`
+
+```ts
+import { session } from "electron";
+import path from 'path';
+
+app.on('ready', () => {
+  // Customize protocol to handle static resource.
+  // Register a protocol named static, and use static:// as the prefix of you image resources later.
+  session.defaultSession.protocol.registerFileProtocol('static', (request:any, callback:any) => {
+    const fileUrl = request.url.replace('static://', '');
+    const filePath = path.join(app.getAppPath(), '.webpack/renderer', fileUrl);
+    callback(filePath);
+  });
+
+  createWindow();
+});
+```
+
+`webpack.plugins.ts`
+
+```ts
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+
+import path from 'path';
+const assets = [ 'assets' ];
+
+  // STATIC_ASSETS:
+  // https://nodejs.org/api/path.html#pathresolvepaths
+  // __dirname absolute path of the directory containing the currently executing file.
+  new CopyWebpackPlugin(
+    {
+      patterns: assets.map((asset) => ({
+        from: path.resolve(__dirname, 'src', asset),
+        to: path.resolve(__dirname, '.webpack/renderer', asset)
+      }))
+    }),
+```
+
+`forge.config.ts`
+
+```js
+"devContentSecurityPolicy": "default-src 'self' 'unsafe-eval' 'unsafe-inline' static: http: https: ws:", // <--- this line
+```

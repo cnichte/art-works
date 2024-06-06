@@ -6,7 +6,8 @@ export interface WhiteboardI {
 
   // Userdata
   name: string;
-  shortnote: string;
+  content: string;
+  preview: string;
 
   // Userdata, Relations
 }

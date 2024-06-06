@@ -26,7 +26,7 @@ import {
  *
  * @returns ArtworkView
  */
-function ArtworkView() {
+function WhiteboardView() {
   /* ----------------------------------------------------------
 
     Standard Data / States
@@ -34,7 +34,7 @@ function ArtworkView() {
    ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const moduleId = 'artwork';
+  const moduleId = 'whiteboard';
 
   const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
 
@@ -58,70 +58,18 @@ function ArtworkView() {
 
   const fieldsArtwork: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'title',
-      label: 'Titel',
+      dataIndex: 'name',
+      label: 'Name',
     },
     {
-      dataIndex: 'title_addition',
-      label: 'Untertitel',
-    },
-    {
-      dataIndex: 'dateCreation', // TODO Keine Objekte erlaubt. 'date' ist array, wird nicht ausgegeben
-      label: 'Erstellungsdatum',
-    },
-    {
-      dataIndex: 'topic',
-      label: 'Themen',
-    },
-    {
-      dataIndex: 'genres',
-      label: 'Genres',
-      mapKeyTo: {
-        dataIndex: 'genres',
-        showFields: ['name'],
-      },
-    },
-    {
-      dataIndex: 'description_short',
-      label: 'Beschreibung kurz',
-    },
-    {
-      dataIndex: 'description_long',
-      label: 'Beschreibung lang',
-    },
-    {
-      dataIndex: 'implementation',
-      label: 'Umsetzung',
-    },
-    {
-      dataIndex: 'tool',
-      label: 'Werkzeuge',
-    },
-    {
-      dataIndex: 'forsale',
-      label: 'Verkäuflich',
-    },
-    {
-      dataIndex: 'price',
-      label: 'Preis',
-    },
-    {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
-    },
-    {
-      dataIndex: 'tags',
-      label: 'Tags',
-      mapKeyTo: {
-        dataIndex: 'tags',
-        showFields: ['name'],
-      },
+      dataIndex: 'preview',
+      label: 'Vorschau',
     },
   ];
 
   const segmentArtworks: MyBasicViewSegmentParameterI = {
-    segment: 'artworks',
-    label: 'Werk',
+    segment: 'whiteboards',
+    label: 'Whiteboard',
     fields: fieldsArtwork,
     relationFilterIdField: 'id',
     render: 'description',
@@ -133,11 +81,11 @@ function ArtworkView() {
   return (
     <MyBasicView
       id={id}
-      moduleLabel="Werk"
+      moduleLabel="Whiteboard"
       moduleId={moduleId}
       requests={requests}
       segmentSets={segmentSets}
     />
   );
 }
-export default ArtworkView;
+export default WhiteboardView;

@@ -1,14 +1,17 @@
 import { useNavigate } from "react-router";
+import { ReactNode } from "react";
 import type { ColumnsType } from "antd/es/table";
 import { Button } from "antd";
-import { ReactNode } from "react";
+import { Image } from 'antd';
 
 import RequestFactory from "../../../common/backend/RequestFactory";
 import { MyBasicList } from "../../../common/frontend/myBasicList";
 import { WhiteboardI } from "../types/WhiteboardInterface";
 
-import { Tldraw } from "tldraw";
-import "tldraw/tldraw.css";
+
+// import { getAssetUrls } from 'tldraw/dist-cjs/lib/'
+// const assetUrls = getAssetUrls()
+
 
 /**
  * Ein Liste der Whiteboards.
@@ -48,6 +51,7 @@ function WhiteboardList() {
 
    ---------------------------------------------------------- */
 
+
   /* ----------------------------------------------------------
 
     Die Spaltendefinition für die Tabelle
@@ -55,25 +59,15 @@ function WhiteboardList() {
     ---------------------------------------------------------- */
   const columns: ColumnsType<WhiteboardI> = [
     {
-      title: "Bild",
-      dataIndex: "image_small",
-      key: "id",
-    },
-    {
-      title: "Titel",
-      dataIndex: "title",
+      title: "Name",
+      dataIndex: "name",
       key: "id",
       render: (text, record) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <a onClick={() => handleView(record)}> {text} </a>
       ),
       sorter: (a, b) => a.name.localeCompare(b.name),
-    },
-    {
-      title: "Thema",
-      dataIndex: "topic",
-      key: "id",
-    },
+    }
   ];
   // Invite {record.name}
 
@@ -91,19 +85,14 @@ function WhiteboardList() {
   // Fall 3 - als Function     : extraButton={() => <Button onClick={handleButton()}>Mehrere Werke hinzufügen</Button>}
 
   return (
-    <>
-      <MyBasicList
-        moduleLabel="Whiteboard"
-        moduleId={moduleId}
-        requests={requests}
-        segment="whiteboards"
-        columns={columns}
-      />
-      
-		<div style={{ position: 'fixed', inset: 0 }}>
-			<Tldraw />
-		</div>
-    </>
+
+    <MyBasicList
+    moduleLabel="Whiteboard"
+    moduleId={moduleId}
+    requests={requests}
+    segment="whiteboards"
+    columns={columns}
+  />
   );
 }
 

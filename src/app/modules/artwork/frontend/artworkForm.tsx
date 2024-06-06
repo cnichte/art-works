@@ -90,6 +90,7 @@ function ArtworkForm() {
   // either: 'new', or a uuid
   const { id } = useParams();
   const [dataOrigin, setDataOrigin] = useState(null);
+  
   const props: FormPropertiesInterface = {
     id,
     moduleLabel: "Werk",

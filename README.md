@@ -28,6 +28,8 @@ npm install react-image-file-resizer
 npm i recharts
 npm i tldraw
 # https://github.com/tldraw/tldraw
+
+npm i -D copy-webpack-plugin
 ```
 
 ## Use the Application Repository
