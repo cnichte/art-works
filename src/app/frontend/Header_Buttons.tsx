@@ -133,7 +133,7 @@ export function Header_Buttons(props: any) {
               callbackAddHandler();
             }}
           >
-            <PlusOutlined /> Add {doclabel}
+            <PlusOutlined /> {doclabel} hinzufügen
           </Button>
         </Space>
       );
@@ -147,7 +147,7 @@ export function Header_Buttons(props: any) {
               callbackCloseHandler();
             }}
           >
-            <CloseCircleOutlined /> Close {doclabel}
+            <CloseCircleOutlined /> {doclabel} schließen
           </Button>
           <Button
             id="edit-action"
@@ -156,7 +156,7 @@ export function Header_Buttons(props: any) {
             }}
           >
             <EditOutlined />
-            Edit {doctype}
+            {doctype} bearbeiten
           </Button>
         </Space>
       );
@@ -170,7 +170,7 @@ export function Header_Buttons(props: any) {
               callbackCloseHandler();
             }}
           >
-            <CloseCircleOutlined /> Close {doclabel}
+            <CloseCircleOutlined /> {doclabel} schließen
           </Button>
           <Button
             id="save-action"
@@ -181,7 +181,7 @@ export function Header_Buttons(props: any) {
             style={{ color: colorBgContainer }}
           >
             <UploadOutlined />
-            {id == "new" ? "Create" : "Update"} {doclabel}
+            {id == "new" ? "erzeuge" : "aktualisiere"} {doclabel}
           </Button>
         </Space>
       );

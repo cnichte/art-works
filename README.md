@@ -30,6 +30,13 @@ npm i tldraw
 # https://github.com/tldraw/tldraw
 
 npm i -D copy-webpack-plugin
+
+npm install --save i18next i18next-fs-backend
+# https://phrase.com/blog/posts/building-an-electron-app-with-internationalization-i18n/
+# https://www.i18next.com
+# https://github.com/i18next/i18next-fs-backend
+
+# https://github.com/shawnbanasick/electron-react-i18n-boilerplate
 ```
 
 ## Use the Application Repository
