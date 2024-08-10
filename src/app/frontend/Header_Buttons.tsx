@@ -156,7 +156,7 @@ export function Header_Buttons(props: any) {
             }}
           >
             <EditOutlined />
-            {doctype} bearbeiten
+            {doclabel} bearbeiten
           </Button>
         </Space>
       );
