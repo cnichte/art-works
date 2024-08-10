@@ -1,13 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
-import Segments from '../../../common/frontend/Segments';
+} from "../../../common/types/MyBasicViewTypes";
+import MyBasicView from "../../../frontend/myBasicView";
+import { DocType } from "../../../common/types/DocType";
+import { Segments } from "../../../frontend/Segments";
+
+import { PublicationI } from "../../../common/types/DocPublication";
 
 /* ==========================================================
 
@@ -28,116 +30,92 @@ import Segments from '../../../common/frontend/Segments';
  * @returns PublicationView
  */
 function PublicationView() {
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
   const { id } = useParams();
 
-  const moduleId = 'publication';
+  const doclabel: string = "Publikation";
+  const doctype: DocType = "publication";
+  const segment: string = "publications";
 
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
   const fieldsPublication: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'title',
-      label: 'Titel',
+      dataIndex: "title",
+      label: "Titel",
     },
     {
-      dataIndex: 'subtitle',
-      label: 'Untertitel',
+      dataIndex: "subtitle",
+      label: "Untertitel",
     },
     {
-      dataIndex: 'publicationType',
-      label: 'Typ',
+      dataIndex: "publicationType",
+      label: "Typ",
       mapKeyTo: {
-        dataIndex: 'publicationTypes',
-        showFields: ['name'],
+        dataIndex: "publicationTypes",
+        showFields: ["name"],
       },
     },
     {
-      dataIndex: 'publicationWhat',
-      label: 'Art',
+      dataIndex: "publicationWhat",
+      label: "Art",
       mapKeyTo: {
-        dataIndex: 'publicationWhats',
-        showFields: ['name'],
+        dataIndex: "publicationWhats",
+        showFields: ["name"],
       },
     },
     {
-      dataIndex: 'publicationMedium',
-      label: 'Medium',
+      dataIndex: "publicationMedium",
+      label: "Medium",
       mapKeyTo: {
-        dataIndex: 'publicationMediums',
-        showFields: ['name'],
+        dataIndex: "publicationMediums",
+        showFields: ["name"],
       },
     },
     {
-      dataIndex: 'isbn',
-      label: 'ISBN',
+      dataIndex: "isbn",
+      label: "ISBN",
     },
     {
-      dataIndex: 'publisher',
-      label: 'Verlag',
+      dataIndex: "publisher",
+      label: "Verlag",
     },
     {
-      dataIndex: 'nationallibrary',
-      label: 'Nationalbibliothek',
+      dataIndex: "nationallibrary",
+      label: "Nationalbibliothek",
     },
     {
-      dataIndex: 'url',
-      label: 'Webadresse',
+      dataIndex: "url",
+      label: "Webadresse",
     },
     {
-      dataIndex: 'description',
-      label: 'Beschreibung',
+      dataIndex: "description",
+      label: "Beschreibung",
     },
     {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
+      dataIndex: "shortnote",
+      label: "Notiz",
     },
   ];
 
   const segmentPublications: MyBasicViewSegmentParameterI = {
-    segment: 'publications',
-    label: 'Publikation',
+    segment: segment,
+    label: doclabel,
     fields: fieldsPublication,
-    relationFilterIdField: 'id',
-    render: 'description',
+    relationFilterIdField: "id",
+    render: "description",
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [
     segmentPublications,
-    Segments.getSegmentArtworks('publications'),
-    Segments.getSegmentAwards('publication'),
-    Segments.getSegmentSales('publication'),
+    Segments.getSegmentArtworks(segment),
+    Segments.getSegmentAwards(segment),
+    Segments.getSegmentSales(segment),
   ];
 
   return (
-    <MyBasicView
+    <MyBasicView<PublicationI>
       id={id}
-      moduleLabel="Publikation"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );

@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router';
-import type { ColumnsType } from 'antd/es/table';
+import { useNavigate } from "react-router";
+import type { ColumnsType } from "antd/es/table";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import { MyBasicList } from '../../../common/frontend/myBasicList';
-import { CompilationI } from '../types/CompilationInterface';
+import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
+import { DocType } from "../../../common/types/DocType";
+
+import { CompilationI } from "../../../common/types/DocCompilation";
 
 /**
  * Ein Liste der Zusammenstellungen.
@@ -13,78 +14,48 @@ import { CompilationI } from '../types/CompilationInterface';
  *
  * @returns
  */
-function CompilationList() {
+export default function CompilationList() {
   const navigate = useNavigate();
 
-  /* ----------------------------------------------------------
+  const doclabel: string = "Zusammenstellung";
+  const doctype: DocType = "compilation";
+  const segment: string = "compilations";
 
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
-  const moduleId = 'compilation';
-
-  const requests = RequestFactory.getListRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard Actions
-
-   ---------------------------------------------------------- */
   //* open view
   const handleView = (record: { id: any }) => {
-    console.log('--- handleView:', record);
-    navigate(`/${moduleId}/view/${record.id}`);
+    console.log("--- handleView:", record);
+    console.log(`--- navigate  : '/${doctype}/view/${record.id}'`);
+    navigate(`/${doctype}/view/${record.id}`);
   };
 
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Die Spaltendefinition für die Tabelle
-
-    ---------------------------------------------------------- */
   const columns: ColumnsType<CompilationI> = [
     {
-      title: 'Titel',
-      dataIndex: 'title',
-      key: 'id',
+      title: "Titel",
+      dataIndex: "title",
+      key: "id",
       render: (text, record) => (
         <a onClick={() => handleView(record)}> {text} </a>
       ),
       sorter: (a, b) => a.title.localeCompare(b.title),
     },
     {
-      title: 'Beschreibung',
-      dataIndex: 'description',
-      key: 'id',
+      title: "Beschreibung",
+      dataIndex: "description",
+      key: "id",
     },
     {
-      title: 'Notiz',
-      dataIndex: 'shortnote',
-      key: 'id',
+      title: "Notiz",
+      dataIndex: "shortnote",
+      key: "id",
     },
   ];
-  // Invite {record.name}
 
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
   return (
-    <MyBasicList
-      moduleLabel="Zusammenstellung"
-      moduleId={moduleId}
-      requests={requests}
-      segment="compilations"
+    <MyBasicList<CompilationI>
+      doclabel={doclabel}
+      doctype={doctype}
+      segment={segment}
       columns={columns}
     />
   );
 }
-
-export default CompilationList;

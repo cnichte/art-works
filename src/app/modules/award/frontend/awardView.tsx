@@ -1,13 +1,11 @@
-/* eslint-disable react/jsx-no-bind */
-import { useParams } from 'react-router-dom';
-
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
+import { useParams } from "react-router-dom";
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
-import Segments from '../../../common/frontend/Segments';
+} from "../../../common/types/MyBasicViewTypes";
+import MyBasicView from "../../../frontend/myBasicView";
+import { DocType } from "../../../common/types/DocType";
+import { Segments } from "../../../frontend/Segments";
 
 /* ==========================================================
 
@@ -28,72 +26,49 @@ import Segments from '../../../common/frontend/Segments';
  * @returns EmptyList
  */
 function AwardView() {
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const moduleId = 'award';
-
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Fields (rendered in Tables, or Descriptions)
-
-   ---------------------------------------------------------- */
+  const doclabel: string = "Auszeichnung";
+  const doctype: DocType = "award";
+  const segment: string = "awards";
 
   const fieldsAward: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'title',
-      label: 'Titel',
+      dataIndex: "title",
+      label: "Titel",
     },
     {
-      dataIndex: 'year',
-      label: 'Jahr',
+      dataIndex: "year",
+      label: "Jahr",
     },
     {
-      dataIndex: 'description',
-      label: 'Beschreibung',
+      dataIndex: "description",
+      label: "Beschreibung",
     },
     {
-      dataIndex: 'url',
-      label: 'Webadresse',
+      dataIndex: "url",
+      label: "Webadresse",
     },
     {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
+      dataIndex: "shortnote",
+      label: "Notiz",
     },
   ];
 
   const segmentAwards: MyBasicViewSegmentParameterI = {
-    segment: 'awards',
-    label: 'Auszeichnung',
+    segment: segment,
+    label: doclabel,
     fields: fieldsAward,
-    relationFilterIdField: 'id',
-    render: 'description',
+    relationFilterIdField: "id",
+    render: "description",
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [
     segmentAwards,
-    Segments.getSegmentArtworks('awards'),
-    Segments.getSegmentCompilations('awards'),
-    Segments.getSegmentPublications('awards'),
+    Segments.getSegmentArtworks(segment),
+    Segments.getSegmentCompilations(segment),
+    Segments.getSegmentPublications(segment),
   ];
 
   /* ----------------------------------------------------------
@@ -104,9 +79,8 @@ function AwardView() {
   return (
     <MyBasicView
       id={id}
-      moduleLabel="Auszeichnung"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );

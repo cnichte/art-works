@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-no-bind */
 import { useParams } from 'react-router-dom';
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
-import {
-  MyBasicViewFieldParameterI,
-  MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
+import { MyBasicViewFieldParameterI, MyBasicViewSegmentParameterI } from '../../../common/types/MyBasicViewTypes';
+import MyBasicView from '../../../frontend/myBasicView';
+import { DocType } from '../../../common/types/DocType';
+
+import { TagI } from '../../../common/types/DocTag';
 
 /* ==========================================================
 
@@ -27,35 +26,11 @@ import {
  * @returns TagView
  */
 function TagView() {
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
   const { id } = useParams();
 
-  const moduleId = 'tag';
-
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
+  const doclabel: string = "Tag";
+  const doctype: DocType = "tag";
+  const segment: string = "tags";
 
   const fieldsTag: MyBasicViewFieldParameterI[] = [
     {
@@ -79,8 +54,8 @@ function TagView() {
   ];
 
   const segmentTags: MyBasicViewSegmentParameterI = {
-    segment: 'tags',
-    label: 'Tags',
+    segment: segment,
+    label: doclabel,
     fields: fieldsTag,
     relationFilterIdField: 'id',
     render: 'description',
@@ -90,12 +65,11 @@ function TagView() {
   const segmentSets: MyBasicViewSegmentParameterI[] = [segmentTags];
 
   return (
-    <MyBasicView
-      id={id}
-      moduleLabel="Tag"
-      moduleId={moduleId}
-      requests={requests}
-      segmentSets={segmentSets}
+    <MyBasicView<TagI>
+    id={id}
+    doclabel={doclabel}
+    doctype={doctype}
+    segmentSets={segmentSets}
     />
   );
 }

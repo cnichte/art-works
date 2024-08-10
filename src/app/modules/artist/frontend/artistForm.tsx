@@ -1,31 +1,33 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Space, Typography, Input, Form, Button,
-  Upload } from 'antd';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Space, Typography, Input, Form, Button, Upload } from "antd";
 
-import type { RcFile } from 'antd/es/upload';
+import type { RcFile } from "antd/es/upload";
 
 import {
-  UploadOutlined, CloseCircleOutlined,
+  UploadOutlined,
+  CloseCircleOutlined,
   PlusOutlined,
-} from '@ant-design/icons';
+} from "@ant-design/icons";
 
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
 //* above are the default imports
 
 //* Room for additional imports
-import ImgCrop from 'antd-img-crop';
+import ImgCrop from "antd-img-crop";
 
 //* Application imports
-import RequestFactory from '../../../common/backend/RequestFactory';
-import FormTools from '../../../common/frontend/FormTools';
-import { FormPropertiesInterface } from '../../../common/frontend/types/FormPropertiesInterface';
-import { MyInputURLField } from '../../../common/frontend/myInputFields';
-import { UploadChangeParam, UploadFile } from 'antd/es/upload';
+import { UploadChangeParam, UploadFile } from "antd/es/upload";
+import { FormPropertiesInterface } from "../../../common/types/FormPropertiesInterface";
+import { DocType } from "../../../common/types/DocType";
+import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
+import { DB_Request } from "../../../common/types/RequestTypes";
+import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
+import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
+import { Action_Request } from "../../../common/types/RequestTypes";
+import { Artist } from "../../../common/types/DocArtist";
+import { FormTool } from "../../../frontend/FormTool";
+import { MyInputURLField } from "../../../frontend/myInputFields";
 
 const layout = {
   labelCol: { span: 8 },
@@ -41,99 +43,95 @@ function NoteForm() {
   const navigate = useNavigate();
   const { Title } = Typography;
 
-  const moduleId = 'artist';
+  const doclabel: string = "Künstler";
+  const doctype: DocType = "artist";
+  const segment: string = "artists";
 
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState(null);
-
-  const props: FormPropertiesInterface = {
-    id: id,
-    moduleLabel: 'Künstler',
-    moduleId: moduleId,
-    requests: RequestFactory.getFormRequestsFor(moduleId, 'ipc-database'),
-    segment: `${moduleId}s`,
-  };
+  const [dataOrigin, setDataOrigin] = useState<Artist>(null);
+  const triggerSaveRef = React.useRef(null);
 
   const [uploading, setUploading] = useState(false);
 
-  console.log(`############### Props-ID ${props.id}`);
-  /* ----------------------------------------------------------
-
-    Standard Actions
-
-   ---------------------------------------------------------- */
-
-   useEffect(() => {
+  useEffect(() => {
     //* Wird einmalig beim Laden der Seite ausgeführt.
-    console.info('Request some data from backend...');
-    FormTools.loadDataRequest(props.requests, id);
+    console.info("Request some data from backend...");
+    Header_Buttons_IPC.request_buttons("form", doctype, id); // is perhaps id='new'
 
+    if (id != "new") {
+      //! Request Document from Database
+      const request: DB_Request = {
+        type: "request:data",
+        doctype: doctype,
+        id: id,
+        options: {},
+      };
+
+      window.electronAPI
+        .invoke_request(IPC_DATABASE, [request])
+        .then((result: any) => {
+          setDataOrigin(result[segment][0]); //
+          form.setFieldsValue(result[segment][0]);
+          App_Messages_IPC.request_message(
+            "request:message-info",
+            App_Messages_IPC.get_message_from_request(request.type, doclabel)
+          );
+        })
+        .catch(function (error: any) {
+          App_Messages_IPC.request_message(
+            "request:message-error",
+            error instanceof Error ? `Error: ${error.message}` : ""
+          );
+        });
+    }
+
+    //! Listen for Header-Button Actions.
+    // Register and remove the event listener
+    const buaUnsubscribe = window.electronAPI.listen_to(
+      "ipc-button-action",
+      (response: Action_Request) => {
+        if (response.target === doctype && response.view == "form") {
+          console.log("AddressForm says ACTION: ", response);
+          triggerSaveRef.current?.click();
+          // message.info(response.type);
+        }
+      }
+    );
+
+    // Cleanup function to remove the listener on component unmount
+    return () => {
+      buaUnsubscribe();
+    };
   }, []);
 
-  FormTools.loadDataResponse(
-    dataOrigin,
-    props,
-    (data:any) => {
-        // Die Originaldaten heben wir auf,
-        // um später zu prüfen ob sich was geändert hat.
-        setDataOrigin(data);
-        form.setFieldsValue(data[props.segment][0]);
-    }
-  );
+  const onFormFinish = (valuesForm: any) => {
+    let ft: FormTool<Artist> = new FormTool();
 
-  const onFormHandleSubmit = (valuesForm: any) => {
-    FormTools.saveDataRequest(id, dataOrigin, valuesForm, [], props);
+    ft.save_data({
+      ipcChannel: IPC_DATABASE,
+      dataObject: dataOrigin,
+      valuesForm: valuesForm,
+      force_save: false,
+    })
+      .then((result: Artist) => {
+        //! has new _rev from backend
+        setDataOrigin(result);
+        // update header-button-state because uuid has changed from 'new' to uuid.
+        Header_Buttons_IPC.request_buttons("form", doctype, result.id);
+      })
+      .catch(function (error: any) {
+        App_Messages_IPC.request_message(
+          "request:message-error",
+          error instanceof Error ? `Error: ${error.message}` : ""
+        );
+      });
   };
-
-  FormTools.saveDataResponse(dataOrigin, props, (result: any) => {
-    setUploading(false);
-    // We keep the original data,
-    // to check later if anything has changed.
-    if (dataOrigin !== undefined && dataOrigin !== null) {
-      if (dataOrigin[props.segment][0].id === result.data.id) {
-        //* update rev
-        // The ID should of course match...
-        // The rev ID is transferred so that I can save again...
-        // TODO wie mit einem Konflikt umgehen... (Konfliktmeldung)
-        // TODO dataOrigin ist possibly nicht definiert:
-        dataOrigin[props.segment][0].rev = result.data.rev;
-
-        setDataOrigin(dataOrigin);
-        // TODO: Das ich hier auf .segment][0] gehe ist auch gefährlich.
-        // Ich sollte das Dokument mit der ID suchen statt die [0] zu nehmen...
-
-        // TODO Hier gibt es data nicht:
-        // console.log('####### SET FIELDS VALUE', data[props.segment][0]);
-        // form.setFieldsValue(data[props.segment][0]);
-      }
-    }
-  });
 
   const onFormFinishFailed = (errorInfo: any) => {
-    console.info('Failed:', errorInfo);
-  };
-
-  const onFormReset = () => {
-    form.resetFields();
-  };
-
-  const onFormFill = () => {
-    form.setFieldsValue({
-      title: 'Eine Notiz',
-    });
-  };
-
-  const onFormClose = (key: any) => {
-    console.log('---------- onFormClose', key);
-    navigate(FormTools.getGotoViewPath(props.moduleId, id));
+    console.info("Failed:", errorInfo);
   };
 
   /* ----------------------------------------------------------
@@ -142,7 +140,7 @@ function NoteForm() {
 
    ---------------------------------------------------------- */
 
-   const [dataAvatarImageAsBase64, setDataAvatarImageAsBase64] =
+  const [dataAvatarImageAsBase64, setDataAvatarImageAsBase64] =
     useState<string>();
 
   /**
@@ -171,7 +169,7 @@ function NoteForm() {
     console.log(`onAvatarBeforeUpload`);
     console.log(file);
 
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
     if (!isJpgOrPng) {
       // TODO: message.error('You can only upload JPG/PNG file!');
     }
@@ -198,7 +196,8 @@ function NoteForm() {
    * @param info
    * @returns
    */
-  function onAvatarHandleUpload(info: UploadChangeParam<UploadFile>) { // TODO Sind die Pakete korrekt?
+  function onAvatarHandleUpload(info: UploadChangeParam<UploadFile>) {
+    // TODO Sind die Pakete korrekt?
     console.log(`onAvatarHandleUpload`);
     console.log(info);
   }
@@ -220,7 +219,7 @@ function NoteForm() {
    ---------------------------------------------------------- */
   return (
     <div>
-      <Title level={3}> {props.moduleLabel} bearbeiten</Title>
+      <Title level={3}> {doclabel} bearbeiten</Title>
       <Form
         form={form}
         name="basic"
@@ -228,87 +227,77 @@ function NoteForm() {
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 1000 }}
         initialValues={{ remember: true }}
-        onFinish={onFormHandleSubmit}
+        onFinish={onFormFinish}
         onFinishFailed={onFormFinishFailed}
         autoComplete="off"
       >
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Space wrap>
-            <Button type="dashed" htmlType="button" onClick={onFormClose}>
-              <CloseCircleOutlined /> Close Form
-            </Button>
-            <Button type="primary" htmlType="submit">
-              <UploadOutlined /> Änderungen speichern
-            </Button>
-            <Button htmlType="button" onClick={onFormReset}>
-              Reset
-            </Button>
-            <Button type="link" htmlType="button" onClick={onFormFill}>
-              Fill form
-            </Button>
-          </Space>
+        <Form.Item label="Bild" name="image">
+          <ImgCrop rotationSlider>
+            <Upload
+              maxCount={1}
+              listType="picture-card"
+              className="avatar-uploader"
+              action=""
+              showUploadList={false}
+              beforeUpload={onAvatarBeforeUpload}
+              // eslint-disable-next-line react/jsx-no-bind
+              onChange={onAvatarHandleUpload}
+            >
+              {dataAvatarImageAsBase64 ? (
+                <img
+                  src={dataAvatarImageAsBase64}
+                  alt="avatar"
+                  style={{ width: "100%" }}
+                />
+              ) : (
+                buttonUploadAvatar
+              )}
+            </Upload>
+          </ImgCrop>
+        </Form.Item>
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: "Namen eingeben." }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item label="Künstlername" name="alias">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Geburtstag" name="birthdate">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Postleitzahl" name="postalCode">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Ort" name="city">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Strasse und Hausnummer" name="street">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Webseite" name="url">
+          <MyInputURLField />
+        </Form.Item>
+        <Form.Item label="eMail" name="mail">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Telefon" name="phone">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Notiz" name="shortnote">
+          <Input.TextArea rows={4} placeholder="Please enter a note." />
         </Form.Item>
 
-
-
-        <Form.Item label="Bild" name="image">
-                <ImgCrop rotationSlider>
-                  <Upload
-                    maxCount={1}
-                    listType="picture-card"
-                    className="avatar-uploader"
-                    action=""
-                    showUploadList={false}
-                    beforeUpload={onAvatarBeforeUpload}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onChange={onAvatarHandleUpload}
-                  >
-                    {dataAvatarImageAsBase64 ? (
-                      <img
-                        src={dataAvatarImageAsBase64}
-                        alt="avatar"
-                        style={{ width: '100%' }}
-                      />
-                    ) : (
-                      buttonUploadAvatar
-                    )}
-                  </Upload>
-                </ImgCrop>
-              </Form.Item>
-              <Form.Item
-                label="Name"
-                name="name"
-                rules={[{ required: true, message: 'Namen eingeben.' }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item label="Künstlername" name="alias">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Geburtstag" name="birthdate">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Postleitzahl" name="postalCode">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Ort" name="city">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Strasse und Hausnummer" name="street">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Webseite" name="url">
-                <MyInputURLField />
-              </Form.Item>
-              <Form.Item label="eMail" name="mail">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Telefon" name="phone">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Notiz" name="shortnote">
-                <Input.TextArea rows={4} placeholder="Please enter a note." />
-              </Form.Item>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            ref={triggerSaveRef}
+            style={{ display: "none" }}
+          />
+        </Form.Item>
       </Form>
     </div>
   );

@@ -1,153 +1,155 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import {
-  Space,
-  Select,
-  Typography,
-  Input,
-  Form,
-  Button,
-  DatePicker,
-} from 'antd';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router";
 
-import {
-  UploadOutlined,
-  CloseCircleOutlined,
-  InfoCircleOutlined,
-} from '@ant-design/icons';
-
-import { useNavigate } from 'react-router';
+import { Select, Input, Form, Button } from "antd";
+import { InfoCircleOutlined } from "@ant-design/icons";
 //* above are the default imports
 
 // Additional imports
-import dayjs from 'dayjs';
-import type { DatePickerProps } from 'antd';
-import type { RcFile, UploadProps } from 'antd/es/upload';
+import type { RcFile } from "antd/es/upload";
 
-//* Application imports
-import RequestFactory from '../../../common/backend/RequestFactory';
-import FormTools from '../../../common/frontend/FormTools';
-import { FormPropertiesInterface } from '../../../common/frontend/types/FormPropertiesInterface';
-import TransformerInterface from '../../../common/frontend/types/TransformerInterface';
-import { MyInputURLField } from '../../../common/frontend/myInputFields';
+// Application imports
+import { FormTool } from "../../../frontend/FormTool";
+import { MyInputURLField } from "../../../frontend/myInputFields";
+import { MyDatePicker } from "../../../frontend/myDatePicker";
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
+import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
+import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
+
+import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
+import { DocType } from "../../../common/types/DocType";
+import { FormPropertiesInterface } from "../../../common/types/FormPropertiesInterface";
+import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
+
+import { Address } from "../../../common/types/DocAddress";
 
 /**
  * Formular für das Modul Note.
  *
  * @returns NoteForm
  */
-function AddressForm() {
+export default function AddressForm() {
   const navigate = useNavigate();
-  const { Title } = Typography;
 
-  const moduleId = 'address';
+  const doclabel: string = "Kontakt";
+  const doctype: DocType = "address";
+  const segment: string = "addresses";
 
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState(null);
-  const [addressTypes, setAddressTypes] = useState([]);
 
+  const [dataOrigin, setDataOrigin] = useState<Address>(null);
+  const [addressTypes, setAddressTypes] = useState([]);
+  
+  const triggerSaveRef = React.useRef(null);
+
+
+
+  // TODO FormPropertiesInterface wird nicht mehr gebraucht?
   const props: FormPropertiesInterface = {
     id,
-    moduleLabel: 'Adresse',
-    moduleId: moduleId,
-    requests: RequestFactory.getFormRequestsFor(moduleId, 'ipc-database'),
-    segment: `${moduleId}es`,
+    moduleLabel: doclabel,
+    moduleId: doctype,
+    segment: segment,
   };
-
-  /* ----------------------------------------------------------
-
-    Standard Actions
-
-   ---------------------------------------------------------- */
 
   useEffect(() => {
     //* Wird einmalig beim Laden der Seite ausgeführt.
-    console.info('Request some data from backend...');
-    FormTools.loadDataRequest(props.requests, id);
-    FormTools.customRequest('ipc-database', 'request:addressTypes-list-custom','','');
+    console.info("Request some data from backend...");
+    Header_Buttons_IPC.request_buttons("form", doctype, id); // is perhaps id='new'
+
+    if (id != "new") {
+      //! Request Document from Database
+      const request: DB_Request = {
+        type: "request:data",
+        doctype: doctype,
+        id: id,
+        options: {},
+      };
+
+      window.electronAPI
+        .invoke_request(IPC_DATABASE, [request])
+        .then((result: any) => {
+          setDataOrigin(result[segment][0]); //
+          form.setFieldsValue(result[segment][0]);
+          App_Messages_IPC.request_message(
+            "request:message-info",
+            App_Messages_IPC.get_message_from_request(request.type, doclabel)
+          );
+        })
+        .catch(function (error: any) {
+          App_Messages_IPC.request_message(
+            "request:message-error",
+            error instanceof Error ? `Error: ${error.message}` : ""
+          );
+        });
+    }
+
+    const request_2: DB_Request = {
+      type: "request:data",
+      doctype: "addressType",
+      options: {},
+    };
+
+    window.electronAPI
+      .invoke_request(IPC_DATABASE, [request_2])
+      .then((result: any) => {
+        setAddressTypes(result.addressTypes); //
+      })
+      .catch(function (error: any) {
+        App_Messages_IPC.request_message(
+          "request:message-error",
+          error instanceof Error ? `Error: ${error.message}` : ""
+        );
+      });
+
+    //! Listen for Header-Button Actions.
+    // Register and remove the event listener
+    const buaUnsubscribe = window.electronAPI.listen_to(
+      "ipc-button-action",
+      (response: Action_Request) => {
+        if (response.target === doctype && response.view == "form") {
+          console.log("AddressForm says ACTION: ", response);
+          triggerSaveRef.current?.click();
+          // message.info(response.type);
+        }
+      }
+    );
+
+    // Cleanup function to remove the listener on component unmount
+    return () => {
+      buaUnsubscribe();
+    };
   }, []);
 
-  FormTools.loadDataResponse(dataOrigin, props, (data:any) => {
-    // Die Originaldaten heben wir auf,
-    // um später zu prüfen ob sich was geändert hat.
-
-    // TODO: Eine klassische Transform Aufgabe
-    // TODO: Das muss natürlich beim speichern auch auch gemacht werden...
-    let v = data[props.segment][0].birthdate;
-    data[props.segment][0].birthdate = dayjs(v);
-
-    setDataOrigin(data);
-    form.setFieldsValue(data[props.segment][0]);
-  });
-
-  FormTools.customResponse(
-    'ipc-database',
-    'request:addressTypes-list-custom',
-    (data:any) => {
-      setAddressTypes(data.addressTypes);
-    }
-  );
-
   const onFormFinish = (valuesForm: any) => {
-    FormTools.saveDataRequest(id, dataOrigin, valuesForm, [] ,props);
+    let ft: FormTool<Address> = new FormTool();
+
+    ft.save_data({
+      ipcChannel: IPC_DATABASE,
+      dataObject: dataOrigin,
+      valuesForm: valuesForm,
+      force_save: false,
+    })
+      .then((result: Address) => {
+        //! has new _rev from backend
+        setDataOrigin(result);
+        // update header-button-state because uuid has changed from 'new' to uuid.
+        Header_Buttons_IPC.request_buttons("form", doctype, result.id);
+      })
+      .catch(function (error:any) {
+        App_Messages_IPC.request_message(
+          "request:message-error",
+          error instanceof Error ? `Error: ${error.message}` : ""
+        );
+      });
   };
 
   const onFormFinishFailed = (errorInfo: any) => {
-    console.info('Failed:', errorInfo);
+    console.info("Failed:", errorInfo);
   };
-
-  const onFormReset = () => {
-    form.resetFields();
-  };
-
-  const onFormFill = () => {
-    form.setFieldsValue({
-      title: 'Eine Notiz',
-    });
-  };
-
-  const onFormClose = (key: any) => {
-    console.log('---------- onFormClose', key);
-    navigate(
-      FormTools.getGotoViewPath(
-        props.moduleId,
-        dataOrigin[props.segment][0].id
-      )
-    );
-  };
-
-
-  class Transform implements TransformerInterface {
-
-    toView(data: any): void {
-      throw new Error('Method not implemented.');
-    }
-    
-    toForm(data: any){
-
-    }
-
-    toData(data: any){
-
-    }
-  }
 
   /* ----------------------------------------------------------
 
@@ -155,7 +157,7 @@ function AddressForm() {
 
    ---------------------------------------------------------- */
 
-   function getAddressTypeOptions(): Array<any> {
+  function getAddressTypeOptions(): Array<any> {
     return addressTypes.map((item: { id: any; name: any }) => {
       return { value: item.id, label: item.name };
     });
@@ -168,13 +170,9 @@ function AddressForm() {
       reader.onerror = (error) => reject(error);
     });
 
-    const onDatePickerChange: DatePickerProps['onChange'] = (date, dateString) => {
-      // console.info(date, dateString);
-    };
-
-    const handleAddressTypeChange = (value: string) => {
-        // TODO: Form.Items anzeigen und ausblenden siehe saleForm
-    }
+  const handleAddressTypeChange = (value: string) => {
+    // TODO: Form.Items anzeigen und ausblenden siehe saleForm
+  };
 
   /* ----------------------------------------------------------
 
@@ -183,7 +181,6 @@ function AddressForm() {
    ---------------------------------------------------------- */
   return (
     <div>
-      <Title level={3}> {props.moduleLabel} bearbeiten</Title>
       <Form
         form={form}
         name="basic"
@@ -195,28 +192,13 @@ function AddressForm() {
         onFinishFailed={onFormFinishFailed}
         autoComplete="off"
       >
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Space wrap>
-            <Button type="dashed" htmlType="button" onClick={onFormClose}>
-              <CloseCircleOutlined /> Close Form
-            </Button>
-            <Button type="primary" htmlType="submit">
-              <UploadOutlined /> Änderungen speichern
-            </Button>
-            <Button htmlType="button" onClick={onFormReset}>
-              Reset
-            </Button>
-            <Button type="link" htmlType="button" onClick={onFormFill}>
-              Fill form
-            </Button>
-          </Space>
-        </Form.Item>
-
-
         <Form.Item
           label="Typ"
           name="addressType"
-          tooltip={{ title: 'Typ des Kontakts / der Addresse', icon: <InfoCircleOutlined /> }}
+          tooltip={{
+            title: "Typ des Kontakts / der Addresse",
+            icon: <InfoCircleOutlined />,
+          }}
         >
           <Select
             defaultValue="0ae7570a-603c-43f3-9667-5aa019dd27eb" // Print (Standard)
@@ -227,12 +209,12 @@ function AddressForm() {
         <Form.Item
           label="Name"
           name="name"
-          rules={[{ required: true, message: 'Namen eingeben.' }]}
+          rules={[{ required: true, message: "Namen eingeben." }]}
         >
           <Input />
         </Form.Item>
         <Form.Item label="Geburtstag" name="birthdate">
-          <DatePicker onChange={onDatePickerChange} />
+          <MyDatePicker />
         </Form.Item>
         <Form.Item label="Postleitzahl" name="postalCode">
           <Input />
@@ -258,9 +240,16 @@ function AddressForm() {
         <Form.Item label="Tags" name="tags">
           <Input />
         </Form.Item>
+
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            ref={triggerSaveRef}
+            style={{ display: "none" }}
+          />
+        </Form.Item>
       </Form>
     </div>
   );
 }
-
-export default AddressForm;

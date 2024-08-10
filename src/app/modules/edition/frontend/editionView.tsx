@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-no-bind */
 import { useParams } from "react-router-dom";
 
-import RequestFactory from "../../../common/backend/RequestFactory";
-import MyBasicView from "../../../common/frontend/myBasicView";
-import {
-  MyBasicViewFieldParameterI,
-  MyBasicViewSegmentParameterI,
-} from "../../../common/frontend/types/MyBasicViewTypes";
+import { MyBasicViewFieldParameterI, MyBasicViewSegmentParameterI } from '../../../common/types/MyBasicViewTypes';
+import MyBasicView from '../../../frontend/myBasicView';
+import { DocType } from '../../../common/types/DocType';
+
+import { EditionI } from "../../../common/types/DocEdition";
 
 /* ==========================================================
 
@@ -27,34 +26,12 @@ import {
  * @returns EditionView
  */
 function EditionView() {
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const moduleId = "edition";
+  const doclabel: string = "Edition";
+  const doctype: DocType = "edition";
+  const segment: string = "editions";
 
-  const requests = RequestFactory.getViewRequestsFor(moduleId, "ipc-database");
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
   const fieldsEdition: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: "name",
@@ -103,8 +80,8 @@ function EditionView() {
   ];
 
   const segmentEditions: MyBasicViewSegmentParameterI = {
-    segment: "editions",
-    label: "Edition",
+    segment: segment,
+    label: doclabel,
     fields: fieldsEdition,
     relationFilterIdField: "id",
     render: "description", // "description" | "table" | "component"
@@ -114,12 +91,11 @@ function EditionView() {
   const segmentSets: MyBasicViewSegmentParameterI[] = [segmentEditions];
 
   return (
-      <MyBasicView
-        id={id}
-        moduleLabel="Edition"
-        moduleId={moduleId}
-        requests={requests}
-        segmentSets={segmentSets}
+      <MyBasicView<EditionI>
+      id={id}
+      doclabel={doclabel}
+      doctype={doctype}
+      segmentSets={segmentSets}
       />
   );
 }

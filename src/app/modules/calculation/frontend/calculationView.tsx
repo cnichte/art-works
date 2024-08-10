@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-no-bind */
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
-import {
-  MyBasicViewFieldParameterI,
-  MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
+import { MyBasicViewFieldParameterI, MyBasicViewSegmentParameterI } from '../../../common/types/MyBasicViewTypes';
+import MyBasicView from '../../../frontend/myBasicView';
+import { DocType } from '../../../common/types/DocType';
+
+import { CalculationI } from "../../../common/types/DocCalculation";
 
 /* ==========================================================
 
@@ -27,48 +26,24 @@ import {
  * @returns CalculationView
  */
 function CalculationView() {
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
   const { id } = useParams();
 
-  const moduleId = 'calculation';
-
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
+  const doclabel: string = "Kalkulation";
+  const doctype: DocType = "calculation";
+  const segment: string = "calculations";
 
   const fieldsCalculation: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'title',
-      label: 'Titel',
+      dataIndex: "title",
+      label: "Titel",
     },
     {
-      dataIndex: 'description',
-      label: 'Beschreibung',
+      dataIndex: "description",
+      label: "Beschreibung",
     },
     {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
+      dataIndex: "shortnote",
+      label: "Notiz",
     },
     {
       dataIndex: "calc",
@@ -86,28 +61,27 @@ function CalculationView() {
         {
           dataIndex: "shortnote",
           label: "Notiz",
-        }
+        },
       ],
     },
   ];
 
   const segmentCalculations: MyBasicViewSegmentParameterI = {
-    segment: 'calculations',
-    label: 'Kalkulation',
+    segment: segment,
+    label: doclabel,
     fields: fieldsCalculation,
-    relationFilterIdField: 'id',
-    render: 'description',
+    relationFilterIdField: "id",
+    render: "description",
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [segmentCalculations];
 
   return (
-    <MyBasicView
+    <MyBasicView<CalculationI>
       id={id}
-      moduleLabel="Kalkulation"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );

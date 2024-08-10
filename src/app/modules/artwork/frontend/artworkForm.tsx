@@ -1,50 +1,25 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
-import {
-  Space,
-  Typography,
-  Input,
-  Form,
-  Button,
-  Switch,
-  InputNumber,
-} from "antd";
-import {
-  UploadOutlined,
-  CloseCircleOutlined,
-  CheckOutlined,
-  CloseOutlined,
-} from "@ant-design/icons";
 
-//* above are the default imports
+import { Typography, Input, Form, Button, Switch } from "antd";
 
-//* Room for additional imports
+import { DocType } from "../../../common/types/DocType";
+import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
+import { DB_Request } from "../../../common/types/RequestTypes";
+import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
+import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
+import { Action_Request } from "../../../common/types/RequestTypes";
+import { FormTool } from "../../../frontend/FormTool";
+import { Artwork } from "../../../common/types/DocArtwork";
+import { MySelectMulti_Input } from "../../../frontend/mySelectMulti_Input";
+import { MyAttachments_ImagesMeta_Input } from "../../../frontend/myAttachments_ImagesMeta_Input";
+import { AttachmentMeta } from "../../../common/types/AttachmentTypes";
+import { MyDatePickerInput } from "../../../frontend/myDatePickerInput";
+import { My_Price_Input } from "../../../frontend/myPrice_Input";
 
-//* Application imports
-import RequestFactory from "../../../common/backend/RequestFactory";
-
-import FormTools from "../../../common/frontend/FormTools";
-import { FormPropertiesInterface } from "../../../common/frontend/types/FormPropertiesInterface";
-import MyDatePickerInput from "../../../common/frontend/myDatePickerInput";
-import MyTags_Input from "../../../common/frontend/myTags_Input";
-import { MyAttachments_ImagesMeta_Input } from "../../../common/frontend/myAttachments_ImagesMeta_Input";
-import {
-  AttachmentTool,
-  AttachmentToolReturnValue,
-} from "../../../common/frontend/AttachmentTool";
-
-// TODO Test Logger
-import log from "electron-log/renderer";
-import { AttachmentMeta } from "../../../common/frontend/types/AttachmentTypes";
-import { My_Marker_Input } from "../../../common/frontend/myMarker_Input";
-import { My_Price_Input } from "../../../common/frontend/myPrice_Input";
-import { MySelectMulti_Input } from "../../../common/frontend/mySelectMulti_Input";
+import MyTags_Input from "../../../frontend/myTags_Input";
+import { My_Marker_Input } from "../../../frontend/myMarker_Input";
 
 // log.info('########################################### Log from the renderer process');
 // log.info() wird auf der Konsole im Backend ausgegeben.
@@ -77,141 +52,99 @@ function ArtworkForm() {
   const navigate = useNavigate();
   const { Title } = Typography;
 
-  const moduleId = "artwork";
+  const doclabel: string = "Werk";
+  const doctype: DocType = "artwork";
+  const segment: string = "artworks";
 
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
   const [form] = Form.useForm();
-
   // The id is passed as a parameter, and is
   // either: 'new', or a uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState(null);
-  
-  const props: FormPropertiesInterface = {
-    id,
-    moduleLabel: "Werk",
-    moduleId,
-    requests: RequestFactory.getFormRequestsFor(moduleId, "ipc-database"),
-    segment: `${moduleId}s`,
-  };
 
+  const [dataOrigin, setDataOrigin] = useState<Artwork>(null);
   const [uploading, setUploading] = useState(false);
-
-  // Custom Title and Save-Button
-  // depends on Formulars Modus ('new' or 'edit' content from uuid)
-  const theTitle =
-    id === "new"
-      ? `Neues ${props.moduleLabel} hinzufügen`
-      : `${props.moduleLabel} bearbeiten`;
-  const theSaveButtonLabel =
-    id === "new" ? "Werk anlegen" : "Änderungen speichern";
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Standard Actions
-
-   ---------------------------------------------------------- */
+  const triggerSaveRef = React.useRef(null);
 
   useEffect(() => {
     // Executed once when the page is loaded.
     // behavier depends on id, which is an uuid, or 'new'
     // we request form data,
     // or a new empty Formdata-Object with an fresh uuid.
-    FormTools.loadDataRequest(props.requests, id);
+    //* Wird einmalig beim Laden der Seite ausgeführt.
+    console.info("Request some data from backend...");
+    Header_Buttons_IPC.request_buttons("form", doctype, id); // is perhaps id='new'
+
+    if (id != "new") {
+      //! Request Document from Database
+      const request: DB_Request = {
+        type: "request:data",
+        doctype: doctype,
+        id: id,
+        options: {},
+      };
+
+      window.electronAPI
+        .invoke_request(IPC_DATABASE, [request])
+        .then((result: any) => {
+          setDataOrigin(result[segment][0]); //
+          form.setFieldsValue(result[segment][0]);
+          App_Messages_IPC.request_message(
+            "request:message-info",
+            App_Messages_IPC.get_message_from_request(request.type, doclabel)
+          );
+        })
+        .catch(function (error: any) {
+          App_Messages_IPC.request_message(
+            "request:message-error",
+            error instanceof Error ? `Error: ${error.message}` : ""
+          );
+        });
+    }
+
+    //! Listen for Header-Button Actions.
+    // Register and remove the event listener
+    const buaUnsubscribe = window.electronAPI.listen_to(
+      "ipc-button-action",
+      (response: Action_Request) => {
+        if (response.target === doctype && response.view == "form") {
+          console.log("AddressForm says ACTION: ", response);
+          triggerSaveRef.current?.click();
+          // message.info(response.type);
+        }
+      }
+    );
+
+    // Cleanup function to remove the listener on component unmount
+    return () => {
+      buaUnsubscribe();
+    };
   }, []);
 
-  // TODO dataOrigin brauch ich ier nicht - es sei denn...
-  // ich ziehe die callback logik auch noch in die Funktion.
-  // Das wäre vielleicht sinnvoll weil das echt für alle Forms gleich ist?
-  FormTools.loadDataResponse(dataOrigin, props, (data: any) => {
-    // We keep the original data,
-    // to check later if anything has changed.
-    setDataOrigin(data);
-
-    // TODO: Das ich hier auf .segment][0] gehe ist auch gefährlich.
-    // Ich sollte das Dokument mit der ID suchen statt die [0] zu nehmen...
-    console.log("####### SET FIELDS VALUE", data[props.segment][0]);
-    form.setFieldsValue(data[props.segment][0]);
-  });
-
   const onFormFinish = (valuesForm: any) => {
-    // Lets submit the Formdata to the backend.
+    let ft: FormTool<Artwork> = new FormTool();
 
-    // before, we have to add the
-    // new Attachment Metadata & Attachments to the Form-Data
-    // and identify and separate the attachment-actions
-    const result: AttachmentToolReturnValue =
-      AttachmentTool.performActionsBeforeUpload(
-        valuesForm,
-        dataOrigin[props.segment][0]
-      );
-
-    valuesForm.attachmentsMeta = result.attachmentsMeta;
-    const { attachmentActions } = result; //* this Equals: const attachmentActions: AttachmentActions[] = result.attachmentActions;
-
-    setUploading(true);
-
-    FormTools.saveDataRequest(
-      id,
-      dataOrigin,
-      valuesForm,
-      attachmentActions, // TODO: Nutze ich momentan im Backend nicht ...
-      props
-    );
+    ft.save_data({
+      ipcChannel: IPC_DATABASE,
+      dataObject: dataOrigin,
+      valuesForm: valuesForm,
+      force_save: false,
+    })
+      .then((result: Artwork) => {
+        //! has new _rev from backend
+        setDataOrigin(result);
+        // update header-button-state because uuid has changed from 'new' to uuid.
+        Header_Buttons_IPC.request_buttons("form", doctype, result.id);
+      })
+      .catch(function (error: any) {
+        App_Messages_IPC.request_message(
+          "request:message-error",
+          error instanceof Error ? `Error: ${error.message}` : ""
+        );
+      });
   };
-
-  FormTools.saveDataResponse(dataOrigin, props, (result: any) => {
-    setUploading(false);
-    // We keep the original data,
-    // to check later if anything has changed.
-    if (dataOrigin !== undefined && dataOrigin !== null) {
-      if (dataOrigin[props.segment][0].id === result.data.id) {
-        //* update rev
-        // The ID should of course match...
-        // The rev ID is transferred so that I can save again...
-        // TODO wie mit einem Konflikt umgehen... (Konfliktmeldung)
-        // TODO dataOrigin ist possibly nicht definiert:
-        dataOrigin[props.segment][0].rev = result.data.rev;
-
-        //! setDataOrigin(dataOrigin);
-        // TODO: Das ich hier auf .segment][0] gehe ist auch gefährlich.
-        // Ich sollte das Dokument mit der ID suchen statt die [0] zu nehmen...
-
-        // TODO Hier gibt es data nicht:
-        //! console.log('####### SET FIELDS VALUE', data[props.segment][0]);
-        //! form.setFieldsValue(data[props.segment][0]);
-      }
-    }
-  });
 
   const onFormFinishFailed = (errorInfo: any) => {
-    // TODO ? {error, reason, status, name, message, stack, docId }
     console.info("Failed:", errorInfo);
-  };
-
-  const onFormReset = () => {
-    form.resetFields();
-  };
-
-  const onFormFill = () => {
-    form.setFieldsValue({
-      title: "Eine Notiz",
-    });
-  };
-
-  const onFormClose = (key: any) => {
-    console.log("---------- onFormClose", key);
-    navigate(FormTools.getGotoViewPath(props.moduleId, id));
   };
 
   /* ----------------------------------------------------------
@@ -222,7 +155,6 @@ function ArtworkForm() {
 
   return (
     <div>
-      <Title level={3}>{theTitle}</Title>
       <Form
         form={form}
         name="basic"
@@ -241,28 +173,6 @@ function ArtworkForm() {
         onFinishFailed={onFormFinishFailed}
         autoComplete="off"
       >
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Space wrap>
-            <Button type="dashed" htmlType="button" onClick={onFormClose}>
-              <CloseCircleOutlined /> Close Form
-            </Button>
-            <Button
-              type="primary"
-              htmlType="submit"
-              // disabled={fileList.length === 0}
-              loading={uploading}
-            >
-              <UploadOutlined /> {theSaveButtonLabel}
-            </Button>
-            <Button htmlType="button" onClick={onFormReset}>
-              Reset
-            </Button>
-            <Button type="link" htmlType="button" onClick={onFormFill}>
-              Fill form
-            </Button>
-          </Space>
-        </Form.Item>
-
         <Form.Item
           label="Werktitel"
           name="title"
@@ -279,9 +189,9 @@ function ArtworkForm() {
           <MySelectMulti_Input ipc_request="request:artists-find-custom" />
         </Form.Item>
         <Form.Item label="Bilder vom Kunstwerk" name="attachmentsMeta">
-          <MyAttachments_ImagesMeta_Input 
-            doc_id = {id}
-            module_id= {moduleId}
+          <MyAttachments_ImagesMeta_Input
+            doc_id={id}
+            module_id={doctype}
             onChange={(value: AttachmentMeta[]) => {
               console.log(
                 "artworkForm -> MyAttachments -> ValueChanged:",
@@ -343,6 +253,15 @@ function ArtworkForm() {
         </Form.Item>
         <Form.Item label="Dateianhänge" name="labels">
           <My_Marker_Input />
+        </Form.Item>
+
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            ref={triggerSaveRef}
+            style={{ display: "none" }}
+          />
         </Form.Item>
       </Form>
     </div>

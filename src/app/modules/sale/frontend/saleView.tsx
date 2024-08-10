@@ -1,12 +1,14 @@
 /* eslint-disable react/jsx-no-bind */
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
+} from "../../../common/types/MyBasicViewTypes";
+import MyBasicView from "../../../frontend/myBasicView";
+import { DocType } from "../../../common/types/DocType";
+
+import { SaleI } from "../../../common/types/DocSale";
 
 /* ==========================================================
 
@@ -27,139 +29,115 @@ import {
  * @returns SaleView
  */
 function SaleView() {
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
   const { id } = useParams();
 
-  const moduleId = 'sale';
+  const doclabel: string = "Verkauf";
+  const doctype: DocType = "sale";
+  const segment: string = "sales";
 
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
   const fieldsSale: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'saleType',
+      dataIndex: "saleType",
       mapKeyTo: {
-        dataIndex: 'saleTypes',
-        showFields: ['name'],
+        dataIndex: "saleTypes",
+        showFields: ["name"],
       },
-      label: 'Type',
+      label: "Type",
     },
     {
-      dataIndex: 'customer',
+      dataIndex: "customer",
       mapKeyTo: {
-        dataIndex: 'addresses',
-        showFields: ['name'],
+        dataIndex: "addresses",
+        showFields: ["name"],
       },
-      label: 'Kunde',
+      label: "Kunde",
     },
     {
-      dataIndex: 'publication',
+      dataIndex: "publication",
       mapKeyTo: {
-        dataIndex: 'publications',
-        showFields: ['title'],
+        dataIndex: "publications",
+        showFields: ["title"],
       },
       condition: {
-        scope:'field',
-        field: 'saleType',
-        selector: '$eq',
-        value: '2932a605-48aa-4368-96b7-21aed8103e38', // Buchverkauf
-        action: 'showif',
+        scope: "field",
+        field: "saleType",
+        selector: "$eq",
+        value: "2932a605-48aa-4368-96b7-21aed8103e38", // Buchverkauf
+        action: "showif",
       },
-      label: 'Publikation',
+      label: "Publikation",
     },
     {
-      dataIndex: 'artwork',
+      dataIndex: "artwork",
       mapKeyTo: {
-        dataIndex: 'artworks',
-        showFields: ['title'],
+        dataIndex: "artworks",
+        showFields: ["title"],
       },
       condition: {
-        scope:'field',
-        field: 'saleType',
-        selector: '$eq',
-        value: '0ae7570a-603c-43f3-9667-5aa019dd27eb', // Print (Standard)
-        action: 'showif',
+        scope: "field",
+        field: "saleType",
+        selector: "$eq",
+        value: "0ae7570a-603c-43f3-9667-5aa019dd27eb", // Print (Standard)
+        action: "showif",
       },
-      label: 'Artwork',
+      label: "Artwork",
     },
     {
-      dataIndex: 'edition',
+      dataIndex: "edition",
       mapKeyTo: {
-        dataIndex: 'editions',
-        showFields: ['title'],
+        dataIndex: "editions",
+        showFields: ["title"],
       },
       condition: {
-        scope:'field',
-        field: 'saleType',
-        selector: '$eq',
-        value: '0ad711be-179b-4fd6-b069-3ee8ada9591a', // Fineartprint (Edition)
-        action: 'showif',
+        scope: "field",
+        field: "saleType",
+        selector: "$eq",
+        value: "0ad711be-179b-4fd6-b069-3ee8ada9591a", // Fineartprint (Edition)
+        action: "showif",
       },
-      label: 'Edition',
+      label: "Edition",
     },
     {
-      dataIndex: 'editionNumber',
-      label: 'Nummer der Edition',
+      dataIndex: "editionNumber",
+      label: "Nummer der Edition",
       condition: {
-        scope:'field',
-        field: 'saleType',
-        selector: '$eq',
-        value: '0ad711be-179b-4fd6-b069-3ee8ada9591a', // Fineartprint (Edition)
-        action: 'showif',
+        scope: "field",
+        field: "saleType",
+        selector: "$eq",
+        value: "0ad711be-179b-4fd6-b069-3ee8ada9591a", // Fineartprint (Edition)
+        action: "showif",
       },
     },
     {
-      dataIndex: 'calculatedPrice',
-      label: 'Kalkulierter Preis',
+      dataIndex: "calculatedPrice",
+      label: "Kalkulierter Preis",
     },
     {
-      dataIndex: 'paid',
-      label: 'Bezahler Preis',
+      dataIndex: "paid",
+      label: "Bezahler Preis",
     },
     {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
+      dataIndex: "shortnote",
+      label: "Notiz",
     },
   ];
 
   const segmentSales: MyBasicViewSegmentParameterI = {
-    segment: 'sales',
-    label: 'Verkauf',
+    segment: "sales",
+    label: "Verkauf",
     fields: fieldsSale,
-    relationFilterIdField: 'id',
-    render: 'description',
+    relationFilterIdField: "id",
+    render: "description",
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [segmentSales];
 
   return (
-    <MyBasicView
+    <MyBasicView<SaleI>
       id={id}
-      moduleLabel="Verkauf"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );

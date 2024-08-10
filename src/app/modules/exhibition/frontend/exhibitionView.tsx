@@ -1,12 +1,14 @@
 /* eslint-disable react/jsx-no-bind */
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
+} from "../../../common/types/MyBasicViewTypes";
+import MyBasicView from "../../../frontend/myBasicView";
+import { DocType } from "../../../common/types/DocType";
+
+import { ExhibitionI } from "../../../common/types/DocExhibition";
 
 /* ==========================================================
 
@@ -35,71 +37,53 @@ function ExhibitionView() {
 
   const { id } = useParams();
 
-  const moduleId = 'exhibition';
+  const doclabel: string = "Ausstellung";
+  const doctype: DocType = "exhibition";
+  const segment: string = "exhibitions";
 
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
   const fieldsExhibition: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'title',
-      label: 'Titel',
+      dataIndex: "title",
+      label: "Titel",
     },
     {
-      dataIndex: 'date_vernissage',
-      label: 'Datum Vernissage',
+      dataIndex: "date_vernissage",
+      label: "Datum Vernissage",
     },
     {
-      dataIndex: 'date_finissage',
-      label: 'Datum Finissage',
+      dataIndex: "date_finissage",
+      label: "Datum Finissage",
     },
     {
-      dataIndex: 'description',
-      label: 'Beschreibung',
+      dataIndex: "description",
+      label: "Beschreibung",
     },
     {
-      dataIndex: 'url',
-      label: 'Webadresse',
+      dataIndex: "url",
+      label: "Webadresse",
     },
     {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
+      dataIndex: "shortnote",
+      label: "Notiz",
     },
   ];
 
   const segmentExhibitions: MyBasicViewSegmentParameterI = {
-    segment: 'exhibitions',
-    label: 'Ausstellung',
+    segment: segment,
+    label: doclabel,
     fields: fieldsExhibition,
-    relationFilterIdField: 'id',
-    render: 'description',
+    relationFilterIdField: "id",
+    render: "description",
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [segmentExhibitions];
 
   return (
-    <MyBasicView
+    <MyBasicView<ExhibitionI>
       id={id}
-      moduleLabel="Ausstellung"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );

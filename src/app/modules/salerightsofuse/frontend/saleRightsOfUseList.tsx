@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router';
 import type { ColumnsType } from 'antd/es/table';
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import { MyBasicList } from '../../../common/frontend/myBasicList';
-import { SaleRightsOfUseI } from '../types/SaleRightsOfUseInterface';
+import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
+import { DocType } from "../../../common/types/DocType";
+import { SaleRightsOfUseI } from '../../../common/types/DocSaleRightsOfUse';
+
+
 /**
  * Ein Liste der Nutzungsrechte.
  *
@@ -15,38 +17,17 @@ import { SaleRightsOfUseI } from '../types/SaleRightsOfUseInterface';
 function SaleRightsOfUseList() {
   const navigate = useNavigate();
 
-  /* ----------------------------------------------------------
+  const doclabel:string = "Nutzungsrecht";
+  const doctype:DocType = "salerightsofuse";
+  const segment:string = "salerightsofuses";
 
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
-  const moduleId = 'salerightsofuse';
-
-  const requests = RequestFactory.getListRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard Actions
-
-   ---------------------------------------------------------- */
   //* open view
   const handleView = (record: { id: any }) => {
     console.log('--- handleView:', record);
-    navigate(`/${moduleId}/view/${record.id}`);
+    console.log(`--- navigate  : '/${doctype}/view/${record.id}'`);
+    navigate(`/${doctype}/view/${record.id}`);
   };
 
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Die Spaltendefinition für die Tabelle
-
-    ---------------------------------------------------------- */
   const columns: ColumnsType<SaleRightsOfUseI> = [
     {
       title: 'Name',
@@ -76,12 +57,11 @@ function SaleRightsOfUseList() {
 
    ---------------------------------------------------------- */
   return (
-    <MyBasicList
-      moduleLabel="Nutzungsrecht"
-      moduleId={moduleId}
-      requests={requests}
-      segment="salerightsofuses"
-      columns={columns}
+    <MyBasicList<SaleRightsOfUseI>
+    doclabel={doclabel}
+    doctype={doctype}
+    segment={segment}
+    columns={columns}
     />
   );
 }

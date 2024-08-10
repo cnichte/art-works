@@ -1,10 +1,11 @@
-import { IpcRendererEvent, contextBridge, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
+import { IElectronAPI } from "./app/common/types/IElectronAPI";
 import { IPC_Channels } from "./app/common/types/IPC_Channels";
 
 /**
  * See the Electron documentation for details on how to use preload scripts:
  * https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
- * 
+ *
  * The preload script contains code that runs
  * before your web page is loaded into the browser window.
  * It has access to both DOM APIs and Node.js environment,
@@ -14,49 +15,47 @@ import { IPC_Channels } from "./app/common/types/IPC_Channels";
  * Electron apps often use the preload script
  * to set up inter-process communication (IPC) interfaces
  * to pass arbitrary messages between the main and render.
- * 
- * That's exactly what I'm doing here too.
- * TODO https://www.jsgarden.co/blog/how-to-handle-electron-ipc-events-with-typescript
+ *
+ * https://www.jsgarden.co/blog/how-to-handle-electron-ipc-events-with-typescript
  */
-export type IPC_Api = {
-  sendMessage(channel: IPC_Channels, ...args: unknown[]): void;
-  on(channel: IPC_Channels, func: (...args: unknown[]) => void ): void;
-  once(channel: IPC_Channels, func: (...args: unknown[]) => void): void; 
-}
+const electronAPI: IElectronAPI = {
+  // ######################################################################
+  // This supports my Applications API
+  // ######################################################################
 
-export type ContextBridgeApi = {
-  ipc: IPC_Api;
-  node(): void;
-  chrome(): void;
-  electron(): void;
-  ping(): void;
-}
+  //! Pattern 1: Renderer to main (one-way)
+  send(channel: IPC_Channels, ...args: unknown[]) {
+    ipcRenderer.send(channel, ...args);
+  },
 
-export const context_bridge_api: ContextBridgeApi = {
-  // Send from frontend (render-process) to backend (main-process)
-  ipc: {
-    sendMessage(channel: IPC_Channels, ...args: unknown[]) {
-      ipcRenderer.send(channel, ...args);
-    },
-    on(channel: IPC_Channels, func: (...args: unknown[]) => void) {
-      const subscription = (_event: IpcRendererEvent, ...args: unknown[]) =>
-        func(...args);
-      ipcRenderer.on(channel, subscription);
+  //! Following Pattern 2 for the Database requests
+  invoke_request: (channel: IPC_Channels, ...args: unknown[]) =>
+    ipcRenderer.invoke(channel, ...args),
 
-      return () => {
-        ipcRenderer.removeListener(channel, subscription);
-      };
-    },
-    once(channel: IPC_Channels, func: (...args: unknown[]) => void) {
-      ipcRenderer.once(channel, (_event, ...args) => func(...args));
-    },
-  } ,
-  node: () => process.versions.node,
-  chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron,
-  ping: () => ipcRenderer.invoke("ping"),
-  // we can also expose variables, not just functions
+  //! Following Pattern 3 for header-button-actions
+  // The request comes via sendMessage from the Header-Buttons
+  // runs via the ipc-action-broker and then over here.
+  // The Views are listening to this, for actions to perform...
+  //! https://berom0227.medium.com/implementing-the-off-method-in-electron-api-a-critical-aspect-of-event-listener-management-189b5232ea2a
+  // https://stackoverflow.com/questions/57418499/how-to-unregister-from-ipcrenderer-on-event-listener
+  listen_to: (channel: IPC_Channels, callback: (...args: any[]) => void) => {
+    // _event: Electron.IpcRendererEvent,
+    const subscription = (_event: any, ...args: any[]) => callback(...args);
+    ipcRenderer.on(channel, subscription);
+    console.log("preload.on -> subscribe listener", channel, subscription);
+    // Return a function to remove the listener
+    return () => {
+      console.log("preload.on -> remove listener", channel, subscription);
+      ipcRenderer.removeListener(channel, subscription);
+    };
+  },
+
+  off: (channel: IPC_Channels, callback: (...args: any[]) => void) => {
+    console.log("preload.off -> remove listener", channel, callback);
+    ipcRenderer.removeListener(channel, callback);
+  },
 };
 
-// The renderer process can access it like so: window.my_app_api.ipc.sendMessage(...)
-contextBridge.exposeInMainWorld("my_app_api", context_bridge_api);
+contextBridge.exposeInMainWorld("electronAPI", electronAPI);
+
+console.log("preload complete");

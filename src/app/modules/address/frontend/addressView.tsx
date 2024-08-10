@@ -1,12 +1,10 @@
-/* eslint-disable react/jsx-no-bind */
 import { useParams } from 'react-router-dom';
 
-import MyBasicView from '../../../common/frontend/myBasicView';
-import {
-  MyBasicViewFieldParameterI,
-  MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
-import RequestFactory from '../../../common/backend/RequestFactory';
+import { MyBasicViewFieldParameterI, MyBasicViewSegmentParameterI } from '../../../common/types/MyBasicViewTypes';
+import MyBasicView from '../../../frontend/myBasicView';
+import { DocType } from '../../../common/types/DocType';
+
+import { AddressI } from '../../../common/types/DocAddress';
 
 /* ==========================================================
 
@@ -26,36 +24,13 @@ import RequestFactory from '../../../common/backend/RequestFactory';
  *
  * @returns AddressView
  */
-function AddressView() {
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
+export default function AddressView() {
   const { id } = useParams();
 
-  const moduleId = 'address';
-
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
-
+  const doclabel:string = "Kontakt";
+  const doctype:DocType = "address";
+  const segment:string ="addresses";
+  
   const fieldsAddress: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: 'name',
@@ -96,8 +71,8 @@ function AddressView() {
   ];
 
   const segmentAddresses: MyBasicViewSegmentParameterI = {
-    segment: 'addresses',
-    label: 'Kontakt',
+    segment: segment,
+    label: doclabel,
     fields: fieldsAddress,
     relationFilterIdField: 'id',
     render: 'description',
@@ -107,13 +82,11 @@ function AddressView() {
   const segmentSets: MyBasicViewSegmentParameterI[] = [segmentAddresses];
 
   return (
-    <MyBasicView
+    <MyBasicView<AddressI>
       id={id}
-      moduleLabel="Kontakt"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );
 }
-export default AddressView;

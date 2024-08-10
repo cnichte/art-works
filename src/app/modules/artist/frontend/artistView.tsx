@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-no-bind */
-import { useParams } from 'react-router-dom';
-
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
+import { useParams } from "react-router-dom";
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
-import Segments from '../../../common/frontend/Segments';
+} from "../../../common/types/MyBasicViewTypes";
+import MyBasicView from "../../../frontend/myBasicView";
+import { DocType } from "../../../common/types/DocType";
+import { ArtistI } from "../../../common/types/DocArtist";
+import { Segments } from "../../../frontend/Segments";
 
 /* ==========================================================
 
@@ -35,98 +35,81 @@ function ArtistView() {
    ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const moduleId = 'artist';
+  const doclabel: string = "Künstler";
+  const doctype: DocType = "artist";
+  const segment: string = "artists";
 
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Fields (rendered in Tables, or Descriptions)
-
-   ---------------------------------------------------------- */
   const fieldsArtist: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'name',
-      label: 'Name',
+      dataIndex: "name",
+      label: "Name",
     },
     {
-      dataIndex: 'alias',
-      label: 'Künstlername',
+      dataIndex: "alias",
+      label: "Künstlername",
     },
     {
-      dataIndex: 'birthdate',
-      label: 'Geburtstag',
+      dataIndex: "birthdate",
+      label: "Geburtstag",
     },
     {
-      dataIndex: 'phone',
-      label: 'Telefon',
+      dataIndex: "phone",
+      label: "Telefon",
     },
     {
-      dataIndex: 'url',
-      label: 'Webadresse',
+      dataIndex: "url",
+      label: "Webadresse",
     },
     {
-      dataIndex: 'mail',
-      label: 'EMail Adresse',
+      dataIndex: "mail",
+      label: "EMail Adresse",
     },
     {
-      dataIndex: 'street',
-      label: 'Strasse',
+      dataIndex: "street",
+      label: "Strasse",
     },
     {
-      dataIndex: 'postalCode',
-      label: 'Postleitzahl',
+      dataIndex: "postalCode",
+      label: "Postleitzahl",
     },
     {
-      dataIndex: 'city',
-      label: 'Stadt',
+      dataIndex: "city",
+      label: "Stadt",
     },
     {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
+      dataIndex: "shortnote",
+      label: "Notiz",
     },
   ];
 
   const fieldsResume: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'title',
-      label: 'Titel',
+      dataIndex: "title",
+      label: "Titel",
     },
     {
-      dataIndex: 'resumeType',
-      label: 'Typ',
+      dataIndex: "resumeType",
+      label: "Typ",
       mapKeyTo: {
-        dataIndex: 'resumeTypes',
-        showFields: ['name'],
+        dataIndex: "resumeTypes",
+        showFields: ["name"],
       },
     },
     {
-      dataIndex: 'what',
-      label: 'Was',
+      dataIndex: "what",
+      label: "Was",
     },
     {
-      dataIndex: 'where',
-      label: 'Wo',
+      dataIndex: "where",
+      label: "Wo",
     },
     {
-      dataIndex: 'from',
-      label: 'von',
+      dataIndex: "from",
+      label: "von",
     },
     {
-      dataIndex: 'to',
-      label: 'bis',
+      dataIndex: "to",
+      label: "bis",
     },
   ];
 
@@ -137,19 +120,19 @@ function ArtistView() {
    ---------------------------------------------------------- */
 
   const segmentArtists: MyBasicViewSegmentParameterI = {
-    segment: 'artists',
-    label: 'Künstler',
+    segment: "artists",
+    label: "Künstler",
     fields: fieldsArtist,
-    relationFilterIdField: 'id',
-    render: 'description',
+    relationFilterIdField: "id",
+    render: "description",
   };
 
   const segmentResumes: MyBasicViewSegmentParameterI = {
-    segment: 'resumes',
-    label: 'Lebenslauf',
+    segment: "resumes",
+    label: "Lebenslauf",
     fields: fieldsResume,
-    relationFilterIdField: 'artist',
-    render: 'table',
+    relationFilterIdField: "artist",
+    render: "table",
   };
 
   const segments = new Segments(); // Relation Backlink to
@@ -158,7 +141,7 @@ function ArtistView() {
   const segmentSets: MyBasicViewSegmentParameterI[] = [
     segmentArtists,
     segmentResumes,
-    Segments.getSegmentArtworks('artists'),
+    Segments.getSegmentArtworks(segment),
   ];
 
   /* ----------------------------------------------------------
@@ -167,11 +150,10 @@ function ArtistView() {
 
    ---------------------------------------------------------- */
   return (
-    <MyBasicView
+    <MyBasicView<ArtistI>
       id={id}
-      moduleLabel="Künstler"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );

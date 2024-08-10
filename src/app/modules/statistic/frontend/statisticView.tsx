@@ -1,17 +1,19 @@
-import React, { PureComponent } from 'react';
-import CountUp from 'react-countup';
-import { Card, Col, Row, Space, Statistic } from 'antd';
+import { useEffect } from "react";
+import CountUp from "react-countup";
+import { Card, Col, Row, Space, Statistic } from "antd";
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
+
+import { DocType } from "../../../common/types/DocType";
+import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
+import { Action_Request } from "../../../common/types/RequestTypes";
 
 const { Meta } = Card;
 
@@ -29,43 +31,43 @@ const formatter = (value: number) => <CountUp end={value} separator="." />;
 // https://recharts.org/en-US/examples/TinyBarChart
 const data = [
   {
-    name: 'Page A',
+    name: "Page A",
     uv: 4000,
     pv: 2400,
     amt: 2400,
   },
   {
-    name: 'Page B',
+    name: "Page B",
     uv: 3000,
     pv: 1398,
     amt: 2210,
   },
   {
-    name: 'Page C',
+    name: "Page C",
     uv: 2000,
     pv: 9800,
     amt: 2290,
   },
   {
-    name: 'Page D',
+    name: "Page D",
     uv: 2780,
     pv: 3908,
     amt: 2000,
   },
   {
-    name: 'Page E',
+    name: "Page E",
     uv: 1890,
     pv: 4800,
     amt: 2181,
   },
   {
-    name: 'Page F',
+    name: "Page F",
     uv: 2390,
     pv: 3800,
     amt: 2500,
   },
   {
-    name: 'Page G',
+    name: "Page G",
     uv: 3490,
     pv: 4300,
     amt: 2100,
@@ -77,6 +79,34 @@ const data = [
  * @returns EmptyList
  */
 function StatisticView() {
+  const doclabel: string = "Statistik";
+  const doctype: DocType = "statistic";
+  const segment: string = "";
+
+  useEffect(() => {
+    //* Wird einmalig beim Laden der Seite ausgeführt.
+    console.info("Request some data from backend...");
+    Header_Buttons_IPC.request_buttons("list", doctype, "", true); // is perhaps id='new'
+
+    //! Listen for Header-Button Actions.
+    // Register and remove the event listener
+    const buaUnsubscribe = window.electronAPI.listen_to(
+      "ipc-button-action",
+      (response: Action_Request) => {
+        if (response.target === doctype && response.view == "list") {
+          // console.log("AddressForm says ACTION: ", response);
+          // triggerSaveRef.current?.click();
+          // message.info(response.type);
+        }
+      }
+    );
+
+    // Cleanup function to remove the listener on component unmount
+    return () => {
+      buaUnsubscribe();
+    };
+  }, []);
+
   return (
     <Space>
       <Row gutter={16}>

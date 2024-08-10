@@ -5,7 +5,7 @@ import {
   BrowserWindow,
   MenuItemConstructorOptions,
 } from "electron";
-import { MyAppInfo } from "./app/MyAppInfo";
+import { App_Info } from "./app/common/App_Info";
 
 /**
  * Build up a Menu.
@@ -26,7 +26,7 @@ export interface Menu_Links {
   link: string;
 }
 
-app.setAboutPanelOptions(MyAppInfo.MY_ABOUT_PANEL_OPTIONS);
+app.setAboutPanelOptions(App_Info.MY_ABOUT_PANEL_OPTIONS);
 
 export class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -141,6 +141,18 @@ export class MenuBuilder {
           accelerator: "Command+A",
           selector: "selectAll:",
         },
+        { type: "separator" },
+        // --------------------------------------------------------
+        //! Pattern 3: Main to renderer
+        {
+          click: () => this.mainWindow.webContents.send("update-counter", 1),
+          label: "Increment",
+        },
+        {
+          click: () => this.mainWindow.webContents.send("update-counter", -1),
+          label: "Decrement",
+        },
+        // --------------------------------------------------------
       ],
     };
     const subMenuViewDev: MenuItemConstructorOptions = {

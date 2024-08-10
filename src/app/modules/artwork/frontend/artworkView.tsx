@@ -1,12 +1,13 @@
 /* eslint-disable react/jsx-no-bind */
-import { useParams } from 'react-router-dom';
-
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
+import { useParams } from "react-router-dom";
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
+} from "../../../common/types/MyBasicViewTypes";
+import MyBasicView from "../../../frontend/myBasicView";
+import { DocType } from "../../../common/types/DocType";
+
+import { Artwork } from "../../../common/types/DocArtwork";
 
 /* ==========================================================
 
@@ -27,36 +28,13 @@ import {
  * @returns ArtworkView
  */
 function ArtworkView() {
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const moduleId = 'artwork';
+  const doclabel: string = "Werk";
+  const doctype: DocType = "artwork";
+  const segment: string = "artworks";
 
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
-
-/*
+  /*
    TODO condition: {
     field: 'category',
     selector: '$eq',
@@ -66,118 +44,117 @@ function ArtworkView() {
 */
   const fieldsArtwork: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'title',
-      label: 'Titel',
+      dataIndex: "title",
+      label: "Titel",
     },
     {
-      dataIndex: 'title_addition',
-      label: 'Untertitel',
+      dataIndex: "title_addition",
+      label: "Untertitel",
     },
     {
-      dataIndex: 'artists',
-      label: 'Künstler',
+      dataIndex: "artists",
+      label: "Künstler",
       mapKeyTo: {
-        dataIndex: 'artists',
-        showFields: ['name'],
+        dataIndex: "artists",
+        showFields: ["name"],
       },
     },
     {
-      dataIndex: 'attachmentsMeta',
-      label: 'Bilder vom Kunstwerk',
+      dataIndex: "attachmentsMeta",
+      label: "Bilder vom Kunstwerk",
       condition: {
-        scope:'childs',
-        field: 'category',
-        selector: '$eq',
-        value: 'werk', 
-        action: 'showif',
-      }
-    },
-    {
-      dataIndex: 'dateCreation', // TODO Keine Objekte erlaubt. 'date' ist array, wird nicht ausgegeben
-      label: 'Erstellungsdatum',
-    },
-    {
-      dataIndex: 'topic',
-      label: 'Themen',
-    },
-    {
-      dataIndex: 'genres',
-      label: 'Genres',
-      mapKeyTo: {
-        dataIndex: 'genres',
-        showFields: ['name'],
+        scope: "childs",
+        field: "category",
+        selector: "$eq",
+        value: "werk",
+        action: "showif",
       },
     },
     {
-      dataIndex: 'description_short',
-      label: 'Beschreibung kurz',
+      dataIndex: "dateCreation", // TODO Keine Objekte erlaubt. 'date' ist array, wird nicht ausgegeben
+      label: "Erstellungsdatum",
     },
     {
-      dataIndex: 'description_long',
-      label: 'Beschreibung lang',
+      dataIndex: "topic",
+      label: "Themen",
     },
     {
-      dataIndex: 'implementation',
-      label: 'Umsetzung',
-    },
-    {
-      dataIndex: 'tool',
-      label: 'Werkzeuge',
-    },
-    {
-      dataIndex: 'forsale',
-      label: 'Verkäuflich',
-    },
-    {
-      dataIndex: 'price',
-      label: 'Preis',
-    },
-    {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
-    },
-    {
-      dataIndex: 'tags',
-      label: 'Tags',
+      dataIndex: "genres",
+      label: "Genres",
       mapKeyTo: {
-        dataIndex: 'tags',
-        showFields: ['name'],
+        dataIndex: "genres",
+        showFields: ["name"],
       },
     },
     {
-      dataIndex: 'labels',
-      label: 'Markierungen',
+      dataIndex: "description_short",
+      label: "Beschreibung kurz",
     },
     {
-      dataIndex: 'attachmentsMeta',
-      label: 'Dateianhänge',
+      dataIndex: "description_long",
+      label: "Beschreibung lang",
+    },
+    {
+      dataIndex: "implementation",
+      label: "Umsetzung",
+    },
+    {
+      dataIndex: "tool",
+      label: "Werkzeuge",
+    },
+    {
+      dataIndex: "forsale",
+      label: "Verkäuflich",
+    },
+    {
+      dataIndex: "price",
+      label: "Preis",
+    },
+    {
+      dataIndex: "shortnote",
+      label: "Notiz",
+    },
+    {
+      dataIndex: "tags",
+      label: "Tags",
+      mapKeyTo: {
+        dataIndex: "tags",
+        showFields: ["name"],
+      },
+    },
+    {
+      dataIndex: "labels",
+      label: "Markierungen",
+    },
+    {
+      dataIndex: "attachmentsMeta",
+      label: "Dateianhänge",
       condition: {
-        scope:"childs",
-        field: 'category',
-        selector: '$eq',
-        value: 'document', 
-        action: 'showif',
-      }
+        scope: "childs",
+        field: "category",
+        selector: "$eq",
+        value: "document",
+        action: "showif",
+      },
     },
   ];
 
   const segmentArtworks: MyBasicViewSegmentParameterI = {
-    segment: 'artworks',
-    label: 'Werk',
+    segment: segment,
+    label: doclabel,
     fields: fieldsArtwork,
-    relationFilterIdField: 'id',
-    render: 'description',
+    relationFilterIdField: "id",
+    render: "description",
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [segmentArtworks];
 
   return (
-    <MyBasicView
+    <MyBasicView<Artwork>
       id={id}
-      moduleLabel="Werk"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );

@@ -1,4 +1,5 @@
-import { context_bridge_api } from "./preload";
+import { IElectronAPI } from "./app/common/types/IElectronAPI"
+
 /**
  * TypeScript doesn't know that we are extending the Window (see preload.ts) of our renderer process
  * and we need to explicitely tell it, that we have a new typed property defined on our window.
@@ -7,6 +8,6 @@ import { context_bridge_api } from "./preload";
  */
 declare global {
   interface Window {
-    my_app_api: typeof context_bridge_api;
+    electronAPI: IElectronAPI
   }
 }

@@ -1,99 +1,75 @@
-import { useNavigate } from 'react-router';
-import type { ColumnsType } from 'antd/es/table';
+import { useNavigate } from "react-router";
+import type { ColumnsType } from "antd/es/table";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import { MyBasicList } from '../../../common/frontend/myBasicList';
-import { SaleI } from '../types/SaleInterface';
-import { MyBasicList_Meta_I } from '../../../common/frontend/types/MyBasicListTypes';
+import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
+import { DocType } from "../../../common/types/DocType";
+import { MyBasicList_Meta_I } from "../../../common/types/MyBasicListTypes";
+
+import { SaleI } from "../../../common/types/DocSale";
 
 /**
- * Ein Liste der Notizen.
- *
- * Hier sind drei Komponenten im Spiel:
- * React, Antd, und das Electron IPC-Protokoll.
+ * Ein Liste der Verkäufen.
  *
  * @returns
  */
 function SaleList() {
   const navigate = useNavigate();
 
-  /* ----------------------------------------------------------
+  const doclabel: string = "Verkauf";
+  const doctype: DocType = "sale";
+  const segment: string = "sales";
 
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
-  const moduleId = 'sale';
-
-  const requests = RequestFactory.getListRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard Actions
-
-   ---------------------------------------------------------- */
   //* open view
   const handleView = (record: { id: any }) => {
-    console.log('--- handleView:', record);
-    navigate(`/${moduleId}/view/${record.id}`);
+    console.log("--- handleView:", record);
+    console.log(`--- navigate  : '/${doctype}/view/${record.id}'`);
+    navigate(`/${doctype}/view/${record.id}`);
   };
 
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Die Spaltendefinition für die Tabelle
-
-    ---------------------------------------------------------- */
   const columns: ColumnsType<SaleI> = [
     {
-      title: 'Shortnote',
-      dataIndex: 'shortnote',
-      key: 'id',
+      title: "Shortnote",
+      dataIndex: "shortnote",
+      key: "id",
       render: (text, record) => (
         <a onClick={() => handleView(record)}> {text} </a>
       ),
       sorter: (a, b) => a.shortnote.localeCompare(b.shortnote),
     },
     {
-      title: 'Type',
-      dataIndex: 'saleType',
-      key: 'id',
+      title: "Type",
+      dataIndex: "saleType",
+      key: "id",
     },
     {
-      title: 'Preis',
-      dataIndex: 'artworkPrice',
-      key: 'id',
+      title: "Preis",
+      dataIndex: "artworkPrice",
+      key: "id",
     },
     {
-      title: 'Kunde',
-      dataIndex: 'customer',
-      key: 'id',
+      title: "Kunde",
+      dataIndex: "customer",
+      key: "id",
     },
   ];
-  // Invite {record.name}
 
-// resolve some uuids
-const columns_meta: MyBasicList_Meta_I[] = [
-  {
-    dataIndex: 'saleType',
-    mapKeyTo: {
-      dataIndex: 'saleTypes',
-      showFields: ['name'],
-    }
-  },
-  {
-    dataIndex: 'customer',
-    mapKeyTo: {
-      dataIndex: 'addresses',
-      showFields: ['name'],
+  // resolve some uuids
+  const columns_meta: MyBasicList_Meta_I[] = [
+    {
+      dataIndex: "saleType",
+      mapKeyTo: {
+        dataIndex: "saleTypes",
+        showFields: ["name"],
+      },
     },
-  },
-]
+    {
+      dataIndex: "customer",
+      mapKeyTo: {
+        dataIndex: "addresses",
+        showFields: ["name"],
+      },
+    },
+  ];
 
   /* ----------------------------------------------------------
 
@@ -101,11 +77,10 @@ const columns_meta: MyBasicList_Meta_I[] = [
 
    ---------------------------------------------------------- */
   return (
-    <MyBasicList
-      moduleLabel="Verkauf"
-      moduleId={moduleId}
-      requests={requests}
-      segment="sales"
+    <MyBasicList<SaleI>
+      doclabel={doclabel}
+      doctype={doctype}
+      segment={segment}
       columns={columns}
       columns_meta={columns_meta}
     />

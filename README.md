@@ -96,8 +96,25 @@ Major   Potentially breaking API changes
 ❯ ◯ eslint  ^8.0.1  →  ^9.2.0
 ```
 
+## Create an Application 'Released Version' Number in GIT
+
+* Guide: <https://stackoverflow.com/questions/37814286/how-to-manage-the-version-number-in-git>
+  * [Semantic Versioning](https://semver.org/)
+  * [git-describe Manual Page](https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-describe.html)
+
+```bash
+git tag -a "v1.5.0-beta" -m "version v1.5.0-beta"
+# Every new commit after this will auto-increment tag by appending commit number and commit hash
+git describe # show that
+git show v1.5.0-beta
+```
+
+### NPM
+
+---
+
 ## Documentation
 
-- src/app/documentation/userdoc
-- src/app/documentation/devdoc
-- [//carsten-nichte.de/publications/applications/art.works/](https://carsten-nichte.de/publications/applications/art.works/)
+* src/app/documentation/userdoc
+* src/app/documentation/devdoc
+* [//carsten-nichte.de/publications/applications/art.works/](https://carsten-nichte.de/publications/applications/art.works/)

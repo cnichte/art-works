@@ -27,8 +27,12 @@
  */
 
 import './index.css';
+import { Renderer_Logger } from './renderer-logger';
 
-console.log('👋 This message is being logged by "renderer.ts", included via webpack.');
+Renderer_Logger.init();
+
+console.log('👋 This message is being logged by "renderer.js", included via webpack');
 
 // Add this to the end of the existing file
-import './app';
+import '.';
+

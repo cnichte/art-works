@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router';
-import type { ColumnsType } from 'antd/es/table';
+import { useNavigate } from "react-router";
+import type { ColumnsType } from "antd/es/table";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import { MyBasicList } from '../../../common/frontend/myBasicList';
-import { ExhibitionI } from '../types/ExhibitionInterface';
+import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
+import { DocType } from "../../../common/types/DocType";
+import { ExhibitionI } from "../../../common/types/DocExhibition";
 
 /**
  * Ein Liste der Ausstellungen.
@@ -16,25 +16,15 @@ import { ExhibitionI } from '../types/ExhibitionInterface';
 function GroupOfWorkList() {
   const navigate = useNavigate();
 
-  /* ----------------------------------------------------------
+  const doclabel: string = "Ausstellung";
+  const doctype: DocType = "exhibition";
+  const segment: string = "exhibitions";
 
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
-  const moduleId = 'exhibition';
-
-  const requests = RequestFactory.getListRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard Actions
-
-   ---------------------------------------------------------- */
   //* open view
   const handleView = (record: { id: any }) => {
-    console.log('--- handleView:', record);
-    navigate(`/${moduleId}/view/${record.id}`);
+    console.log("--- handleView:", record);
+    console.log(`--- navigate  : '/${doctype}/view/${record.id}'`);
+    navigate(`/${doctype}/view/${record.id}`);
   };
 
   /* ----------------------------------------------------------
@@ -50,28 +40,28 @@ function GroupOfWorkList() {
     ---------------------------------------------------------- */
   const columns: ColumnsType<ExhibitionI> = [
     {
-      title: 'Titel',
-      dataIndex: 'title',
-      key: 'id',
+      title: "Titel",
+      dataIndex: "title",
+      key: "id",
       render: (text, record) => (
         <a onClick={() => handleView(record)}> {text} </a>
       ),
       sorter: (a, b) => a.title.localeCompare(b.title),
     },
     {
-      title: 'Beschreibung',
-      dataIndex: 'description',
-      key: 'id',
+      title: "Beschreibung",
+      dataIndex: "description",
+      key: "id",
     },
     {
-      title: 'Datum Beginn',
-      dataIndex: 'url',
-      key: 'id',
+      title: "Datum Beginn",
+      dataIndex: "url",
+      key: "id",
     },
     {
-      title: 'Url',
-      dataIndex: 'url',
-      key: 'id',
+      title: "Url",
+      dataIndex: "url",
+      key: "id",
     },
   ];
   // Invite {record.name}
@@ -83,10 +73,9 @@ function GroupOfWorkList() {
    ---------------------------------------------------------- */
   return (
     <MyBasicList
-      moduleLabel="Ausstellung"
-      moduleId={moduleId}
-      requests={requests}
-      segment="exhibitions"
+      doclabel={doclabel}
+      doctype={doctype}
+      segment={segment}
       columns={columns}
     />
   );

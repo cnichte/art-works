@@ -1,12 +1,13 @@
-/* eslint-disable react/jsx-no-bind */
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
+} from "../../../common/types/MyBasicViewTypes";
+import MyBasicView from "../../../frontend/myBasicView";
+import { DocType } from "../../../common/types/DocType";
+
+import { NoteI } from "../../../common/types/DocNote";
 
 /* ==========================================================
 
@@ -27,67 +28,43 @@ import {
  * @returns NoteView
  */
 function NoteView() {
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
   const { id } = useParams();
 
-  const moduleId = 'note';
+  const doclabel: string = "Notiz";
+  const doctype: DocType = "note";
+  const segment: string = "notes";
 
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
   const fieldsNote: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'title',
-      label: 'Titel',
+      dataIndex: "title",
+      label: "Titel",
     },
     {
-      dataIndex: 'content',
-      label: 'Inhalt',
+      dataIndex: "content",
+      label: "Inhalt",
     },
     {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
+      dataIndex: "shortnote",
+      label: "Notiz",
     },
   ];
 
   const segmentNotes: MyBasicViewSegmentParameterI = {
-    segment: 'notes',
-    label: 'Notiz',
+    segment: segment,
+    label: doclabel,
     fields: fieldsNote,
-    relationFilterIdField: 'id',
-    render: 'description',
+    relationFilterIdField: "id",
+    render: "description",
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [segmentNotes];
 
   return (
-    <MyBasicView
+    <MyBasicView<NoteI>
       id={id}
-      moduleLabel="Notiz"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );

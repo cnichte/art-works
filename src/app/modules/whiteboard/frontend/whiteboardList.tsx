@@ -1,12 +1,8 @@
 import { useNavigate } from "react-router";
-import { ReactNode } from "react";
 import type { ColumnsType } from "antd/es/table";
-import { Button } from "antd";
-import { Image } from 'antd';
-
-import RequestFactory from "../../../common/backend/RequestFactory";
-import { MyBasicList } from "../../../common/frontend/myBasicList";
-import { WhiteboardI } from "../types/WhiteboardInterface";
+import { DocWhiteboard, WhiteboardI } from "../../../common/types/DocWhiteboard";
+import { MyBasicList } from "../../../frontend/myBasicList";
+import { DocType } from "../../../common/types/DocType";
 
 
 // import { getAssetUrls } from 'tldraw/dist-cjs/lib/'
@@ -24,15 +20,7 @@ import { WhiteboardI } from "../types/WhiteboardInterface";
 function WhiteboardList() {
   const navigate = useNavigate();
 
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
-  const moduleId = "whiteboard";
-
-  const requests = RequestFactory.getListRequestsFor(moduleId, "ipc-database");
+  const doctype:DocType = "whiteboard";
 
   /* ----------------------------------------------------------
 
@@ -42,7 +30,8 @@ function WhiteboardList() {
   //* open view
   const handleView = (record: { id: any }) => {
     console.log("--- handleView:", record);
-    navigate(`/${moduleId}/view/${record.id}`);
+    console.log(`--- navigate  : '/${doctype}/view/${record.id}'`);
+    navigate(`/${doctype}/view/${record.id}`);
   };
 
   /* ----------------------------------------------------------
@@ -86,10 +75,9 @@ function WhiteboardList() {
 
   return (
 
-    <MyBasicList
-    moduleLabel="Whiteboard"
-    moduleId={moduleId}
-    requests={requests}
+    <MyBasicList<DocWhiteboard>
+    doclabel="Whiteboard"
+    doctype={doctype}
     segment="whiteboards"
     columns={columns}
   />

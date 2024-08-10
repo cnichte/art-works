@@ -1,13 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
-import Segments from '../../../common/frontend/Segments';
+} from "../../../common/types/MyBasicViewTypes";
+import MyBasicView from "../../../frontend/myBasicView";
+import { DocType } from "../../../common/types/DocType";
+
+import { GroupOfWorkI } from "../../../common/types/DocGroupOfWork";
+import { Segments } from "../../../frontend/Segments";
 
 /* ==========================================================
 
@@ -27,56 +29,33 @@ import Segments from '../../../common/frontend/Segments';
  *
  * @returns GroupOfWorkView
  */
-function GroupOfWorkView() {
-  /* ----------------------------------------------------------
-
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
+export default function GroupOfWorkView() {
   const { id } = useParams();
 
-  const moduleId = 'groupofwork';
+  const doclabel: string = "Werkgruppe";
+  const doctype: DocType = "groupofwork";
+  const segment: string = "groupsofwork";
 
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Fields (rendered in Tables, or Descriptions)
-
-   ---------------------------------------------------------- */
   const fieldsGroupofwork: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'title',
-      label: 'Titel',
+      dataIndex: "title",
+      label: "Titel",
     },
     {
-      dataIndex: 'description',
-      label: 'Beschreibung',
+      dataIndex: "description",
+      label: "Beschreibung",
     },
     {
-      dataIndex: 'zeitraum_von',
-      label: 'Zeitraum von',
+      dataIndex: "zeitraum_von",
+      label: "Zeitraum von",
     },
     {
-      dataIndex: 'zeitraum_bis',
-      label: 'Zeitraum bis',
+      dataIndex: "zeitraum_bis",
+      label: "Zeitraum bis",
     },
     {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
+      dataIndex: "shortnote",
+      label: "Notiz",
     },
   ];
 
@@ -87,18 +66,17 @@ function GroupOfWorkView() {
    ---------------------------------------------------------- */
 
   const segmentGroupsofwork: MyBasicViewSegmentParameterI = {
-    segment: 'groupsofwork',
-    label: 'Werkgruppe',
+    segment: segment,
+    label: doclabel,
     fields: fieldsGroupofwork,
-    relationFilterIdField: 'id',
-    render: 'description',
+    relationFilterIdField: "id",
+    render: "description",
   };
-
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [
     segmentGroupsofwork,
-    Segments.getSegmentArtworks('groupsofwork'),
+    Segments.getSegmentArtworks(segment),
   ];
 
   /* ----------------------------------------------------------
@@ -108,13 +86,11 @@ function GroupOfWorkView() {
    ---------------------------------------------------------- */
 
   return (
-    <MyBasicView
+    <MyBasicView<GroupOfWorkI>
       id={id}
-      moduleLabel="Werkgruppe"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );
 }
-export default GroupOfWorkView;

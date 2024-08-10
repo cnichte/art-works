@@ -1,12 +1,14 @@
 /* eslint-disable react/jsx-no-bind */
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import MyBasicView from '../../../common/frontend/myBasicView';
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
-} from '../../../common/frontend/types/MyBasicViewTypes';
+} from "../../../common/types/MyBasicViewTypes";
+import MyBasicView from "../../../frontend/myBasicView";
+import { DocType } from "../../../common/types/DocType";
+
+import { CompilationI } from "../../../common/types/DocCompilation";
 
 /* ==========================================================
 
@@ -26,7 +28,7 @@ import {
  *
  * @returns CompilationView
  */
-function CompilationView() {
+export default function CompilationView() {
   /* ----------------------------------------------------------
 
     Standard Data / States
@@ -34,61 +36,42 @@ function CompilationView() {
    ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const moduleId = 'compilation';
+  const doclabel: string = "Zusammenstellung";
+  const doctype: DocType = "compilation";
+  const segment: string = "compilations";
 
-  const requests = RequestFactory.getViewRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard View Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
   const fieldsCompilation: MyBasicViewFieldParameterI[] = [
     {
-      dataIndex: 'title',
-      label: 'Titel',
+      dataIndex: "title",
+      label: "Titel",
     },
     {
-      dataIndex: 'description',
-      label: 'Beschreibung',
+      dataIndex: "description",
+      label: "Beschreibung",
     },
     {
-      dataIndex: 'shortnote',
-      label: 'Notiz',
+      dataIndex: "shortnote",
+      label: "Notiz",
     },
   ];
 
   const segmentCompilations: MyBasicViewSegmentParameterI = {
-    segment: 'compilations',
-    label: 'Zusammenstellung',
+    segment: segment,
+    label: doclabel,
     fields: fieldsCompilation,
-    relationFilterIdField: 'id',
-    render: 'description',
+    relationFilterIdField: "id",
+    render: "description",
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [segmentCompilations];
 
   return (
-    <MyBasicView
+    <MyBasicView<CompilationI>
       id={id}
-      moduleLabel="Zusammenstellung"
-      moduleId={moduleId}
-      requests={requests}
+      doclabel={doclabel}
+      doctype={doctype}
       segmentSets={segmentSets}
     />
   );
 }
-export default CompilationView;

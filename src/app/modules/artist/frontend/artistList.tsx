@@ -1,9 +1,8 @@
-import { useNavigate } from 'react-router';
-import type { ColumnsType } from 'antd/es/table';
-
-import RequestFactory from '../../../common/backend/RequestFactory';
-import { MyBasicList } from '../../../common/frontend/myBasicList';
-import { ArtistI } from '../types/ArtistInterface';
+import { useNavigate } from "react-router";
+import type { ColumnsType } from "antd/es/table";
+import { MyBasicList } from "../../../frontend/myBasicList"; // src/app/frontend/myBasicList'
+import { DocType } from "../../../common/types/DocType";
+import { ArtistI } from "../../../common/types/DocArtist";
 
 /**
  * Ein Liste der Artist.
@@ -16,83 +15,54 @@ import { ArtistI } from '../types/ArtistInterface';
 function ArtistList() {
   const navigate = useNavigate();
 
-  /* ----------------------------------------------------------
+  const doclabel: string = "Künstler";
+  const doctype: DocType = "artist";
+  const segment: string = "artists";
 
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
-  const moduleId = 'artist';
-
-  const requests = RequestFactory.getListRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard Actions
-
-   ---------------------------------------------------------- */
   //* open view
   const handleView = (record: { id: any }) => {
-    console.log('--- handleView:', record);
-    navigate(`/${moduleId}/view/${record.id}`);
+    console.log("--- handleView:", record);
+    console.log(`--- navigate  : '/${doctype}/view/${record.id}'`);
+    navigate(`/${doctype}/view/${record.id}`);
   };
 
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Die Spaltendefinition für die Tabelle
-
-    ---------------------------------------------------------- */
   const columns: ColumnsType<ArtistI> = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'id',
+      title: "Name",
+      dataIndex: "name",
+      key: "id",
       render: (text, record) => (
         <a onClick={() => handleView(record)}> {text} </a>
       ),
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: 'Künstlername',
-      dataIndex: 'alias',
-      key: 'id',
+      title: "Künstlername",
+      dataIndex: "alias",
+      key: "id",
     },
     {
-      title: 'Stadt',
-      dataIndex: 'city',
-      key: 'id',
+      title: "Stadt",
+      dataIndex: "city",
+      key: "id",
     },
     {
-      title: 'eMail',
-      dataIndex: 'mail',
-      key: 'id',
+      title: "eMail",
+      dataIndex: "mail",
+      key: "id",
     },
     {
-      title: 'Telefon',
-      dataIndex: 'phone',
-      key: 'id',
+      title: "Telefon",
+      dataIndex: "phone",
+      key: "id",
     },
   ];
-  // Invite {record.name}
-
-  /* ----------------------------------------------------------
-
-    Rendert den kompletten List View
-
-   ---------------------------------------------------------- */
 
   return (
-    <MyBasicList
-      moduleLabel="Künstler"
-      moduleId={moduleId}
-      requests={requests}
-      segment="artists"
+    <MyBasicList<ArtistI>
+      doclabel={doclabel}
+      doctype={doctype}
+      segment={segment}
       columns={columns}
     />
   );

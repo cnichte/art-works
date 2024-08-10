@@ -1,13 +1,12 @@
-import { useNavigate } from 'react-router';
-import { Typography } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import { useNavigate } from "react-router";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import { MyBasicList } from '../../../common/frontend/myBasicList';
-import { NoteI } from '../types/NoteInterface';
-import { useState } from 'react';
+import type { ColumnsType } from "antd/es/table";
+import Paragraph from "antd/es/typography/Paragraph";
 
-const { Paragraph } = Typography;
+import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
+import { DocType } from "../../../common/types/DocType";
+
+import { NoteI } from "../../../common/types/DocNote";
 
 /**
  * Ein Liste der Notizen.
@@ -20,72 +19,46 @@ const { Paragraph } = Typography;
 function NoteList() {
   const navigate = useNavigate();
 
-  /* ----------------------------------------------------------
+  const doclabel: string = "Notiz";
+  const doctype: DocType = "note";
+  const segment: string = "notes";
 
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
-  const moduleId = 'note';
-
-  const requests = RequestFactory.getListRequestsFor(moduleId, 'ipc-database');
-  
-  /* ----------------------------------------------------------
-
-    Standard Actions
-
-   ---------------------------------------------------------- */
   //* open view
   const handleView = (record: { id: any }) => {
-    console.log('--- handleView:', record);
-    navigate(`/${moduleId}/view/${record.id}`);
+    console.log("--- handleView:", record);
+    console.log(`--- navigate  : '/${doctype}/view/${record.id}'`);
+    navigate(`/${doctype}/view/${record.id}`);
   };
 
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Die Spaltendefinition für die Tabelle
-
-    ---------------------------------------------------------- */
   const columns: ColumnsType<NoteI> = [
     {
-      title: 'Name',
-      dataIndex: 'title',
-      key: 'id',
+      title: "Name",
+      dataIndex: "title",
+      key: "id",
       render: (text, record) => (
         <a onClick={() => handleView(record)}> {text} </a>
       ),
       sorter: (a, b) => a.title.localeCompare(b.title),
     },
     {
-      title: 'Inhalt',
-      dataIndex: 'content',
-      key: 'id',
+      title: "Inhalt",
+      dataIndex: "content",
+      key: "id",
       render: (text, record) => (
-        <Paragraph ellipsis={{ rows: 5, expandable: true, symbol: 'mehr lesen...' }}>
+        <Paragraph
+          ellipsis={{ rows: 5, expandable: true, symbol: "mehr lesen..." }}
+        >
           {text}
         </Paragraph>
       ),
     },
   ];
-  // Invite {record.name}
 
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
   return (
     <MyBasicList
-      moduleLabel="Notiz"
-      moduleId={moduleId}
-      requests={requests}
-      segment="notes"
+      doclabel={doclabel}
+      doctype={doctype}
+      segment={segment}
       columns={columns}
     />
   );

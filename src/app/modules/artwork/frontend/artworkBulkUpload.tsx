@@ -1,5 +1,5 @@
 // import { shell } from 'electron';
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Button,
   Drawer,
@@ -9,15 +9,15 @@ import {
   Space,
   Upload,
   // UploadProps,
-} from 'antd';
+} from "antd";
 import {
   PlusOutlined,
   UploadOutlined,
   DeleteOutlined,
-} from '@ant-design/icons';
-import type { RcFile, UploadProps } from 'antd/es/upload';
-import type { UploadFile } from 'antd/es/upload/interface';
-import MyTags_Input from '../../../common/frontend/myTags_Input';
+} from "@ant-design/icons";
+import type { RcFile, UploadProps } from "antd/es/upload";
+import type { UploadFile } from "antd/es/upload/interface";
+import MyTags_Input from "../../../frontend/myTags_Input";
 
 /**
  *
@@ -44,7 +44,7 @@ function ArtworkBulkUpload() {
    *  https://www.pluralsight.com/resources/blog/guides/understanding-links-in-reactjs
    * @param url https://stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser
    */
-  const openURLExternal = (url: string):void => {
+  const openURLExternal = (url: string): void => {
     // shell.openExternal(url);
   };
 
@@ -52,19 +52,19 @@ function ArtworkBulkUpload() {
     console.log(`selected ${value}`);
 
     switch (value) {
-      case 'useForm': {
+      case "useForm": {
         setUseForm(true); // false = 'optional'
         setUseSidecar(false);
         setUseList(false);
         break;
       }
-      case 'useSidecar': {
+      case "useSidecar": {
         setUseForm(false); // false = 'optional'
         setUseSidecar(true);
         setUseList(false);
         break;
       }
-      case 'useList': {
+      case "useList": {
         setUseForm(false); // false = 'optional'
         setUseSidecar(false);
         setUseList(true);
@@ -92,28 +92,28 @@ function ArtworkBulkUpload() {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const uploadProps: UploadProps = {
-    listType: 'picture',
+    listType: "picture",
     // showUploadList: true,
     multiple: true,
-    accept: '.png,.jpg,.jpeg',
-    className: 'upload-list-inline',
+    accept: ".png,.jpg,.jpeg",
+    className: "upload-list-inline",
     defaultFileList: fileList,
     // fileList,
     beforeUpload(file) {
-      console.log('Upload - beforeUpload', file);
+      console.log("Upload - beforeUpload", file);
       return false; // surpresses auto upload?
     },
     // name: 'imageUpload',
     // maxCount: 1,
     // action: '',
     onChange(info: { file: { status?: any; name?: any }; fileList: any }) {
-      console.log('Upload - onChange', info);
+      console.log("Upload - onChange", info);
     },
     onRemove: (file) => {
-      console.log('Upload - onRemove', file);
+      console.log("Upload - onRemove", file);
     },
     onDrop(e) {
-      console.log('Upload - onDrop', e.dataTransfer.files);
+      console.log("Upload - onDrop", e.dataTransfer.files);
     },
   };
 
@@ -150,18 +150,18 @@ function ArtworkBulkUpload() {
               onChange={handleImportOptionsChange}
               options={[
                 {
-                  value: 'useForm',
-                  label: 'Bilder importieren mit Formular (Standard)',
+                  value: "useForm",
+                  label: "Bilder importieren mit Formular (Standard)",
                 },
                 {
-                  value: 'useSidecar',
-                  label: 'Beachte Sidecar zu jedem Bild.',
+                  value: "useSidecar",
+                  label: "Beachte Sidecar zu jedem Bild.",
                 },
-                { value: 'useList', label: 'Benutze Excel-Datei zum Import' },
+                { value: "useList", label: "Benutze Excel-Datei zum Import" },
               ]}
             />
           </Form.Item>
-          <Form.Item style={useForm ? {} : { display: 'none' }}>
+          <Form.Item style={useForm ? {} : { display: "none" }}>
             <ul>
               <li>
                 Zu jedem Bild wird ein Werk im Katalog angelegt. Es können
@@ -174,7 +174,7 @@ function ArtworkBulkUpload() {
               </li>
             </ul>
           </Form.Item>
-          <Form.Item style={useSidecar ? {} : { display: 'none' }}>
+          <Form.Item style={useSidecar ? {} : { display: "none" }}>
             <ul>
               <li>
                 Die Sidecar-Datei muss den selben Namen haben wie das Bild.
@@ -185,11 +185,11 @@ function ArtworkBulkUpload() {
                 bild001.json
               </li>
               <li>
-                Aufbau der Sidecar Dateien ist{' TODO '} wie hier beschrieben.
+                Aufbau der Sidecar Dateien ist{" TODO "} wie hier beschrieben.
               </li>
             </ul>
           </Form.Item>
-          <Form.Item style={useList ? {} : { display: 'none' }}>
+          <Form.Item style={useList ? {} : { display: "none" }}>
             <ul>
               <li>Die Liste muss als Excel-Datei .xls vorliegen.</li>
               <li>
@@ -197,30 +197,30 @@ function ArtworkBulkUpload() {
                 Excel-Datei.
               </li>
               <li>
-                Aufbau der Excel Datei ist{' TODO '} wie hier beschrieben.
+                Aufbau der Excel Datei ist{" TODO "} wie hier beschrieben.
               </li>
             </ul>
           </Form.Item>
           <Form.Item
-            style={useForm ? {} : { display: 'none' }}
+            style={useForm ? {} : { display: "none" }}
             label="Tags"
             name="tags"
           >
             <MyTags_Input
               onChange={(value: any) => {
-                console.log('artworkForm -> MyTags -> ValueChanged:', value);
+                console.log("artworkForm -> MyTags -> ValueChanged:", value);
               }}
             />
           </Form.Item>
           <Form.Item
-            style={useForm ? {} : { display: 'none' }}
+            style={useForm ? {} : { display: "none" }}
             label="Genres"
             name="genres"
           >
             <Input />
           </Form.Item>
           <Form.Item
-            style={useForm ? {} : { display: 'none' }}
+            style={useForm ? {} : { display: "none" }}
             label="Werkgruppe"
             name="genres"
           >
@@ -228,7 +228,7 @@ function ArtworkBulkUpload() {
           </Form.Item>
 
           <Form.Item
-            style={useForm || useSidecar ? {} : { display: 'none' }}
+            style={useForm || useSidecar ? {} : { display: "none" }}
             label="Bilder"
             name="bilder"
           >

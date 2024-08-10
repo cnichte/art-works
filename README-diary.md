@@ -1,251 +1,270 @@
 # Developer Diary
 
-- Im Header: Connected-Symbol bei Server + "Watchdog": `<CloudServerOutlined /> <CheckCircleOutlined /> <CloseCircleOutlined />`
-- List <https://ant.design/components/list> kann `load more`! und `cards`
-  - statt Tabelle lieber das nehmen?
-  - Am  besten mal alle drei Optionen implementieren. Den Umschalter gibts ja schon in 2fach.
-- react drag and drop reorder list (für Zusammenstellungen).
-  - <https://github.com/react-dnd/react-dnd/>
-  - <https://github.com/VaishakVk/react-drag-reorder>
-  - <https://medium.com/nerd-for-tech/simple-drag-and-drop-in-react-without-an-external-library-ebf1c1b809e>
-  - <https://github.com/coopercodes/ReactDndKitList>
-    - <https://www.youtube.com/watch?v=Z8RoA_YSGDQ>
+Ich würde gern die Unterscheidung
 
-- Electron config Library: <https://github.com/alex8088/electron-conf>
-- Ein Starter: <https://github.com/alex8088/quick-start>
-  - <https://github.com/alex8088/quick-start/tree/master/packages/create-electron/playground/react>
-  - macht builds für verschiedene Plattformen.
+* 'mit relational-pouch' und
+* 'ohne relational-pouch'
 
-- Ein Modul Recherche / Eine Art modulübergreifende Suche.
-  - Macht das Sinn?
-  - Man könnte darin suchen "abspeichern". Das wäre wie spezielle Views anlegen.
-  - Die könnte ich schon im vorhandenen Input-search field implementieren.
-    - Option: im aktuellen Modul suchen / in allen Modulen suchen.
-    - Das Suchergebnis öffnet sich dann in einem Fenster mit vorschauen.
-    - die Ergenbisse verlinken uaf die Einträge in den Modulen.
-    - Das blöde ist das die Ergebnisse weg sin sobald sich das fenter schließt.
-    - Vielleicht was für den Drawer?
-      - Der müsste nur übergreifend implemetiert sein.
+elegant lösen und beides ganz transpartent unterstützen. Suche nach:
 
-- DATABASE
-  - beim Befüllen der DB über json, sollen auch die attachments geladen werden.
-  - Es wäre an der Zeit den db inhalt zu exportieren und wieder zu importieren.
-  - TESTEN: Liste der letzten Änderungen: <https://gist.github.com/nolanlawson/7c32861af5d31a8fac4a>
+```js
+//* PouchDB without Plugin relational-pouch
+```
 
-- Electron - Öffne einen Link im externen Browser...
-  - <https://gist.github.com/luizcarraro/2d04d83e66e3f03bef9b2e714ea8c0d7>
-  - In dem Zusammenhang
-  - <https://www.electronjs.org/de/docs/latest/tutorial/launch-app-from-url-in-another-app>
-  - electron-fiddle://
+um einige der Code Stellen zu identifizieren.
 
-- Baue die App auf meinem
-  - alten Laptop Mac, Linux - VirtualBox / UTM
-  - Arbeits-Laptop - Windows
+könnte in den settings gespeichert sein, unter den Verbindungsparametern - eher ungünstig.
+das wird ja zur Entwurfszeit festgelegt.
 
-- WHITEBOARD
-  - <https://www.geeksforgeeks.org/how-to-take-screenshots-in-electronjs/>
-  - Ich habs heute zufällig gessehen in meiner App (siehe Screenshot)...
-  - Bring das Ding ans laufen!
-  - Building assets <https://gist.github.com/bbudd/2a246a718b7757584950b4ed98109115>
-  - <https://stackoverflow.com/questions/60839621/cant-use-static-files-in-electron-forge>
-- <https://github.com/electron/forge/issues/1592> Provide an example of serving static files
+Siehe auch `src/app/common/PouchDB_Tool.ts`
+
+## Links
+
+* Im Header: Connected-Symbol bei Server + "Watchdog": `<CloudServerOutlined /> <CheckCircleOutlined /> <CloseCircleOutlined />`
+* List <https://ant.design/components/list> kann `load more`! und `cards`
+  * statt Tabelle lieber das nehmen?
+  * Am  besten mal alle drei Optionen implementieren. Den Umschalter gibts ja schon in 2fach.
+* react drag and drop reorder list (für Zusammenstellungen).
+  * <https://github.com/react-dnd/react-dnd/>
+  * <https://github.com/VaishakVk/react-drag-reorder>
+  * <https://medium.com/nerd-for-tech/simple-drag-and-drop-in-react-without-an-external-library-ebf1c1b809e>
+  * <https://github.com/coopercodes/ReactDndKitList>
+    * <https://www.youtube.com/watch?v=Z8RoA_YSGDQ>
+
+* Electron config Library: <https://github.com/alex8088/electron-conf>
+* Ein Starter: <https://github.com/alex8088/quick-start>
+  * <https://github.com/alex8088/quick-start/tree/master/packages/create-electron/playground/react>
+  * macht builds für verschiedene Plattformen.
+
+* Ein Modul Recherche / Eine Art modulübergreifende Suche.
+  * Macht das Sinn?
+  * Man könnte darin suchen "abspeichern". Das wäre wie spezielle Views anlegen.
+  * Die könnte ich schon im vorhandenen Input-search field implementieren.
+    * Option: im aktuellen Modul suchen / in allen Modulen suchen.
+    * Das Suchergebnis öffnet sich dann in einem Fenster mit vorschauen.
+    * die Ergenbisse verlinken uaf die Einträge in den Modulen.
+    * Das blöde ist das die Ergebnisse weg sin sobald sich das fenter schließt.
+    * Vielleicht was für den Drawer?
+      * Der müsste nur übergreifend implemetiert sein.
+
+* DATABASE
+  * beim Befüllen der DB über json, sollen auch die attachments geladen werden.
+  * Es wäre an der Zeit den db inhalt zu exportieren und wieder zu importieren.
+  * TESTEN: Liste der letzten Änderungen: <https://gist.github.com/nolanlawson/7c32861af5d31a8fac4a>
+
+* Electron - Öffne einen Link im externen Browser...
+  * <https://gist.github.com/luizcarraro/2d04d83e66e3f03bef9b2e714ea8c0d7>
+  * In dem Zusammenhang
+  * <https://www.electronjs.org/de/docs/latest/tutorial/launch-app-from-url-in-another-app>
+  * electron-fiddle://
+
+* Baue die App auf meinem
+  * alten Laptop Mac, Linux - VirtualBox / UTM
+  * Arbeits-Laptop - Windows
+
+* WHITEBOARD
+  * <https://www.geeksforgeeks.org/how-to-take-screenshots-in-electronjs/>
+  * Ich habs heute zufällig gessehen in meiner App (siehe Screenshot)...
+  * Bring das Ding ans laufen!
+  * Building assets <https://gist.github.com/bbudd/2a246a718b7757584950b4ed98109115>
+  * <https://stackoverflow.com/questions/60839621/cant-use-static-files-in-electron-forge>
+* <https://github.com/electron/forge/issues/1592> Provide an example of serving static files
 
 // STATIC_ASSETS:
 Assets für TLDRAW
 <https://stackoverflow.com/questions/60839621/cant-use-static-files-in-electron-forge>
 <https://www.electronforge.io/config/configuration>
 
-Hi, i am a newbie writing a fancy Electron-App, using electron-forge, React + andt. I try to integrate tldraw into it and it looks like this. I added https://unpkg.com to the 'img-src' Content-Security-Policy in index.html and in forge.config.ts 'devContentSecurityPolicy' to get it up runnig like so. That's a good start. But I would like to store the assets locally, and that doesn't work at all. Is there an example of how to implement this?
+Hi, i am a newbie writing a fancy Electron-App, using electron-forge, React + andt. I try to integrate tldraw into it and it looks like this. I added <https://unpkg.com> to the 'img-src' Content-Security-Policy in index.html and in forge.config.ts 'devContentSecurityPolicy' to get it up runnig like so. That's a good start. But I would like to store the assets locally, and that doesn't work at all. Is there an example of how to implement this?
 
 Save and load
-https://tldraw.dev/docs/persistence
-
+<https://tldraw.dev/docs/persistence>
 
 ## Erledigt
 
-- 2024-05-30 Donnerstag
+* 2024-05-30 Donnerstag
   
-  - myBasicView
-    - Liste in Description rendern, siehe editionView.
-    - markdown rendern
+  * myBasicView
+    * Liste in Description rendern, siehe editionView.
+    * markdown rendern
 
-- 2024-05-31 Freitag
+* 2024-05-31 Freitag
   
-  - myBasicView / myBasicList
-    - uuid lookup repariert
-    - Each child in a list should have a unique "key" prop.
-  - artworkForm
-    - AttachmentMeta funktioniert.
+  * myBasicView / myBasicList
+    * uuid lookup repariert
+    * Each child in a list should have a unique "key" prop.
+  * artworkForm
+    * AttachmentMeta funktioniert.
 
-- 2024-06-01 Samstag
+* 2024-06-01 Samstag
   
-  - artworkForm
-    - AttachmentMeta und die Actions im Backend verwenden um Attachments
-      - mehrere hochladen (wird direkt im doc gemacht)
+  * artworkForm
+    * AttachmentMeta und die Actions im Backend verwenden um Attachments
+      * mehrere hochladen (wird direkt im doc gemacht)
 
-- 2024-06-02 Sonntag
+* 2024-06-02 Sonntag
   
-  - artworkForm / myAttachmentMetaInput / View
-    - große Bilder hochladen bis 50MB.
-    - Verkleinertes Vorschaubild erzeugen
-    - Metadaten ändern (unfertig)
-    - entfernen (unfertig)
-    - herunterladen (unfertig)
-  - ContentSecurityPolicy
-  - Fenstergröße
+  * artworkForm / myAttachmentMetaInput / View
+    * große Bilder hochladen bis 50MB.
+    * Verkleinertes Vorschaubild erzeugen
+    * Metadaten ändern (unfertig)
+    * entfernen (unfertig)
+    * herunterladen (unfertig)
+  * ContentSecurityPolicy
+  * Fenstergröße
 
-- 2024-06-03 Montag
+* 2024-06-03 Montag
   
-  - Markierungen: rating, color, flag.
+  * Markierungen: rating, color, flag.
   
-  - artworkForm / myAttachmentMetaInput / View
-    - Attachment-Metadaten ändern
+  * artworkForm / myAttachmentMetaInput / View
+    * Attachment-Metadaten ändern
   
-  - calculationForm / wditionForm
-    - uuid ergänzt. Laden und speichern klappt jetzt.
+  * calculationForm / wditionForm
+    * uuid ergänzt. Laden und speichern klappt jetzt.
 
-- 2024-06-04 Dienstag
+* 2024-06-04 Dienstag
 
-  - App-Icon (Mac:getestet, Linux:ungetestet, Windows:ungetestet)
-  - AboutMe Dialog customized
-  - Es gibt jetzt ein Custom-Menü, mit Inspect-Element Kontextmenü im Developer-Mode.
-  - AttachmentMeta - Kategorie: `Werk`, `Dokument` eingeführt.
-    - Das sollte helfen die zwei grundlegenden Arten zu unterscheiden.
-  - arworkList - Cover-Image wird angezeigt.
-  - arworkView / myBasicView
-    - Tags- & Genres-Relationen werden wieder aufgelöst und angezeigt.
-    - Cover-Images werden angezeigt
+  * App-Icon (Mac:getestet, Linux:ungetestet, Windows:ungetestet)
+  * AboutMe Dialog customized
+  * Es gibt jetzt ein Custom-Menü, mit Inspect-Element Kontextmenü im Developer-Mode.
+  * AttachmentMeta - Kategorie: `Werk`, `Dokument` eingeführt.
+    * Das sollte helfen die zwei grundlegenden Arten zu unterscheiden.
+  * arworkList - Cover-Image wird angezeigt.
+  * arworkView / myBasicView
+    * Tags- & Genres-Relationen werden wieder aufgelöst und angezeigt.
+    * Cover-Images werden angezeigt
   
-  - 2024-06-05 Mittwoch
+  * 2024-06-05 Mittwoch
 
-  - artworkView
-    - Condition arbeitet jetzt mit Childs (um Attachments zwischen Werk-Bildern und Dokumenten zu unterscheiden)
-  - artworkForm / myAttachmentMetaInput / View
-    - Attachment herunterladen.
-    - Attachment entfernen
-    - Generischen Tag Input
+  * artworkView
+    * Condition arbeitet jetzt mit Childs (um Attachments zwischen Werk-Bildern und Dokumenten zu unterscheiden)
+  * artworkForm / myAttachmentMetaInput / View
+    * Attachment herunterladen.
+    * Attachment entfernen
+    * Generischen Tag Input
 
-- Heute
+* Heute
 
-- 2024-06-05 Donnerstag
+* 2024-06-05 Donnerstag
 
-  - artworkView
-    - Tags im View als echte Tags rendern.
-    - <https://4x-ant-design.antgroup.com/components/tag/>
+  * artworkView
+    * Tags im View als echte Tags rendern.
+    * <https://4x-ant-design.antgroup.com/components/tag/>
 
-- artworkForm
-  - Artwork-Preis: Ein Preis kann sich auf eine Kalkulation beziehen...
-  - Das Feld Künstler fehlt noch.
-  - Genre - da wird die uuid angezeigt. Da fehlt noch die select box.
-  - Generisches Tag Feld überall einbauen.
+* artworkForm
+  * Artwork-Preis: Ein Preis kann sich auf eine Kalkulation beziehen...
+  * Das Feld Künstler fehlt noch.
+  * Genre - da wird die uuid angezeigt. Da fehlt noch die select box.
+  * Generisches Tag Feld überall einbauen.
 
 Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 
 ## Als nächstes
 
-- Rental
-  - da geht noch nix
-- artworkForm / myAttachmentMetaInput
-  - Der Coverbild Button funktioniert noch nicht. Man muss immer über das Formular gehen.
-  - Beim löschen verschwindet das Bild nicht sofort aus der Sicht (man muss redraw erst anderweitig triggern)
+* Rental
+  * da geht noch nix
+* artworkForm / myAttachmentMetaInput
+  * Der Coverbild Button funktioniert noch nicht. Man muss immer über das Formular gehen.
+  * Beim löschen verschwindet das Bild nicht sofort aus der Sicht (man muss redraw erst anderweitig triggern)
 
-  - Kalkulation
-    - Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
-    - Feld Gesamt Summe (automatisch berechnen)
-    - Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
+  * Kalkulation
+    * Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
+    * Feld Gesamt Summe (automatisch berechnen)
+    * Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
 
 ## Demnächst zu erledigen
 
-- artworkView
-  - Erstellungsdatum rendern
-  - Markierungen rendern
+* artworkView
+  * Erstellungsdatum rendern
+  * Markierungen rendern
 
-- artistForm
-  - Bild speichern.
+* artistForm
+  * Bild speichern.
 
-- DatabasePouchDBAdapter
-  - test: Für einen Production build (npm run package) funktioniert die lokale Datenbank noch nicht?
-  - test Es wird keine Datenbank erzeugt, und auch keine Daten angelegt?
-  - Info: die Datenbank ist da, un gefüllt.
+* DatabasePouchDBAdapter
+  * test: Für einen Production build (npm run package) funktioniert die lokale Datenbank noch nicht?
+  * test Es wird keine Datenbank erzeugt, und auch keine Daten angelegt?
+  * Info: die Datenbank ist da, un gefüllt.
 
 ## Backlog / TODO
 
 Lose Sammlung, was mir auffällt.
 
-- AttachmentMeta könnte auch die Exifs der Bilder speichern.
-- AttachmentMeta - id / key: nur eins davon verwenden: id --- und für react: key={id}
+* AttachmentMeta könnte auch die Exifs der Bilder speichern.
+* AttachmentMeta - id / key: nur eins davon verwenden: id --- und für react: key={id}
 
-- Arwork
-  - Medium: Malerei, Druckgraphik, Skulptur, Digitale Fotografie.
-  - Materialien: Öle, Acryl, Tinten, Ton. Bronze, Holz, Porzellan / Keramik, Stahl, Sonstige Materialien.
+* Arwork
+  * Medium: Malerei, Druckgraphik, Skulptur, Digitale Fotografie.
+  * Materialien: Öle, Acryl, Tinten, Ton. Bronze, Holz, Porzellan / Keramik, Stahl, Sonstige Materialien.
 
 Digital, Papier, Leinwand, Gips, Mixed-Media.
 Abmessungen: x,y,z pixel, mm, cm
 
-- Artist
-  - Lebenslauf Einträge hinzufügen / bearbeiten / löschen.
+* Artist
+  * Lebenslauf Einträge hinzufügen / bearbeiten / löschen.
 
-- Address
-  - View Geburtstag wird nicht schön gerendert.
-  - Kontakt bearbeiten
-    - Fotoakademie Köln: Geburtstag invalid
-    - Joachim Nichte - Exception... (komisches Objekt als Datum)
-    - Andrea Schwelle - klappt
+* Address
+  * View Geburtstag wird nicht schön gerendert.
+  * Kontakt bearbeiten
+    * Fotoakademie Köln: Geburtstag invalid
+    * Joachim Nichte - Exception... (komisches Objekt als Datum)
+    * Andrea Schwelle - klappt
 
-- Calculation
-  - CalculationGroup, CalculationItems brauch ich nicht mehr? Evtl. für Vorlagen?
-  - Unterpositionen in Positionen, die aber in der Ausgabe nicht gezeigt werden.
-    - ...
+* Calculation
+  * CalculationGroup, CalculationItems brauch ich nicht mehr? Evtl. für Vorlagen?
+  * Unterpositionen in Positionen, die aber in der Ausgabe nicht gezeigt werden.
+    * ...
 
-- Editionen
-  - Preis-Anzahl (berechnet aus start und ende)
-  - Menge (View) Edition Nummer (Form) -> Anzahl gesamt
-  - Es ist noch nicht klar wie die Editionen mit den Sales verknüpft sind...
-    - Editionen sind ja erst mal nur eine Art Vorlage / Definition.
+* Editionen
+  * Preis-Anzahl (berechnet aus start und ende)
+  * Menge (View) Edition Nummer (Form) -> Anzahl gesamt
+  * Es ist noch nicht klar wie die Editionen mit den Sales verknüpft sind...
+    * Editionen sind ja erst mal nur eine Art Vorlage / Definition.
 
-- Rental
-  - Verleih hinzufügen: Öffnet Verkauf-Form
-  - Keine Beispiele in der DB? Die Liste ist noch leer.
+* Rental
+  * Verleih hinzufügen: Öffnet Verkauf-Form
+  * Keine Beispiele in der DB? Die Liste ist noch leer.
 
-- Sale
-  - Da müssen die Nutzungrechte angehängt werden können.
-  - Preis aus einer Kalkulation übernehmen.
-  - In Form fehlt der Kunde noch (Auswahl aus Adressen)  
-- Settings
-  - den aktiven Katalog markieren
-  - Umschaltung persistent machen
-  - Header-Überschrift anpassen.
+* Sale
+  * Da müssen die Nutzungrechte angehängt werden können.
+  * Preis aus einer Kalkulation übernehmen.
+  * In Form fehlt der Kunde noch (Auswahl aus Adressen)  
+* Settings
+  * den aktiven Katalog markieren
+  * Umschaltung persistent machen
+  * Header-Überschrift anpassen.
 
-- Tags
-  - Tag hinzufügen - Exception
-  - Tag bearbeiten - die parents werden noch nicht berücksichtigt.
-  - Tags-List -> Expandable Row funktioniert nicht: <https://ant.design/components/table>
+* Tags
+  * Tag hinzufügen - Exception
+  * Tag bearbeiten - die parents werden noch nicht berücksichtigt.
+  * Tags-List -> Expandable Row funktioniert nicht: <https://ant.design/components/table>
   
-- Whiteboard
-  - tldraw - geht noch gar nicht
+* Whiteboard
+  * tldraw - geht noch gar nicht
 
 ## Verschiedene Probleme
 
 param sind eigentlich view_meta / list_meta
 
-- Beim start: router.js:286 No routes matched location "/"
-- mehrfache IPC-Replies
-- URls in externen Browser öffnen.
-- during make: (node:9129) [DEP0174] DeprecationWarning: Calling promisify on a function that returns a Promise is likely a mistake.
+* Beim start: router.js:286 No routes matched location "/"
+* mehrfache IPC-Replies
+* URls in externen Browser öffnen.
+* during make: (node:9129) [DEP0174] DeprecationWarning: Calling promisify on a function that returns a Promise is likely a mistake.
 
-- Refused to load the image 'blob:<http://localhost:3000/3c611380-6977-4d5a-97ec-b086bf2ad7ba>' because it violates the following Content Security Policy directive: "default-src 'self' 'unsafe-inline' data:". Note that 'img-src' was not explicitly set, so 'default-src' is used as a fallback.
-  - <https://stackoverflow.com/questions/40360109/content-security-policy-img-src-self-data>
-  - <https://content-security-policy.com>
+* Refused to load the image 'blob:<http://localhost:3000/3c611380-6977-4d5a-97ec-b086bf2ad7ba>' because it violates the following Content Security Policy directive: "default-src 'self' 'unsafe-inline' data:". Note that 'img-src' was not explicitly set, so 'default-src' is used as a fallback.
+  * <https://stackoverflow.com/questions/40360109/content-security-policy-img-src-self-data>
+  * <https://content-security-policy.com>
 
 ### Auch für die Boilerplate
 
-- App signieren
-- App Icon
-  - <https://www.electronforge.io/guides/create-and-add-icons>
-- Assets verwenden
-  - tldraw Assets lokal nutzen...
-  - <https://discord.com/channels/859816885297741824/1219426289681694770/1219497107811995739>
-  - <https://gist.github.com/bbudd/2a246a718b7757584950b4ed98109115>
+* App signieren
+* App Icon
+  * <https://www.electronforge.io/guides/create-and-add-icons>
+* Assets verwenden
+  * tldraw Assets lokal nutzen...
+  * <https://discord.com/channels/859816885297741824/1219426289681694770/1219497107811995739>
+  * <https://gist.github.com/bbudd/2a246a718b7757584950b4ed98109115>
 
 Das Kontextmenü öffnet sich nicht (um code zu analysieren)
 In der ElectronReact Boilerplate konnte man das: Inspect Element, siehe:
@@ -254,8 +273,8 @@ In der ElectronReact Boilerplate konnte man das: Inspect Element, siehe:
 
 ### ContentSecurityPolicy
 
-- <https://www.electronjs.org/docs/latest/tutorial/security>
-- <https://content-security-policy.com>
+* <https://www.electronjs.org/docs/latest/tutorial/security>
+* <https://content-security-policy.com>
 
 Lösung:
 
@@ -265,8 +284,6 @@ Lösung:
 Siehe einmal in Datei `src/index.html`, und für die Entwicklung in Datei `forge.config.ts`:
 
 `devContentSecurityPolicy` aus 1:
-
-
 
 ```js
 { 
@@ -296,65 +313,52 @@ frame-src * self blob: data: gap:;
 
 2 hab ich getestet, und die Vorschaubilder beim Upload werden geladen.
 
-
 ## Recherchen
 
-- Markdown + Frontmatter to Json für Notizen im View rendern und fürs Formular.
-  - <https://github.com/scottstanfield/markdown-to-json#readme>
-    - React
-    - <https://github.com/mdx-editor/editor> - der scheint gut zu sein.
-    - <https://github.com/uiwjs/react-md-editor>
-    - Javascript
-    - <https://github.com/Ionaru/easy-markdown-editor>
-    - <https://github.com/sparksuite/simplemde-markdown-editor>
+* Markdown + Frontmatter to Json für Notizen im View rendern und fürs Formular.
+  * <https://github.com/scottstanfield/markdown-to-json#readme>
+    * React
+    * <https://github.com/mdx-editor/editor> - der scheint gut zu sein.
+    * <https://github.com/uiwjs/react-md-editor>
+    * Javascript
+    * <https://github.com/Ionaru/easy-markdown-editor>
+    * <https://github.com/sparksuite/simplemde-markdown-editor>
 
-- <https://github.com/ariabuckles/simple-markdown>
-  - Besserer Fork: <https://github.com/quantizor/markdown-to-jsx>
-- <https://github.com/markdown-it/markdown-it?tab=readme-ov-file>
-- <https://github.com/remarkjs/react-markdown>
+* <https://github.com/ariabuckles/simple-markdown>
+  * Besserer Fork: <https://github.com/quantizor/markdown-to-jsx>
+* <https://github.com/markdown-it/markdown-it?tab=readme-ov-file>
+* <https://github.com/remarkjs/react-markdown>
 
 ### Devtools extensions
 
-- <https://www.electronjs.org/de/docs/latest/tutorial/devtools-extension>
+* <https://www.electronjs.org/de/docs/latest/tutorial/devtools-extension>
 
 ### electron-forge versus electron-vite
 
-- <https://dev.to/navdeepm20/i-killed-electro-with-webpack-guide-to-migrate-electron-forge-webpack-to-vite-3nek>
-- <https://www.electronforge.io/config/plugins/vite>
+* <https://dev.to/navdeepm20/i-killed-electro-with-webpack-guide-to-migrate-electron-forge-webpack-to-vite-3nek>
+* <https://www.electronforge.io/config/plugins/vite>
 -
 
 ### Provide a release und Auto Updater
 
-- <https://www.electronforge.io/advanced/auto-update>
-  - <https://github.com/electron-userland/electron-builder>
+* <https://www.electronforge.io/advanced/auto-update>
+  * <https://github.com/electron-userland/electron-builder>
 
-- <https://stackoverflow.com/questions/48838051/how-to-compare-application-version-to-its-github-releases>
-  - das gebaute zip
-  - manually add release and upload zip to the repository
+* <https://stackoverflow.com/questions/48838051/how-to-compare-application-version-to-its-github-releases>
+  * das gebaute zip
+  * manually add release and upload zip to the repository
   
 ### Custom form Items
 
-- <https://atlassc.net/2021/06/05/create-a-custom-ant-design-form-item-component>
-- ... und Markdwon Editor einbinden:
-- <https://medium.com/swlh/use-custom-and-third-party-react-form-components-with-ant-design-and-typescript-2732e7849aee>
-
-
-
-
-
-
-
-
-
-
-
+* <https://atlassc.net/2021/06/05/create-a-custom-ant-design-form-item-component>
+* ... und Markdwon Editor einbinden:
+* <https://medium.com/swlh/use-custom-and-third-party-react-form-components-with-ant-design-and-typescript-2732e7849aee>
 
 ## HOW TO HANDLE STATIC ASSETS
 
 ### Möglichkeit 1
 
-- <https://stackoverflow.com/questions/60839621/cant-use-static-files-in-electron-forge>
-
+* <https://stackoverflow.com/questions/60839621/cant-use-static-files-in-electron-forge>
 
 ```html
 <img src='static://assets/images/a.png'/>

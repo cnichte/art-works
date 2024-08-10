@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router';
-import type { ColumnsType } from 'antd/es/table';
+import { useNavigate } from "react-router";
+import type { ColumnsType } from "antd/es/table";
 
-import RequestFactory from '../../../common/backend/RequestFactory';
-import { MyBasicList } from '../../../common/frontend/myBasicList';
-import { GroupOfWorkI } from '../types/GroupOfWorkInterface';
+import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
+import { DocType } from "../../../common/types/DocType";
+
+import { GroupOfWorkI } from "../../../common/types/DocGroupOfWork";
 
 /**
  * Ein Liste der Werkgruppen.
@@ -16,43 +17,22 @@ import { GroupOfWorkI } from '../types/GroupOfWorkInterface';
 function GroupOfWorkList() {
   const navigate = useNavigate();
 
-  /* ----------------------------------------------------------
+  const doclabel: string = "Werkgruppe";
+  const doctype: DocType = "groupofwork";
+  const segment: string = "groupsofwork";
 
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-
-  const moduleId = 'groupofwork';
-
-  const requests = RequestFactory.getListRequestsFor(moduleId, 'ipc-database');
-
-  /* ----------------------------------------------------------
-
-    Standard Actions
-
-   ---------------------------------------------------------- */
   //* open view
   const handleView = (record: { id: any }) => {
-    console.log('--- handleView:', record);
-    navigate(`/${moduleId}/view/${record.id}`);
+    console.log("--- handleView:", record);
+    console.log(`--- navigate  : '/${doctype}/view/${record.id}'`);
+    navigate(`/${doctype}/view/${record.id}`);
   };
 
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-  /* ----------------------------------------------------------
-
-    Die Spaltendefinition für die Tabelle
-
-    ---------------------------------------------------------- */
   const columns: ColumnsType<GroupOfWorkI> = [
     {
-      title: 'Titel',
-      dataIndex: 'title',
-      key: 'id',
+      title: "Titel",
+      dataIndex: "title",
+      key: "id",
       render: (text, record) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <a onClick={() => handleView(record)}> {text} </a>
@@ -60,32 +40,32 @@ function GroupOfWorkList() {
       sorter: (a, b) => a.title.localeCompare(b.title),
     },
     {
-      title: 'Beschreibung',
-      dataIndex: 'description',
-      key: 'id',
+      title: "Beschreibung",
+      dataIndex: "description",
+      key: "id",
     },
     {
-      title: 'Artworks',
-      dataIndex: 'artworks',
-      key: 'id',
+      title: "Artworks",
+      dataIndex: "artworks",
+      key: "id",
       render: (text, record) => record.artworks.length,
       sorter: (a, b) => a.artworks.length - b.artworks.length,
     },
     {
-      title: 'Notiz',
-      dataIndex: 'shortnote',
-      key: 'id',
+      title: "Notiz",
+      dataIndex: "shortnote",
+      key: "id",
     },
     {
-      title: 'von',
-      dataIndex: 'zeitraum_von',
-      key: 'id',
+      title: "von",
+      dataIndex: "zeitraum_von",
+      key: "id",
       sorter: (a, b) => a.zeitraum_von.localeCompare(b.zeitraum_von),
     },
     {
-      title: 'bis',
-      dataIndex: 'zeitraum_bis',
-      key: 'id',
+      title: "bis",
+      dataIndex: "zeitraum_bis",
+      key: "id",
       sorter: (a, b) => a.zeitraum_bis.localeCompare(b.zeitraum_bis),
     },
   ];
@@ -97,11 +77,10 @@ function GroupOfWorkList() {
 
    ---------------------------------------------------------- */
   return (
-    <MyBasicList
-      moduleLabel="Werkgruppe"
-      moduleId={moduleId}
-      requests={requests}
-      segment="groupsofwork"
+    <MyBasicList<GroupOfWorkI>
+      doclabel={doclabel}
+      doctype={doctype}
+      segment={segment}
       columns={columns}
     />
   );
