@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button, Flex, InputNumber, Rate, Select } from "antd";
 import { CalculatorOutlined } from "@ant-design/icons";
 import { FormItem_Props } from "../common/types/FormPropertiesInterface";

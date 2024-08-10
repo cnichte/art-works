@@ -6,19 +6,9 @@ import {
   Row,
   Col,
   Button,
-  message,
-  Radio,
   RadioChangeEvent,
 } from "antd";
-import {
-  PlusOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  AppstoreOutlined,
-  UnorderedListOutlined,
-  SearchOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 
@@ -26,10 +16,9 @@ import RelationResolver from "./RelationResolver";
 import { MyBasicList_Meta_I } from "../common/types/MyBasicListTypes";
 import { GroupOfWorkI } from "../common/types/DocGroupOfWork";
 import { Action_Request, DB_Request } from "../common/types/RequestTypes";
-import { DOCTYPE_CATALOG, DocType } from "../common/types/DocType";
+import { DocType } from "../common/types/DocType";
 import { App_Messages_IPC } from "./App_Messages_IPC";
 import { IPC_DATABASE } from "../common/types/IPC_Channels";
-import { DocWhiteboard } from "../common/types/DocWhiteboard";
 import { Header_Buttons_IPC } from "./Header_Buttons_IPC";
 
 // TODO CSS import styles from './myBasicList.css';
@@ -70,7 +59,7 @@ interface MyBasicListProps {
  * @returns
  */
 function MyBasicList<T>({
-  doclabel: moduleLabel,
+  doclabel: doclabel,
   doctype: doctype,
   segment,
   columns,
@@ -98,7 +87,14 @@ function MyBasicList<T>({
     ---------------------------------------------------------- */
 
   useEffect(() => {
-    Header_Buttons_IPC.request_buttons("list", doctype, "");
+    Header_Buttons_IPC.request_buttons({
+      viewtype: "list",
+      doctype: doctype,
+      doclabel: doclabel,
+      id: "",
+      surpress: false,
+      options: {},
+    });
 
     // Request data from pouchdb
     //! Following Pattern 2 for the Database requests
@@ -131,7 +127,7 @@ function MyBasicList<T>({
       "ipc-button-action",
       (response: Action_Request) => {
         if (response.target === doctype && response.view == "list") {
-          console.log(`${moduleLabel} List says ACTION: `, response);
+          console.log(`${doclabel} List says ACTION: `, response);
           App_Messages_IPC.request_message(
             "request:message-info",
             JSON.stringify(response)

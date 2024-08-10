@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Flex, Rate, Switch } from "antd";
-import { FlagFilled, FlagOutlined, CloseOutlined } from "@ant-design/icons";
+import { FlagFilled, FlagOutlined } from "@ant-design/icons";
 
 import { generate, green, presetPalettes, red } from "@ant-design/colors";
 import { ColorPicker, theme } from "antd";

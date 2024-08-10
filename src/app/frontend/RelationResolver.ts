@@ -1,6 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable import/prefer-default-export */
 // https://www.npmjs.com/package/uuid
 import {
   version as uuidVersion,

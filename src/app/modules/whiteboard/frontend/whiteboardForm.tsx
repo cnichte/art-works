@@ -17,11 +17,13 @@ import { DocType } from "../../../common/types/DocType";
 function WhiteboardForm() {
 
   const doctype: DocType = "whiteboard";
+  const doclabel: string = "Whiteboard";
+
   const { id } = useParams();
 
   return (
     <Tldraw>
-      <My_Tldraw_PersistenceManager id={id} doctype={doctype} />
+      <My_Tldraw_PersistenceManager id={id} doctype={doctype} doclabel={doclabel} />
     </Tldraw>
   );
 }

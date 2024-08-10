@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Button, Descriptions, Space, Col, Row, Tabs, Table } from "antd";
-import { EditOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { Descriptions, Space, Col, Row, Tabs, Table } from "antd";
 
 import ViewTool from "./ViewTools";
 import RelationResolver from "./RelationResolver";
@@ -14,10 +13,8 @@ import {
 } from "../common/types/MyBasicViewTypes";
 import { Header_Buttons_IPC } from "./Header_Buttons_IPC";
 import { Action_Request, DB_Request } from "../common/types/RequestTypes";
-import { DOCTYPE_ADDRESS } from "../common/types/DocType";
 import { App_Messages_IPC } from "./App_Messages_IPC";
 import { IPC_DATABASE } from "../common/types/IPC_Channels";
-import { AddressI } from "../common/types/DocAddress";
 
 /* ==========================================================
 
@@ -336,7 +333,14 @@ function MyBasicView<T>({
 
   useEffect(() => {
     //* Fordere Daten vom Backend, an.
-    Header_Buttons_IPC.request_buttons("view", doctype, id);
+    Header_Buttons_IPC.request_buttons({
+      viewtype: "view",
+      doctype: doctype,
+      doclabel: doclabel,
+      id: id,
+      surpress: false,
+      options: {},
+    });
 
     const request: DB_Request = {
       type: "request:data",
@@ -366,7 +370,7 @@ function MyBasicView<T>({
     const buaUnsubscribe = window.electronAPI.listen_to(
       "ipc-button-action",
       (response: Action_Request) => {
-        if (response.target === DOCTYPE_ADDRESS && response.view == "view") {
+        if (response.target === doctype && response.view == "view") {
           console.log("Book_View says ACTION: ", response);
           App_Messages_IPC.request_message(
             "request:message-success",

@@ -32,6 +32,7 @@ export function Header_Buttons(props: any) {
   const artworks_context = useContext(App_Context); // TODO artworks_context nutze ich nicht mehr?
   const [viewtype, setViewType] = useState<ViewType>("list");
   const [doctype, setDocType] = useState<DocType>("artwork");
+  const [doclabel, setDocLabel] = useState<string>("Werk");
   const [id, setID] = useState<string>("");
   const [supress, setSurpress] = useState<boolean>(false);
 
@@ -52,6 +53,7 @@ export function Header_Buttons(props: any) {
           console.log("Header_Buttons says: SHOW Buttons for: ", response);
           setViewType(response.view);
           setDocType(response.doctype);
+          setDocLabel(response.doclabel);
           setID(response.id);
           setSurpress(response.surpress);
         }
@@ -110,6 +112,7 @@ export function Header_Buttons(props: any) {
 
       options: {},
       surpress: false,
+      doclabel: doclabel
     };
 
     window.electronAPI.send(IPC_BUTTON_ACTION, [request]);
@@ -130,7 +133,7 @@ export function Header_Buttons(props: any) {
               callbackAddHandler();
             }}
           >
-            <PlusOutlined /> Add {doctype}
+            <PlusOutlined /> Add {doclabel}
           </Button>
         </Space>
       );
@@ -144,7 +147,7 @@ export function Header_Buttons(props: any) {
               callbackCloseHandler();
             }}
           >
-            <CloseCircleOutlined /> Close {doctype}
+            <CloseCircleOutlined /> Close {doclabel}
           </Button>
           <Button
             id="edit-action"
@@ -167,7 +170,7 @@ export function Header_Buttons(props: any) {
               callbackCloseHandler();
             }}
           >
-            <CloseCircleOutlined /> Close {doctype}
+            <CloseCircleOutlined /> Close {doclabel}
           </Button>
           <Button
             id="save-action"
@@ -178,7 +181,7 @@ export function Header_Buttons(props: any) {
             style={{ color: colorBgContainer }}
           >
             <UploadOutlined />
-            {id == "new" ? "Create" : "Update"} {doctype}
+            {id == "new" ? "Create" : "Update"} {doclabel}
           </Button>
         </Space>
       );

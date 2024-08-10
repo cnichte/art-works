@@ -80,7 +80,14 @@ export function Catalog_Form() {
 
   useEffect(() => {
     console.log("ContextData", app_context);
-    Header_Buttons_IPC.request_buttons("form", "catalog", id); // is perhaps id='new'
+    Header_Buttons_IPC.request_buttons({
+      viewtype: "form",
+      doctype: "catalog",
+      doclabel: "Catalog",
+      id: id, // is perhaps id='new'
+      surpress: false,
+      options: {},
+    });
 
     reset_form();
 
@@ -182,7 +189,14 @@ export function Catalog_Form() {
         // TODO bei local können einige Felder versteckt werden.
 
         // update header-button-state because uuid has changed from 'new' to uuid.
-        Header_Buttons_IPC.request_buttons("form", "catalog", result.id);
+        Header_Buttons_IPC.request_buttons({
+          viewtype: "form",
+          doctype: "catalog",
+          doclabel: "Catalog",
+          id: result.id, // is perhaps id='new'
+          surpress: false,
+          options: {},
+        });
       })
       .catch(function (error) {
         App_Messages_IPC.request_message(

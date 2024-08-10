@@ -13,6 +13,7 @@ import { DocType } from "../../../common/types/DocType";
 interface MyProps {
   id: string;
   doctype: DocType;
+  doclabel: string;
 }
 
 // https://tldraw.dev/docs/persistence
@@ -30,7 +31,7 @@ interface MyProps {
  * @param MyProps 
  * @returns 
  */
-export function My_Tldraw_PersistenceManager({ id, doctype }: MyProps) {
+export function My_Tldraw_PersistenceManager({ id, doctype, doclabel }: MyProps) {
   const [form] = Form.useForm();
   const editor = useEditor();
   const [dataOrigin, setDataOrigin] = useState(null);
@@ -39,7 +40,14 @@ export function My_Tldraw_PersistenceManager({ id, doctype }: MyProps) {
 
   useEffect(() => {
     //* Wird einmalig beim Laden der Seite ausgeführt.
-    Header_Buttons_IPC.request_buttons("form", doctype, id);
+    Header_Buttons_IPC.request_buttons({
+      viewtype: "form",
+      doctype: doctype,
+      doclabel: doclabel,
+      id: id, // is perhaps id='new'
+      surpress: false,
+      options: {},
+    });
 
     if (id != "new") {
       //! Request Document from Database
@@ -106,7 +114,14 @@ export function My_Tldraw_PersistenceManager({ id, doctype }: MyProps) {
         //! has new _rev from backend
         setDataOrigin(result);
         // update header-button-state because uuid has changed from 'new' to uuid.
-        Header_Buttons_IPC.request_buttons("form", "whiteboard", result.id);
+        Header_Buttons_IPC.request_buttons({
+          viewtype: "form",
+          doctype: doctype,
+          doclabel: doclabel,
+          id: result.id, // is perhaps id='new'
+          surpress: false,
+          options: {},
+        });
       })
       .catch(function (error: any) {
         App_Messages_IPC.request_message(

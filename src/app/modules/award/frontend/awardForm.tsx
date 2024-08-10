@@ -33,7 +33,14 @@ function AwardForm() {
 
   useEffect(() => {
     console.info("Request some data from backend...");
-    Header_Buttons_IPC.request_buttons("form", doctype, id); // is perhaps id='new'
+    Header_Buttons_IPC.request_buttons({
+      viewtype: "form",
+      doctype: doctype,
+      doclabel: doclabel,
+      id: id, // is perhaps id='new'
+      surpress: false,
+      options: {},
+    });
 
     if (id != "new") {
       //! Request Document from Database
@@ -94,7 +101,14 @@ function AwardForm() {
         //! has new _rev from backend
         setDataOrigin(result);
         // update header-button-state because uuid has changed from 'new' to uuid.
-        Header_Buttons_IPC.request_buttons("form", doctype, result.id);
+        Header_Buttons_IPC.request_buttons({
+          viewtype: "form",
+          doctype: doctype,
+          doclabel: doclabel,
+          id: result.id, // is perhaps id='new'
+          surpress: false,
+          options: {},
+        });
       })
       .catch(function (error: any) {
         App_Messages_IPC.request_message(

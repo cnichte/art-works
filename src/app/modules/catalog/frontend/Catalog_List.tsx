@@ -35,7 +35,14 @@ export function Catalog_List() {
 
   useEffect(() => {
     console.log("ContextData", app_context);
-    Header_Buttons_IPC.request_buttons("list", "catalog", "");
+    Header_Buttons_IPC.request_buttons({
+      viewtype: "list",
+      doctype: "catalog",
+      doclabel: "Catalog",
+      id: "", // is perhaps id='new'
+      surpress: false,
+      options: {},
+    });
 
     load_list();
 

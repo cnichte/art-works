@@ -86,7 +86,14 @@ function StatisticView() {
   useEffect(() => {
     //* Wird einmalig beim Laden der Seite ausgeführt.
     console.info("Request some data from backend...");
-    Header_Buttons_IPC.request_buttons("list", doctype, "", true); // is perhaps id='new'
+    Header_Buttons_IPC.request_buttons({
+      viewtype: "list",
+      doctype: doctype,
+      doclabel: doclabel,
+      id: "", // is perhaps id='new'
+      surpress: true,
+      options: {},
+    });
 
     //! Listen for Header-Button Actions.
     // Register and remove the event listener

@@ -22,7 +22,14 @@ export function Catalog_View() {
 
   useEffect(() => {
     console.log("ContextData", app_context);
-    Header_Buttons_IPC.request_buttons("view", "catalog", id);
+    Header_Buttons_IPC.request_buttons({
+      viewtype: "form",
+      doctype: "catalog",
+      doclabel: "Catalog",
+      id: id, // is perhaps id='new'
+      surpress: false,
+      options: {},
+    });
 
     const request: Settings_Request = {
       type: "request:get-connection",
