@@ -69,7 +69,6 @@ function GroupOfWorkList() {
       sorter: (a, b) => a.zeitraum_bis.localeCompare(b.zeitraum_bis),
     },
   ];
-  // Invite {record.name}
 
   /* ----------------------------------------------------------
 

@@ -29,7 +29,7 @@ import { DOCTYPE_HEADER_BUTTONS, DocType } from "../common/types/DocType";
 export function Header_Buttons(props: any) {
   const navigate = useNavigate();
 
-  const artworks_context = useContext(App_Context);
+  const artworks_context = useContext(App_Context); // TODO artworks_context nutze ich nicht mehr?
   const [viewtype, setViewType] = useState<ViewType>("list");
   const [doctype, setDocType] = useState<DocType>("artwork");
   const [id, setID] = useState<string>("");
@@ -49,7 +49,7 @@ export function Header_Buttons(props: any) {
       "ipc-button-action",
       (response: Action_Request) => {
         if (response.target === DOCTYPE_HEADER_BUTTONS) {
-          console.log("App_Buttons says: SHOW Buttons for: ", response);
+          console.log("Header_Buttons says: SHOW Buttons for: ", response);
           setViewType(response.view);
           setDocType(response.doctype);
           setID(response.id);
@@ -130,7 +130,7 @@ export function Header_Buttons(props: any) {
               callbackAddHandler();
             }}
           >
-            <PlusOutlined /> Add {artworks_context.doctype}
+            <PlusOutlined /> Add {doctype}
           </Button>
         </Space>
       );
@@ -144,7 +144,7 @@ export function Header_Buttons(props: any) {
               callbackCloseHandler();
             }}
           >
-            <CloseCircleOutlined /> Close {artworks_context.doctype}
+            <CloseCircleOutlined /> Close {doctype}
           </Button>
           <Button
             id="edit-action"
@@ -153,7 +153,7 @@ export function Header_Buttons(props: any) {
             }}
           >
             <EditOutlined />
-            Edit {artworks_context.doctype}
+            Edit {doctype}
           </Button>
         </Space>
       );
@@ -167,7 +167,7 @@ export function Header_Buttons(props: any) {
               callbackCloseHandler();
             }}
           >
-            <CloseCircleOutlined /> Close {artworks_context.doctype}
+            <CloseCircleOutlined /> Close {doctype}
           </Button>
           <Button
             id="save-action"
@@ -178,7 +178,7 @@ export function Header_Buttons(props: any) {
             style={{ color: colorBgContainer }}
           >
             <UploadOutlined />
-            {id == "new" ? "Create" : "Update"} {artworks_context.doctype}
+            {id == "new" ? "Create" : "Update"} {doctype}
           </Button>
         </Space>
       );

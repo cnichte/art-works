@@ -18,9 +18,7 @@ if (require("electron-squirrel-startup")) {
 Main_Logger.init();
 
 console.log("###########################################################");
-console.log(
-  `Welcome to a session with ${App_Info.MY_APP_NAME}, Version ${App_Info.MY_APP_VERSION}`
-);
+console.log(`Welcome to a session with ${App_Info.MY_APP_NAME}, Version ${App_Info.MY_APP_VERSION}`);
 console.log("###########################################################\n\n");
 
 const createWindow = (): BrowserWindow => {
