@@ -112,7 +112,7 @@ export function Header_Buttons(props: any) {
 
       options: {},
       surpress: false,
-      doclabel: doclabel
+      doclabel: doclabel,
     };
 
     window.electronAPI.send(IPC_BUTTON_ACTION, [request]);
@@ -181,7 +181,7 @@ export function Header_Buttons(props: any) {
             style={{ color: colorBgContainer }}
           >
             <UploadOutlined />
-            {id == "new" ? "erzeuge" : "aktualisiere"} {doclabel}
+            {doclabel} {id == "new" ? "erzeugen" : "aktualisieren"}
           </Button>
         </Space>
       );

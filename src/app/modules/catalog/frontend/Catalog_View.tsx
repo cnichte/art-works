@@ -6,7 +6,7 @@ import {
   Settings_Request,
 } from "../../../common/types/RequestTypes";
 import { DocCatalogType } from "../../../common/types/DocCatalog";
-import { IPC_DATABASE, IPC_SETTINGS } from "../../../common/types/IPC_Channels";
+import { IPC_SETTINGS } from "../../../common/types/IPC_Channels";
 import { DOCTYPE_CATALOG } from "../../../common/types/DocType";
 
 import { App_Context } from "../../../frontend/App_Context";
@@ -23,7 +23,7 @@ export function Catalog_View() {
   useEffect(() => {
     console.log("ContextData", app_context);
     Header_Buttons_IPC.request_buttons({
-      viewtype: "form",
+      viewtype: "view",
       doctype: "catalog",
       doclabel: "Catalog",
       id: id, // is perhaps id='new'

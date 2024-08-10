@@ -234,7 +234,6 @@ function NoteForm() {
    ---------------------------------------------------------- */
   return (
     <div>
-      <Title level={3}> {doclabel} bearbeiten</Title>
       <Form
         form={form}
         name="basic"

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Button, Divider, Form, FormProps, Input, Select, Switch } from "antd";
-import { InfoCircleOutlined } from "@ant-design/icons";
+import { Button, Divider, Form, FormProps, Input, Select } from "antd";
 
 import {
   Action_Request,
