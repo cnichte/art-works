@@ -5,6 +5,7 @@ import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../fronten
 import { DocType } from "../../../common/types/DocType";
 
 import { PublicationI } from "../../../common/types/DocPublication";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Publikationen.
@@ -17,9 +18,9 @@ import { PublicationI } from "../../../common/types/DocPublication";
 function PublicationList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Publikation";
-  const doctype: DocType = "publication";
-  const segment: string = "publications";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

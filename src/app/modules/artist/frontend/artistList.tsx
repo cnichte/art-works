@@ -3,6 +3,7 @@ import type { ColumnsType } from "antd/es/table";
 import { MyBasicList } from "../../../frontend/myBasicList"; // src/app/frontend/myBasicList'
 import { DocType } from "../../../common/types/DocType";
 import { ArtistI } from "../../../common/types/DocArtist";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Artist.
@@ -15,9 +16,9 @@ import { ArtistI } from "../../../common/types/DocArtist";
 function ArtistList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Künstler";
-  const doctype: DocType = "artist";
-  const segment: string = "artists";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

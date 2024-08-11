@@ -5,6 +5,7 @@ import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../fronten
 import { DocType } from "../../../common/types/DocType";
 
 import { GenreI } from "../../../common/types/DocGenre";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Genres.
@@ -17,9 +18,9 @@ import { GenreI } from "../../../common/types/DocGenre";
 function GenreList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Genre";
-  const doctype: DocType = "genre";
-  const segment: string = "genres";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

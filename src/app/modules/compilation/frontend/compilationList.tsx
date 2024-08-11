@@ -5,6 +5,7 @@ import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../fronten
 import { DocType } from "../../../common/types/DocType";
 
 import { CompilationI } from "../../../common/types/DocCompilation";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Zusammenstellungen.
@@ -17,9 +18,9 @@ import { CompilationI } from "../../../common/types/DocCompilation";
 export default function CompilationList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Zusammenstellung";
-  const doctype: DocType = "compilation";
-  const segment: string = "compilations";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

@@ -9,6 +9,7 @@ import MyBasicView from "../../../frontend/myBasicView";
 import { DocType } from "../../../common/types/DocType";
 
 import { ExhibitionI } from "../../../common/types/DocExhibition";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -37,9 +38,9 @@ function ExhibitionView() {
 
   const { id } = useParams();
 
-  const doclabel: string = "Ausstellung";
-  const doctype: DocType = "exhibition";
-  const segment: string = "exhibitions";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsExhibition: MyBasicViewFieldParameterI[] = [
     {

@@ -8,6 +8,7 @@ import MyBasicView from "../../../frontend/myBasicView";
 import { DocType } from "../../../common/types/DocType";
 import { ArtistI } from "../../../common/types/DocArtist";
 import { Segments } from "../../../frontend/Segments";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -35,9 +36,9 @@ function ArtistView() {
    ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const doclabel: string = "Künstler";
-  const doctype: DocType = "artist";
-  const segment: string = "artists";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsArtist: MyBasicViewFieldParameterI[] = [
     {

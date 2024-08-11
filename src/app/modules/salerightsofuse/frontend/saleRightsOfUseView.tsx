@@ -7,6 +7,7 @@ import {
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
 import { DocType } from "../../../common/types/DocType";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -29,9 +30,9 @@ import { DocType } from "../../../common/types/DocType";
 function saleRightsOfUseView() {
   const { id } = useParams();
 
-  const doclabel: string = "Nutzungsrecht";
-  const doctype: DocType = "salerightsofuse";
-  const segment: string = "salerightsofuses";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsSalerightsofuse: MyBasicViewFieldParameterI[] = [
     {

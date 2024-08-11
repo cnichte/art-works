@@ -10,6 +10,7 @@ import { DocType } from "../../../common/types/DocType";
 import { Segments } from "../../../frontend/Segments";
 
 import { PublicationI } from "../../../common/types/DocPublication";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -32,9 +33,9 @@ import { PublicationI } from "../../../common/types/DocPublication";
 function PublicationView() {
   const { id } = useParams();
 
-  const doclabel: string = "Publikation";
-  const doctype: DocType = "publication";
-  const segment: string = "publications";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsPublication: MyBasicViewFieldParameterI[] = [
     {

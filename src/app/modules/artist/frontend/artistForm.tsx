@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Space, Typography, Input, Form, Button, Upload } from "antd";
+import { Typography, Input, Form, Button, Upload } from "antd";
 
 import type { RcFile } from "antd/es/upload";
 
-import {
-  UploadOutlined,
-  CloseCircleOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 
 import { useNavigate } from "react-router";
 //* above are the default imports
@@ -28,6 +24,7 @@ import { Action_Request } from "../../../common/types/RequestTypes";
 import { Artist } from "../../../common/types/DocArtist";
 import { FormTool } from "../../../frontend/FormTool";
 import { MyInputURLField } from "../../../frontend/myInputFields";
+import { modul_props } from "../modul_props";
 
 const layout = {
   labelCol: { span: 8 },
@@ -43,9 +40,9 @@ function NoteForm() {
   const navigate = useNavigate();
   const { Title } = Typography;
 
-  const doclabel: string = "Künstler";
-  const doctype: DocType = "artist";
-  const segment: string = "artists";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string = modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben
@@ -135,7 +132,6 @@ function NoteForm() {
           surpress: false,
           options: {},
         });
-
       })
       .catch(function (error: any) {
         App_Messages_IPC.request_message(

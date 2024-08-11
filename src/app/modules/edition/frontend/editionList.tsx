@@ -5,6 +5,7 @@ import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../fronten
 import { DocType } from "../../../common/types/DocType";
 
 import { EditionI } from "../../../common/types/DocEdition";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Editionen.
@@ -17,9 +18,9 @@ import { EditionI } from "../../../common/types/DocEdition";
 function EditionList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Edition";
-  const doctype: DocType = "edition";
-  const segment: string = "editions";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

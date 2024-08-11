@@ -13,6 +13,7 @@ import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 import { FormTool } from "../../../frontend/FormTool";
 import { Calculation } from "../../../common/types/DocCalculation";
 import { My_PriceSimple_Input } from "../../../frontend/myPriceSimple_Input";
+import { modul_props } from "../modul_props";
 
 const { TextArea } = Input;
 
@@ -24,9 +25,9 @@ const { TextArea } = Input;
 function CalculationForm() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Kalkulation";
-  const doctype: DocType = "calculation";
-  const segment: string = "calculations";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben

@@ -6,6 +6,7 @@ import MyBasicView from '../../../frontend/myBasicView';
 import { DocType } from '../../../common/types/DocType';
 
 import { CalculationI } from "../../../common/types/DocCalculation";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -28,9 +29,9 @@ import { CalculationI } from "../../../common/types/DocCalculation";
 function CalculationView() {
   const { id } = useParams();
 
-  const doclabel: string = "Kalkulation";
-  const doctype: DocType = "calculation";
-  const segment: string = "calculations";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsCalculation: MyBasicViewFieldParameterI[] = [
     {

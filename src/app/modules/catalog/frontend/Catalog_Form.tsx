@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Button, Divider, Form, FormProps, Input, Select } from "antd";
+import { Button, Form, FormProps, Input, Select } from "antd";
 
 import {
   Action_Request,
@@ -304,13 +304,6 @@ export function Catalog_Form() {
 
   return (
     <>
-      <p>
-        Testing CRUD-Operations on the PouchDB, in conjunction with IPC
-        requests.
-      </p>
-
-      <Divider orientation="left">Catalog Input Form</Divider>
-
       <Form
         form={form}
         name="catalog-form"

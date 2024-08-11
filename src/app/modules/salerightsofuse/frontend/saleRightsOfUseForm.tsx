@@ -10,6 +10,7 @@ import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
 import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { FormTool } from "../../../frontend/FormTool";
+import { modul_props } from "../modul_props";
 
 /**
  * Formular für das Modul Note.
@@ -19,9 +20,9 @@ import { FormTool } from "../../../frontend/FormTool";
 function SaleForm() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Nutzungsrecht";
-  const doctype: DocType = "salerightsofuse";
-  const segment: string = "salerightsofuses";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben

@@ -6,7 +6,7 @@ import { Menu_Links } from "../../menu";
 export class App_Info {
   static MY_APP_NAME = "Art.Works!";
   // TODO use https://www.npmjs.com/package/genversion
-  static MY_APP_VERSION = "0.9.0"; // Semantic Versioning: https://de.wikipedia.org/wiki/Version_(Software)
+  static MY_APP_VERSION = "1.0.0"; // Semantic Versioning: https://de.wikipedia.org/wiki/Version_(Software)
   static MY_APP_FOLDER = "Art.Works!";
 
   // https://www.electronjs.org/docs/latest/api/app#appsetaboutpaneloptionsoptions

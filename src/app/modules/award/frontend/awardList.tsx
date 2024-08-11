@@ -5,6 +5,7 @@ import { MyBasicList } from "../../../frontend/myBasicList"; // src/app/frontend
 import { DocType } from "../../../common/types/DocType";
 
 import { AwardI } from "../../../common/types/DocAward";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Awards.
@@ -17,9 +18,9 @@ import { AwardI } from "../../../common/types/DocAward";
 function AwardList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Auszeichnung";
-  const doctype: DocType = "award";
-  const segment: string = "awards";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string = modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

@@ -8,6 +8,7 @@ import {
 import MyBasicView from "../../../frontend/myBasicView";
 import { DocType } from "../../../common/types/DocType";
 import { GenreI } from "../../../common/types/DocGenre";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -30,9 +31,9 @@ import { GenreI } from "../../../common/types/DocGenre";
 function GenreView() {
   const { id } = useParams();
 
-  const doclabel: string = "Genre";
-  const doctype: DocType = "genre";
-  const segment: string = "genres";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsGenre: MyBasicViewFieldParameterI[] = [
     {

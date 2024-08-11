@@ -7,6 +7,7 @@ import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../fronten
 import { DocType } from "../../../common/types/DocType";
 
 import { NoteI } from "../../../common/types/DocNote";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Notizen.
@@ -19,9 +20,9 @@ import { NoteI } from "../../../common/types/DocNote";
 function NoteList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Notiz";
-  const doctype: DocType = "note";
-  const segment: string = "notes";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

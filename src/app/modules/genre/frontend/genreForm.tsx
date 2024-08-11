@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 
-import { Space, Typography, Input, Form, Button } from 'antd';
+import { Typography, Input, Form, Button } from 'antd';
 
-import {
-  UploadOutlined,
-  CloseCircleOutlined,
-} from '@ant-design/icons';
 import { DocType } from "../../../common/types/DocType";
 import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
 import { DB_Request } from "../../../common/types/RequestTypes";
@@ -15,6 +11,7 @@ import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { Action_Request } from "../../../common/types/RequestTypes";
 import { FormTool } from "../../../frontend/FormTool";
 import { Genre } from "../../../common/types/DocGenre";
+import { modul_props } from "../modul_props";
 
 //* above are the default imports
 
@@ -32,9 +29,9 @@ function GenreForm() {
   const navigate = useNavigate();
   const { Title } = Typography;
 
-  const doclabel: string = "Genre";
-  const doctype: DocType = "genre";
-  const segment: string = "genres";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben

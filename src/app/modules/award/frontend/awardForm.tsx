@@ -11,6 +11,7 @@ import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 import { Action_Request } from "../../../common/types/RequestTypes";
 import { FormTool } from "../../../frontend/FormTool";
 import { Award } from "../../../common/types/DocAward";
+import { modul_props } from "../modul_props";
 
 /**
  * Formular für das Modul Note.
@@ -20,9 +21,9 @@ import { Award } from "../../../common/types/DocAward";
 function AwardForm() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Auszeichnung";
-  const doctype: DocType = "award";
-  const segment: string = "awards";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string = modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben

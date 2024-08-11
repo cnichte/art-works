@@ -6,6 +6,7 @@ import { DocType } from "../../../common/types/DocType";
 import { MyBasicList_Meta_I } from "../../../common/types/MyBasicListTypes";
 
 import { SaleI } from "../../../common/types/DocSale";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Verkäufen.
@@ -15,9 +16,9 @@ import { SaleI } from "../../../common/types/DocSale";
 function SaleList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Verkauf";
-  const doctype: DocType = "sale";
-  const segment: string = "sales";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

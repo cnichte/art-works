@@ -20,6 +20,7 @@ import { My_Price_Input } from "../../../frontend/myPrice_Input";
 
 import MyTags_Input from "../../../frontend/myTags_Input";
 import { My_Marker_Input } from "../../../frontend/myMarker_Input";
+import { modul_props } from "../modul_props";
 
 // log.info('########################################### Log from the renderer process');
 // log.info() wird auf der Konsole im Backend ausgegeben.
@@ -52,9 +53,9 @@ function ArtworkForm() {
   const navigate = useNavigate();
   const { Title } = Typography;
 
-  const doclabel: string = "Werk";
-  const doctype: DocType = "artwork";
-  const segment: string = "artworks";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string = modul_props.segment;
 
   const [form] = Form.useForm();
   // The id is passed as a parameter, and is

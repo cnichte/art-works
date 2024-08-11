@@ -4,6 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
 import { DocType } from "../../../common/types/DocType";
 import { ExhibitionI } from "../../../common/types/DocExhibition";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Ausstellungen.
@@ -16,9 +17,9 @@ import { ExhibitionI } from "../../../common/types/DocExhibition";
 function GroupOfWorkList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Ausstellung";
-  const doctype: DocType = "exhibition";
-  const segment: string = "exhibitions";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

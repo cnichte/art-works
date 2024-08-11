@@ -3,6 +3,7 @@ import { Button, message, Steps, theme, Typography } from 'antd';
 import { Header_Buttons_IPC } from '../../../frontend/Header_Buttons_IPC';
 import { DocType } from '../../../common/types/DocType';
 import { Action_Request } from '../../../common/types/RequestTypes';
+import { modul_props } from '../modul_props';
 
 // https://ant.design/components/typography
 const { Text } = Typography;
@@ -34,9 +35,10 @@ const steps = [
 ];
 
 function FirstStartSteps() {
-  const doclabel: string = "Erster Start";
-  const doctype: DocType = "firststart";
-  const segment: string = "";
+
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
   
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);

@@ -17,6 +17,7 @@ import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { FormTool } from "../../../frontend/FormTool";
 import { Publication } from "../../../common/types/DocPublication";
+import { modul_props } from "../modul_props";
 
 //* above are the default imports
 
@@ -32,9 +33,9 @@ import { Publication } from "../../../common/types/DocPublication";
 function PublicationForm() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Publikation";
-  const doctype: DocType = "publication";
-  const segment: string = "publications";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben

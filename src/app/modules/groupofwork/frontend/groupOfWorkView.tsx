@@ -10,6 +10,7 @@ import { DocType } from "../../../common/types/DocType";
 
 import { GroupOfWorkI } from "../../../common/types/DocGroupOfWork";
 import { Segments } from "../../../frontend/Segments";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -32,9 +33,9 @@ import { Segments } from "../../../frontend/Segments";
 export default function GroupOfWorkView() {
   const { id } = useParams();
 
-  const doclabel: string = "Werkgruppe";
-  const doctype: DocType = "groupofwork";
-  const segment: string = "groupsofwork";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsGroupofwork: MyBasicViewFieldParameterI[] = [
     {

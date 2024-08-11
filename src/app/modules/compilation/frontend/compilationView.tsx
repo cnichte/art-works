@@ -9,6 +9,7 @@ import MyBasicView from "../../../frontend/myBasicView";
 import { DocType } from "../../../common/types/DocType";
 
 import { CompilationI } from "../../../common/types/DocCompilation";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -36,9 +37,9 @@ export default function CompilationView() {
    ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const doclabel: string = "Zusammenstellung";
-  const doctype: DocType = "compilation";
-  const segment: string = "compilations";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsCompilation: MyBasicViewFieldParameterI[] = [
     {

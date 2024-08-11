@@ -15,6 +15,7 @@ import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { Action_Request } from "../../../common/types/RequestTypes";
 import { FormTool } from "../../../frontend/FormTool";
+import { modul_props } from "../modul_props";
 
 /**
  * Formular für das Modul Note.
@@ -24,9 +25,9 @@ import { FormTool } from "../../../frontend/FormTool";
 function NoteForm() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Notiz";
-  const doctype: DocType = "note";
-  const segment: string = "notes";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben

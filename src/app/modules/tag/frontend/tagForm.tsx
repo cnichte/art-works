@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 
-import { Space, Typography, Input, Form, Button,
-  ColorPicker, Select, Divider  } from 'antd';
+import { Input, Form, Button, ColorPicker, Select, Divider } from "antd";
 
-import {
-  UploadOutlined,
-  CloseCircleOutlined,
-} from '@ant-design/icons';
-
-import { DocType } from '../../../common/types/DocType';
-import Title from "antd/es/skeleton/Title";
+import { DocType } from "../../../common/types/DocType";
 import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
 import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
 import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { FormTool } from "../../../frontend/FormTool";
 import { Tag } from "../../../common/types/DocTag";
-
+import { modul_props } from "../modul_props";
 
 /**
  * Formular für das Modul Tag.
@@ -27,9 +20,9 @@ import { Tag } from "../../../common/types/DocTag";
 function TagForm() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Tag";
-  const doctype: DocType = "tag";
-  const segment: string = "tags";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben
@@ -39,7 +32,7 @@ function TagForm() {
 
   const triggerSaveRef = React.useRef(null);
 
-   useEffect(() => {
+  useEffect(() => {
     //* Wird einmalig beim Laden der Seite ausgeführt.
     console.info("Request some data from backend...");
     Header_Buttons_IPC.request_buttons({
@@ -95,8 +88,6 @@ function TagForm() {
     return () => {
       buaUnsubscribe();
     };
-
-
   }, []);
 
   const onFormFinish = (valuesForm: any) => {
@@ -121,7 +112,7 @@ function TagForm() {
           options: {},
         });
       })
-      .catch(function (error:any) {
+      .catch(function (error: any) {
         App_Messages_IPC.request_message(
           "request:message-error",
           error instanceof Error ? `Error: ${error.message}` : ""
@@ -139,12 +130,12 @@ function TagForm() {
 
    ---------------------------------------------------------- */
 
-   const onParentChange = (value: string) => {
+  const onParentChange = (value: string) => {
     console.log(`selected ${value}`);
   };
 
   const onParentSearch = (value: string) => {
-    console.log('search:', value);
+    console.log("search:", value);
   };
 
   /* ----------------------------------------------------------
@@ -173,20 +164,20 @@ function TagForm() {
             onChange={onParentChange}
             onSearch={onParentSearch}
             filterOption={(input, option) =>
-              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
             options={[
               {
-                value: 'jack',
-                label: 'Jack',
+                value: "jack",
+                label: "Jack",
               },
               {
-                value: 'lucy',
-                label: 'Lucy',
+                value: "lucy",
+                label: "Lucy",
               },
               {
-                value: 'tom',
-                label: 'Tom',
+                value: "tom",
+                label: "Tom",
               },
             ]}
           />
@@ -198,7 +189,7 @@ function TagForm() {
           rules={[
             {
               required: true,
-              message: 'Bitte den Titel der Werkgruppe angeben!',
+              message: "Bitte den Titel der Werkgruppe angeben!",
             },
           ]}
         >
@@ -209,42 +200,42 @@ function TagForm() {
             allowClear
             presets={[
               {
-                label: 'Recommended',
+                label: "Recommended",
                 colors: [
-                  '#000000',
-                  '#000000E0',
-                  '#000000A6',
-                  '#00000073',
-                  '#00000040',
-                  '#00000026',
-                  '#0000001A',
-                  '#00000012',
-                  '#0000000A',
-                  '#00000005',
-                  '#F5222D',
-                  '#FA8C16',
-                  '#FADB14',
-                  '#8BBB11',
-                  '#52C41A',
-                  '#13A8A8',
-                  '#1677FF',
-                  '#2F54EB',
-                  '#722ED1',
-                  '#EB2F96',
-                  '#F5222D4D',
-                  '#FA8C164D',
-                  '#FADB144D',
-                  '#8BBB114D',
-                  '#52C41A4D',
-                  '#13A8A84D',
-                  '#1677FF4D',
-                  '#2F54EB4D',
-                  '#722ED14D',
-                  '#EB2F964D',
+                  "#000000",
+                  "#000000E0",
+                  "#000000A6",
+                  "#00000073",
+                  "#00000040",
+                  "#00000026",
+                  "#0000001A",
+                  "#00000012",
+                  "#0000000A",
+                  "#00000005",
+                  "#F5222D",
+                  "#FA8C16",
+                  "#FADB14",
+                  "#8BBB11",
+                  "#52C41A",
+                  "#13A8A8",
+                  "#1677FF",
+                  "#2F54EB",
+                  "#722ED1",
+                  "#EB2F96",
+                  "#F5222D4D",
+                  "#FA8C164D",
+                  "#FADB144D",
+                  "#8BBB114D",
+                  "#52C41A4D",
+                  "#13A8A84D",
+                  "#1677FF4D",
+                  "#2F54EB4D",
+                  "#722ED14D",
+                  "#EB2F964D",
                 ],
               },
               {
-                label: 'Recent',
+                label: "Recent",
                 colors: [],
               },
             ]}

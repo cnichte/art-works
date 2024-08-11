@@ -1,24 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 
-import {
-  Space,
-  Typography,
-  Input,
-  Form,
-  Button,
-  Select,
-  SelectProps,
-} from 'antd';
+import { Space, Input, Form, Button, Select, SelectProps } from "antd";
 
-import {
-  UploadOutlined,
-  CloseCircleOutlined,
-  InfoCircleOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
+import { InfoCircleOutlined, EditOutlined } from "@ant-design/icons";
+
 import { DocType } from "../../../common/types/DocType";
-import Title from "antd/es/skeleton/Title";
 import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
 import { DB_Request } from "../../../common/types/RequestTypes";
 import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
@@ -26,19 +13,13 @@ import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { Action_Request } from "../../../common/types/RequestTypes";
 import { Rental } from "../../../common/types/DocRental";
 import { FormTool } from "../../../frontend/FormTool";
+import { modul_props } from "../modul_props";
 
 //* above are the default imports
 
 //* Room for additional imports
 
 //* Application imports
-
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-
 
 /**
  * TODO Search the Artwork / Edition / Publication.
@@ -54,15 +35,15 @@ const layout = {
 const SearchInput: React.FC<{
   placeholder: string;
   // eslint-disable-next-line no-undef
-// eslint-disable-next-line react/function-component-definition
+  // eslint-disable-next-line react/function-component-definition
 }> = (props) => {
-  const [data, setData] = useState<SelectProps['options']>([]);
+  const [data, setData] = useState<SelectProps["options"]>([]);
   const [value, setValue] = useState<string>();
 
   const showSearch = true;
 
   const handleSearch = (searchValue: string) => {
-    console.log('############### query artworks');
+    console.log("############### query artworks");
     // TODO fetch(newValue, setData); from DB...
     // https://pouchdb.com/api.html#batch_fetch
     // TODO FormTools.customRequest('ipc-database', 'request:artworks-query-custom', searchValue, {});
@@ -97,9 +78,9 @@ const SearchInput: React.FC<{
 function RentalForm() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Verleih";
-  const doctype: DocType = "rental";
-  const segment: string = "rentals";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben
@@ -149,7 +130,6 @@ function RentalForm() {
         });
     }
 
-
     const request_2: DB_Request = {
       type: "request:data",
       doctype: "saleType",
@@ -187,7 +167,6 @@ function RentalForm() {
     };
   }, []);
 
-
   const onFormFinish = (valuesForm: any) => {
     let ft: FormTool<Rental> = new FormTool();
 
@@ -210,7 +189,7 @@ function RentalForm() {
           options: {},
         });
       })
-      .catch(function (error:any) {
+      .catch(function (error: any) {
         App_Messages_IPC.request_message(
           "request:message-error",
           error instanceof Error ? `Error: ${error.message}` : ""
@@ -222,7 +201,6 @@ function RentalForm() {
     console.info("Failed:", errorInfo);
   };
 
-
   /* ----------------------------------------------------------
 
     Additional Actions
@@ -231,13 +209,13 @@ function RentalForm() {
 
   //* SaleTypes
   // TODO refactorieren wegen publicationTypes etc...
-   function getSaleTypeOptions(): Array<any> {
+  function getSaleTypeOptions(): Array<any> {
     return saleTypes.map((item: { id: any; name: any }) => {
       return { value: item.id, label: item.name };
     });
   }
 
-   //* Required Fields, and FormItems show/hide
+  //* Required Fields, and FormItems show/hide
   // Wir haben drei Optionen bei den Feldern, abhängig vom SalesType:
   // Zwei Dinge müssen damit eingestellt werden:
   // 1.) Ist das Feld (oder die Felder) required.
@@ -247,9 +225,8 @@ function RentalForm() {
   const [isPublication, setIsPublication] = useState<boolean>(false);
 
   const editSaleTypeOptions = () => {
-    console.log('editSaleTypeOptions');
-  }
-
+    console.log("editSaleTypeOptions");
+  };
 
   const handleSaleTypeChange = (value: string) => {
     // Felder ein-/ausblenden, und required/optional.
@@ -257,21 +234,21 @@ function RentalForm() {
 
     // TODO Clear the other fields (aber erst beim speichern?)
     switch (value) {
-      case '0ad711be-179b-4fd6-b069-3ee8ada9591a': {
+      case "0ad711be-179b-4fd6-b069-3ee8ada9591a": {
         // Fineartprint (Edition)
         setIsArtwork(false); // false = 'optional'
         setIsEdition(true);
         setIsPublication(false);
         break;
       }
-      case '2932a605-48aa-4368-96b7-21aed8103e38': {
+      case "2932a605-48aa-4368-96b7-21aed8103e38": {
         // Buchverkauf, Publication
         setIsArtwork(false);
         setIsEdition(false);
         setIsPublication(true);
         break;
       }
-      case '2fa71a66-03e5-49c5-bfeb-b98108ea49ea': {
+      case "2fa71a66-03e5-49c5-bfeb-b98108ea49ea": {
         // Dienstleistung
         setIsArtwork(false);
         setIsEdition(false);
@@ -289,8 +266,6 @@ function RentalForm() {
   };
 
   //* Search the Artwork / Edition / Publication
-
-
 
   /* ----------------------------------------------------------
 
@@ -310,24 +285,25 @@ function RentalForm() {
         onFinishFailed={onFormFinishFailed}
         autoComplete="off"
       >
-
         <Form.Item
           label="Typ"
           name="saleType"
-          tooltip={{ title: 'Was wird verkauft', icon: <InfoCircleOutlined /> }}
+          tooltip={{ title: "Was wird verkauft", icon: <InfoCircleOutlined /> }}
         >
           <Space wrap>
-          <Select
-            defaultValue="0ae7570a-603c-43f3-9667-5aa019dd27eb" // Print (Standard)
-            onChange={handleSaleTypeChange}
-            options={getSaleTypeOptions()}
-            style={ {width: 270 } }
-          />
-          <Button onClick={editSaleTypeOptions}><EditOutlined /></Button>
+            <Select
+              defaultValue="0ae7570a-603c-43f3-9667-5aa019dd27eb" // Print (Standard)
+              onChange={handleSaleTypeChange}
+              options={getSaleTypeOptions()}
+              style={{ width: 270 }}
+            />
+            <Button onClick={editSaleTypeOptions}>
+              <EditOutlined />
+            </Button>
           </Space>
         </Form.Item>
         <Form.Item
-          style={isArtwork ? {} : { display: 'none' }}
+          style={isArtwork ? {} : { display: "none" }}
           label="Werk"
           name="artwork"
           tooltip="Das Kunstwerk"
@@ -339,10 +315,9 @@ function RentalForm() {
           ]}
         >
           <SearchInput placeholder="search an Artwork" />
-
         </Form.Item>
         <Form.Item
-          style={isEdition ? {} : { display: 'none' }}
+          style={isEdition ? {} : { display: "none" }}
           label="Edition"
           name="edition"
           rules={[
@@ -355,7 +330,7 @@ function RentalForm() {
           <Input />
         </Form.Item>
         <Form.Item
-          style={isPublication ? {} : { display: 'none' }}
+          style={isPublication ? {} : { display: "none" }}
           label="Publikation"
           name="publication"
           rules={[
@@ -369,7 +344,7 @@ function RentalForm() {
         </Form.Item>
 
         <Form.Item
-          style={isEdition ? {} : { display: 'none' }}
+          style={isEdition ? {} : { display: "none" }}
           label="Nummer der Edition"
           name="editionNumber"
         >

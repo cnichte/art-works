@@ -9,6 +9,7 @@ import MyBasicView from "../../../frontend/myBasicView";
 import { DocType } from "../../../common/types/DocType";
 
 import { RentalI } from "../../../common/types/DocRental";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -31,9 +32,9 @@ import { RentalI } from "../../../common/types/DocRental";
 function RentalView() {
   const { id } = useParams();
 
-  const doclabel: string = "Verleih";
-  const doctype: DocType = "rental";
-  const segment: string = "rentals";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsSale: MyBasicViewFieldParameterI[] = [
     {

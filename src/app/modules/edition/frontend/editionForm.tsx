@@ -13,6 +13,7 @@ import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { Action_Request } from "../../../common/types/RequestTypes";
 import { FormTool } from "../../../frontend/FormTool";
 import { Edition } from "../../../common/types/DocEdition";
+import { modul_props } from "../modul_props";
 
 //* above are the default imports
 
@@ -28,9 +29,9 @@ import { Edition } from "../../../common/types/DocEdition";
 function EditionForm() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Edition";
-  const doctype: DocType = "edition";
-  const segment: string = "editions";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben

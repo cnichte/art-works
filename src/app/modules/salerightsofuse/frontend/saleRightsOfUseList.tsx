@@ -4,6 +4,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
 import { DocType } from "../../../common/types/DocType";
 import { SaleRightsOfUseI } from '../../../common/types/DocSaleRightsOfUse';
+import { modul_props } from '../modul_props';
 
 
 /**
@@ -17,9 +18,9 @@ import { SaleRightsOfUseI } from '../../../common/types/DocSaleRightsOfUse';
 function SaleRightsOfUseList() {
   const navigate = useNavigate();
 
-  const doclabel:string = "Nutzungsrecht";
-  const doctype:DocType = "salerightsofuse";
-  const segment:string = "salerightsofuses";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

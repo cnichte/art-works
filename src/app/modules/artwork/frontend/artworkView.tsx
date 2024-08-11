@@ -8,6 +8,7 @@ import MyBasicView from "../../../frontend/myBasicView";
 import { DocType } from "../../../common/types/DocType";
 
 import { Artwork } from "../../../common/types/DocArtwork";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -30,9 +31,9 @@ import { Artwork } from "../../../common/types/DocArtwork";
 function ArtworkView() {
   const { id } = useParams();
 
-  const doclabel: string = "Werk";
-  const doctype: DocType = "artwork";
-  const segment: string = "artworks";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string = modul_props.segment;
 
   /*
    TODO condition: {

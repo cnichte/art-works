@@ -5,6 +5,7 @@ import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../fronten
 import { DocType } from "../../../common/types/DocType";
 
 import { GroupOfWorkI } from "../../../common/types/DocGroupOfWork";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Werkgruppen.
@@ -17,9 +18,9 @@ import { GroupOfWorkI } from "../../../common/types/DocGroupOfWork";
 function GroupOfWorkList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Werkgruppe";
-  const doctype: DocType = "groupofwork";
-  const segment: string = "groupsofwork";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

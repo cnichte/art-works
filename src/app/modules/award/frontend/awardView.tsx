@@ -6,6 +6,7 @@ import {
 import MyBasicView from "../../../frontend/myBasicView";
 import { DocType } from "../../../common/types/DocType";
 import { Segments } from "../../../frontend/Segments";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -28,9 +29,9 @@ import { Segments } from "../../../frontend/Segments";
 function AwardView() {
   const { id } = useParams();
 
-  const doclabel: string = "Auszeichnung";
-  const doctype: DocType = "award";
-  const segment: string = "awards";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string = modul_props.segment;
 
   const fieldsAward: MyBasicViewFieldParameterI[] = [
     {

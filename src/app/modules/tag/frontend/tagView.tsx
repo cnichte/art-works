@@ -6,6 +6,7 @@ import MyBasicView from '../../../frontend/myBasicView';
 import { DocType } from '../../../common/types/DocType';
 
 import { TagI } from '../../../common/types/DocTag';
+import { modul_props } from '../modul_props';
 
 /* ==========================================================
 
@@ -28,9 +29,9 @@ import { TagI } from '../../../common/types/DocTag';
 function TagView() {
   const { id } = useParams();
 
-  const doclabel: string = "Tag";
-  const doctype: DocType = "tag";
-  const segment: string = "tags";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsTag: MyBasicViewFieldParameterI[] = [
     {

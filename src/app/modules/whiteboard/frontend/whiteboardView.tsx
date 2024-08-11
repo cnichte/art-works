@@ -8,19 +8,9 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { useContext, useEffect, useState } from "react";
-import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
-import { DB_Request } from "../../../common/types/RequestTypes";
 import { DocType } from "../../../common/types/DocType";
-import {
-  DocWhiteboard,
-  WhiteboardI,
-} from "../../../common/types/DocWhiteboard";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
-import { Action_Request } from "../../../common/types/RequestTypes";
-import { DOCTYPE_WHITEBOARD } from "../../../common/types/DocType";
-import { App_Context } from "../../../frontend/App_Context";
+import { WhiteboardI } from "../../../common/types/DocWhiteboard";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -42,12 +32,10 @@ import { App_Context } from "../../../frontend/App_Context";
  */
 function WhiteboardView() {
   const { id } = useParams();
-  const app_context = useContext(App_Context);
 
-  const [dataObject, setDataObject] = useState<DocWhiteboard>(null);
-
-  const doctype: DocType = "whiteboard";
-  const docLabel: string = "Whiteboard";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string = modul_props.segment;
 
   const fieldsArtwork: MyBasicViewFieldParameterI[] = [
     {
@@ -61,8 +49,8 @@ function WhiteboardView() {
   ];
 
   const segmentArtworks: MyBasicViewSegmentParameterI = {
-    segment: "whiteboards",
-    label: "Whiteboard",
+    segment: segment,
+    label: doclabel,
     fields: fieldsArtwork,
     relationFilterIdField: "id",
     render: "description",
@@ -74,7 +62,7 @@ function WhiteboardView() {
   return (
     <MyBasicView<WhiteboardI>
       id={id}
-      doclabel="Whiteboard"
+      doclabel={doclabel}
       doctype={doctype}
       segmentSets={segmentSets}
     />

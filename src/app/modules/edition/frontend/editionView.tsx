@@ -6,6 +6,7 @@ import MyBasicView from '../../../frontend/myBasicView';
 import { DocType } from '../../../common/types/DocType';
 
 import { EditionI } from "../../../common/types/DocEdition";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -28,9 +29,9 @@ import { EditionI } from "../../../common/types/DocEdition";
 function EditionView() {
   const { id } = useParams();
 
-  const doclabel: string = "Edition";
-  const doctype: DocType = "edition";
-  const segment: string = "editions";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsEdition: MyBasicViewFieldParameterI[] = [
     {

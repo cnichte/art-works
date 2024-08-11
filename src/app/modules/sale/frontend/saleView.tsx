@@ -9,6 +9,7 @@ import MyBasicView from "../../../frontend/myBasicView";
 import { DocType } from "../../../common/types/DocType";
 
 import { SaleI } from "../../../common/types/DocSale";
+import { modul_props } from "../modul_props";
 
 /* ==========================================================
 
@@ -31,9 +32,9 @@ import { SaleI } from "../../../common/types/DocSale";
 function SaleView() {
   const { id } = useParams();
 
-  const doclabel: string = "Verkauf";
-  const doctype: DocType = "sale";
-  const segment: string = "sales";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const fieldsSale: MyBasicViewFieldParameterI[] = [
     {

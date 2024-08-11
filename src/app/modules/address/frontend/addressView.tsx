@@ -5,6 +5,7 @@ import MyBasicView from '../../../frontend/myBasicView';
 import { DocType } from '../../../common/types/DocType';
 
 import { AddressI } from '../../../common/types/DocAddress';
+import { modul_props } from '../modul_props';
 
 /* ==========================================================
 
@@ -27,9 +28,9 @@ import { AddressI } from '../../../common/types/DocAddress';
 export default function AddressView() {
   const { id } = useParams();
 
-  const doclabel:string = "Kontakt";
-  const doctype:DocType = "address";
-  const segment:string ="addresses";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
   
   const fieldsAddress: MyBasicViewFieldParameterI[] = [
     {

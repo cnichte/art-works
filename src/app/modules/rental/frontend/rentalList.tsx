@@ -4,6 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
 import { DocType } from "../../../common/types/DocType";
 import { RentalI } from "../../../common/types/DocRental";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Notizen.
@@ -16,9 +17,9 @@ import { RentalI } from "../../../common/types/DocRental";
 function RentalList() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Verleih";
-  const doctype: DocType = "rental";
-  const segment: string = "rentals";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {

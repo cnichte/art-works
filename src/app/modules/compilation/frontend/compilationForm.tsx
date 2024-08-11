@@ -11,6 +11,7 @@ import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 import { Action_Request } from "../../../common/types/RequestTypes";
 import { FormTool } from "../../../frontend/FormTool";
 import { Compilation } from "../../../common/types/DocCompilation";
+import { modul_props } from "../modul_props";
 
 /**
  * Formular für das Modul Note.
@@ -20,9 +21,9 @@ import { Compilation } from "../../../common/types/DocCompilation";
 function CompilationForm() {
   const navigate = useNavigate();
 
-  const doclabel: string = "Zusammenstellung";
-  const doctype: DocType = "compilation";
-  const segment: string = "compilations";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben

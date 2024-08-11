@@ -3,6 +3,7 @@ import type { ColumnsType } from "antd/es/table";
 import { DocWhiteboard, WhiteboardI } from "../../../common/types/DocWhiteboard";
 import { MyBasicList } from "../../../frontend/myBasicList";
 import { DocType } from "../../../common/types/DocType";
+import { modul_props } from "../modul_props";
 
 
 // import { getAssetUrls } from 'tldraw/dist-cjs/lib/'
@@ -20,7 +21,9 @@ import { DocType } from "../../../common/types/DocType";
 function WhiteboardList() {
   const navigate = useNavigate();
 
-  const doctype:DocType = "whiteboard";
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   /* ----------------------------------------------------------
 
@@ -76,9 +79,9 @@ function WhiteboardList() {
   return (
 
     <MyBasicList<DocWhiteboard>
-    doclabel="Whiteboard"
+    doclabel={doclabel}
     doctype={doctype}
-    segment="whiteboards"
+    segment={segment}
     columns={columns}
   />
   );

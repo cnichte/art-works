@@ -4,6 +4,7 @@ import { PouchDB_Mode } from "./types/PouchDB_Mode";
 
 /**
  * id and rev properties differ depending on mode.
+ **This is a sketch to try out.
  */
 export class PouchDB_Tool {
 

@@ -5,6 +5,7 @@ import { MyBasicList } from "../../../frontend/myBasicList";
 import { DocType } from "../../../common/types/DocType";
 
 import { TagI } from "../../../common/types/DocTag";
+import { modul_props } from "../modul_props";
 
 /**
  * Ein Liste der Notizen.
@@ -16,10 +17,10 @@ import { TagI } from "../../../common/types/DocTag";
  */
 function TagList() {
   const navigate = useNavigate();
-
-  const doclabel: string = "Tag";
-  const doctype: DocType = "tag";
-  const segment: string = "tags";
+  
+  const doclabel: string = modul_props.doclabel;
+  const doctype: DocType = modul_props.doctype;
+  const segment: string =  modul_props.segment;
 
   //* open view
   const handleView = (record: { id: any }) => {
