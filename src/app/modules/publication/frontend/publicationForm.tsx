@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 
-import { Space, Typography, Input, Form, Button, Select } from "antd";
+import { Input, Form, Button, Select } from "antd";
 
-import {
-  UploadOutlined,
-  CloseCircleOutlined,
-  InfoCircleOutlined,
-  EditOutlined,
-} from "@ant-design/icons";
+import { InfoCircleOutlined } from "@ant-design/icons";
 import { DocType } from "../../../common/types/DocType";
 import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
-import Title from "antd/es/skeleton/Title";
 import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
 import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
@@ -30,12 +24,12 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteForm
  */
-function PublicationForm() {
+export function PublicationForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
   const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
+  const segment: string = modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben
@@ -163,7 +157,6 @@ function PublicationForm() {
       buaUnsubscribe();
     };
   }, []);
-
 
   const onFormFinish = (valuesForm: any) => {
     let ft: FormTool<Publication> = new FormTool();
@@ -375,5 +368,3 @@ function PublicationForm() {
     </div>
   );
 }
-
-export default PublicationForm;

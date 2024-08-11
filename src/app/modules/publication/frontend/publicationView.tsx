@@ -30,7 +30,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns PublicationView
  */
-function PublicationView() {
+export function PublicationView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
@@ -121,4 +121,3 @@ function PublicationView() {
     />
   );
 }
-export default PublicationView;

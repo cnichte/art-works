@@ -26,19 +26,13 @@ import { FormTool } from "../../../frontend/FormTool";
 import { MyInputURLField } from "../../../frontend/myInputFields";
 import { modul_props } from "../modul_props";
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-
 /**
  * Formular für das Modul Note.
  *
  * @returns NoteForm
  */
-function NoteForm() {
+export function ArtistForm() {
   const navigate = useNavigate();
-  const { Title } = Typography;
 
   const doclabel: string = modul_props.doclabel;
   const doctype: DocType = modul_props.doctype;
@@ -312,5 +306,3 @@ function NoteForm() {
     </div>
   );
 }
-
-export default NoteForm;

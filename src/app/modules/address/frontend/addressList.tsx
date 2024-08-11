@@ -15,7 +15,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns
  */
-export default function AdressList() {
+export function AddressList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;

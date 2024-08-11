@@ -13,7 +13,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns
  */
-function ArtistList() {
+export function ArtistList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -68,5 +68,3 @@ function ArtistList() {
     />
   );
 }
-
-export default ArtistList;

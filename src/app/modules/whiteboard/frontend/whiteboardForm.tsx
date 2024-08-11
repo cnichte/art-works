@@ -15,7 +15,7 @@ import { modul_props } from "../modul_props";
  * 
  * @returns <Tldraw />
  */
-function WhiteboardForm() {
+export function WhiteboardForm() {
 
   const doclabel: string = modul_props.doclabel;
   const doctype: DocType = modul_props.doctype;
@@ -29,5 +29,3 @@ function WhiteboardForm() {
     </Tldraw>
   );
 }
-
-export default WhiteboardForm;

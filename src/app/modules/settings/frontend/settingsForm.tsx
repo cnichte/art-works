@@ -8,7 +8,7 @@ import TabPane from 'antd/es/tabs/TabPane';
  *
  * @returns Tabs
  */
-function SettingsForm() {
+export function SettingsForm() {
   const onTabChange = (key: string) => {
     console.log(key);
   };
@@ -35,5 +35,3 @@ function SettingsForm() {
     </div>
   );
 }
-
-export default SettingsForm;

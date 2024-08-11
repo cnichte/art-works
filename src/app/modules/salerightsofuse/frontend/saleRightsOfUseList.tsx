@@ -15,7 +15,7 @@ import { modul_props } from '../modul_props';
  *
  * @returns
  */
-function SaleRightsOfUseList() {
+export function SaleRightsOfUseList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -66,5 +66,3 @@ function SaleRightsOfUseList() {
     />
   );
 }
-
-export default SaleRightsOfUseList;

@@ -28,12 +28,12 @@ import { modul_props } from "../modul_props";
  *
  * @returns GenreView
  */
-function GenreView() {
+export function GenreView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
   const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
+  const segment: string = modul_props.segment;
 
   const fieldsGenre: MyBasicViewFieldParameterI[] = [
     {
@@ -70,4 +70,3 @@ function GenreView() {
     />
   );
 }
-export default GenreView;

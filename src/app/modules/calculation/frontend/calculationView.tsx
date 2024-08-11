@@ -26,7 +26,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns CalculationView
  */
-function CalculationView() {
+export function CalculationView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
@@ -87,4 +87,3 @@ function CalculationView() {
     />
   );
 }
-export default CalculationView;

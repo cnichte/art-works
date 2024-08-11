@@ -18,7 +18,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns
  */
-function WhiteboardList() {
+export function WhiteboardList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -86,5 +86,3 @@ function WhiteboardList() {
   />
   );
 }
-
-export default WhiteboardList;

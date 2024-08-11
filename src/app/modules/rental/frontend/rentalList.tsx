@@ -14,7 +14,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns
  */
-function RentalList() {
+export function RentalList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -70,5 +70,3 @@ function RentalList() {
     />
   );
 }
-
-export default RentalList;

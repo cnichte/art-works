@@ -28,7 +28,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns ArtistView
  */
-function ArtistView() {
+export function ArtistView() {
   /* ----------------------------------------------------------
 
     Standard Data / States
@@ -159,8 +159,6 @@ function ArtistView() {
     />
   );
 }
-
-export default ArtistView;
 
 /*
         <Timeline>

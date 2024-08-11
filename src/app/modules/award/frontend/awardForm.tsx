@@ -18,7 +18,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteForm
  */
-function AwardForm() {
+export function AwardForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -173,5 +173,3 @@ function AwardForm() {
     </div>
   );
 }
-
-export default AwardForm;

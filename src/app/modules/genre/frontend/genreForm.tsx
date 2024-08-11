@@ -25,7 +25,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteForm
  */
-function GenreForm() {
+export function GenreForm() {
   const navigate = useNavigate();
   const { Title } = Typography;
 
@@ -192,5 +192,3 @@ function GenreForm() {
     </div>
   );
 }
-
-export default GenreForm;

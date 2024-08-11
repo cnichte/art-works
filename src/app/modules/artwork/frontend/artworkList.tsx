@@ -30,7 +30,7 @@ function MyExtaButton() {
  *
  * @returns
  */
-function ArtworkList() {
+export function ArtworkList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -135,5 +135,3 @@ function ArtworkList() {
     />
   );
 }
-
-export default ArtworkList;

@@ -28,7 +28,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns ArtworkView
  */
-function ArtworkView() {
+export function ArtworkView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
@@ -160,4 +160,3 @@ function ArtworkView() {
     />
   );
 }
-export default ArtworkView;

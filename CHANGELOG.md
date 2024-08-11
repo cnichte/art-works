@@ -27,7 +27,3 @@ Patch   Backwards-compatible bug fixes
 Major   Potentially breaking API changes
   ◯ eslint                                  ^8.0.1  → ^9.3.0
 ```
-
-## Release 0.0.0
-
-Initial Release

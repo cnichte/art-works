@@ -78,7 +78,7 @@ const data = [
  * This is just a placeholder for development.
  * @returns EmptyList
  */
-function StatisticView() {
+export function StatisticView() {
   const doclabel: string = "Statistik";
   const doctype: DocType = "statistic";
   const segment: string = "";
@@ -171,7 +171,6 @@ function StatisticView() {
     </Space>
   );
 }
-export default StatisticView;
 
 /*
 

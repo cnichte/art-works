@@ -13,17 +13,6 @@ import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { FormTool } from "../../../frontend/FormTool";
 import { modul_props } from "../modul_props";
 
-//* above are the default imports
-
-//* Room for additional imports
-
-//* Application imports
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-
 /**
  * TODO Search the Artwork / Edition / Publication.
  * https://ant.design/components/select
@@ -78,7 +67,7 @@ const SearchInput: React.FC<{
  *
  * @returns NoteForm
  */
-function SaleForm() {
+export function SaleForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -375,5 +364,3 @@ function SaleForm() {
     </div>
   );
 }
-
-export default SaleForm;

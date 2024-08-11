@@ -29,7 +29,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns SaleView
  */
-function SaleView() {
+export function SaleView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
@@ -143,4 +143,3 @@ function SaleView() {
     />
   );
 }
-export default SaleView;

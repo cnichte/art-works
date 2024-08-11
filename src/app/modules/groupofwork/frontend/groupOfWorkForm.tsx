@@ -22,7 +22,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteForm
  */
-function GroupOfWorkForm() {
+export function GroupOfWorkForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -174,5 +174,3 @@ function GroupOfWorkForm() {
     </div>
   );
 }
-
-export default GroupOfWorkForm;

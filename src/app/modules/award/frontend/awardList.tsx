@@ -15,7 +15,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns
  */
-function AwardList() {
+export function AwardList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -60,5 +60,3 @@ function AwardList() {
     />
   );
 }
-
-export default AwardList;

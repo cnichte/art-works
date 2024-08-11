@@ -29,7 +29,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteForm
  */
-export default function AddressForm() {
+export function AddressForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -45,8 +45,6 @@ export default function AddressForm() {
   const [addressTypes, setAddressTypes] = useState([]);
   
   const triggerSaveRef = React.useRef(null);
-
-
 
   // TODO FormPropertiesInterface wird nicht mehr gebraucht?
   const props: FormPropertiesInterface = {

@@ -26,7 +26,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteForm
  */
-function EditionForm() {
+export function EditionForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -256,5 +256,3 @@ function EditionForm() {
     </div>
   );
 }
-
-export default EditionForm;

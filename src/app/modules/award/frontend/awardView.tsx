@@ -26,7 +26,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns EmptyList
  */
-function AwardView() {
+export function AwardView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
@@ -86,4 +86,3 @@ function AwardView() {
     />
   );
 }
-export default AwardView;

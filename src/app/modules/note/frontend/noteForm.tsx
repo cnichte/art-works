@@ -22,7 +22,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteForm
  */
-function NoteForm() {
+export function NoteForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -179,5 +179,3 @@ function NoteForm() {
     </div>
   );
 }
-
-export default NoteForm;

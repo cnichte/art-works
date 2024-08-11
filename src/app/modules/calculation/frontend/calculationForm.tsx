@@ -22,7 +22,7 @@ const { TextArea } = Input;
  *
  * @returns NoteForm
  */
-function CalculationForm() {
+export function CalculationForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -241,5 +241,3 @@ function CalculationForm() {
     </div>
   );
 }
-
-export default CalculationForm;

@@ -14,7 +14,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns
  */
-function GroupOfWorkList() {
+export function ExhibitionList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -81,5 +81,3 @@ function GroupOfWorkList() {
     />
   );
 }
-
-export default GroupOfWorkList;

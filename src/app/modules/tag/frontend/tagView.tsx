@@ -26,7 +26,7 @@ import { modul_props } from '../modul_props';
  *
  * @returns TagView
  */
-function TagView() {
+export function TagView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
@@ -74,4 +74,3 @@ function TagView() {
     />
   );
 }
-export default TagView;

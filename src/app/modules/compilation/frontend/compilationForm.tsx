@@ -18,7 +18,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteForm
  */
-function CompilationForm() {
+export function CompilationForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -173,5 +173,3 @@ function CompilationForm() {
     </div>
   );
 }
-
-export default CompilationForm;

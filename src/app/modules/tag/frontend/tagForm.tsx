@@ -17,7 +17,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteForm
  */
-function TagForm() {
+export function TagForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -257,5 +257,3 @@ function TagForm() {
     </div>
   );
 }
-
-export default TagForm;

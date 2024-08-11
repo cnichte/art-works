@@ -13,7 +13,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns
  */
-function SaleList() {
+export function SaleList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -87,5 +87,3 @@ function SaleList() {
     />
   );
 }
-
-export default SaleList;

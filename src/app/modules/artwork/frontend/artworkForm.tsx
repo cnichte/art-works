@@ -49,7 +49,7 @@ ipcRenderer.send('__ELECTRON_LOG__', {
  * @author Carsten Nichte - //carsten-nichte.de/apps/
  * @return {ArtworkForm}
  */
-function ArtworkForm() {
+export function ArtworkForm() {
   const navigate = useNavigate();
   const { Title } = Typography;
 
@@ -282,5 +282,3 @@ function ArtworkForm() {
     </div>
   );
 }
-
-export default ArtworkForm;

@@ -17,7 +17,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteForm
  */
-function SaleForm() {
+export function SaleRightsOfUseForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -185,5 +185,3 @@ function SaleForm() {
     </div>
   );
 }
-
-export default SaleForm;

@@ -28,7 +28,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns NoteView
  */
-function NoteView() {
+export function NoteView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
@@ -70,4 +70,3 @@ function NoteView() {
     />
   );
 }
-export default NoteView;

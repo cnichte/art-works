@@ -34,7 +34,7 @@ const steps = [
   },
 ];
 
-function FirstStartSteps() {
+export function FirstStartSteps() {
 
   const doclabel: string = modul_props.doclabel;
   const doctype: DocType = modul_props.doctype;
@@ -123,5 +123,3 @@ function FirstStartSteps() {
     </>
   );
 }
-
-export default FirstStartSteps;

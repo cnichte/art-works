@@ -15,7 +15,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns
  */
-export default function CompilationList() {
+export function CompilationList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;

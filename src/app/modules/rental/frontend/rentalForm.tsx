@@ -75,7 +75,7 @@ const SearchInput: React.FC<{
  *
  * @returns NoteForm
  */
-function RentalForm() {
+export function RentalForm() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -372,5 +372,3 @@ function RentalForm() {
     </div>
   );
 }
-
-export default RentalForm;

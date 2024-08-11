@@ -30,7 +30,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns GroupOfWorkView
  */
-export default function GroupOfWorkView() {
+export function GroupOfWorkView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Button, Layout, Space, Typography, theme } from "antd";
+import { Button, Layout, Space, theme } from "antd";
 
 import { SideNavigationBar } from "./Side_NavigationBar";
 import {
@@ -13,7 +13,6 @@ import {
 import { App_Info } from "../common/App_Info";
 
 const { Header, Sider, Content, Footer } = Layout;
-const { Title } = Typography;
 
 import { App_Context, ContextData } from "./App_Context";
 import { Header_Buttons } from "./Header_Buttons";
@@ -21,84 +20,34 @@ import { Header_Buttons } from "./Header_Buttons";
 import { DocType } from "../common/types/DocType";
 import { ViewType } from "./types/ViewType";
 
-import { Catalog_List } from "../modules/catalog/frontend/Catalog_List";
-import { Catalog_View } from "../modules/catalog/frontend/Catalog_View";
-import { Catalog_Form } from "../modules/catalog/frontend/Catalog_Form";
+import { Catalog_List, Catalog_View, Catalog_Form } from "../modules/catalog/frontend/";
 
 import { App_Messages } from "./App_Messages";
 
 // Lists, View, Form
-import AddressesList from "../modules/address/frontend/addressList";
-import AddressView from "../modules/address/frontend/addressView";
-import AddressForm from "../modules/address/frontend/addressForm";
+import { AddressList, AddressView, AddressForm } from "../modules/address/frontend";
+import { ArtistList, ArtistView, ArtistForm } from "../modules/artist/frontend";
+import { ArtworkList, ArtworkView, ArtworkForm } from "../modules/artwork/frontend";
+import { AwardList, AwardView, AwardForm } from "../modules/award/frontend";
+import { CalculationList, CalculationView, CalculationForm } from "../modules/calculation/frontend";
+import { CompilationList, CompilationView, CompilationForm } from "../modules/compilation/frontend";
+import { EditionList, EditionView, EditionForm } from "../modules/edition/frontend";
+import { ExhibitionList, ExhibitionView, ExhibitionForm } from "../modules/exhibition/frontend";
 
-import ArtistsList from "../modules/artist/frontend/artistList";
-import ArtistView from "../modules/artist/frontend/artistView";
-import ArtistForm from "../modules/artist/frontend/artistForm";
+import { FirstStartSteps } from "../modules/firtststart/frontend";
 
-import ArtworkList from "../modules/artwork/frontend/artworkList";
-import ArtworkView from "../modules/artwork/frontend/artworkView";
-import ArtworkForm from "../modules/artwork/frontend/artworkForm";
+import { GenreList, GenreView, GenreForm } from "../modules/genre/frontend";
+import { GroupOfWorkList, GroupOfWorkView, GroupOfWorkForm } from "../modules/groupofwork/frontend";
+import { NoteList, NoteView, NoteForm } from "../modules/note/frontend";
+import { PublicationList, PublicationView, PublicationForm } from "../modules/publication/frontend";
+import { RentalList, RentalView, RentalForm } from "../modules/rental/frontend";
+import { SaleList, SaleView, SaleForm } from "../modules/sale/frontend";
+import { SaleRightsOfUseList, SaleRightsOfUseView, SaleRightsOfUseForm } from "../modules/salerightsofuse/frontend";
 
-import AwardList from "../modules/award/frontend/awardList";
-import AwardView from "../modules/award/frontend/awardView";
-import AwardForm from "../modules/award/frontend/awardForm";
+import { StatisticView } from "../modules/statistic/frontend";
 
-import CalculationList from "../modules/calculation/frontend/calculationList";
-import CalculationView from "../modules/calculation/frontend/calculationView";
-import CalculationForm from "../modules/calculation/frontend/calculationForm";
-
-import CompilationList from "../modules/compilation/frontend/compilationList";
-import CompilationView from "../modules/compilation/frontend/compilationView";
-import CompilationForm from "../modules/compilation/frontend/compilationForm";
-
-import EditionList from "../modules/edition/frontend/editionList";
-import EditionView from "../modules/edition/frontend/editionView";
-import EditionForm from "../modules/edition/frontend/editionForm";
-
-import ExhibitionList from "../modules/exhibition/frontend/exhibitionList";
-import ExhibitionView from "../modules/exhibition/frontend/exhibitionView";
-import ExhibitionForm from "../modules/exhibition/frontend/exhibitionForm";
-
-import FirstStartSteps from "../modules/firtststart/frontend/firstStartSteps";
-
-import GenresList from "../modules/genre/frontend/genreList";
-import GenresView from "../modules/genre/frontend/genreView";
-import GenreForm from "../modules/genre/frontend/genreForm";
-
-import GroupOfWorkList from "../modules/groupofwork/frontend/groupOfWorkList";
-import GroupOfWorkView from "../modules/groupofwork/frontend/groupOfWorkView";
-import GroupOfWorkForm from "../modules/groupofwork/frontend/groupOfWorkForm";
-
-import NoteList from "../modules/note/frontend/noteList";
-import NoteView from "../modules/note/frontend/noteView";
-import NoteForm from "../modules/note/frontend/noteForm";
-
-import PublicationsList from "../modules/publication/frontend/publicationList";
-import PublicationsView from "../modules/publication/frontend/publicationView";
-import PublicationForm from "../modules/publication/frontend/publicationForm";
-
-import RentalList from "../modules/rental/frontend/rentalList";
-import RentalView from "../modules/rental/frontend/rentalView";
-import RentalForm from "../modules/rental/frontend/rentalForm";
-
-import SaleList from "../modules/sale/frontend/saleList";
-import SaleView from "../modules/sale/frontend/saleView";
-import SaleForm from "../modules/sale/frontend/saleForm";
-
-import SaleRightsOfUseList from "../modules/salerightsofuse/frontend/saleRightsOfUseList";
-import SaleRightsOfUseView from "../modules/salerightsofuse/frontend/saleRightsOfUseView";
-import SaleRightsOfUseForm from "../modules/salerightsofuse/frontend/saleRightsOfUseForm";
-
-import StatisticView from "../modules/statistic/frontend/statisticView";
-
-import TagList from "../modules/tag/frontend/tagList";
-import TagView from "../modules/tag/frontend/tagView";
-import TagForm from "../modules/tag/frontend/tagForm";
-
-import WhiteboardList from "../modules/whiteboard/frontend/whiteboardList";
-import WhiteboardView from "../modules/whiteboard/frontend/whiteboardView";
-import WhiteboardForm from "../modules/whiteboard/frontend/whiteboardForm";
+import { TagList, TagView, TagForm } from "../modules/tag/frontend";
+import { WhiteboardList, WhiteboardView, WhiteboardForm } from "../modules/whiteboard/frontend";
 
 export function App_Routes() {
   const [collapsed, setCollapsed] = useState(false);
@@ -177,11 +126,11 @@ export function App_Routes() {
                 <Route path={CATALOG_ROUTE_VIEW} Component={Catalog_View} />
                 <Route path={CATALOG_ROUTE_FORM} Component={Catalog_Form} />
 
-                <Route path="/address/list" Component={AddressesList} />
+                <Route path="/address/list" Component={AddressList} />
                 <Route path="/address/view/:id" Component={AddressView} />
                 <Route path="/address/form/:id" Component={AddressForm} />
 
-                <Route path="/artist/list" Component={ArtistsList} />
+                <Route path="/artist/list" Component={ArtistList} />
                 <Route path="/artist/view/:id" Component={ArtistView} />
                 <Route path="/artist/form/:id" Component={ArtistForm} />
 
@@ -211,8 +160,8 @@ export function App_Routes() {
 
                 <Route path="/firststart/list" Component={FirstStartSteps} />
 
-                <Route path="/genre/list" Component={GenresList} />
-                <Route path="/genre/view/:id" Component={GenresView} />
+                <Route path="/genre/list" Component={GenreList} />
+                <Route path="/genre/view/:id" Component={GenreView} />
                 <Route path="/genre/form/:id" Component={GenreForm} />
 
                 <Route path="/groupofwork/list" Component={GroupOfWorkList} />
@@ -223,8 +172,8 @@ export function App_Routes() {
                 <Route path="/note/view/:id" Component={NoteView} />
                 <Route path="/note/form/:id" Component={NoteForm} />
 
-                <Route path="/publication/list" Component={PublicationsList} />
-                <Route path="/publication/view/:id" Component={PublicationsView} />
+                <Route path="/publication/list" Component={PublicationList} />
+                <Route path="/publication/view/:id" Component={PublicationView} />
                 <Route path="/publication/form/:id" Component={PublicationForm} />
 
                 <Route path="/rental/list" Component={RentalList} />

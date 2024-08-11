@@ -29,7 +29,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns ExhibitionView
  */
-function ExhibitionView() {
+export function ExhibitionView() {
   /* ----------------------------------------------------------
 
     Standard Data / States
@@ -89,4 +89,3 @@ function ExhibitionView() {
     />
   );
 }
-export default ExhibitionView;

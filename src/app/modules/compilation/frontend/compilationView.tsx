@@ -29,7 +29,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns CompilationView
  */
-export default function CompilationView() {
+export function CompilationView() {
   /* ----------------------------------------------------------
 
     Standard Data / States

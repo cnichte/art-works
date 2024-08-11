@@ -27,7 +27,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns saleRightsOfUseView
  */
-function saleRightsOfUseView() {
+export function SaleRightsOfUseView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
@@ -77,4 +77,3 @@ function saleRightsOfUseView() {
     />
   );
 }
-export default saleRightsOfUseView;

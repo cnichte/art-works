@@ -30,7 +30,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns ArtworkView
  */
-function WhiteboardView() {
+export function WhiteboardView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
@@ -68,4 +68,3 @@ function WhiteboardView() {
     />
   );
 }
-export default WhiteboardView;

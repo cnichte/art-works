@@ -25,7 +25,7 @@ import { modul_props } from '../modul_props';
  *
  * @returns AddressView
  */
-export default function AddressView() {
+export function AddressView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;

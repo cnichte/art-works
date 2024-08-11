@@ -15,7 +15,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns
  */
-function EditionList() {
+export function EditionList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -61,5 +61,3 @@ function EditionList() {
     />
   );
 }
-
-export default EditionList;

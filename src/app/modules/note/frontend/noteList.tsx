@@ -17,7 +17,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns
  */
-function NoteList() {
+export function NoteList() {
   const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
@@ -64,5 +64,3 @@ function NoteList() {
     />
   );
 }
-
-export default NoteList;

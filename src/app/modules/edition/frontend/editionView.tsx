@@ -26,7 +26,7 @@ import { modul_props } from "../modul_props";
  *
  * @returns EditionView
  */
-function EditionView() {
+export function EditionView() {
   const { id } = useParams();
 
   const doclabel: string = modul_props.doclabel;
@@ -100,4 +100,3 @@ function EditionView() {
       />
   );
 }
-export default EditionView;
