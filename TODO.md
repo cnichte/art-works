@@ -86,7 +86,7 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 
 ## Heute
 
-* 2024-08-10 Sonntag
+* 2024-08-11 Sonntag
 
 ---
 
@@ -125,6 +125,8 @@ Lose Sammlung, was mir auffällt.
   * Übersetzung / Internationalisierung mit i18n.
   * `useContext(App_Context)` bzw `artworks_context` überall entfernen. Nutze ich nicht mehr.
   * Umgang mit Datenbank-Konflikten
+
+---
 
 * AttachmentMeta könnte auch die Exifs der Bilder speichern.
 * AttachmentMeta - id / key: nur eins davon verwenden: id --- und für react: key={id}
@@ -187,4 +189,6 @@ Abmessungen: x,y,z pixel, mm, cm
 * Whiteboard
   * rename board
   * preview image
-  * assets local
+  * have all tldraw assets local
+  * insert imgages from Art.Works! App
+  * tldraw: Maßstab / Größenangaben in `mm` oder `m`
