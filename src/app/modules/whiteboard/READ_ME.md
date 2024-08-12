@@ -2,22 +2,17 @@
 
 Whiteboards:
 
-* https://docs.tldraw.dev
+* <https://docs.tldraw.dev>
   * `npm install @tldraw/tldraw@canary`
   * gibt fehler
   * `npm uninstall @tldraw/tldraw@canary`
-* https://excalidraw.com
-* http://fabricjs.com
+* <https://excalidraw.com>
+* <http://fabricjs.com>
   * `npm i fabric.js`
   * `npm uninstall fabric.js`
   * `npm uninstall fabric`
-* http://paperjs.org
-* https://github.com/flairNLP/flair ???
-
-
-
-
-
+* <http://paperjs.org>
+* <https://github.com/flairNLP/flair> ???
 
 ## Fabrics
 

@@ -50,6 +50,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@ant-design/charts": "^2.1.2",
     "antd": "^5.20.0",
     "antd-img-crop": "^4.22.0",
     "dayjs": "^1.11.12",
@@ -69,7 +70,6 @@
     "react-image-file-resizer": "^0.4.8",
     "react-router": "^6.26.0",
     "react-router-dom": "^6.26.0",
-    "recharts": "^2.12.7",
     "relational-pouch": "^4.0.4",
     "tldraw": "^2.4.4",
     "uuid": "^10.0.0",

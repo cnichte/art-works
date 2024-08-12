@@ -58,10 +58,34 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
     this.databaseUri =
       this.databaseUri + (this.databaseUri.endsWith("/") ? "" : "/");
 
+    // PouchDB.plugin(require('pouchdb-authentication'));
+    PouchDB.plugin(find);
+    if (useRelations) {
+      PouchDB.plugin(rel);
+    }
+
+    // versuche ich hier zu öffnen:
+    // http://admin:adminadmin@fileserver02:5984/werkverzeichnis
     if (this.databaseUri.length > 0 && this.databaseUri.startsWith("http")) {
-      console.log("create remote store");
-      this.db = new PouchDB(this.databaseUri, {
-        skip_setup: false,
+      const remoteStore = this.databaseUri;
+
+      console.log(`couchdb: create / open remote store: ${remoteStore}`);
+
+      this.does_remote_db_exist(remoteStore).then(function (result: boolean) {
+        // open, create
+        self.db = new PouchDB(remoteStore, {
+          skip_setup: false,
+        });
+
+        if (!result) {
+          //! if create > init
+          if (useRelations) {
+            console.log(`pouchdb: set relational-pouch schema for: ${remoteStore}`);
+            let pdbr = pouchdb_relations;
+            self.db.setSchema(pdbr);
+          }
+          // TODO DB befüllen
+        }
       });
     } else {
       const home_path: string = FileTool.get_apps_home_path();
@@ -74,36 +98,30 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
           let pdbr = pouchdb_relations;
 
           if (result) {
-            console.log(`local store exists: ${localStore}`);
-            PouchDB.plugin(find);
-            if (useRelations) {
-              PouchDB.plugin(rel);
-            }
+            console.log(`pouchdb: local store exists: ${localStore}`);
 
             self.db = new PouchDB(localStore, {
               skip_setup: false,
             });
 
             if (useRelations) {
+              console.log(`pouchdb: set relational-pouch schema for: ${localStore}`);
               self.db.setSchema(pdbr);
             }
           } else {
-            console.log(`create local store: ${localStore}`);
-            PouchDB.plugin(find);
-            if (useRelations) {
-              PouchDB.plugin(rel);
-            }
+            console.log(`pouchdb: create local store: ${localStore}.`);
 
             self.db = new PouchDB(localStore, {
               skip_setup: false,
             });
 
             if (useRelations) {
+              console.log(`pouchdb: set relations schema.`);
               self.db.setSchema(pdbr);
             }
 
             self
-              .initialize(true, false) //! Fills the DB with saple data on every start.
+              .initialize(true, false) //! Fills the DB with saple data on creation.
               .then(function (response: any) {
                 console.log(
                   "------------------------------------------------------"
@@ -137,8 +155,10 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
         .info()
         .then(function (details: { doc_count: number; update_seq: number }) {
           if (details.doc_count == 0 && details.update_seq == 0) {
+            // console.log(`pouchdb: store does not exist: ${name}`);
             resolve(false);
           } else {
+            // console.log(`pouchdb: store exist: ${name}`);
             resolve(true);
           }
 
@@ -152,11 +172,25 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
         });
     });
     /*
-                this.db.destroy().then(function () {
-            console.log("test db removed");
-          });
-      
-      */
+      this.db.destroy().then(function () {
+        console.log("test db removed");
+      });
+    */
+  }
+
+  does_remote_db_exist(name: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      var db = new PouchDB(name, { skip_setup: true });
+      db.info()
+        .then(function (result: any) {
+          console.log(`pouchdb: remote db exist:`, result);
+          resolve(true);
+        })
+        .catch(function (err: any) {
+          console.log(`pouchdb: remote db does not exist:` + err);
+          resolve(false);
+        });
+    });
   }
 
   get_info(
@@ -182,35 +216,122 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
   initialize(exampleData: boolean, createViews: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
       if (exampleData) {
-        DocumentCreator.loadTo<Address>(this,"./docs-json/address.json",Address);
-        DocumentCreator.loadTo<AddressType>(this,"./docs-json/address-type.json",AddressType);
+        console.log(`pouchdb: create data`);
+        DocumentCreator.loadTo<Address>(
+          this,
+          "./docs-json/address.json",
+          Address
+        );
+        DocumentCreator.loadTo<AddressType>(
+          this,
+          "./docs-json/address-type.json",
+          AddressType
+        );
         DocumentCreator.loadTo<Artist>(this, "./docs-json/artist.json", Artist);
-        DocumentCreator.loadTo<Artwork>(this,"./docs-json/artwork.json",Artwork);
+        DocumentCreator.loadTo<Artwork>(
+          this,
+          "./docs-json/artwork.json",
+          Artwork
+        );
         DocumentCreator.loadTo<Award>(this, "./docs-json/award.json", Award);
-        DocumentCreator.loadTo<CalculationGroup>(this,"./docs-json/calculation-group.json",CalculationGroup);
-        DocumentCreator.loadTo<CalculationItem>(this,"./docs-json/calculation-item.json",CalculationItem);
-        DocumentCreator.loadTo<Calculation>(this,"./docs-json/calculation-item.json",Calculation);
-        DocumentCreator.loadTo<Compilation>(this,"./docs-json/compilation.json",Compilation);
-        DocumentCreator.loadTo<Edition>(this,"./docs-json/edition.json",Edition);
-        DocumentCreator.loadTo<ExhibitionType>(this,"./docs-json/exhibition-type.json",ExhibitionType);
-        DocumentCreator.loadTo<EditionType>(this,"./docs-json/edition-type.json",EditionType);
-        DocumentCreator.loadTo<Exhibition>(this,"./docs-json/exhibition.json",Exhibition);
+        DocumentCreator.loadTo<CalculationGroup>(
+          this,
+          "./docs-json/calculation-group.json",
+          CalculationGroup
+        );
+        DocumentCreator.loadTo<CalculationItem>(
+          this,
+          "./docs-json/calculation-item.json",
+          CalculationItem
+        );
+        DocumentCreator.loadTo<Calculation>(
+          this,
+          "./docs-json/calculation-item.json",
+          Calculation
+        );
+        DocumentCreator.loadTo<Compilation>(
+          this,
+          "./docs-json/compilation.json",
+          Compilation
+        );
+        DocumentCreator.loadTo<Edition>(
+          this,
+          "./docs-json/edition.json",
+          Edition
+        );
+        DocumentCreator.loadTo<ExhibitionType>(
+          this,
+          "./docs-json/exhibition-type.json",
+          ExhibitionType
+        );
+        DocumentCreator.loadTo<EditionType>(
+          this,
+          "./docs-json/edition-type.json",
+          EditionType
+        );
+        DocumentCreator.loadTo<Exhibition>(
+          this,
+          "./docs-json/exhibition.json",
+          Exhibition
+        );
         DocumentCreator.loadTo<Genre>(this, "./docs-json/genre.json", Genre);
-        DocumentCreator.loadTo<GroupOfWork>(this,"./docs-json/group-of-work.json",GroupOfWork);
+        DocumentCreator.loadTo<GroupOfWork>(
+          this,
+          "./docs-json/group-of-work.json",
+          GroupOfWork
+        );
         DocumentCreator.loadTo<Note>(this, "./docs-json/note.json", Note);
-        DocumentCreator.loadTo<PublicationMedium>(this,"./docs-json/publication-medium.json",PublicationMedium);
-        DocumentCreator.loadTo<PublicationType>(this,"./docs-json/publication-type.json",PublicationType);
-        DocumentCreator.loadTo<PublicationWhat>(this,"./docs-json/publication-what.json",PublicationWhat);
-        DocumentCreator.loadTo<Publication>(this,"./docs-json/publication.json",Publication);
+        DocumentCreator.loadTo<PublicationMedium>(
+          this,
+          "./docs-json/publication-medium.json",
+          PublicationMedium
+        );
+        DocumentCreator.loadTo<PublicationType>(
+          this,
+          "./docs-json/publication-type.json",
+          PublicationType
+        );
+        DocumentCreator.loadTo<PublicationWhat>(
+          this,
+          "./docs-json/publication-what.json",
+          PublicationWhat
+        );
+        DocumentCreator.loadTo<Publication>(
+          this,
+          "./docs-json/publication.json",
+          Publication
+        );
         DocumentCreator.loadTo<Rental>(this, "./docs-json/rental.json", Rental);
-        DocumentCreator.loadTo<ResumeType>(this,"./docs-json/resume-type.json",ResumeType);
+        DocumentCreator.loadTo<ResumeType>(
+          this,
+          "./docs-json/resume-type.json",
+          ResumeType
+        );
         DocumentCreator.loadTo<Resume>(this, "./docs-json/resume.json", Resume);
-        DocumentCreator.loadTo<SaleRightsOfUseType>(this,"./docs-json/sale-rights-of-use-type.json",SaleRightsOfUseType);
-        DocumentCreator.loadTo<SaleRightsOfUse>(this,"./docs-json/sale-rights-of-use.json",SaleRightsOfUse);
-        DocumentCreator.loadTo<SaleType>(this, "./docs-json/sale-type.json", SaleType);
+        DocumentCreator.loadTo<SaleRightsOfUseType>(
+          this,
+          "./docs-json/sale-rights-of-use-type.json",
+          SaleRightsOfUseType
+        );
+        DocumentCreator.loadTo<SaleRightsOfUse>(
+          this,
+          "./docs-json/sale-rights-of-use.json",
+          SaleRightsOfUse
+        );
+        DocumentCreator.loadTo<SaleType>(
+          this,
+          "./docs-json/sale-type.json",
+          SaleType
+        );
         DocumentCreator.loadTo<Sale>(this, "./docs-json/sale.json", Sale);
         DocumentCreator.loadTo<Tag>(this, "./docs-json/tag.json", Tag);
-        DocumentCreator.loadTo<DocWhiteboard>(this,"./docs-json/whiteboards.json",DocWhiteboard);
+        DocumentCreator.loadTo<DocWhiteboard>(
+          this,
+          "./docs-json/whiteboards.json",
+          DocWhiteboard
+        );
+      } else {
+        console.log(`pouchdb: skip data creation.`);
       }
     });
   }

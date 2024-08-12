@@ -80,7 +80,6 @@ Hi, i am a newbie writing a fancy Electron-App, using electron-forge, React + an
 Save and load
 <https://tldraw.dev/docs/persistence>
 
-
 ## Verschiedene Probleme
 
 param sind eigentlich view_meta / list_meta

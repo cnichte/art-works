@@ -86,7 +86,12 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 
 ## Heute
 
-* 2024-08-11 Sonntag
+* 2024-08-12 Montag
+
+  * Catalog
+    * ERROR: Catalog Umschaltung funktioniert nicht mehr. `IPC_Request_Dispatcher` hat jetzt ein Property `useRelations`. Local Store: geht. Remote store: geht nicht.
+  * Arwork
+    * ERROR: Attachments add doesnt work any more.
 
 ---
 
@@ -115,7 +120,7 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 * DatabasePouchDBAdapter
   * test: Für einen Production build (npm run package) funktioniert die lokale Datenbank noch nicht?
   * test Es wird keine Datenbank erzeugt, und auch keine Daten angelegt?
-  * Info: die Datenbank ist da, un gefüllt.
+  * Info: die Datenbank ist da, ungefüllt.
 
 ## Backlog
 
@@ -132,7 +137,6 @@ Lose Sammlung, was mir auffällt.
 * AttachmentMeta - id / key: nur eins davon verwenden: id --- und für react: key={id}
 
 * Arwork
-  * ERROR: Attachments add doesnt work any more.
   * Medium: Malerei, Druckgraphik, Skulptur, Digitale Fotografie.
   * Materialien: Öle, Acryl, Tinten, Ton. Bronze, Holz, Porzellan / Keramik, Stahl, Sonstige Materialien.
 
@@ -155,8 +159,8 @@ Abmessungen: x,y,z pixel, mm, cm
     * ...
 
 * Catalog
-  * ERROR: Catalog Umschaltung funktioniert nicht mehr - plugin?.
   * Export/Import - unfertig.
+  * Beim Backup erstellen gibts ne Fehlermeldung. Backup ist aber da.
 
 * Editionen
   * Preis-Anzahl (berechnet aus start und ende)

@@ -37,6 +37,10 @@ npm install --save i18next i18next-fs-backend
 # https://github.com/i18next/i18next-fs-backend
 
 # https://github.com/shawnbanasick/electron-react-i18n-boilerplate
+
+# https://github.com/ant-design/ant-design-charts
+# https://ant-design-charts.antgroup.com/en/examples
+npm install @ant-design/charts
 ```
 
 ## Use the Application Repository

@@ -217,7 +217,7 @@ export class Database_Settings {
                 templateDescription: "Database on fileserver02",
                 dbOption: "remote",
                 protocoll: "http",
-                dbHost: "192.168.178.76",
+                dbHost: "fileserver02",
                 dbPort: "5984",
                 dbName: "werkverzeichnis",
                 dbUser: "admin",

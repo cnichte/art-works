@@ -8,14 +8,11 @@ import {
   IPC_MESSAGE,
   IPC_SETTINGS,
 } from "../common/types/IPC_Channels";
-import { FileTool } from "./FileTool";
 import {
-  DB_Request,
   DB_RequestData,
-  Settings_Request,
   Settings_RequestData,
 } from "../common/types/RequestTypes";
-import { DocCatalog, DocCatalogType } from "../common/types/DocCatalog";
+import { DocCatalog } from "../common/types/DocCatalog";
 import { Database_Backup } from "./Database_Backup";
 
 /**
@@ -28,6 +25,8 @@ export class IPC_Request_Dispatcher {
   browserWindow: BrowserWindow;
   pouchdb: DatabaseCRUD_Interface;
   settings: Database_Settings;
+  
+  useRelations: boolean = true; // you have to provide relations in Database_Pouchdb_Relations.ts
 
   constructor(browserWindow: BrowserWindow) {
     this.browserWindow = browserWindow;
@@ -36,7 +35,7 @@ export class IPC_Request_Dispatcher {
 
     this.pouchdb = new Database_Pouchdb(
       this.settings.get_database_uri_from_startoptions(),
-      true
+      this.useRelations
     );
 
     browserWindow.webContents.on("did-finish-load", () => {
@@ -251,7 +250,8 @@ export class IPC_Request_Dispatcher {
           // switch to new catalog
 
           this.pouchdb = new Database_Pouchdb(
-            this.settings.get_database_uri_from_uuid(request.id)
+            this.settings.get_database_uri_from_uuid(request.id),
+            this.useRelations
           );
 
           this.browserWindow.setTitle(
