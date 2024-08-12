@@ -68,6 +68,14 @@ npm run make
 npm run publish
 ```
 
+## Coding
+
+Made with VS-Code. Recomendes Plugins:
+
+* Better Comments
+* Todo Tree
+* Wakatime ()
+
 ## Quick ZIP
 
 ```bash

@@ -5,82 +5,81 @@
 * 2024-05-30 Donnerstag
   
   * myBasicView
-    * Liste in Description rendern, siehe editionView.
-    * markdown rendern
+    -[x] Liste in Description rendern, siehe editionView.
+    -[x] markdown rendern
 
 * 2024-05-31 Freitag
   
   * myBasicView / myBasicList
-    * uuid lookup repariert
-    * Each child in a list should have a unique "key" prop.
+    -[x] uuid lookup repariert
+    -[x] Each child in a list should have a unique "key" prop.
   * artworkForm
-    * AttachmentMeta funktioniert.
+    -[x] AttachmentMeta funktioniert.
 
 * 2024-06-01 Samstag
   
   * artworkForm
-    * AttachmentMeta und die Actions im Backend verwenden um Attachments
-      * mehrere hochladen (wird direkt im doc gemacht)
+    -[x] AttachmentMeta und die Actions im Backend verwenden um Attachments
+      -[x] mehrere hochladen (wird direkt im doc gemacht)
 
 * 2024-06-02 Sonntag
   
   * artworkForm / myAttachmentMetaInput / View
-    * große Bilder hochladen bis 50MB.
-    * Verkleinertes Vorschaubild erzeugen
-    * Metadaten ändern (unfertig)
-    * entfernen (unfertig)
-    * herunterladen (unfertig)
-  * ContentSecurityPolicy
-  * Fenstergröße
+    -[x] große Bilder hochladen bis 50MB.
+    -[x] Verkleinertes Vorschaubild erzeugen
+    -[x] Metadaten ändern (unfertig)
+    -[x] entfernen (unfertig)
+    -[x] herunterladen (unfertig)
+  -[x] ContentSecurityPolicy
+  -[x] Fenstergröße
 
 * 2024-06-03 Montag
   
-  * Markierungen: rating, color, flag.
+  -[x] Markierungen: rating, color, flag.
   
   * artworkForm / myAttachmentMetaInput / View
-    * Attachment-Metadaten ändern
+    -[x] Attachment-Metadaten ändern
   
   * calculationForm / wditionForm
-    * uuid ergänzt. Laden und speichern klappt jetzt.
+    -[x] uuid ergänzt. Laden und speichern klappt jetzt.
 
 * 2024-06-04 Dienstag
 
-  * App-Icon (Mac:getestet, Linux:ungetestet, Windows:ungetestet)
-  * AboutMe Dialog customized
-  * Es gibt jetzt ein Custom-Menü, mit Inspect-Element Kontextmenü im Developer-Mode.
-  * AttachmentMeta - Kategorie: `Werk`, `Dokument` eingeführt.
-    * Das sollte helfen die zwei grundlegenden Arten zu unterscheiden.
-  * arworkList - Cover-Image wird angezeigt.
+  -[x] App-Icon (Mac:getestet, Linux:ungetestet, Windows:ungetestet)
+  -[x] AboutMe Dialog customized
+  -[x] Es gibt jetzt ein Custom-Menü, mit Inspect-Element Kontextmenü im Developer-Mode.
+  -[x] AttachmentMeta - Kategorie: `Werk`, `Dokument` eingeführt. Das sollte helfen die zwei grundlegenden Arten zu unterscheiden.
+  -[x] arworkList - Cover-Image wird angezeigt.
   * arworkView / myBasicView
-    * Tags- & Genres-Relationen werden wieder aufgelöst und angezeigt.
-    * Cover-Images werden angezeigt
+    -[x] Tags- & Genres-Relationen werden wieder aufgelöst und angezeigt.
+    -[x] Cover-Images werden angezeigt
   
   * 2024-06-05 Mittwoch
 
   * artworkView
-    * Condition arbeitet jetzt mit Childs (um Attachments zwischen Werk-Bildern und Dokumenten zu unterscheiden)
+    -[x] Condition arbeitet jetzt mit Childs (um Attachments zwischen Werk-Bildern und Dokumenten zu unterscheiden)
   * artworkForm / myAttachmentMetaInput / View
-    * Attachment herunterladen.
-    * Attachment entfernen
-    * Generischen Tag Input
+    -[x] Attachment herunterladen.
+    -[x] Attachment entfernen
+    -[x] Generischen Tag Input
 
 * 2024-06-05 Donnerstag
 
   * artworkView
-    * Tags im View als echte Tags rendern.
+    -[x] Tags im View als echte Tags rendern.
     * <https://4x-ant-design.antgroup.com/components/tag/>
 
   * artworkForm
-    * Artwork-Preis: Ein Preis kann sich auf eine Kalkulation beziehen...
-    * Das Feld Künstler fehlt noch.
-    * Genre - da wird die uuid angezeigt. Da fehlt noch die select box.
-    * Generisches Tag Feld überall einbauen.
+    -[x] Artwork-Preis: Ein Preis kann sich auf eine Kalkulation beziehen...
+    -[x] Das Feld Künstler fehlt noch.
+    -[x] Genre - da wird die uuid angezeigt. Da fehlt noch die select box.
+    -[x] Generisches Tag Feld überall einbauen.
 
 Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 
 * 2024-08-10 Samstag (die gesamten letzten Woche)
-  * Umbau auf Header-Buttons abgeschlossen.
-  * Whiteboard: integration funktioniert.
+  -[x] Umbau auf Header-Buttons abgeschlossen.
+  -[x] Whiteboard: integration funktioniert.
 
 ---
 
@@ -89,110 +88,109 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 * 2024-08-12 Montag
 
   * Catalog
-    * ERROR: Catalog Umschaltung funktioniert nicht mehr. `IPC_Request_Dispatcher` hat jetzt ein Property `useRelations`. Local Store: geht. Remote store: geht nicht.
+    -[x] ERROR: Catalog Umschaltung funktioniert nicht mehr. `IPC_Request_Dispatcher` hat jetzt ein Property `useRelations`. Local Store: geht. Remote store: geht nicht.
   * Arwork
-    * ERROR: Attachments add doesnt work any more.
+    -[ ] ERROR: Attachments add doesnt work any more.
 
 ---
 
 ## Als nächstes
 
 * Rental
-  * da geht noch nix
+  -[ ] da geht noch nix
 * artworkForm / myAttachmentMetaInput
-  * Der Coverbild Button funktioniert noch nicht. Man muss immer über das Formular gehen.
-  * Beim löschen verschwindet das Bild nicht sofort aus der Sicht (man muss redraw erst anderweitig triggern)
+  -[ ] Der Coverbild Button funktioniert noch nicht. Man muss immer über das Formular gehen.
+  -[ ] Beim löschen verschwindet das Bild nicht sofort aus der Sicht (man muss redraw erst anderweitig triggern)
 
   * Kalkulation
-    * Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
-    * Feld Gesamt Summe (automatisch berechnen)
-    * Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
+    -[ ] Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
+    -[ ] Feld Gesamt Summe (automatisch berechnen)
+    -[ ] Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
 
 ## Demnächst zu erledigen
 
 * artworkView
-  * Erstellungsdatum rendern
-  * Markierungen rendern
+  -[ ] Erstellungsdatum rendern
+  -[ ] Markierungen rendern
 
 * artistForm
-  * Bild speichern.
+  -[ ] Bild speichern.
 
 * DatabasePouchDBAdapter
-  * test: Für einen Production build (npm run package) funktioniert die lokale Datenbank noch nicht?
-  * test Es wird keine Datenbank erzeugt, und auch keine Daten angelegt?
-  * Info: die Datenbank ist da, ungefüllt.
+  -[ ] test: Für einen Production build (npm run package) funktioniert die lokale Datenbank noch nicht?
+  -[ ] test Es wird keine Datenbank erzeugt, und auch keine Daten angelegt?
+  -[ ] Info: die Datenbank ist da, ungefüllt.
 
 ## Backlog
 
 Lose Sammlung, was mir auffällt.
 
 * Generell / alle Module
-  * Übersetzung / Internationalisierung mit i18n.
-  * `useContext(App_Context)` bzw `artworks_context` überall entfernen. Nutze ich nicht mehr.
-  * Umgang mit Datenbank-Konflikten
+  -[ ] Übersetzung / Internationalisierung mit i18n.
+  -[ ] `useContext(App_Context)` bzw `artworks_context` überall entfernen. Nutze ich nicht mehr.
+  -[ ] Umgang mit Datenbank-Konflikten
 
 ---
 
-* AttachmentMeta könnte auch die Exifs der Bilder speichern.
-* AttachmentMeta - id / key: nur eins davon verwenden: id --- und für react: key={id}
+-[ ] AttachmentMeta könnte auch die Exifs der Bilder speichern.
+-[ ] AttachmentMeta - id / key: nur eins davon verwenden: id --- und für react: key={id}
 
 * Arwork
-  * Medium: Malerei, Druckgraphik, Skulptur, Digitale Fotografie.
-  * Materialien: Öle, Acryl, Tinten, Ton. Bronze, Holz, Porzellan / Keramik, Stahl, Sonstige Materialien.
+  -[ ] Medium: Malerei, Druckgraphik, Skulptur, Digitale Fotografie.
+  -[ ] Materialien: Öle, Acryl, Tinten, Ton. Bronze, Holz, Porzellan / Keramik, Stahl, Sonstige Materialien.
 
 Digital, Papier, Leinwand, Gips, Mixed-Media.
 Abmessungen: x,y,z pixel, mm, cm
 
 * Artist
-  * Lebenslauf Einträge hinzufügen / bearbeiten / löschen.
+  -[ ] Lebenslauf Einträge hinzufügen / bearbeiten / löschen.
 
 * Address
-  * View Geburtstag wird nicht schön gerendert.
+  -[ ] View Geburtstag wird nicht schön gerendert.
   * Kontakt bearbeiten
-    * Fotoakademie Köln: Geburtstag invalid
-    * Joachim Nichte - Exception... (komisches Objekt als Datum)
-    * Andrea Schwelle - klappt
+    -[ ] Fotoakademie Köln: Geburtstag invalid
+    -[ ] Joachim Nichte - Exception... (komisches Objekt als Datum)
+    -[ ] Andrea Schwelle - klappt
 
 * Calculation
-  * CalculationGroup, CalculationItems brauch ich nicht mehr? Evtl. für Vorlagen?
-  * Unterpositionen in Positionen, die aber in der Ausgabe nicht gezeigt werden.
-    * ...
+  -[ ] CalculationGroup, CalculationItems brauch ich nicht mehr? Evtl. für Vorlagen?
+  -[ ] Unterpositionen in Positionen, die aber in der Ausgabe nicht gezeigt werden.
 
 * Catalog
-  * Export/Import - unfertig.
-  * Beim Backup erstellen gibts ne Fehlermeldung. Backup ist aber da.
+  -[ ] Export/Import - unfertig.
+  -[ ] Beim Backup erstellen gibts ne Fehlermeldung. Backup ist aber da.
 
 * Editionen
-  * Preis-Anzahl (berechnet aus start und ende)
-  * Menge (View) Edition Nummer (Form) -> Anzahl gesamt
-  * Es ist noch nicht klar wie die Editionen mit den Sales verknüpft sind...
-    * Editionen sind ja erst mal nur eine Art Vorlage / Definition.
+  -[ ] Preis-Anzahl (berechnet aus start und ende)
+  -[ ] Menge (View) Edition Nummer (Form) -> Anzahl gesamt
+  -[ ] Es ist noch nicht klar wie die Editionen mit den Sales verknüpft sind...
+    -[ ] Editionen sind ja erst mal nur eine Art Vorlage / Definition.
 
 * Firststart
-  * unfertig
+  -[ ] unfertig
 
 * Rental
-  * Verleih hinzufügen: Öffnet Verkauf-Form
-  * Keine Beispiele in der DB? Die Liste ist noch leer.
+  -[ ] Verleih hinzufügen: Öffnet Verkauf-Form
+  -[ ] Keine Beispiele in der DB? Die Liste ist noch leer.
 
 * Sale
-  * Da müssen die Nutzungrechte angehängt werden können.
-  * Preis aus einer Kalkulation übernehmen.
-  * In Form fehlt der Kunde noch (Auswahl aus Adressen)  
+  -[ ] Da müssen die Nutzungrechte angehängt werden können.
+  -[ ] Preis aus einer Kalkulation übernehmen.
+  -[ ] In Form fehlt der Kunde noch (Auswahl aus Adressen)  
 
 * Settings
-  * den aktiven Katalog markieren
-  * Umschaltung persistent machen
-  * Header-Überschrift anpassen.
+  -[ ] den aktiven Katalog markieren
+  -[ ] Umschaltung persistent machen
+  -[ ] Header-Überschrift anpassen.
 
 * Tags
-  * Tag hinzufügen - Exception
-  * Tag bearbeiten - die parents werden noch nicht berücksichtigt.
-  * Tags-List -> Expandable Row funktioniert nicht: <https://ant.design/components/table>
+  -[ ] Tag hinzufügen - Exception
+  -[ ] Tag bearbeiten - die parents werden noch nicht berücksichtigt.
+  -[ ] Tags-List -> Expandable Row funktioniert nicht: <https://ant.design/components/table>
   
 * Whiteboard
-  * rename board
-  * preview image
-  * have all tldraw assets local
-  * insert imgages from Art.Works! App
-  * tldraw: Maßstab / Größenangaben in `mm` oder `m`
+  -[ ] rename board
+  -[ ] preview image
+  -[ ] have all tldraw assets local
+  -[ ] insert imgages from Art.Works! App
+  -[ ] tldraw: Maßstab / Größenangaben in `mm` oder `m`

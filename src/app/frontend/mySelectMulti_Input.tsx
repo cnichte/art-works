@@ -63,7 +63,7 @@ export function MySelectMulti_Input<T extends MyIdentifiable>({
 
   useEffect(() => {
     // Get all tags from the database, for the suggestion list
-    // FormTool.customRequest(IPC_CHANNEL, ipc_request, "", {});
+    // TODO FormTool.customRequest(IPC_CHANNEL, ipc_request, "", {});
   }, []);
 
   /*
@@ -139,7 +139,7 @@ export function MySelectMulti_Input<T extends MyIdentifiable>({
   return (
     <Select
       mode="multiple"
-      showArrow // suffixIcon=null
+      // suffixIcon={null} // hide icon
       tagRender={renderTag}
       value={value || selectedTags} // TODO hier passiert noch nix!?
       defaultValue={[]}
