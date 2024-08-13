@@ -112,8 +112,8 @@ const ModalForm: React.FC<ModalFormProps> = ({ id, data, open, onCancel }) => {
 interface MyAttachment_Image_Card_Props {
   value: AttachmentMeta;
   onChange: any;
-  doc_id: string;
-  module_id: string;
+  id: string;
+  doctype: string;
 }
 
 /**
@@ -132,8 +132,8 @@ interface MyAttachment_Image_Card_Props {
 function MyAttachment_Image_Card({
   value, //  AttachmentMeta
   onChange, // callback
-  doc_id,
-  module_id,
+  id,
+  doctype,
 }: MyAttachment_Image_Card_Props) {
 
   const [open, setModalOpen] = useState(false);
@@ -270,8 +270,8 @@ const colCounts: Record<PropertyKey, number> = {};
 });
 
 interface AttachmentMetaView_Props extends FormItem_Props<AttachmentMeta[]> {
-  doc_id: string;
-  module_id: string;
+  id: string;
+  doctype: string;
   columns: number;
   gap: number;
   textNoImages: string;
@@ -305,8 +305,8 @@ export function MyAttachments_ImagesMeta_View(props: AttachmentMetaView_Props) {
     columns = 1,
     gap = 20,
     textNoImages = "Noch keine Bilder vorhanden.",
-    doc_id,
-    module_id,
+    id,
+    doctype,
   } = props;
 
   // TODO Der Parameter 'children' ist reserviert für eingebettet React-Childs <MyAttachmentsMetaView><c1/><c2/>...</MyAttachmentsMetaView>
@@ -365,8 +365,8 @@ export function MyAttachments_ImagesMeta_View(props: AttachmentMetaView_Props) {
     return (
       <MyAttachment_Image_Card
         value={meta}
-        doc_id={doc_id}
-        module_id={module_id}
+        id={id}
+        doctype={doctype}
         onChange={undefined} // onCardChanged -> error
       />
     );

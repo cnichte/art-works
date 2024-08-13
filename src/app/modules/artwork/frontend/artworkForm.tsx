@@ -21,6 +21,8 @@ import { My_Price_Input } from "../../../frontend/myPrice_Input";
 import MyTags_Input from "../../../frontend/myTags_Input";
 import { My_Marker_Input } from "../../../frontend/myMarker_Input";
 import { modul_props } from "../modul_props";
+import { AttachmentToolReturnValue } from "../../../frontend/AttachmentTool";
+import { AttachmentTool } from "../../../frontend/AttachmentTool";
 
 // log.info('########################################### Log from the renderer process');
 // log.info() wird auf der Konsole im Backend ausgegeben.
@@ -44,7 +46,7 @@ ipcRenderer.send('__ELECTRON_LOG__', {
  * und actions enthalten, die vor dem Speichern ausgeführt werden können,
  * oder später im Backend.
  *
- * siehe: AttachmentTool.performActionsBeforeUpload()
+ * @see AttachmentTool.performActionsBeforeUpload()
  *
  * @author Carsten Nichte - //carsten-nichte.de/apps/
  * @return {ArtworkForm}
@@ -131,6 +133,13 @@ export function ArtworkForm() {
   const onFormFinish = (valuesForm: any) => {
     let ft: FormTool<Artwork> = new FormTool();
 
+    // before, we have to add the
+    // new Attachment Metadata & Attachments to the Form-Data
+    // and identify and separate the attachment-actions
+    const result: AttachmentToolReturnValue =
+      AttachmentTool.performActionsBeforeUpload(valuesForm, dataOrigin);
+
+    valuesForm.attachmentsMeta = result.attachmentsMeta;
     ft.save_data({
       ipcChannel: IPC_DATABASE,
       dataObject: dataOrigin,
@@ -201,12 +210,12 @@ export function ArtworkForm() {
           <Input />
         </Form.Item>
         <Form.Item label="Künstler" name="artists">
-          <MySelectMulti_Input ipc_request="request:artists-find-custom" />
+          <MySelectMulti_Input doctype="artist" segment="artists" />
         </Form.Item>
         <Form.Item label="Bilder vom Kunstwerk" name="attachmentsMeta">
           <MyAttachments_ImagesMeta_Input
-            doc_id={id}
-            module_id={doctype}
+            id={id}
+            doctype={doctype}
             onChange={(value: AttachmentMeta[]) => {
               console.log(
                 "artworkForm -> MyAttachments -> ValueChanged:",
@@ -232,7 +241,7 @@ export function ArtworkForm() {
           <Input />
         </Form.Item>
         <Form.Item label="Genres" name="genres">
-          <Input />
+          <MySelectMulti_Input doctype="genre" segment="genres" />
         </Form.Item>
         <Form.Item label="Beschreibung kurz" name="description_short">
           <Input.TextArea rows={4} placeholder="Please enter a Shortnote" />
@@ -267,7 +276,7 @@ export function ArtworkForm() {
           <My_Marker_Input />
         </Form.Item>
         <Form.Item label="Dateianhänge" name="labels">
-          <My_Marker_Input />
+          <Input />
         </Form.Item>
 
         <Form.Item>

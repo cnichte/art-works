@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Select, Tag } from "antd";
 import type { CustomTagProps } from "rc-select/lib/BaseSelect";
 import { FormItem_Props } from "../common/types/FormPropertiesInterface";
+import { DocType } from "../common/types/DocType";
+import { DB_Request } from "../common/types/RequestTypes";
+import { IPC_DATABASE } from "../common/types/IPC_Channels";
+import { App_Messages_IPC } from "./App_Messages_IPC";
 // import { TagInterface } from 'app/backend/docs/TagInterface';
 
 /** @type {*} Do some Database stuff... */
@@ -13,7 +17,8 @@ interface MyIdentifiable {
 }
 
 interface MySelectMulti_InputProps extends FormItem_Props<string[]> {
-  ipc_request: string;
+  doctype: DocType;
+  segment: string;
 }
 
 /* ==========================================================
@@ -24,9 +29,9 @@ interface MySelectMulti_InputProps extends FormItem_Props<string[]> {
 
 /**
  ** MySelectMulti_Input - React Component
- * 
+ *
  * TODO: Das hier ersetzt alle anderen
- * - MyTags_Input 
+ * - MyTags_Input
  * - PublicationWhat
  * - PublicationMedium usw
  *
@@ -37,7 +42,8 @@ interface MySelectMulti_InputProps extends FormItem_Props<string[]> {
  */
 export function MySelectMulti_Input<T extends MyIdentifiable>({
   value = [],
-  ipc_request,
+  doctype,
+  segment,
   onChange,
 }: MySelectMulti_InputProps): any {
   // console.log('MyTags - value', value);
@@ -63,7 +69,38 @@ export function MySelectMulti_Input<T extends MyIdentifiable>({
 
   useEffect(() => {
     // Get all tags from the database, for the suggestion list
-    // TODO FormTool.customRequest(IPC_CHANNEL, ipc_request, "", {});
+
+    const request: DB_Request = {
+      type: "request:list-all",
+      doctype: doctype,
+      id: "",
+      options: {},
+    };
+
+    window.electronAPI
+      .invoke_request(IPC_DATABASE, [request])
+      .then((result: any) => {
+        setAllTags(result[segment]);
+
+        // Remember all available tags
+        if (result != null && segment in result) {
+          const op = result[segment].map((aTag: T) => {
+            const obj: any = {
+              label: aTag.name,
+              value: aTag.id,
+            };
+            return obj;
+          });
+
+          setTagOptions(op);
+        }
+      })
+      .catch(function (error: any) {
+        App_Messages_IPC.request_message(
+          "request:message-error",
+          error instanceof Error ? `Error: ${error.message}` : ""
+        );
+      });
   }, []);
 
   /*

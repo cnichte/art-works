@@ -7,7 +7,6 @@ import { Button, Upload, message, GetProp } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
 
-
 import { MyAttachments_ImagesMeta_View } from "./myAttachments_ImagesMeta_View";
 
 import { AttachmentMeta } from "../common/types/AttachmentTypes";
@@ -93,8 +92,8 @@ const onChange = async (file: RcFile) => {
    ========================================================== */
 
 interface AttachmentMetaInput_Props extends FormItem_Props<AttachmentMeta[]> {
-  doc_id: string;
-  module_id: string;
+  id: string;
+  doctype: string;
 }
 
 /** MyAttachmentsMetaInput
@@ -111,8 +110,7 @@ interface AttachmentMetaInput_Props extends FormItem_Props<AttachmentMeta[]> {
  */
 export function MyAttachments_ImagesMeta_Input({
   id,
-  doc_id,
-  module_id,
+  doctype,
   value = [],
   onChange,
 }: AttachmentMetaInput_Props): any {
@@ -303,8 +301,8 @@ export function MyAttachments_ImagesMeta_Input({
       </Upload>
       <MyAttachments_ImagesMeta_View
         value={value}
-        doc_id={doc_id}
-        module_id={module_id}
+        id={id}
+        doctype={doctype}
         columns={3}
         gap={10}
         textNoImages="Noch keine Bilder vorhanden. Füge Bilder hinzu in dem du sie einfach auf den [+ Bilder hinzufügen] Button ziehst."

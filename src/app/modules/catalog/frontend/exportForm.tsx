@@ -1,5 +1,5 @@
 /* eslint-disable no-sequences */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -9,36 +9,35 @@ import {
   Steps,
   Typography,
   theme,
-  message,
   Input,
-} from 'antd';
-import { useNavigate } from 'react-router-dom';
+} from "antd";
+import { useNavigate } from "react-router-dom";
 // TODO import TransportTool from './TransportTool';
-import { MyAttachments_ImagesMeta_Input } from '../../../frontend/myAttachments_ImagesMeta_Input';
-import { MySelectEditField } from '../../../frontend/myInputFields';
+import { MyAttachments_ImagesMeta_Input } from "../../../frontend/myAttachments_ImagesMeta_Input";
+import { MySelectEditField } from "../../../frontend/myInputFields";
 
 const { TextArea } = Input;
 const { Text } = Typography;
 
-const theJob:any = {
-  action: 'transform',
+const theJob: any = {
+  action: "transform",
   source: {
-    type: 'wordpress',
+    type: "wordpress",
     data: {
-      file:[],
+      file: [],
       mapping: [
         {
-          fieldNameSource: '',
-          fieldNameTarget: '',
-          mappingAction: '?',
+          fieldNameSource: "",
+          fieldNameTarget: "",
+          mappingAction: "?",
         },
       ],
     },
     target: {
-      type: 'markdown_fm',
+      type: "markdown_fm",
       target: {
-        folderImages: '',
-        folderDocs: '',
+        folderImages: "",
+        folderDocs: "",
       },
     },
   },
@@ -47,15 +46,15 @@ const theJob:any = {
 function Step1() {
   const [form] = Form.useForm();
 
-  const [buttonName, setButtonName] = useState('');
+  const [buttonName, setButtonName] = useState("");
 
-  const [transportAction, setTransportAction] = useState<string>('transform');
+  const [transportAction, setTransportAction] = useState<string>("transform");
   const [sourceOptions, setSourceOptions] = useState([]);
   const [targetOptions, setTargetOptions] = useState([]);
 
-  const [sourceOptionSelected, setSourceOptionSelected] = useState('wordpress');
+  const [sourceOptionSelected, setSourceOptionSelected] = useState("wordpress");
   const [targetOptionSelected, setTargetOptionSelected] =
-    useState('markdown_fm');
+    useState("markdown_fm");
 
   // Markdown Front Matter FormatStyle
   const mdFmFormatExamples = {
@@ -103,25 +102,25 @@ function Step1() {
 
   useEffect(() => {
     setSourceOptions([
-      { value: 'exportFromArtworks', label: 'Export aus Art.Works' },
-      { value: 'wordpress', label: 'Wordpress (xml)' },
-      { value: 'imagesONLY', label: 'Bilder importieren' },
-      { value: 'imagesXMP', label: 'Bilder mit XMP importieren' },
-      { value: 'imagesXLS', label: 'Bilder mit Excel importieren' },
+      { value: "exportFromArtworks", label: "Export aus Art.Works" },
+      { value: "wordpress", label: "Wordpress (xml)" },
+      { value: "imagesONLY", label: "Bilder importieren" },
+      { value: "imagesXMP", label: "Bilder mit XMP importieren" },
+      { value: "imagesXLS", label: "Bilder mit Excel importieren" },
     ]);
-    setSourceOptionSelected('wordpress');
+    setSourceOptionSelected("wordpress");
 
     setTargetOptions([
-      { value: 'importToArtworks', label: 'Import nach Art.Works' },
-      { value: 'excel', label: 'Excel Tabelle' },
-      { value: 'pdf', label: 'PDF' },
-      { value: 'markdown', label: 'Markdown ohne Front Matter' },
-      { value: 'markdown_fm', label: 'Markdown mit Front Matter' },
+      { value: "importToArtworks", label: "Import nach Art.Works" },
+      { value: "excel", label: "Excel Tabelle" },
+      { value: "pdf", label: "PDF" },
+      { value: "markdown", label: "Markdown ohne Front Matter" },
+      { value: "markdown_fm", label: "Markdown mit Front Matter" },
     ]);
-    setSourceOptionSelected('markdown_fm');
+    setSourceOptionSelected("markdown_fm");
 
     //* Wird einmalig beim Laden der Seite ausgeführt.
-    console.info('Request some data from backend...');
+    console.info("Request some data from backend...");
   }, []);
 
   const onFormHandleSubmit = (valuesForm: any) => {
@@ -129,7 +128,7 @@ function Step1() {
   };
 
   const onFormFinishFailed = (errorInfo: any) => {
-    console.info('Failed:', errorInfo);
+    console.info("Failed:", errorInfo);
   };
 
   const onFormReset = () => {
@@ -137,7 +136,7 @@ function Step1() {
   };
 
   const onFormClose = (key: any) => {
-    console.log('---------- onFormClose', key);
+    console.log("---------- onFormClose", key);
     // navigate( FormTools.getGotoViewPath( props.moduleId, dataOrigin[props.segment][0].id));
   };
 
@@ -152,52 +151,52 @@ function Step1() {
     */
 
   const ontransportActionChange = (e: RadioChangeEvent) => {
-    console.log('ontransportActionChange', e.target.value);
+    console.log("ontransportActionChange", e.target.value);
 
     switch (e.target.value) {
-      case 'import': {
-        setButtonName('Import starten');
+      case "import": {
+        setButtonName("Import starten");
         setSourceOptions([
-          { value: 'wordpress', label: 'Wordpress (xml)' },
-          { value: 'imagesONLY', label: 'Bilder importieren' },
-          { value: 'imagesXMP', label: 'Bilder mit XMP importieren' },
-          { value: 'imagesXLS', label: 'Bilder mit Excel importieren' },
+          { value: "wordpress", label: "Wordpress (xml)" },
+          { value: "imagesONLY", label: "Bilder importieren" },
+          { value: "imagesXMP", label: "Bilder mit XMP importieren" },
+          { value: "imagesXLS", label: "Bilder mit Excel importieren" },
         ]),
-          setSourceOptionSelected('wordpress');
+          setSourceOptionSelected("wordpress");
 
         setTargetOptions([
-          { value: 'importToArtworks', label: 'Import nach Art.Works' },
+          { value: "importToArtworks", label: "Import nach Art.Works" },
         ]);
-        setTargetOptionSelected('importToArtworks');
+        setTargetOptionSelected("importToArtworks");
         break;
       }
-      case 'export': {
-        setButtonName('Export starten');
+      case "export": {
+        setButtonName("Export starten");
         setSourceOptions([
-          { value: 'exportFromArtworks', label: 'Export aus Art.Works' },
+          { value: "exportFromArtworks", label: "Export aus Art.Works" },
         ]);
-        setSourceOptionSelected('exportFromArtworks');
+        setSourceOptionSelected("exportFromArtworks");
 
         setTargetOptions([
-          { value: 'excel', label: 'Excel Tabelle' },
-          { value: 'pdf', label: 'PDF' },
-          { value: 'markdown', label: 'Markdown ohne Front Matter' },
-          { value: 'markdown_fm', label: 'Markdown mit Front Matter' },
+          { value: "excel", label: "Excel Tabelle" },
+          { value: "pdf", label: "PDF" },
+          { value: "markdown", label: "Markdown ohne Front Matter" },
+          { value: "markdown_fm", label: "Markdown mit Front Matter" },
         ]);
-        setTargetOptionSelected('markdown_fm');
+        setTargetOptionSelected("markdown_fm");
 
         break;
       }
-      case 'transform': {
-        setButtonName('Transformation starten');
-        setSourceOptions([{ value: 'wordpress', label: 'Wordpress (xml)' }]);
-        setSourceOptionSelected('wordpress');
+      case "transform": {
+        setButtonName("Transformation starten");
+        setSourceOptions([{ value: "wordpress", label: "Wordpress (xml)" }]);
+        setSourceOptionSelected("wordpress");
 
         setTargetOptions([
-          { value: 'markdown', label: 'Markdown ohne Front Matter' },
-          { value: 'markdown_fm', label: 'Markdown mit Front Matter' },
+          { value: "markdown", label: "Markdown ohne Front Matter" },
+          { value: "markdown_fm", label: "Markdown mit Front Matter" },
         ]);
-        setTargetOptionSelected('markdown_fm');
+        setTargetOptionSelected("markdown_fm");
       }
       default: {
         // statements;
@@ -228,7 +227,7 @@ function Step1() {
       name="basic"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
-      style={{ width: '100%', maxWidth: 1000 }}
+      style={{ width: "100%", maxWidth: 1000 }}
       initialValues={{ remember: true }}
       onFinish={onFormHandleSubmit}
       onFinishFailed={onFormFinishFailed}
@@ -240,15 +239,15 @@ function Step1() {
           onChange={handleMarkdownFrontmatterStyleChange}
           options={[
             {
-              value: '00ee99a4-aaf2-42b9-92a2-f97a3431efff',
-              label: 'nein',
+              value: "00ee99a4-aaf2-42b9-92a2-f97a3431efff",
+              label: "nein",
             },
             {
-              value: '61a15f58-c462-4e3e-a9ff-c87849bfc8bf',
+              value: "61a15f58-c462-4e3e-a9ff-c87849bfc8bf",
               label: `Mein Template 1`,
             },
             {
-              value: 'c47c0cab-59c0-4dc3-8c4d-3d956d1148dd',
+              value: "c47c0cab-59c0-4dc3-8c4d-3d956d1148dd",
               label: `Mein Template 2`,
             },
           ]}
@@ -304,16 +303,16 @@ function Step2() {
       name="basic"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
-      style={{ width: '100%', maxWidth: 1000 }}
+      style={{ width: "100%", maxWidth: 1000 }}
       initialValues={{ remember: true }}
       autoComplete="off"
     >
       <Form.Item label="Quelldatei oder Ordner Auswählen " name="sourceFile">
         <MyAttachments_ImagesMeta_Input
-          doc_id=""
-          module_id=''
+          id=""
+          doctype=""
           onChange={(value: any) => {
-            console.log('artworkForm -> MyAttachments -> ValueChanged:', value);
+            console.log("artworkForm -> MyAttachments -> ValueChanged:", value);
           }}
         />
       </Form.Item>
@@ -333,7 +332,7 @@ function ExportForm() {
   const navigate = useNavigate();
   const { Title } = Typography;
 
-  const moduleId = 'export';
+  const moduleId = "export";
 
   /* ----------------------------------------------------------
 
@@ -354,24 +353,24 @@ function ExportForm() {
 
   const steps = [
     {
-      title: 'Aufgaben',
+      title: "Aufgaben",
       content: Step1(),
     },
     {
-      title: 'Daten',
+      title: "Daten",
       content: Step2(),
     },
     {
-      title: 'Orte',
-      content: 'Wohin soll was geschrieben werden...',
+      title: "Orte",
+      content: "Wohin soll was geschrieben werden...",
     },
     {
-      title: 'Summary',
-      content: 'Zusammenfassung anschauen, und den Jon starten.',
+      title: "Summary",
+      content: "Zusammenfassung anschauen, und den Jon starten.",
     },
     {
-      title: 'Ausführung',
-      content: 'Durchführung und Ergebnis anschauen.',
+      title: "Ausführung",
+      content: "Durchführung und Ergebnis anschauen.",
     },
   ];
 
@@ -423,7 +422,7 @@ function ExportForm() {
           </Button>
         )}
         {current > 0 && (
-          <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+          <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
             Previous
           </Button>
         )}

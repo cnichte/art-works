@@ -1,5 +1,6 @@
 import PouchDB from "pouchdb";
 import find from "pouchdb-find";
+
 import rel from "relational-pouch"; // https://github.com/pouchdb-community/relational-pouch
 
 import { v4 as uuidv4 } from "uuid";
@@ -59,17 +60,54 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
       this.databaseUri + (this.databaseUri.endsWith("/") ? "" : "/");
 
     // PouchDB.plugin(require('pouchdb-authentication'));
+    PouchDB.plugin(rel);
     PouchDB.plugin(find);
-    if (useRelations) {
-      PouchDB.plugin(rel);
+
+    //! Alter Code
+/*
+    if (databaseUri.length > 0 && databaseUri.startsWith("http")) {
+
+      console.log(`create / open remote store ${databaseUri}`);
+      
+      this.db = new PouchDB(databaseUri, {
+        skip_setup: false,
+      });
+
+    } else {
+      const home_path: string = FileTool.get_apps_home_path();
+      const localStore = `${home_path}catalogs/${databaseUri}`;
+
+      this.db = new PouchDB(localStore, {
+        skip_setup: false,
+      });
     }
+
+    this.db
+    .info()
+    .then(function handleResult(info: any) {
+      console.info('########## Database Information - start');
+      console.info(info);
+      console.info('########## Database Information - end');
+    })
+    .catch(function handleError(err: any) {
+      console.error('########## Database Error - start');
+      console.error(err);
+      console.error('########## Database Error - end');
+    });
+
+*/
+    //! Neuer Code
 
     // versuche ich hier zu öffnen:
     // http://admin:adminadmin@fileserver02:5984/werkverzeichnis
+// /*    
     if (this.databaseUri.length > 0 && this.databaseUri.startsWith("http")) {
       const remoteStore = this.databaseUri;
 
       console.log(`couchdb: create / open remote store: ${remoteStore}`);
+
+      //! PouchDB.plugin(rel);
+      //! PouchDB.plugin(find);
 
       this.does_remote_db_exist(remoteStore).then(function (result: boolean) {
         // open, create
@@ -78,13 +116,39 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
         });
 
         if (!result) {
-          //! if create > init
+          console.log(`pouchdb: remote store does not exists: ${remoteStore}`);
+          //! create and init
           if (useRelations) {
-            console.log(`pouchdb: set relational-pouch schema for: ${remoteStore}`);
+            console.log(
+              `pouchdb: set relational-pouch schema for: ${remoteStore}`
+            );
             let pdbr = pouchdb_relations;
             self.db.setSchema(pdbr);
           }
           // TODO DB befüllen
+          self
+            .initialize(true, false) //! Fills the DB with sample data on creation.
+            .then(function (response: any) {
+              console.log(
+                "------------------------------------------------------"
+              );
+              console.log("init-then: ", response);
+              console.log(
+                "------------------------------------------------------"
+              );
+            })
+            .catch(function (err: any) {
+              console.log(
+                "------------------------------------------------------"
+              );
+              console.log("init-error: ", err);
+              console.log(
+                "------------------------------------------------------"
+              );
+            });
+        } else {
+          //! just open
+          console.log(`pouchdb: remote store does exists: ${remoteStore}`);
         }
       });
     } else {
@@ -97,6 +161,9 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
         .then(function (result: boolean) {
           let pdbr = pouchdb_relations;
 
+          //! PouchDB.plugin(rel);
+          //! PouchDB.plugin(find);
+
           if (result) {
             console.log(`pouchdb: local store exists: ${localStore}`);
 
@@ -105,7 +172,9 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
             });
 
             if (useRelations) {
-              console.log(`pouchdb: set relational-pouch schema for: ${localStore}`);
+              console.log(
+                `pouchdb: set relational-pouch schema for: ${localStore}`
+              );
               self.db.setSchema(pdbr);
             }
           } else {
@@ -146,6 +215,9 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
           console.log("Fucking ERROR", error);
         });
     }
+
+// */
+
   }
 
   does_local_db_exist(name: string): Promise<boolean> {
@@ -183,11 +255,17 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
       var db = new PouchDB(name, { skip_setup: true });
       db.info()
         .then(function (result: any) {
-          console.log(`pouchdb: remote db exist:`, result);
-          resolve(true);
+          if (result.hasOwnProperty("error")) {
+            //  &&  result.error == 'not_found'
+            console.log(`pouchdb 1: remote db does not exist:`, result);
+            resolve(false);
+          } else {
+            console.log(`pouchdb 1: remote db exist:`, result);
+            resolve(true);
+          }
         })
         .catch(function (err: any) {
-          console.log(`pouchdb: remote db does not exist:` + err);
+          console.log(`pouchdb 2: remote db does not exist:` + err);
           resolve(false);
         });
     });

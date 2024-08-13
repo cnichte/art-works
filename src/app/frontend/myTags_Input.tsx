@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Select, Tag } from 'antd';
-import type { CustomTagProps } from 'rc-select/lib/BaseSelect';
-import { FormItem_Props } from '../common/types/FormPropertiesInterface';
+import React, { useEffect, useState } from "react";
+import { Select, Tag } from "antd";
+import type { CustomTagProps } from "rc-select/lib/BaseSelect";
+import { FormItem_Props } from "../common/types/FormPropertiesInterface";
+import { DB_Request } from "../common/types/RequestTypes";
+import { IPC_DATABASE } from "../common/types/IPC_Channels";
+import { DocType } from "../common/types/DocType";
+import { App_Messages_IPC } from "./App_Messages_IPC";
 // import { TagInterface } from 'app/backend/docs/TagInterface';
 
-
 /** @type {*} Do some Database stuff... */
-const IPC_CHANNEL = 'ipc-database';
+const IPC_CHANNEL = "ipc-database";
 /** @type {*} Do some Database stuff... */
-const IPC_REQUEST = 'request:tags-find-custom';
+const IPC_REQUEST = "request:tags-find-custom";
 
 /**
  * Reflects TagInterface from Database,
@@ -20,7 +23,7 @@ const IPC_REQUEST = 'request:tags-find-custom';
  * @interface MyTag
  */
 interface MyTag {
-  id:string;
+  id: string;
   name: string;
   color: string;
   shortnote: string;
@@ -65,7 +68,7 @@ function getTagFromId(id: string, tags: MyTag[]): MyTag | null {
  * @param param0
  * @returns
  */
-function MyTags_Input({ value = [], onChange }: FormItem_Props<string[]> ): any {
+function MyTags_Input({ value = [], onChange }: FormItem_Props<string[]>): any {
   // console.log('MyTags - value', value);
 
   /* ----------------------------------------------------------
@@ -89,47 +92,62 @@ function MyTags_Input({ value = [], onChange }: FormItem_Props<string[]> ): any 
 
   useEffect(() => {
     // Get all tags from the database, for the suggestion list
-    // FormTool.customRequest(IPC_CHANNEL, IPC_REQUEST, '', {});
-  }, []);
-/*
-  FormTool.customResponse(IPC_CHANNEL, IPC_REQUEST, (data) => {
-    // Remember all available tags
-    setAllTags(data.tags);
+    const doctype: DocType = "tag";
+    const segment: string = "tags";
 
-    // Publish the list of tag suggestions
-    const options = data.tags
-      .filter((aTag: MyTag) => {
-        return aTag.children.length > 0 || aTag.parent.length === 0;
-      })
-      .map((aTag: MyTag) => {
-        const obj:any = {
-          label: aTag.name,
-          value: aTag.id
-        };
+    const request: DB_Request = {
+      type: "request:list-all",
+      doctype: doctype,
+      id: "",
+      options: {},
+    };
 
-        if (aTag.children.length > 0) {
-          obj.options = [];
+    window.electronAPI
+      .invoke_request(IPC_DATABASE, [request])
+      .then((result: any) => {
+        setAllTags(result[segment]);
 
-          aTag.children.forEach((uuid) => {
-            const ct: MyTag = getTagFromId(uuid, data.tags);
-            if (ct != null) {
-              obj.options.push({ label: ct.name, value: ct.id });
+        // Publish the list of tag suggestions
+        const options = result[segment]
+          .filter((aTag: MyTag) => {
+            return aTag.children.length > 0 || aTag.parent.length === 0;
+          })
+          .map((aTag: MyTag) => {
+            const obj: any = {
+              label: aTag.name,
+              value: aTag.id,
+            };
+
+            if (aTag.children.length > 0) {
+              obj.options = [];
+
+              aTag.children.forEach((uuid) => {
+                const ct: MyTag = getTagFromId(uuid, result[segment]);
+                if (ct != null) {
+                  obj.options.push({ label: ct.name, value: ct.id });
+                }
+              });
+              return obj;
+            }
+            if (aTag != null && aTag.parent.length > 0) {
+              // has a parent, so has already been included in the list as a child
+              // drop
+            } else {
+              // neither parent nor child, i.e. single...
+              return obj;
             }
           });
-          return obj;
-        }
-        if (aTag!=null && aTag.parent.length > 0) {
-          // has a parent, so has already been included in the list as a child
-          // drop
-        } else {
-          // neither parent nor child, i.e. single...
-          return obj;
-        }
-      });
 
-    setTagOptions(options);
-  });
-*/
+        setTagOptions(options);
+      })
+      .catch(function (error: any) {
+        App_Messages_IPC.request_message(
+          "request:message-error",
+          error instanceof Error ? `Error: ${error.message}` : ""
+        );
+      });
+  }, []);
+
   const triggerChange = (changedValue: string[]) => {
     onChange?.(changedValue);
   };
@@ -148,7 +166,7 @@ function MyTags_Input({ value = [], onChange }: FormItem_Props<string[]> ): any 
     const aTag: MyTag | null = getTagFromId(renderValue, allTags);
     let parent: MyTag | null = null;
 
-    if (aTag!=null && aTag.parent.length > 0) {
+    if (aTag != null && aTag.parent.length > 0) {
       parent = getTagFromId(aTag.parent, allTags);
     }
 

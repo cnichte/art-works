@@ -81,14 +81,24 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
   -[x] Umbau auf Header-Buttons abgeschlossen.
   -[x] Whiteboard: integration funktioniert.
 
+* 2024-08-12 Montag
+
+  * Catalog
+    -[x] ERROR: Catalog Umschaltung funktioniert nicht mehr. `IPC_Request_Dispatcher` hat jetzt ein Property `useRelations`.
+       -[x] Local Store: geht.
+       -[x] Remote store: wird gefunden.
+
+* 2024-08-13 Dienstag
+  
+  * Catalog
+    -[x] Wenn ich eine neue DB anlege wird sie anstandslos geöffnet. Deshalb ist ein Backup mit Attachmnts essentiell
+
 ---
 
 ## Heute
 
-* 2024-08-12 Montag
+* 2024-08-13 Dienstag
 
-  * Catalog
-    -[x] ERROR: Catalog Umschaltung funktioniert nicht mehr. `IPC_Request_Dispatcher` hat jetzt ein Property `useRelations`. Local Store: geht. Remote store: geht nicht.
   * Arwork
     -[ ] ERROR: Attachments add doesnt work any more.
 
@@ -97,15 +107,15 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 ## Als nächstes
 
 * Rental
-  -[ ] da geht noch nix
+  -[ ] da geht noch nix.
 * artworkForm / myAttachmentMetaInput
   -[ ] Der Coverbild Button funktioniert noch nicht. Man muss immer über das Formular gehen.
   -[ ] Beim löschen verschwindet das Bild nicht sofort aus der Sicht (man muss redraw erst anderweitig triggern)
 
-  * Kalkulation
-    -[ ] Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
-    -[ ] Feld Gesamt Summe (automatisch berechnen)
-    -[ ] Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
+* Kalkulation
+  -[ ] Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
+  -[ ] Feld Gesamt Summe (automatisch berechnen)
+  -[ ] Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
 
 ## Demnächst zu erledigen
 
@@ -159,6 +169,13 @@ Abmessungen: x,y,z pixel, mm, cm
 * Catalog
   -[ ] Export/Import - unfertig.
   -[ ] Beim Backup erstellen gibts ne Fehlermeldung. Backup ist aber da.
+  -[ ] Remote store `werkverzeichnis`:
+  
+      * Daraus lesen geht mit der umgebauten app immer noch nicht: `find` error.
+        * `pouchdb` und `find` sind aktueller.
+      * Mit der alten App gibt es den Fehler nicht:
+      `/Users/cnichte/develop-software/01-active/art-works-deprecated/art-works`
+      * Deshalb ist backup and restore mit Attachments essentiell.
 
 * Editionen
   -[ ] Preis-Anzahl (berechnet aus start und ende)
