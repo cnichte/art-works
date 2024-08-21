@@ -14,6 +14,7 @@ import {
   DeleteOutlined,
   EditOutlined,
   AppstoreOutlined,
+  BarsOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
@@ -96,7 +97,7 @@ function MyBasicList<T>({
       listTypeOptions.push({
         label: "List",
         value: "list",
-        icon: <AppstoreOutlined />,
+        icon:  <BarsOutlined /> ,
       });
     }
 

@@ -98,7 +98,7 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 
 * 2024-08-21 Mittwoch
 
-    -[x] View als List und Grid Darstellung.
+    -[x] List als Table oder Grid Darstellung.
 
 ---
 
