@@ -1,13 +1,17 @@
-import { ReactElement } from "react";
+import { MouseEventHandler, ReactElement } from "react";
 import { Image } from "antd";
 
 import Markdown from "markdown-to-jsx";
 import { v4 as uuidv4 } from "uuid";
 
-import RelationResolver from "./RelationResolver"
+import RelationResolver from "./RelationResolver";
 import { Condition } from "./Condition";
-import { MyBasicViewFieldParameterI, MyBasicView_ChildFieldParameterI } from "../common/types/MyBasicViewTypes";
+import {
+  MyBasicViewFieldParameterI,
+  MyBasicView_ChildFieldParameterI,
+} from "../common/types/MyBasicViewTypes";
 import { AttachmentMeta } from "../common/types/AttachmentTypes";
+import { External_Link } from "./External_Link";
 
 /**
  * Map propertyName to antd required 'key' Propery.
@@ -87,8 +91,25 @@ export default class ViewTool {
           } else {
             // String oder Objekt?
             if (ViewTool.is_string(fuckingValue)) {
-              // Ein String wird als Markdown gerendert
-              result = <Markdown>{fuckingValue}</Markdown>;
+              //! Ein String wird als Markdown gerendert
+              // Markdown-Links werden im externen Browser geöffnet.
+              // https://github.com/quantizor/markdown-to-jsx/blob/main/README.md#optionsoverrides---override-any-html-tags-representation
+              result = (
+                <Markdown
+                  options={{
+                    overrides: {
+                      a: {
+                        component: ({ children, ...props }) => <External_Link children={children} props={props} />,
+                        props: {
+                          className: "foo",
+                        },
+                      },
+                    },
+                  }}
+                >
+                  {fuckingValue}
+                </Markdown>
+              );
             } else {
               // Fallback: Objekt, das ich einfach mal als Json-String ausgebe.
               const stringified: string = JSON.stringify(fuckingValue);
@@ -198,7 +219,7 @@ export default class ViewTool {
             }
           } else {
             if ("condition" in param) {
-              if (Condition.showField(param, theValue, 'childs')) {
+              if (Condition.showField(param, theValue, "childs")) {
                 // if(theValue instanceof AttachmentMeta){}
                 // Das könnte so schön sein, funktioniert aber nur
                 // wenn es eine instanzierte Klasse ist

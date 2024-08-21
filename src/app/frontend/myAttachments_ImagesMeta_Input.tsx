@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import Resizer from "react-image-file-resizer";
 import type { RcFile, UploadProps } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
 import { Button, Upload, message, GetProp } from "antd";
@@ -11,6 +10,7 @@ import { MyAttachments_ImagesMeta_View } from "./myAttachments_ImagesMeta_View";
 
 import { AttachmentMeta } from "../common/types/AttachmentTypes";
 import { FormItem_Props } from "../common/types/FormPropertiesInterface";
+import { Image_Util } from "./Image_Util";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -27,55 +27,9 @@ type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
  * or until actions are performed: upload, remove, download.
  */
 
-/* ==========================================================
-
-    * Helper Functions
-
-   ========================================================== */
-
-/**
- * Helper Function, to load an Image via Filereader
- * from the Filesysten, and return it as Base64 String
- *
- * @param {RcFile} file
- * @return {*}  {Promise<string>}
- */
-const getImageAsBase64 = (file: RcFile): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
-
-/**
- * Resize my Images
- *
- * @param file
- * @returns
- */
-const resizeImage = (file: RcFile) =>
-  new Promise((resolve) => {
-    Resizer.imageFileResizer(
-      file, // the image file object
-      1000, // the new maxWidth
-      1000, // the new maxHeight
-      "JPEG", // the compression format (JPEG, PNG, WEBP)
-      100, // the quality of the new image (0 to 100)
-      0, // the rotation degree (0 to 360)
-      (uri) => {
-        // the callback function to get the URI
-        resolve(uri);
-      },
-      "base64", // the desired output type (base64, blob, file.)
-      1000, // the new minWidth
-      1000 // the new minHeight
-    );
-  });
-
 const onChange = async (file: RcFile) => {
   try {
-    const image = await resizeImage(file);
+    const image = await Image_Util.read_image_file_and_resize(file);
     console.log(image);
   } catch (err) {
     console.log(err);
@@ -181,10 +135,10 @@ export function MyAttachments_ImagesMeta_Input({
       }
 
       // get the original unresized image.
-      getImageAsBase64(file)
+      Image_Util.read_image_file_as_base64(file)
         .then((b64URLdata) => {
           // generate a preview Image.
-          resizeImage(file)
+          Image_Util.read_image_file_and_resize(file)
             .then((uri) => {
               const previewImage = uri as string;
 

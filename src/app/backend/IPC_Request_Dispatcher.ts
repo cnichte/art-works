@@ -1,10 +1,11 @@
-import { BrowserWindow, ipcMain } from "electron";
+import { BrowserWindow, ipcMain, shell } from "electron";
 import { DatabaseCRUD_Interface } from "./Database_Types";
 import { Database_Pouchdb } from "./Database_Pouchdb";
 import { Database_Settings } from "./Database_Settings";
 import {
   IPC_BUTTON_ACTION,
   IPC_DATABASE,
+  IPC_EXTERNAL_LINK,
   IPC_MESSAGE,
   IPC_SETTINGS,
 } from "../common/types/IPC_Channels";
@@ -25,7 +26,7 @@ export class IPC_Request_Dispatcher {
   browserWindow: BrowserWindow;
   pouchdb: DatabaseCRUD_Interface;
   settings: Database_Settings;
-  
+
   useRelations: boolean = true; // you have to provide relations in Database_Pouchdb_Relations.ts
 
   constructor(browserWindow: BrowserWindow) {
@@ -110,6 +111,18 @@ export class IPC_Request_Dispatcher {
       );
       //! Following Pattern 3 for header-button-actions
       this.browserWindow.webContents.send(IPC_BUTTON_ACTION, arg[0]);
+    });
+
+    // ----------------------------------------------------------------------
+    // Message Action Requests
+    // ----------------------------------------------------------------------
+
+    ipcMain.on(IPC_EXTERNAL_LINK, async (event, arg) => {
+      console.log(
+        `MAIN says: External-Link-Request received from frontend: `,
+        arg
+      );
+      shell.openExternal(arg[0]);
     });
 
     // ----------------------------------------------------------------------

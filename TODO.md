@@ -98,7 +98,11 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 
 * 2024-08-21 Mittwoch
 
+* List und View
     -[x] List als Table oder Grid Darstellung.
+    -[x] Markdown-Links werden im externen Browser geöffnet.
+* Whiteboard
+  -[x] preview image
 
 ---
 
@@ -222,7 +226,6 @@ Abmessungen: x,y,z pixel, mm, cm
   
 * Whiteboard
   -[ ] rename board
-  -[ ] preview image
   -[ ] have all tldraw assets local
   -[ ] insert imgages from Art.Works! App
   -[ ] tldraw: Maßstab / Größenangaben in `mm` oder `m`

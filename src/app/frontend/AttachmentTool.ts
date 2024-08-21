@@ -1,5 +1,5 @@
 import { AttachmentAction, AttachmentMeta } from "../common/types/AttachmentTypes";
-
+import { Image_Util } from "./Image_Util";
 
 /**
  * Defines the returned value.
@@ -38,10 +38,6 @@ class AttachmentTool {
   ): AttachmentToolReturnValue {
     const attachmentActions: AttachmentAction[] = []; // nutze ich im Moment nicht mehr...
 
-    // Methode zum konvertieren von DataURL String zu bas64String
-    const getBase64StringFromBase64URL = (dataURL: string) =>
-      dataURL.replace('data:', '').replace(/^.+,/, '');
-
     // shorthands
     let attMeta: AttachmentMeta[] = [];
 
@@ -69,7 +65,7 @@ class AttachmentTool {
             if (metaItem.action.name === 'upload') {
 
               // Here I have to convert again
-              metaItem.action.attachment.data = getBase64StringFromBase64URL(
+              metaItem.action.attachment.data = Image_Util.get_base64String_from_base64URL(
                 metaItem.action.attachment.data
               );
   

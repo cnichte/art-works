@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
-import { getSnapshot, loadSnapshot, useEditor } from "tldraw";
+import { getSnapshot, getSvgAsImage, loadSnapshot, useEditor } from "tldraw";
 
 import { WhiteboardI } from "../../../common/types/DocWhiteboard";
 import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
 import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
 import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
 import { Modul_Props_I } from "../../../common/Modul_Props";
+import { Image_Util } from "../../../frontend/Image_Util";
 
 interface MyProps {
   id: string;
@@ -21,6 +22,9 @@ interface MyProps {
 // https://www.youtube.com/watch?v=Hqj6UH-CEu4
 // https://github.com/NagariaHussain/tldraw_whiteboard/blob/develop/tldraw_whiteboard/public/js/whiteboard/App.jsx
 // https://github.com/NagariaHussain/tldraw_whiteboard/blob/develop/tldraw_whiteboard/public/js/whiteboard/DBStateManager.jsx
+
+// Add local image Example
+// https://github.com/tldraw/tldraw/blob/main/apps/examples/src/examples/local-images/LocalImagesExample.tsx
 
 /**
  * Contains a hidden Form, so that I can apply my own "load and save" logic.
@@ -75,16 +79,44 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
     const { document, session } = getSnapshot(editor.store);
     valuesForm.content = JSON.stringify({ document, session });
 
-    FormTool_IPC.save_data<WhiteboardI>({
-      ipcChannel: IPC_DATABASE,
-      dataObject: dataOrigin,
-      valuesForm: valuesForm,
-      force_save: false,
-      modul_props: modul_props,
-    }).then((result: WhiteboardI) => {
-      //! has new rev from backend
-      setDataOrigin(result);
-    });
+    // https://discord.com/channels/859816885297741824/1204349269008449587/1235167139938172988
+    const shapeIds = editor.getCurrentPageShapeIds();
+
+    editor
+      .getSvgString([...shapeIds], {
+        scale: 1,
+        background: false,
+      })
+      .then(({ svg, height, width }) => {
+        getSvgAsImage(editor, svg, {
+          type: "png",
+          quality: 1,
+          scale: 2,
+          width: width,
+          height: height,
+        }).then((value: Blob) => {
+          console.log("TLDraw getSvgAsImage:", width, height);
+          Image_Util.read_image_as_base64(value).then((vs: string) => {
+            valuesForm.preview = vs;
+
+
+            FormTool_IPC.save_data<WhiteboardI>({
+              ipcChannel: IPC_DATABASE,
+              dataObject: dataOrigin,
+              valuesForm: valuesForm,
+              force_save: false,
+              modul_props: modul_props,
+            }).then((result: WhiteboardI) => {
+              //! has new rev from backend
+              setDataOrigin(result);
+            });
+
+
+          });
+        });
+      });
+
+
   };
 
   const onFormFinishFailed = (errorInfo: any) => {
