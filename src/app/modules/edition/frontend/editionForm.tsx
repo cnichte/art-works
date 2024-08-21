@@ -11,7 +11,7 @@ import { DB_Request } from "../../../common/types/RequestTypes";
 import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { Action_Request } from "../../../common/types/RequestTypes";
-import { FormTool } from "../../../frontend/FormTool";
+import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
 import { Edition } from "../../../common/types/DocEdition";
 import { modul_props } from "../modul_props";
 
@@ -27,7 +27,6 @@ import { modul_props } from "../modul_props";
  * @returns NoteForm
  */
 export function EditionForm() {
-  const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
   const doctype: DocType = modul_props.doctype;
@@ -42,90 +41,50 @@ export function EditionForm() {
 
   useEffect(() => {
     //* Wird einmalig beim Laden der Seite ausgeführt.
-    console.info("Request some data from backend...");
-    Header_Buttons_IPC.request_buttons({
-      viewtype: "form",
-      doctype: doctype,
-      doclabel: doclabel,
-      id: id, // is perhaps id='new'
-      surpress: false,
+    const request: DB_Request = {
+      type: "request:data",
+      doctype: modul_props.doctype,
+      id: id,
       options: {},
-    });
+    };
 
-    if (id != "new") {
-      //! Request Document from Database
-      const request: DB_Request = {
-        type: "request:data",
-        doctype: doctype,
-        id: id,
-        options: {},
-      };
+    const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({
+      // TODO <Address> statt <any>
+      viewtype: "form",
+      modul_props: modul_props,
 
-      window.electronAPI
-        .invoke_request(IPC_DATABASE, [request])
-        .then((result: any) => {
-          setDataOrigin(result[segment][0]); //
-          form.setFieldsValue(result[segment][0]);
-          App_Messages_IPC.request_message(
-            "request:message-info",
-            App_Messages_IPC.get_message_from_request(request.type, doclabel)
-          );
-        })
-        .catch(function (error: any) {
-          App_Messages_IPC.request_message(
-            "request:message-error",
-            error instanceof Error ? `Error: ${error.message}` : ""
-          );
-        });
-    }
+      request: request,
+      ipc_channel: "ipc-database",
 
-    //! Listen for Header-Button Actions.
-    // Register and remove the event listener
-    const buaUnsubscribe = window.electronAPI.listen_to(
-      "ipc-button-action",
-      (response: Action_Request) => {
-        if (response.target === doctype && response.view == "form") {
-          console.log("AddressForm says ACTION: ", response);
+      surpress_buttons: false,
+      setDataCallback: function (result: any): void {
+        setDataOrigin(result[segment][0]);
+        form.setFieldsValue(result[segment][0]);
+      },
+      doButtonActionCallback: function (response: Action_Request): void {
+        if (response.type === "request:save-action") {
           triggerSaveRef.current?.click();
-          // message.info(response.type);
         }
-      }
-    );
+      },
+    });
 
     // Cleanup function to remove the listener on component unmount
     return () => {
-      buaUnsubscribe();
+      buaUnsubscribe_func();
     };
   }, []);
 
   const onFormFinish = (valuesForm: any) => {
-    let ft: FormTool<Edition> = new FormTool();
-
-    ft.save_data({
+    FormTool_IPC.save_data<Edition>({
       ipcChannel: IPC_DATABASE,
       dataObject: dataOrigin,
       valuesForm: valuesForm,
       force_save: false,
-    })
-      .then((result: Edition) => {
-        //! has new _rev from backend
-        setDataOrigin(result);
-        // update header-button-state because uuid has changed from 'new' to uuid.
-        Header_Buttons_IPC.request_buttons({
-          viewtype: "form",
-          doctype: doctype,
-          doclabel: doclabel,
-          id: result.id, // is perhaps id='new'
-          surpress: false,
-          options: {},
-        });
-      })
-      .catch(function (error: any) {
-        App_Messages_IPC.request_message(
-          "request:message-error",
-          error instanceof Error ? `Error: ${error.message}` : ""
-        );
-      });
+      modul_props: modul_props,
+    }).then((result: Edition) => {
+      //! has new rev from backend
+      setDataOrigin(result);
+    });
   };
 
   const onFormFinishFailed = (errorInfo: any) => {

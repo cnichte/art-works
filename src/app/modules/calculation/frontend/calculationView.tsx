@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 
 import { MyBasicViewFieldParameterI, MyBasicViewSegmentParameterI } from '../../../common/types/MyBasicViewTypes';
 import MyBasicView from '../../../frontend/myBasicView';
-import { DocType } from '../../../common/types/DocType';
 
 import { CalculationI } from "../../../common/types/DocCalculation";
 import { modul_props } from "../modul_props";
@@ -29,9 +28,6 @@ import { modul_props } from "../modul_props";
 export function CalculationView() {
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
 
   const fieldsCalculation: MyBasicViewFieldParameterI[] = [
     {
@@ -68,8 +64,8 @@ export function CalculationView() {
   ];
 
   const segmentCalculations: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsCalculation,
     relationFilterIdField: "id",
     render: "description",
@@ -81,8 +77,7 @@ export function CalculationView() {
   return (
     <MyBasicView<CalculationI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

@@ -2,9 +2,11 @@
 
 A catalog raisonne application.
 
-Based on my boilerplate [basic-electron-typescript-react-starter](https://github.com/cnichte/basic-electron-typescript-react-starter)
+* Based on my boilerplate [basic-electron-typescript-react-starter](https://github.com/cnichte/basic-electron-typescript-react-starter)
+* There are a few special features here:
+  * uses the `relational-pouch` plugin für `pouchdb`.
 
-The following libraries are also included:
+The following libraries are included:
 
 ```bash
 npm i react-router

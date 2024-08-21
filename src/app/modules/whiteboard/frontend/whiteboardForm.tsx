@@ -17,15 +17,11 @@ import { modul_props } from "../modul_props";
  */
 export function WhiteboardForm() {
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  // const segment: string =  modul_props.segment;
-
   const { id } = useParams();
 
   return (
     <Tldraw>
-      <My_Tldraw_PersistenceManager id={id} doctype={doctype} doclabel={doclabel} />
+      <My_Tldraw_PersistenceManager id={id} modul_props={modul_props} />
     </Tldraw>
   );
 }

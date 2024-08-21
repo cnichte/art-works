@@ -6,7 +6,6 @@ import {
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
-import { DocType } from "../../../common/types/DocType";
 import { Segments } from "../../../frontend/Segments";
 
 import { PublicationI } from "../../../common/types/DocPublication";
@@ -32,10 +31,6 @@ import { modul_props } from "../modul_props";
  */
 export function PublicationView() {
   const { id } = useParams();
-
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
 
   const fieldsPublication: MyBasicViewFieldParameterI[] = [
     {
@@ -97,8 +92,8 @@ export function PublicationView() {
   ];
 
   const segmentPublications: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsPublication,
     relationFilterIdField: "id",
     render: "description",
@@ -107,16 +102,15 @@ export function PublicationView() {
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [
     segmentPublications,
-    Segments.getSegmentArtworks(segment),
-    Segments.getSegmentAwards(segment),
-    Segments.getSegmentSales(segment),
+    Segments.getSegmentArtworks(modul_props.segment),
+    Segments.getSegmentAwards(modul_props.segment),
+    Segments.getSegmentSales(modul_props.segment),
   ];
 
   return (
     <MyBasicView<PublicationI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

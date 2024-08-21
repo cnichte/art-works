@@ -6,7 +6,6 @@ import {
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
-import { DocType } from "../../../common/types/DocType";
 import { modul_props } from "../modul_props";
 
 /* ==========================================================
@@ -29,10 +28,6 @@ import { modul_props } from "../modul_props";
  */
 export function SaleRightsOfUseView() {
   const { id } = useParams();
-
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
 
   const fieldsSalerightsofuse: MyBasicViewFieldParameterI[] = [
     {
@@ -58,8 +53,8 @@ export function SaleRightsOfUseView() {
   ];
 
   const segmentSalerightsofuses: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsSalerightsofuse,
     relationFilterIdField: "id",
     render: "description",
@@ -71,8 +66,7 @@ export function SaleRightsOfUseView() {
   return (
     <MyBasicView
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

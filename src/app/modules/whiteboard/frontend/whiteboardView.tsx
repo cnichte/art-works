@@ -33,10 +33,6 @@ import { modul_props } from "../modul_props";
 export function WhiteboardView() {
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string = modul_props.segment;
-
   const fieldsArtwork: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: "name",
@@ -49,8 +45,8 @@ export function WhiteboardView() {
   ];
 
   const segmentArtworks: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsArtwork,
     relationFilterIdField: "id",
     render: "description",
@@ -62,8 +58,7 @@ export function WhiteboardView() {
   return (
     <MyBasicView<WhiteboardI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 
 import { MyBasicViewFieldParameterI, MyBasicViewSegmentParameterI } from '../../../common/types/MyBasicViewTypes';
 import MyBasicView from '../../../frontend/myBasicView';
-import { DocType } from '../../../common/types/DocType';
 
 import { AddressI } from '../../../common/types/DocAddress';
 import { modul_props } from '../modul_props';
@@ -27,10 +26,6 @@ import { modul_props } from '../modul_props';
  */
 export function AddressView() {
   const { id } = useParams();
-
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
   
   const fieldsAddress: MyBasicViewFieldParameterI[] = [
     {
@@ -72,8 +67,8 @@ export function AddressView() {
   ];
 
   const segmentAddresses: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsAddress,
     relationFilterIdField: 'id',
     render: 'description',
@@ -85,8 +80,7 @@ export function AddressView() {
   return (
     <MyBasicView<AddressI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

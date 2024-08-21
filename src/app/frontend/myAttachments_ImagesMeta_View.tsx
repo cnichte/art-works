@@ -24,8 +24,6 @@ import {
 } from "@ant-design/icons";
 import { AttachmentMeta } from "../common/types/AttachmentTypes";
 import { FormItem_Props } from "../common/types/FormPropertiesInterface";
-import { FormTool } from "./FormTool";
-
 
 
 const { Meta } = Card;

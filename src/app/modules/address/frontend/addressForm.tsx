@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams } from "react-router";
 
 import { Select, Input, Form, Button } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
@@ -9,12 +9,8 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import type { RcFile } from "antd/es/upload";
 
 // Application imports
-import { FormTool } from "../../../frontend/FormTool";
 import { MyInputURLField } from "../../../frontend/myInputFields";
 import { MyDatePicker } from "../../../frontend/myDatePicker";
-
-import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 
 import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
 import { DocType } from "../../../common/types/DocType";
@@ -23,6 +19,9 @@ import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
 
 import { Address } from "../../../common/types/DocAddress";
 import { modul_props } from "../modul_props";
+import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
+import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
+import { AddressType } from "../../../common/types/DocAddressType";
 
 /**
  * Formular für das Modul Note.
@@ -30,11 +29,10 @@ import { modul_props } from "../modul_props";
  * @returns NoteForm
  */
 export function AddressForm() {
-  const navigate = useNavigate();
 
   const doclabel: string = modul_props.doclabel;
   const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
+  const segment: string = modul_props.segment;
 
   const [form] = Form.useForm();
   // Die id wird als Parameter übergeben
@@ -42,8 +40,8 @@ export function AddressForm() {
   const { id } = useParams();
 
   const [dataOrigin, setDataOrigin] = useState<Address>(null);
-  const [addressTypes, setAddressTypes] = useState([]);
-  
+  const [addressTypes, setAddressTypes] = useState<AddressType[]>([]);
+
   const triggerSaveRef = React.useRef(null);
 
   // TODO FormPropertiesInterface wird nicht mehr gebraucht?
@@ -56,42 +54,32 @@ export function AddressForm() {
 
   useEffect(() => {
     //* Wird einmalig beim Laden der Seite ausgeführt.
-    console.info("Request some data from backend...");
-    Header_Buttons_IPC.request_buttons({
-      viewtype: "form",
-      doctype: doctype,
-      doclabel: doclabel,
-      id: id, // is perhaps id='new'
-      surpress: false,
+    const request: DB_Request = {
+      type: "request:data",
+      doctype: modul_props.doctype,
+      id: id,
       options: {},
+    };
+
+    const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({
+      // TODO <Address> statt <any>
+      viewtype: "form",
+      modul_props: modul_props,
+
+      request: request,
+      ipc_channel: "ipc-database",
+
+      surpress_buttons: false,
+      setDataCallback: function (result: any): void {
+        setDataOrigin(result[segment][0]);
+        form.setFieldsValue(result[segment][0]);
+      },
+      doButtonActionCallback: function (response: Action_Request): void {
+        if (response.type === "request:save-action") {
+          triggerSaveRef.current?.click();
+        }
+      },
     });
-
-    if (id != "new") {
-      //! Request Document from Database
-      const request: DB_Request = {
-        type: "request:data",
-        doctype: doctype,
-        id: id,
-        options: {},
-      };
-
-      window.electronAPI
-        .invoke_request(IPC_DATABASE, [request])
-        .then((result: any) => {
-          setDataOrigin(result[segment][0]); //
-          form.setFieldsValue(result[segment][0]);
-          App_Messages_IPC.request_message(
-            "request:message-info",
-            App_Messages_IPC.get_message_from_request(request.type, doclabel)
-          );
-        })
-        .catch(function (error: any) {
-          App_Messages_IPC.request_message(
-            "request:message-error",
-            error instanceof Error ? `Error: ${error.message}` : ""
-          );
-        });
-    }
 
     const request_2: DB_Request = {
       type: "request:data",
@@ -99,65 +87,33 @@ export function AddressForm() {
       options: {},
     };
 
-    window.electronAPI
-      .invoke_request(IPC_DATABASE, [request_2])
-      .then((result: any) => {
-        setAddressTypes(result.addressTypes); //
-      })
-      .catch(function (error: any) {
-        App_Messages_IPC.request_message(
-          "request:message-error",
-          error instanceof Error ? `Error: ${error.message}` : ""
-        );
-      });
-
-    //! Listen for Header-Button Actions.
-    // Register and remove the event listener
-    const buaUnsubscribe = window.electronAPI.listen_to(
-      "ipc-button-action",
-      (response: Action_Request) => {
-        if (response.target === doctype && response.view == "form") {
-          console.log("AddressForm says ACTION: ", response);
-          triggerSaveRef.current?.click();
-          // message.info(response.type);
-        }
-      }
-    );
+    RequestData_IPC.load_data<any>({
+      // TODO AddressType[] statt <any>
+      modul_props: modul_props,
+      ipc_channel: "ipc-database",
+      request: request_2,
+      setDataCallback: function (result: any): void {
+        setAddressTypes(result.addressTypes);
+      },
+    });
 
     // Cleanup function to remove the listener on component unmount
     return () => {
-      buaUnsubscribe();
+      buaUnsubscribe_func();
     };
   }, []);
 
   const onFormFinish = (valuesForm: any) => {
-    let ft: FormTool<Address> = new FormTool();
-
-    ft.save_data({
+    FormTool_IPC.save_data<Address>({
       ipcChannel: IPC_DATABASE,
       dataObject: dataOrigin,
       valuesForm: valuesForm,
       force_save: false,
-    })
-      .then((result: Address) => {
-        //! has new _rev from backend
-        setDataOrigin(result);
-        // update header-button-state because uuid has changed from 'new' to uuid.
-        Header_Buttons_IPC.request_buttons({
-          viewtype: "form",
-          doctype: doctype,
-          doclabel: doclabel,
-          id: result.id,
-          surpress: false,
-          options: {},
-        });
-      })
-      .catch(function (error:any) {
-        App_Messages_IPC.request_message(
-          "request:message-error",
-          error instanceof Error ? `Error: ${error.message}` : ""
-        );
-      });
+      modul_props: modul_props,
+    }).then((result: Address) => {
+      //! has new rev from backend
+      setDataOrigin(result);
+    });
   };
 
   const onFormFinishFailed = (errorInfo: any) => {
@@ -205,6 +161,15 @@ export function AddressForm() {
         onFinishFailed={onFormFinishFailed}
         autoComplete="off"
       >
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            ref={triggerSaveRef}
+            style={{ display: "none" }}
+          />
+        </Form.Item>
+
         <Form.Item
           label="Typ"
           name="addressType"
@@ -252,15 +217,6 @@ export function AddressForm() {
         </Form.Item>
         <Form.Item label="Tags" name="tags">
           <Input />
-        </Form.Item>
-
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            ref={triggerSaveRef}
-            style={{ display: "none" }}
-          />
         </Form.Item>
       </Form>
     </div>

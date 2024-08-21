@@ -6,7 +6,6 @@ import {
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
-import { DocType } from "../../../common/types/DocType";
 
 import { CompilationI } from "../../../common/types/DocCompilation";
 import { modul_props } from "../modul_props";
@@ -37,10 +36,6 @@ export function CompilationView() {
    ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
-
   const fieldsCompilation: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: "title",
@@ -57,8 +52,8 @@ export function CompilationView() {
   ];
 
   const segmentCompilations: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsCompilation,
     relationFilterIdField: "id",
     render: "description",
@@ -70,8 +65,7 @@ export function CompilationView() {
   return (
     <MyBasicView<CompilationI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

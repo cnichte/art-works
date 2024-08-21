@@ -6,7 +6,6 @@ import {
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
-import { DocType } from "../../../common/types/DocType";
 
 import { ExhibitionI } from "../../../common/types/DocExhibition";
 import { modul_props } from "../modul_props";
@@ -38,10 +37,6 @@ export function ExhibitionView() {
 
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
-
   const fieldsExhibition: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: "title",
@@ -70,8 +65,8 @@ export function ExhibitionView() {
   ];
 
   const segmentExhibitions: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsExhibition,
     relationFilterIdField: "id",
     render: "description",
@@ -83,8 +78,7 @@ export function ExhibitionView() {
   return (
     <MyBasicView<ExhibitionI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

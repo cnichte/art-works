@@ -5,7 +5,6 @@ import {
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
-import { DocType } from "../../../common/types/DocType";
 
 import { Artwork } from "../../../common/types/DocArtwork";
 import { modul_props } from "../modul_props";
@@ -31,18 +30,6 @@ import { modul_props } from "../modul_props";
 export function ArtworkView() {
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string = modul_props.segment;
-
-  /*
-   TODO condition: {
-    field: 'category',
-    selector: '$eq',
-    value: 'werk', // Zeige nur Attachment-Bilder
-    action: 'showif',
-  },
-*/
   const fieldsArtwork: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: "title",
@@ -141,8 +128,8 @@ export function ArtworkView() {
   ];
 
   const segmentArtworks: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsArtwork,
     relationFilterIdField: "id",
     render: "description",
@@ -154,8 +141,7 @@ export function ArtworkView() {
   return (
     <MyBasicView<Artwork>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

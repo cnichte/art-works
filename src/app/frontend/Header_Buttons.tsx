@@ -106,13 +106,14 @@ export function Header_Buttons(props: any) {
       type: "request:save-action",
       target: doctype,
 
-      doctype: doctype,
       view: viewtype,
+      doctype: doctype,
+      doclabel: doclabel,
       id: id,
 
       options: {},
       surpress: false,
-      doclabel: doclabel,
+
     };
 
     window.electronAPI.send(IPC_BUTTON_ACTION, [request]);

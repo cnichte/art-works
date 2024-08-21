@@ -1,4 +1,4 @@
-import React, { Key, useContext, useEffect, useState } from "react";
+import React, { Key, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { Select, Space, Table, Popconfirm } from "antd";
@@ -14,15 +14,12 @@ import {
 import { IPC_SETTINGS } from "../../../common/types/IPC_Channels";
 
 import { DocCatalogType } from "../../../common/types/DocCatalog";
-
-import { App_Context } from "../../../frontend/App_Context";
-import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
-import { DOCTYPE_CATALOG } from "../../../common/types/DocType";
+import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
+import { modul_props } from "../modul_props";
 
 export function Catalog_List() {
   const navigate = useNavigate();
-  const app_context = useContext(App_Context);
 
   const [startoptions, setStartoptions] = useState([]);
   const [selectedStartoption, setSelectedStartoption] = useState<string>("");
@@ -34,74 +31,23 @@ export function Catalog_List() {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   useEffect(() => {
-    console.log("ContextData", app_context);
-    Header_Buttons_IPC.request_buttons({
-      viewtype: "list",
-      doctype: "catalog",
-      doclabel: "Catalog",
-      id: "", // is perhaps id='new'
-      surpress: false,
-      options: {},
-    });
-
-    load_list();
-
-    const request: Settings_Request = {
-      type: "request:get-startoptions",
-      doctype: "catalog",
-      options: {},
-    };
-
-    window.electronAPI
-      .invoke_request(IPC_SETTINGS, [request])
-      .then((result: any) => {
-        setStartoptions(result.options);
-
-        setSelectedStartoption(result.selected);
-        isSelectedShow(result.selected);
-
-        setSelectedCatalog(result.opensOnStartup);
-      })
-      .catch(function (error: any) {
-        App_Messages_IPC.request_message(
-          "request:message-error",
-          error instanceof Error ? `Error: ${error.message}` : ""
-        );
-      });
-
-    //! Listen for Header-Button Actions.
-    // Register and remove the event listener
-    const buaUnsubscribe = window.electronAPI.listen_to(
-      "ipc-button-action",
-      (response: Action_Request) => {
-        if (response.target === DOCTYPE_CATALOG && response.view == "list") {
-          console.log("Catalog_List says ACTION: ", response);
-          App_Messages_IPC.request_message(
-            "request:message-info",
-            JSON.stringify(response)
-          );
-        }
-      }
-    );
-
-    // Cleanup function to remove the listener on component unmount
-    return () => {
-      buaUnsubscribe();
-    };
-  }, []);
-
-  function load_list(): void {
     // Request data from pouchdb on page load.
     //! Following Pattern 2 for the Database requests
-    const request: Settings_Request = {
+    const request_1: Settings_Request = {
       type: "request:list-connections",
-      doctype: "catalog",
+      doctype: modul_props.doctype,
       options: {},
     };
 
-    window.electronAPI
-      .invoke_request(IPC_SETTINGS, [request])
-      .then((result: any) => {
+    const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<any>({
+      viewtype: "list",
+      modul_props: modul_props,
+
+      request: request_1,
+      ipc_channel: "ipc-settings",
+
+      surpress_buttons: false,
+      setDataCallback: function (result: any): void {
         let list: DocCatalogType[] = result.options;
         setSelectedRowKeys([result.selected]);
 
@@ -118,11 +64,27 @@ export function Catalog_List() {
         });
 
         setTableData(newList);
+      },
+      doButtonActionCallback: function (response: Action_Request): void {
+        // only used in form so far.
+      },
+    });
 
-        App_Messages_IPC.request_message(
-          "request:message-info",
-          "Settings loaded."
-        );
+    const request_2: Settings_Request = {
+      type: "request:get-startoptions",
+      doctype: "catalog",
+      options: {},
+    };
+
+    window.electronAPI
+      .invoke_request(IPC_SETTINGS, [request_2])
+      .then((result: any) => {
+        setStartoptions(result.options);
+
+        setSelectedStartoption(result.selected);
+        isSelectedShow(result.selected);
+
+        setSelectedCatalog(result.opensOnStartup);
       })
       .catch(function (error: any) {
         App_Messages_IPC.request_message(
@@ -130,6 +92,43 @@ export function Catalog_List() {
           error instanceof Error ? `Error: ${error.message}` : ""
         );
       });
+
+    // Cleanup function to remove the listener on component unmount
+    return () => {
+      buaUnsubscribe_func();
+    };
+  }, []);
+
+  function reload_list(): void {
+    const request: Settings_Request = {
+      type: "request:list-connections",
+      doctype: "catalog",
+      options: {},
+    };
+
+    RequestData_IPC.load_data<any>({
+      modul_props: modul_props,
+      ipc_channel: "ipc-settings",
+      request: request,
+      setDataCallback: function (result: any): void {
+        let list: DocCatalogType[] = result.options;
+        setSelectedRowKeys([result.selected]);
+
+        // TODO das noch wie bei dem anderen machen
+        let newList: DataType[] = list.map((item: DocCatalogType) => {
+          let o: DataType = {
+            key: item.id,
+            templateName: item.templateName,
+            templateDescription: item.templateDescription,
+            dbName: item.dbName,
+            dbOption: item.dbOption,
+          };
+          return o;
+        });
+
+        setTableData(newList);
+      },
+    });
   }
 
   //--------------------------------------------------------------
@@ -262,7 +261,7 @@ export function Catalog_List() {
           "request:message-info",
           JSON.stringify(result)
         );
-        load_list();
+        reload_list();
       })
       .catch(function (error): any {
         App_Messages_IPC.request_message(

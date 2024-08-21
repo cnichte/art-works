@@ -125,6 +125,21 @@ export function MyAttachments_ImagesMeta_Input({
   // { uid: '-1', name: 'image.png', status: 'done | uploading | error', url: '', },
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
+  // TODO Nach dem speichern sollte die UploadListe leer sein.
+  /*
+  setFileList((fileList: any[]) =>
+    fileList.filter((file) => {
+      value.forEach((element: AttachmentMeta) => {
+        if (file.name === element.filename && !element.hasOwnProperty('action')) {
+          
+        }else{
+          return file;
+        }
+      });
+    })
+  );
+*/
+
   /* ----------------------------------------------------------
 
     Actions
@@ -162,7 +177,7 @@ export function MyAttachments_ImagesMeta_Input({
       const isLt2M = file.size / 1024 / 1024 < 50;
       if (!isLt2M) {
         message.error("Image must smaller than 50 MB.");
-        // TODO sollte natürich  nicht zur Liste hinzugefügt werden
+        // TODO sollte natürlich nicht zur Liste hinzugefügt werden
       }
 
       // get the original unresized image.

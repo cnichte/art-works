@@ -64,7 +64,7 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
     PouchDB.plugin(find);
 
     //! Alter Code
-/*
+    /*
     if (databaseUri.length > 0 && databaseUri.startsWith("http")) {
 
       console.log(`create / open remote store ${databaseUri}`);
@@ -100,7 +100,7 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
 
     // versuche ich hier zu öffnen:
     // http://admin:adminadmin@fileserver02:5984/werkverzeichnis
-// /*    
+    // /*
     if (this.databaseUri.length > 0 && this.databaseUri.startsWith("http")) {
       const remoteStore = this.databaseUri;
 
@@ -216,8 +216,7 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
         });
     }
 
-// */
-
+    // */
   }
 
   does_local_db_exist(name: string): Promise<boolean> {
@@ -451,7 +450,7 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
 
   readFromID(uuid: string, options: any): Promise<any> {
     if (this.useRelations) {
-      return this.db.get(uuid, options);
+      return this.db.get(uuid, options); // TODO
     } else {
       return this.db.get(uuid, options);
     }
@@ -473,6 +472,10 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
   readFromRelationsID(type: string, id: string): Promise<any> {
     if (this.useRelations) {
       console.log("this.db.rel.find", type, id);
+
+      //! const composite_id: string = this.db.rel.makeDocID({type:type,id:id});
+      // return this.db.get(composite_id, { conflicts: true });
+      //? Mist: liefert keine Konflikte für das 2. artwork in der liste
       return this.db.rel.find(type, id);
     } else {
       // TODO Alles in query packen
@@ -485,6 +488,18 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
   update(type: string, data: any): Promise<any> {
     if (this.useRelations) {
       console.log("this.db.rel.save", type, data);
+      /*
+      let self = this;
+      return this.db.rel.save(type, data)    
+      .catch(function (err: any) {
+        
+        if (err.status === 409) {
+
+        } else {
+          throw err; // some other error
+        }
+      });
+*/
       return this.db.rel.save(type, data);
     } else {
       console.log("this.db.put", data);

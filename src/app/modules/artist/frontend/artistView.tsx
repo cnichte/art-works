@@ -5,7 +5,6 @@ import {
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
-import { DocType } from "../../../common/types/DocType";
 import { ArtistI } from "../../../common/types/DocArtist";
 import { Segments } from "../../../frontend/Segments";
 import { modul_props } from "../modul_props";
@@ -36,9 +35,6 @@ export function ArtistView() {
    ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
 
   const fieldsArtist: MyBasicViewFieldParameterI[] = [
     {
@@ -142,7 +138,7 @@ export function ArtistView() {
   const segmentSets: MyBasicViewSegmentParameterI[] = [
     segmentArtists,
     segmentResumes,
-    Segments.getSegmentArtworks(segment),
+    Segments.getSegmentArtworks(modul_props.segment),
   ];
 
   /* ----------------------------------------------------------
@@ -153,8 +149,7 @@ export function ArtistView() {
   return (
     <MyBasicView<ArtistI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

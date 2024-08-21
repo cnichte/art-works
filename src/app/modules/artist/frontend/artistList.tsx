@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 import { MyBasicList } from "../../../frontend/myBasicList"; // src/app/frontend/myBasicList'
-import { DocType } from "../../../common/types/DocType";
 import { ArtistI } from "../../../common/types/DocArtist";
 import { modul_props } from "../modul_props";
 
@@ -16,15 +15,11 @@ import { modul_props } from "../modul_props";
 export function ArtistList() {
   const navigate = useNavigate();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
-
   //* open view
   const handleView = (record: { id: any }) => {
     console.log("--- handleView:", record);
-    console.log(`--- navigate  : '/${doctype}/view/${record.id}'`);
-    navigate(`/${doctype}/view/${record.id}`);
+    console.log(`--- navigate  : '/${modul_props.doctype}/view/${record.id}'`);
+    navigate(`/${modul_props.doctype}/view/${record.id}`);
   };
 
   const columns: ColumnsType<ArtistI> = [
@@ -59,12 +54,5 @@ export function ArtistList() {
     },
   ];
 
-  return (
-    <MyBasicList<ArtistI>
-      doclabel={doclabel}
-      doctype={doctype}
-      segment={segment}
-      columns={columns}
-    />
-  );
+  return <MyBasicList<ArtistI> modul_props={modul_props} columns={columns} />;
 }

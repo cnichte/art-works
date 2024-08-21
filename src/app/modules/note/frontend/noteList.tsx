@@ -20,15 +20,11 @@ import { modul_props } from "../modul_props";
 export function NoteList() {
   const navigate = useNavigate();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
-
   //* open view
   const handleView = (record: { id: any }) => {
     console.log("--- handleView:", record);
-    console.log(`--- navigate  : '/${doctype}/view/${record.id}'`);
-    navigate(`/${doctype}/view/${record.id}`);
+    console.log(`--- navigate  : '/${modul_props.doctype}/view/${record.id}'`);
+    navigate(`/${modul_props.doctype}/view/${record.id}`);
   };
 
   const columns: ColumnsType<NoteI> = [
@@ -55,12 +51,5 @@ export function NoteList() {
     },
   ];
 
-  return (
-    <MyBasicList
-      doclabel={doclabel}
-      doctype={doctype}
-      segment={segment}
-      columns={columns}
-    />
-  );
+  return <MyBasicList modul_props={modul_props} columns={columns} />;
 }

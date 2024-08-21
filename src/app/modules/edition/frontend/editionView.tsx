@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 
 import { MyBasicViewFieldParameterI, MyBasicViewSegmentParameterI } from '../../../common/types/MyBasicViewTypes';
 import MyBasicView from '../../../frontend/myBasicView';
-import { DocType } from '../../../common/types/DocType';
-
 import { EditionI } from "../../../common/types/DocEdition";
 import { modul_props } from "../modul_props";
 
@@ -28,10 +26,6 @@ import { modul_props } from "../modul_props";
  */
 export function EditionView() {
   const { id } = useParams();
-
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
 
   const fieldsEdition: MyBasicViewFieldParameterI[] = [
     {
@@ -81,8 +75,8 @@ export function EditionView() {
   ];
 
   const segmentEditions: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsEdition,
     relationFilterIdField: "id",
     render: "description", // "description" | "table" | "component"
@@ -94,8 +88,7 @@ export function EditionView() {
   return (
       <MyBasicView<EditionI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
       />
   );

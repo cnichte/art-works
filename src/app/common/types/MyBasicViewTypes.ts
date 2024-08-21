@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 // import { RequestViewI } from '../../backend/types/RequestsFactoryTypes';
 import { ConditionParameter } from '../../frontend/Condition';
+import { Modul_Props_I } from '../Modul_Props';
 import { DocType } from './DocType';
 
 /** Zusatz für mapKeyTo
@@ -49,8 +50,7 @@ interface MyBasicViewSegmentParameterI {
  */
 interface MyBasicViewProps {
   id: string;
-  doclabel: string;
-  doctype: DocType;
+  modul_props: Modul_Props_I;
 //  requests: RequestViewI;
   segmentSets: Array<MyBasicViewSegmentParameterI>; //
 }

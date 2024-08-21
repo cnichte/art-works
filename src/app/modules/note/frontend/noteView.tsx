@@ -5,7 +5,6 @@ import {
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
-import { DocType } from "../../../common/types/DocType";
 
 import { NoteI } from "../../../common/types/DocNote";
 import { modul_props } from "../modul_props";
@@ -31,10 +30,6 @@ import { modul_props } from "../modul_props";
 export function NoteView() {
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
-
   const fieldsNote: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: "title",
@@ -51,8 +46,8 @@ export function NoteView() {
   ];
 
   const segmentNotes: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsNote,
     relationFilterIdField: "id",
     render: "description",
@@ -64,8 +59,7 @@ export function NoteView() {
   return (
     <MyBasicView<NoteI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

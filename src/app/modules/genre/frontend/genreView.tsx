@@ -6,7 +6,6 @@ import {
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
-import { DocType } from "../../../common/types/DocType";
 import { GenreI } from "../../../common/types/DocGenre";
 import { modul_props } from "../modul_props";
 
@@ -31,10 +30,6 @@ import { modul_props } from "../modul_props";
 export function GenreView() {
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string = modul_props.segment;
-
   const fieldsGenre: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: "name",
@@ -51,8 +46,8 @@ export function GenreView() {
   ];
 
   const segmentGenres: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsGenre,
     relationFilterIdField: "id",
     render: "description",
@@ -64,8 +59,7 @@ export function GenreView() {
   return (
     <MyBasicView<GenreI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

@@ -20,6 +20,8 @@ import { DocType } from "../common/types/DocType";
 import { App_Messages_IPC } from "./App_Messages_IPC";
 import { IPC_DATABASE } from "../common/types/IPC_Channels";
 import { Header_Buttons_IPC } from "./Header_Buttons_IPC";
+import { RequestData_IPC } from "./RequestData_IPC";
+import { Modul_Props_I } from "../common/Modul_Props";
 
 // TODO CSS import styles from './myBasicList.css';
 // <Table className={styles.antTableRow}
@@ -35,9 +37,7 @@ type RowSelectionCallbackType = (
 ) => any;
 
 interface MyBasicListProps {
-  doclabel: string;
-  doctype: DocType;
-  segment: any; // muss 'any' sein, weil als Index in Array verwendet.
+  modul_props:Modul_Props_I;
   columns: Array<any>;
   columns_meta?: MyBasicList_Meta_I[];
   rowSelectionActive?: boolean;
@@ -59,9 +59,7 @@ interface MyBasicListProps {
  * @returns
  */
 function MyBasicList<T>({
-  doclabel: doclabel,
-  doctype: doctype,
-  segment,
+  modul_props,
   columns,
   columns_meta,
   rowSelectionActive = false,
@@ -87,102 +85,46 @@ function MyBasicList<T>({
     ---------------------------------------------------------- */
 
   useEffect(() => {
-    Header_Buttons_IPC.request_buttons({
-      viewtype: "list",
-      doctype: doctype,
-      doclabel: doclabel,
-      id: "",
-      surpress: false,
-      options: {},
-    });
 
-    // Request data from pouchdb
-    //! Following Pattern 2 for the Database requests
     const request: DB_Request = {
       type: "request:list-all",
-      doctype: doctype,
+      doctype: modul_props.doctype,
+      id: "",
       options: {},
     };
 
-    window.electronAPI
-      .invoke_request(IPC_DATABASE, [request])
-      .then((result: T[]) => {
-        console.log(result);
-        setData(result);
-        App_Messages_IPC.request_message(
-          "request:message-info",
-          App_Messages_IPC.get_message_from_request(request.type, "")
-        );
-      })
-      .catch(function (error): any {
-        App_Messages_IPC.request_message(
-          "request:message-error",
-          error instanceof Error ? `Error: ${error.message}` : ""
-        );
-      });
+    const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<T[]>(
+      {
+        viewtype: "list",
+        modul_props: modul_props,
 
-    //! Listen for Header-Button Actions.
-    // Register and remove the event listener
-    const buaUnsubscribe = window.electronAPI.listen_to(
-      "ipc-button-action",
-      (response: Action_Request) => {
-        if (response.target === doctype && response.view == "list") {
-          console.log(`${doclabel} List says ACTION: `, response);
-          App_Messages_IPC.request_message(
-            "request:message-info",
-            JSON.stringify(response)
-          );
-        }
+        request: request,
+        ipc_channel: "ipc-database",
+
+        surpress_buttons: false,
+        setDataCallback: function (result: T[]): void {
+          setData(result);
+        },
+        doButtonActionCallback: function (response: Action_Request): void {
+          // only used in form so far.
+        },
       }
     );
 
     // Cleanup function to remove the listener on component unmount
     return () => {
-      buaUnsubscribe();
+      buaUnsubscribe_func();
     };
   }, []);
 
-  //* Erhalte die Daten vom Backend.
-  /*
-  window.electronAPI.once(requests.channel, (arg: any) => {
-    console.log(arg);
-    if (arg.request === requests.listData) {
-      if ("error" in arg) {
-        if ("error" in arg.error && "reason" in arg.error) {
-          let m =
-            `Fehler: ${arg.error.error}` +
-            (arg.error.reason.length > 0 ? `, Grund: ${arg.error.reason}` : "");
-          message.error(m);
-        } else {
-          message.error(`Fehler: ${arg.error.toString()}`);
-        }
-      } else {
-        console.log(arg.data);
-        setData(arg.data); // arg.data.docs
-      }
-    } else if (arg.request === requests.deleteData) {
-      setConfirmLoading(false);
-      if ("error" in arg) {
-        // object with keys {error, reason, status, name, message, stack, docId}).
-        message.error(`Fehler: ${arg.error.error}, Grund: ${arg.error.reason}`);
-      } else if ("deleted" in arg.data && arg.data.deleted) {
-        // data:{ deleted: true }
-        message.success("Daten erfolgreich gelöscht.");
-      } else if ("deleted" in arg.data && !arg.data.deleted) {
-        // data:{ deleted: false }
-        message.warning("Daten konnten nicht gelöscht werden.");
-      }
-    }
-  });
-*/
   //* open form in mode 'edit'
   const handleEdit = (id: string) => {
-    navigate(`/${doctype}/form/${id}`);
+    navigate(`/${modul_props.doctype}/form/${id}`);
   };
 
   //* open form in mode 'new'
   const handleAdd = () => {
-    navigate(`/${doctype}/form/new`);
+    navigate(`/${modul_props.doctype}/form/new`);
   };
 
   const handleSearch = () => {
@@ -242,8 +184,8 @@ function MyBasicList<T>({
   function getContent(): Array<any> {
     let records: any = [];
 
-    if (segment in data) {
-      records = data[segment];
+    if (modul_props.segment in data) {
+      records = data[modul_props.segment as any];
 
       if (columns_meta != null) {
         // resolve some uuids
@@ -259,7 +201,7 @@ function MyBasicList<T>({
           }
         }
       } else {
-        records = data[segment];
+        records = data[modul_props.segment as any];
       }
     }
 

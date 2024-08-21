@@ -1,11 +1,27 @@
 # Developers Research
 
+## Conflict-Management
+
+Das funktioniert noch überhaupt nicht.
+
+* <https://stackoverflow.com/questions/53342945/pouchdb-couchdb-conflict-resolution-server-side>
+  * <https://github.com/glynnbird/deconflict> !!!
+* https://hasura.io/blog/couchdb-style-conflict-resolution-rxdb-hasura
+* https://www.bennadel.com/blog/3200-retrying-bulk-updates-in-pouchdb-using-a-recursive-promise-chain.htm
+* https://github.com/genglefr/my-gallery/blob/master/app/pouch-ws-adapter.js
+
+https://stackoverflow.com/questions/24185125/pouchdb-manually-managing-conflicts?rq=3
+
+## Unterscheidung
+
 Ich würde gern die Unterscheidung
 
-* 'mit relational-pouch' und
+* 'mit relational-pouch', Zugriff über relational-pouch (result, id, doctype, ...)
+* 'mit relational-pouch', Zugriff über pouchdb (result.data, result._id (composite doctype+uuid), result._ref) ...
+* und
 * 'ohne relational-pouch'
 
-elegant lösen und beides ganz transpartent unterstützen. Suche nach:
+elegant lösen und alles ganz transpartent unterstützen. Suche nach:
 
 ```js
 //* PouchDB without Plugin relational-pouch

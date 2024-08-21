@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { Descriptions, Space, Col, Row, Tabs, Table } from "antd";
 
 import ViewTool from "./ViewTools";
@@ -11,10 +10,8 @@ import {
   MyBasicViewProps,
   MyBasicViewSegmentParameterI,
 } from "../common/types/MyBasicViewTypes";
-import { Header_Buttons_IPC } from "./Header_Buttons_IPC";
 import { Action_Request, DB_Request } from "../common/types/RequestTypes";
-import { App_Messages_IPC } from "./App_Messages_IPC";
-import { IPC_DATABASE } from "../common/types/IPC_Channels";
+import { RequestData_IPC } from "./RequestData_IPC";
 
 /* ==========================================================
 
@@ -285,11 +282,6 @@ function RenderSegmentsInTabs(reactParams: {
   );
 } //* RenderSegmentsInTabs - Renders all records in the segment.
 
-/* ==========================================================
-
-    * MyBasicView - ReactNode / Main Component.
-
-   ========================================================== */
 
 /**
  ** MyBasicView - React Component.
@@ -312,118 +304,46 @@ function RenderSegmentsInTabs(reactParams: {
  */
 function MyBasicView<T>({
   id,
-  doclabel: doclabel,
-  doctype: doctype,
+  modul_props,
   //  requests,
   segmentSets: fieldset, // [{ key: 'city', label: 'Stadt'}]
 }: MyBasicViewProps) {
-  /* ----------------------------------------------------------
 
-    Standard Data / States
-
-   ---------------------------------------------------------- */
-  const navigate = useNavigate();
-  const [data, setData] = useState<any>([]);
-
-  /* ----------------------------------------------------------
-
-    Actions
-
-    ---------------------------------------------------------- */
+  const [data, setData] = useState<T>(null);
 
   useEffect(() => {
-    //* Fordere Daten vom Backend, an.
-    Header_Buttons_IPC.request_buttons({
-      viewtype: "view",
-      doctype: doctype,
-      doclabel: doclabel,
-      id: id,
-      surpress: false,
-      options: {},
-    });
 
     const request: DB_Request = {
       type: "request:data",
-      doctype: doctype,
+      doctype: modul_props.doctype,
       id: id,
       options: {},
     };
 
-    window.electronAPI
-      .invoke_request(IPC_DATABASE, [request])
-      .then((result: any) => {
-        setData(result);
-        App_Messages_IPC.request_message(
-          "request:message-success",
-          App_Messages_IPC.get_message_from_request(request.type, doclabel)
-        );
-      })
-      .catch(function (error: any) {
-        App_Messages_IPC.request_message(
-          "request:message-error",
-          error instanceof Error ? `Error: ${error.message}` : ""
-        );
-      });
+    const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<T>({
+      viewtype: "view",
+      modul_props: modul_props,
 
-    //! Listen for Header-Button Actions.
-    // Register and remove the event listener
-    const buaUnsubscribe = window.electronAPI.listen_to(
-      "ipc-button-action",
-      (response: Action_Request) => {
-        if (response.target === doctype && response.view == "view") {
-          console.log("Book_View says ACTION: ", response);
-          App_Messages_IPC.request_message(
-            "request:message-success",
-            App_Messages_IPC.get_message_from_request(request.type, "Book")
-          );
-        }
-      }
-    );
+      request: request,
+      ipc_channel: "ipc-database",
+      
+      surpress_buttons: false,
+      setDataCallback: function (result: T): void {
+        setData(result);
+      },
+      doButtonActionCallback: function (response: Action_Request): void {
+        // only used in form so far.
+      },
+    });
+
 
     // Cleanup function to remove the listener on component unmount
     return () => {
-      buaUnsubscribe();
+      buaUnsubscribe_func();
     };
 
-    // eslint-disable-next-line prettier/prettier
-    // console.log(`---- ${moduleId}-view - requests data from backend ${requests.viewData}.`);
-    // window.electronAPI.sendMessage(requests.channel, [ requests.viewData,id,]);
   }, []);
 
-  //* Erhalte die Daten vom Backend.
-
-  /* window.electronAPI.once(requests.channel, (arg:any) => {
-    if (arg.request === requests.viewData) {
-      console.log(
-        `---- ${moduleId}-view - receives data from backend`,
-        arg.data
-      );
-      setData(arg.data);
-      // TODO: Abfragen sollen weniger Daten liefern - filtern...
-      // Hier wird momentan viel zu viel geliefert, da relational-pouch die Relationen auflöst
-      // und alles in das Ergebnis packt. Vor allem bei Zirkelbezügen wirkt sich das aus.
-      // Das könnte ich evtl schon im Backend mit einem Filter vor/in/nach Datenbankafrage lösen.
-    }
-  });
-*/
-  const handleEdit = () => {
-    // URL Pattern in frontend_main.tsx definiert: <Route path="/artist-view/artist-form/:id"
-    // so bekomme ich die id übergeben
-    // https://ui.dev/react-router-url-parameters
-    //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-    console.log(
-      `##### Navigate from VIEW ${id} to FORM: /${doctype}/form/${
-        data[fieldset[0].segment][0].id
-      }`
-    );
-
-    navigate(`/${doctype}/form/${data[fieldset[0].segment][0].id}`); // /${activeTab}
-  };
-
-  const onViewClose = (key: any) => {
-    console.log("---------- onViewClose", key);
-    navigate(`/${doctype}/list`);
-  };
 
   /* ----------------------------------------------------------
 

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams } from "react-router";
 
-import { Typography, Input, Form, Button } from 'antd';
+import { Input, Form, Button } from 'antd';
 
 import { DocType } from "../../../common/types/DocType";
 import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
 import { DB_Request } from "../../../common/types/RequestTypes";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
-import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { Action_Request } from "../../../common/types/RequestTypes";
-import { FormTool } from "../../../frontend/FormTool";
+import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
 import { Genre } from "../../../common/types/DocGenre";
 import { modul_props } from "../modul_props";
 
@@ -26,9 +24,6 @@ import { modul_props } from "../modul_props";
  * @returns NoteForm
  */
 export function GenreForm() {
-  const navigate = useNavigate();
-  const { Title } = Typography;
-
   const doclabel: string = modul_props.doclabel;
   const doctype: DocType = modul_props.doctype;
   const segment: string =  modul_props.segment;
@@ -42,112 +37,59 @@ export function GenreForm() {
 
    useEffect(() => {
     //* Wird einmalig beim Laden der Seite ausgeführt.
-    console.info("Request some data from backend...");
-    Header_Buttons_IPC.request_buttons({
-      viewtype: "form",
-      doctype: doctype,
-      doclabel: doclabel,
-      id: id, // is perhaps id='new'
-      surpress: false,
+    const request: DB_Request = {
+      type: "request:data",
+      doctype: modul_props.doctype,
+      id: id,
       options: {},
+    };
+
+    const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({
+      // TODO <Genre> statt <any>
+      viewtype: "form",
+      modul_props: modul_props,
+
+      request: request,
+      ipc_channel: "ipc-database",
+
+      surpress_buttons: false,
+      setDataCallback: function (result: any): void {
+        setDataOrigin(result[segment][0]);
+        form.setFieldsValue(result[segment][0]);
+      },
+      doButtonActionCallback: function (response: Action_Request): void {
+        if (response.type === "request:save-action") {
+          triggerSaveRef.current?.click();
+        }
+      },
     });
 
-    if (id != "new") {
-      //! Request Document from Database
-      const request: DB_Request = {
-        type: "request:data",
-        doctype: doctype,
-        id: id,
-        options: {},
-      };
-
-      window.electronAPI
-        .invoke_request(IPC_DATABASE, [request])
-        .then((result: any) => {
-          setDataOrigin(result[segment][0]); //
-          form.setFieldsValue(result[segment][0]);
-          App_Messages_IPC.request_message(
-            "request:message-info",
-            App_Messages_IPC.get_message_from_request(request.type, doclabel)
-          );
-        })
-        .catch(function (error: any) {
-          App_Messages_IPC.request_message(
-            "request:message-error",
-            error instanceof Error ? `Error: ${error.message}` : ""
-          );
-        });
-    }
-
-        //! Listen for Header-Button Actions.
-    // Register and remove the event listener
-    const buaUnsubscribe = window.electronAPI.listen_to(
-      "ipc-button-action",
-      (response: Action_Request) => {
-        if (response.target === doctype && response.view == "form") {
-          console.log("AddressForm says ACTION: ", response);
-          triggerSaveRef.current?.click();
-          // message.info(response.type);
-        }
-      }
-    );
 
     // Cleanup function to remove the listener on component unmount
     return () => {
-      buaUnsubscribe();
+      buaUnsubscribe_func();
     };
 
   }, []);
 
 
   const onFormFinish = (valuesForm: any) => {
-    let ft: FormTool<Genre> = new FormTool();
-
-    ft.save_data({
+    FormTool_IPC.save_data<Genre>({
       ipcChannel: IPC_DATABASE,
       dataObject: dataOrigin,
       valuesForm: valuesForm,
       force_save: false,
-    })
-      .then((result: Genre) => {
-        //! has new _rev from backend
-        setDataOrigin(result);
-        // update header-button-state because uuid has changed from 'new' to uuid.
-        Header_Buttons_IPC.request_buttons({
-          viewtype: "form",
-          doctype: doctype,
-          doclabel: doclabel,
-          id: result.id, // is perhaps id='new'
-          surpress: false,
-          options: {},
-        });
-      })
-      .catch(function (error:any) {
-        App_Messages_IPC.request_message(
-          "request:message-error",
-          error instanceof Error ? `Error: ${error.message}` : ""
-        );
-      });
+      modul_props: modul_props,
+    }).then((result: Genre) => {
+      //! has new rev from backend
+      setDataOrigin(result);
+    });
   };
 
   const onFormFinishFailed = (errorInfo: any) => {
     console.info("Failed:", errorInfo);
   };
 
-
-
-  /* ----------------------------------------------------------
-
-    Additional Actions
-
-   ---------------------------------------------------------- */
-
-
-  /* ----------------------------------------------------------
-
-    View Render
-
-   ---------------------------------------------------------- */
   return (
     <div>
       <Form

@@ -6,72 +6,48 @@ import {
   Settings_Request,
 } from "../../../common/types/RequestTypes";
 import { DocCatalogType } from "../../../common/types/DocCatalog";
-import { IPC_SETTINGS } from "../../../common/types/IPC_Channels";
-import { DOCTYPE_CATALOG } from "../../../common/types/DocType";
 
 import { App_Context } from "../../../frontend/App_Context";
-import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
+
 import ExportForm from "./exportForm";
+import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
+import { modul_props } from "../modul_props";
+import { DocType } from "../../../common/types/DocType";
 
 export function Catalog_View() {
   const { id } = useParams();
   const app_context = useContext(App_Context);
 
   const [dataObject, setDataObject] = useState<DocCatalogType>(null);
-
+  
   useEffect(() => {
-    console.log("ContextData", app_context);
-    Header_Buttons_IPC.request_buttons({
-      viewtype: "view",
-      doctype: "catalog",
-      doclabel: "Catalog",
-      id: id, // is perhaps id='new'
-      surpress: false,
-      options: {},
-    });
 
     const request: Settings_Request = {
       type: "request:get-connection",
-      doctype: "catalog",
+      doctype: modul_props.doctype,
       id: id,
       options: {},
     };
 
-    window.electronAPI
-      .invoke_request(IPC_SETTINGS, [request])
-      .then((result: DocCatalogType) => {
-        setDataObject(result);
-        App_Messages_IPC.request_message(
-          "request:message-info",
-          "Catalog loaded."
-        );
-      })
-      .catch(function (error: any) {
-        App_Messages_IPC.request_message(
-          "request:message-error",
-          error instanceof Error ? `Error: ${error.message}` : ""
-        );
-      });
+    const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<DocCatalogType>({
+      viewtype: "view",
+      modul_props: modul_props,
 
-    //! Listen for Header-Button Actions.
-    // Register and remove the event listener
-    const buaUnsubscribe = window.electronAPI.listen_to(
-      "ipc-button-action",
-      (response: Action_Request) => {
-        if (response.target === DOCTYPE_CATALOG && response.view == "view") {
-          console.log("Catalog_View says ACTION: ", response);
-          App_Messages_IPC.request_message(
-            "request:message-info",
-            "Action required."
-          );
-        }
-      }
-    );
+      request: request,
+      ipc_channel: "ipc-database",
+      
+      surpress_buttons: false,
+      setDataCallback: function (result: DocCatalogType): void {
+        setDataObject(result);
+      },
+      doButtonActionCallback: function (response: Action_Request): void {
+        // only used in form so far.
+      },
+    });
 
     // Cleanup function to remove the listener on component unmount
     return () => {
-      buaUnsubscribe();
+      buaUnsubscribe_func();
     };
   }, []);
 

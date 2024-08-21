@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 
 import { MyBasicViewFieldParameterI, MyBasicViewSegmentParameterI } from '../../../common/types/MyBasicViewTypes';
 import MyBasicView from '../../../frontend/myBasicView';
-import { DocType } from '../../../common/types/DocType';
 
 import { TagI } from '../../../common/types/DocTag';
 import { modul_props } from '../modul_props';
@@ -29,10 +28,6 @@ import { modul_props } from '../modul_props';
 export function TagView() {
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
-
   const fieldsTag: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: 'parent',
@@ -55,8 +50,8 @@ export function TagView() {
   ];
 
   const segmentTags: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsTag,
     relationFilterIdField: 'id',
     render: 'description',
@@ -68,8 +63,7 @@ export function TagView() {
   return (
     <MyBasicView<TagI>
     id={id}
-    doclabel={doclabel}
-    doctype={doctype}
+    modul_props={modul_props}
     segmentSets={segmentSets}
     />
   );

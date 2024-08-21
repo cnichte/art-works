@@ -76,6 +76,8 @@ export function FirstStartSteps() {
       options: {},
     });
 
+    // TODO hir wird noxh nix aus der DB gelesen
+
         //! Listen for Header-Button Actions.
     // Register and remove the event listener
     const buaUnsubscribe = window.electronAPI.listen_to(

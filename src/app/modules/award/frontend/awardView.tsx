@@ -4,7 +4,6 @@ import {
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
-import { DocType } from "../../../common/types/DocType";
 import { Segments } from "../../../frontend/Segments";
 import { modul_props } from "../modul_props";
 
@@ -29,9 +28,6 @@ import { modul_props } from "../modul_props";
 export function AwardView() {
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string = modul_props.segment;
 
   const fieldsAward: MyBasicViewFieldParameterI[] = [
     {
@@ -57,8 +53,8 @@ export function AwardView() {
   ];
 
   const segmentAwards: MyBasicViewSegmentParameterI = {
-    segment: segment,
-    label: doclabel,
+    segment: modul_props.segment,
+    label: modul_props.doclabel,
     fields: fieldsAward,
     relationFilterIdField: "id",
     render: "description",
@@ -67,9 +63,9 @@ export function AwardView() {
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
   const segmentSets: MyBasicViewSegmentParameterI[] = [
     segmentAwards,
-    Segments.getSegmentArtworks(segment),
-    Segments.getSegmentCompilations(segment),
-    Segments.getSegmentPublications(segment),
+    Segments.getSegmentArtworks(modul_props.segment),
+    Segments.getSegmentCompilations(modul_props.segment),
+    Segments.getSegmentPublications(modul_props.segment),
   ];
 
   /* ----------------------------------------------------------
@@ -80,8 +76,7 @@ export function AwardView() {
   return (
     <MyBasicView
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );

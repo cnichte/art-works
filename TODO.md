@@ -92,6 +92,9 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
   
   * Catalog
     -[x] Wenn ich eine neue DB anlege wird sie anstandslos geöffnet. Deshalb ist ein Backup mit Attachmnts essentiell
+  * Artwork
+    -[x] ERROR: Attachments add doesnt work any more.
+    -[x] Tags und Multi-Selects repaired.
 
 ---
 
@@ -99,8 +102,10 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 
 * 2024-08-13 Dienstag
 
-  * Arwork
-    -[ ] ERROR: Attachments add doesnt work any more.
+  * Artwork
+    -[ ] Weiter testen: Artwork-Attachments, Tags
+      -[ ] nach Upload wird das Bild nicht aus der Upload liste entfernt
+      -[ ] List und View soll wieder Bilder anzeigen
 
 ---
 

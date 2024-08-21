@@ -32,10 +32,6 @@ import { modul_props } from "../modul_props";
 export function SaleView() {
   const { id } = useParams();
 
-  const doclabel: string = modul_props.doclabel;
-  const doctype: DocType = modul_props.doctype;
-  const segment: string =  modul_props.segment;
-
   const fieldsSale: MyBasicViewFieldParameterI[] = [
     {
       dataIndex: "saleType",
@@ -137,8 +133,7 @@ export function SaleView() {
   return (
     <MyBasicView<SaleI>
       id={id}
-      doclabel={doclabel}
-      doctype={doctype}
+      modul_props={modul_props}
       segmentSets={segmentSets}
     />
   );
