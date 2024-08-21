@@ -180,7 +180,7 @@ function RenderData(reactParams: {
     if (segmentParams.render === "component") {
       return segmentParams.component;
     }
-    if (segmentParams.segment in data) {
+    if (data!=null && segmentParams.segment in data) {
       switch (segmentParams.render) {
         case "table": {
           result = RenderTable({ id, segmentParams, data });
