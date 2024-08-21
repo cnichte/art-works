@@ -74,6 +74,7 @@ export function SaleList() {
    ---------------------------------------------------------- */
   return (
     <MyBasicList<SaleI>
+      listTypes={["list"]}
       modul_props={modul_props}
       columns={columns}
       columns_meta={columns_meta}

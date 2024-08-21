@@ -17,7 +17,6 @@ import { modul_props } from "../modul_props";
 export function AwardList() {
   const navigate = useNavigate();
 
-
   //* open view
   const handleView = (record: { id: any }) => {
     console.log("--- handleView:", record);
@@ -47,5 +46,11 @@ export function AwardList() {
     },
   ];
 
-  return <MyBasicList modul_props={modul_props} columns={columns} />;
+  return (
+    <MyBasicList
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    />
+  );
 }

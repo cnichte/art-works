@@ -53,6 +53,7 @@ export function SaleRightsOfUseList() {
    ---------------------------------------------------------- */
   return (
     <MyBasicList<SaleRightsOfUseI>
+      listTypes={["list"]}
       modul_props={modul_props}
       columns={columns}
     />

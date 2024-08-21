@@ -47,5 +47,11 @@ export function EditionList() {
     Rendert den kompletten List View
 
    ---------------------------------------------------------- */
-  return <MyBasicList<EditionI> modul_props={modul_props} columns={columns} />;
+  return (
+    <MyBasicList<EditionI>
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    />
+  );
 }

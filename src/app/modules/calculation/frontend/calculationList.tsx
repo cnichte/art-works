@@ -47,6 +47,10 @@ export function CalculationList() {
 
    ---------------------------------------------------------- */
   return (
-    <MyBasicList<CalculationI> modul_props={modul_props} columns={columns} />
+    <MyBasicList<CalculationI>
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    />
   );
 }

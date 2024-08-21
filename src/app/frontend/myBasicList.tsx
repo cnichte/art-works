@@ -7,8 +7,14 @@ import {
   Col,
   Button,
   RadioChangeEvent,
+  Segmented,
+  Slider,
 } from "antd";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  AppstoreOutlined,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 
@@ -16,18 +22,15 @@ import RelationResolver from "./RelationResolver";
 import { MyBasicList_Meta_I } from "../common/types/MyBasicListTypes";
 import { GroupOfWorkI } from "../common/types/DocGroupOfWork";
 import { Action_Request, DB_Request } from "../common/types/RequestTypes";
-import { DocType } from "../common/types/DocType";
-import { App_Messages_IPC } from "./App_Messages_IPC";
-import { IPC_DATABASE } from "../common/types/IPC_Channels";
-import { Header_Buttons_IPC } from "./Header_Buttons_IPC";
 import { RequestData_IPC } from "./RequestData_IPC";
 import { Modul_Props_I } from "../common/Modul_Props";
+import { MyCardGridList, MyCardGridList_DataItem } from "./myCardGridList";
 
 // TODO CSS import styles from './myBasicList.css';
 // <Table className={styles.antTableRow}
 
 type RowSelectionType = "checkbox" | "radio";
-type ViewType = "list" | "grid";
+type ListType = "list" | "grid";
 
 type RowSelectionCallbackType = (
   // eslint-disable-next-line no-unused-vars
@@ -36,8 +39,13 @@ type RowSelectionCallbackType = (
   selectedRows: Array<any> // TODO ? DataType
 ) => any;
 
-interface MyBasicListProps {
-  modul_props:Modul_Props_I;
+interface MyBasicList_GridRenderer_Props<T> {
+  render_grid?: (record: T) => MyCardGridList_DataItem;
+}
+
+interface MyBasicListProps<T> extends MyBasicList_GridRenderer_Props<T> {
+  modul_props: Modul_Props_I;
+  listTypes: ListType[];
   columns: Array<any>;
   columns_meta?: MyBasicList_Meta_I[];
   rowSelectionActive?: boolean;
@@ -60,12 +68,14 @@ interface MyBasicListProps {
  */
 function MyBasicList<T>({
   modul_props,
+  listTypes,
   columns,
   columns_meta,
   rowSelectionActive = false,
   rowSelectionType = "radio", // checkbox' | 'radio
   rowSelectionCallback = null,
-}: MyBasicListProps) {
+  render_grid,
+}: MyBasicListProps<T>) {
   /* ----------------------------------------------------------
 
     Standard Data / States
@@ -76,7 +86,30 @@ function MyBasicList<T>({
   const [data, setData] = useState<T[]>([]);
   //* PopConfirm - delete action
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [viewType, setViewType] = useState<ViewType>("list");
+
+  const [listType, setListType] = useState<ListType>("list");
+
+  function getListTypeOptions(): Array<any> {
+    let listTypeOptions = [];
+
+    if (listTypes.includes("list")) {
+      listTypeOptions.push({
+        label: "List",
+        value: "list",
+        icon: <AppstoreOutlined />,
+      });
+    }
+
+    if (listTypes.includes("grid")) {
+      listTypeOptions.push({
+        label: "Grid",
+        value: "grid",
+        icon: <AppstoreOutlined />,
+      });
+    }
+
+    return listTypeOptions;
+  }
 
   /* ----------------------------------------------------------
 
@@ -85,7 +118,6 @@ function MyBasicList<T>({
     ---------------------------------------------------------- */
 
   useEffect(() => {
-
     const request: DB_Request = {
       type: "request:list-all",
       doctype: modul_props.doctype,
@@ -93,23 +125,21 @@ function MyBasicList<T>({
       options: {},
     };
 
-    const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<T[]>(
-      {
-        viewtype: "list",
-        modul_props: modul_props,
+    const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<T[]>({
+      viewtype: "list",
+      modul_props: modul_props,
 
-        request: request,
-        ipc_channel: "ipc-database",
+      request: request,
+      ipc_channel: "ipc-database",
 
-        surpress_buttons: false,
-        setDataCallback: function (result: T[]): void {
-          setData(result);
-        },
-        doButtonActionCallback: function (response: Action_Request): void {
-          // only used in form so far.
-        },
-      }
-    );
+      surpress_buttons: false,
+      setDataCallback: function (result: T[]): void {
+        setData(result);
+      },
+      doButtonActionCallback: function (response: Action_Request): void {
+        // only used in form so far.
+      },
+    });
 
     // Cleanup function to remove the listener on component unmount
     return () => {
@@ -210,6 +240,22 @@ function MyBasicList<T>({
 
   /* ----------------------------------------------------------
 
+     Grid Actions
+
+    ---------------------------------------------------------- */
+
+  const cardSizes: Record<PropertyKey, number> = {};
+  [
+    100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240,
+    250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350,
+  ].forEach((v, i) => {
+    cardSizes[i] = v;
+  });
+  const [cardSizesIndex, setCardSizesIndex] = useState<number>(3);
+  const formatter = (n: number) => `${n + 1} ${n > 0 ? "Spalten" : "Spalte"}`;
+
+  /* ----------------------------------------------------------
+
      Tabelle mit den Aktionen
      Die Aktionen werden an die Benutzer-TabellenSpalten angehängt.
 
@@ -251,21 +297,9 @@ function MyBasicList<T>({
   // Die übergebenen Benutzer-TabellenSpalten vor den Aktionen einfügen.
   const allColumns = columns.concat(columnActions);
 
-  /* ----------------------------------------------------------
-
-     View -  Data gets dynamically adjusted
-
-    ---------------------------------------------------------- */
-
-  return (
-    <Space
-      direction="vertical"
-      size="middle"
-      style={{
-        display: "flex",
-      }}
-    >
-      <Row gutter={[40, 0]}>
+  function Render_Table_Or_Grid({ render_grid }: MyBasicList_GridRenderer_Props<T>) {
+    if (listType == "list") {
+      return (
         <Col span={24}>
           <Table
             rowSelection={
@@ -281,6 +315,72 @@ function MyBasicList<T>({
             rowKey={(record) => record.id}
           />
         </Col>
+      );
+    } else if (listType == "grid") {
+      // TODO Render a Grid of Cards
+
+      let records: any = [];
+      records = data[modul_props.segment as any];
+
+      return (
+        <MyCardGridList<T>
+          modul_props={modul_props}
+          data={records}
+          cardSize={cardSizes[cardSizesIndex]}
+          render={function (r: T): MyCardGridList_DataItem {
+            if (render_grid) {
+              return render_grid(r);
+            }
+          }}
+        />
+      );
+    }
+  }
+
+  /* ----------------------------------------------------------
+
+     View -  Data gets dynamically adjusted
+
+    ---------------------------------------------------------- */
+
+  return (
+    <Space
+      direction="vertical"
+      size="middle"
+      style={{
+        display: "flex",
+      }}
+    >
+      <Space wrap>
+        {listTypes.length > 1 ? (
+          <Segmented<string>
+            options={getListTypeOptions()}
+            defaultValue="list"
+            onChange={(value) => {
+              setListType(value as ListType);
+            }}
+          />
+        ) : null}
+
+        {listType == "grid" ? (
+          <Slider
+            min={0}
+            max={Object.keys(cardSizes).length - 1}
+            value={cardSizesIndex}
+            onChange={setCardSizesIndex}
+            style={{ width: 80 }}
+            // TODO tooltip={{ formatter }}
+          />
+        ) : null}
+      </Space>
+      <Row gutter={[40, 0]}>
+        <Render_Table_Or_Grid
+          render_grid={function (record: T): MyCardGridList_DataItem {
+            if (render_grid) {
+              return render_grid(record);
+            }
+          }}
+        />
       </Row>
     </Space>
   );

@@ -67,6 +67,10 @@ export function WhiteboardList() {
   // Fall 3 - als Function     : extraButton={() => <Button onClick={handleButton()}>Mehrere Werke hinzufügen</Button>}
 
   return (
-    <MyBasicList<DocWhiteboard> modul_props={modul_props} columns={columns} />
+    <MyBasicList<DocWhiteboard>
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    />
   );
 }

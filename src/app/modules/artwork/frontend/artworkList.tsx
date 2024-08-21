@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactElement } from "react";
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 import { Button, ColorPicker, Image } from "antd";
@@ -8,11 +8,11 @@ import {
   FlagFilled,
   BgColorsOutlined,
 } from "@ant-design/icons";
-import { DocType } from "../../../common/types/DocType";
 import { AttachmentMeta } from "../../../common/types/AttachmentTypes";
 import { Artwork, ArtworkI } from "../../../common/types/DocArtwork";
 import { MyBasicList } from "../../../frontend/myBasicList";
 import { modul_props } from "../modul_props";
+import { MyCardGridList_DataItem } from "../../../frontend/myCardGridList";
 
 function MyExtaButton() {
   const handleMyExtaButton = () => {
@@ -69,6 +69,22 @@ export function ArtworkList() {
     return image;
   };
 
+  const getCoverImages_SRC = (ama: AttachmentMeta[]): string => {
+    let img_src: string = image_src_fallback;
+
+    if (ama != null) {
+      const result = ama.filter((am: AttachmentMeta) => {
+        return am.category === "werk" && am.is_cover;
+      });
+
+      if (result.length > 0) {
+        img_src = result[0].preview;
+      }
+    }
+
+    return img_src;
+  };
+
   const columns: ColumnsType<ArtworkI> = [
     {
       title: "Bild",
@@ -122,5 +138,19 @@ export function ArtworkList() {
   //* Fall 2 - als Component    : ExtraButton={MyExtaButton}
   // Fall 3 - als Function     : extraButton={() => <Button onClick={handleButton()}>Mehrere Werke hinzufügen</Button>}
 
-  return <MyBasicList<Artwork> modul_props={modul_props} columns={columns} />;
+  return (
+    <MyBasicList<Artwork>
+      listTypes={["list", "grid"]}
+      modul_props={modul_props}
+      columns={columns}
+      render_grid={function (record: Artwork): MyCardGridList_DataItem {
+        const d: MyCardGridList_DataItem = {
+          title: record.title,
+          description: record.description_short,
+          cover: getCoverImages_SRC(record.attachmentsMeta),
+        };
+        return d;
+      }}
+    />
+  );
 }

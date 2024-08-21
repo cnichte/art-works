@@ -57,5 +57,11 @@ export function RentalList() {
     Rendert den kompletten List View
 
    ---------------------------------------------------------- */
-  return <MyBasicList<RentalI> modul_props={modul_props} columns={columns} />;
+  return (
+    <MyBasicList<RentalI>
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    />
+  );
 }

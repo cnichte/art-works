@@ -68,5 +68,11 @@ export function ExhibitionList() {
     Rendert den kompletten List View
 
    ---------------------------------------------------------- */
-  return <MyBasicList modul_props={modul_props} columns={columns} />;
+  return (
+    <MyBasicList
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    />
+  );
 }

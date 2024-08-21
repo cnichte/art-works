@@ -51,5 +51,11 @@ export function NoteList() {
     },
   ];
 
-  return <MyBasicList modul_props={modul_props} columns={columns} />;
+  return (
+    <MyBasicList
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    />
+  );
 }

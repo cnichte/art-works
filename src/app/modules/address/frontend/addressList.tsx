@@ -52,6 +52,10 @@ export function AddressList() {
   ];
 
   return (
-    <MyBasicList<AddressI> modul_props={modul_props} columns={columns} /> // TODO neue Attribute in Props - rowSelectionActive={false} rowSelectionType={'checkbox'} rowSelectionCallback={null}
+    <MyBasicList<AddressI>
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    /> // TODO neue Attribute in Props - rowSelectionActive={false} rowSelectionType={'checkbox'} rowSelectionCallback={null}
   );
 }

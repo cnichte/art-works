@@ -47,6 +47,10 @@ export function CompilationList() {
   ];
 
   return (
-    <MyBasicList<CompilationI> modul_props={modul_props} columns={columns} />
+    <MyBasicList<CompilationI>
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    />
   );
 }

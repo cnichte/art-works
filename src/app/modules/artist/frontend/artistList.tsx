@@ -54,5 +54,11 @@ export function ArtistList() {
     },
   ];
 
-  return <MyBasicList<ArtistI> modul_props={modul_props} columns={columns} />;
+  return (
+    <MyBasicList<ArtistI>
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    />
+  );
 }

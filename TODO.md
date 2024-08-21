@@ -96,6 +96,10 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
     -[x] ERROR: Attachments add doesnt work any more.
     -[x] Tags und Multi-Selects repaired.
 
+* 2024-08-21 Mittwoch
+
+    -[x] View als List und Grid Darstellung.
+
 ---
 
 ## Heute
@@ -121,6 +125,12 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
   -[ ] Position: Menge (Stunden / Stück / km) - Studensatz / Reisekosten
   -[ ] Feld Gesamt Summe (automatisch berechnen)
   -[ ] Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
+
+
+
+Drag and Drop
+DnD Kit
+https://dndkit.com
 
 ## Demnächst zu erledigen
 

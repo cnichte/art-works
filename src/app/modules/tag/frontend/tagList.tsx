@@ -52,5 +52,11 @@ export function TagList() {
     Rendert den kompletten List View
 
    ---------------------------------------------------------- */
-  return <MyBasicList<TagI> modul_props={modul_props} columns={columns} />;
+  return (
+    <MyBasicList<TagI>
+      listTypes={["list"]}
+      modul_props={modul_props}
+      columns={columns}
+    />
+  );
 }

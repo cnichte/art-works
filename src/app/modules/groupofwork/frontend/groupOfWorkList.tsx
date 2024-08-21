@@ -72,6 +72,6 @@ export function GroupOfWorkList() {
 
    ---------------------------------------------------------- */
   return (
-    <MyBasicList<GroupOfWorkI> modul_props={modul_props} columns={columns} />
+    <MyBasicList<GroupOfWorkI> listTypes={['list']} modul_props={modul_props} columns={columns} />
   );
 }
