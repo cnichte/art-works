@@ -157,7 +157,7 @@ Lose Sammlung, was mir auffällt.
 
 * Generell / alle Module
   -[ ] Übersetzung / Internationalisierung mit i18n.
-  -[ ] `useContext(App_Context)` bzw `artworks_context` überall entfernen. Nutze ich nicht mehr.
+  -[x] `useContext(App_Context)` bzw `artworks_context` überall entfernen. Nutze ich nicht mehr.
   -[ ] Umgang mit Datenbank-Konflikten
 
 ---

@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import { useNavigate } from "react-router";
 import { Menu, MenuProps } from "antd";
 import {
@@ -31,7 +30,6 @@ import {
   STATISTIC_ROUTE_LIST,
   ARTWORK_ROUTE_LIST,
   FIRSTSTART_ROUTE_LIST,
-  STATISTIC_ROUTE_VIEW,
 } from "./types/RouteType";
 import { App_Context } from "./App_Context";
 import {
@@ -56,7 +54,7 @@ import {
   DOCTYPE_WHITEBOARD,
   DocType,
 } from "../common/types/DocType";
-import { ViewType, VIEWTYPE_FORM, VIEWTYPE_LIST, VIEWTYPE_VIEW } from "./types/ViewType";
+import { ViewType, VIEWTYPE_FORM, VIEWTYPE_LIST } from "./types/ViewType";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -70,8 +68,6 @@ export interface SideNavigationBar_Props {
  * @returns The Sidebar.
  */
 export function SideNavigationBar({ onChange }: SideNavigationBar_Props) {
-  const { doctype, setDoctype, viewtype, setViewtype } =
-    useContext(App_Context);
 
   const navigate = useNavigate();
 
@@ -89,8 +85,6 @@ export function SideNavigationBar({ onChange }: SideNavigationBar_Props) {
     // Ich gehe hier immer zu einer liste.
     // Sollte sich das mal ändern braucht es hier einen callback
     // damit ich in APP_Routes.tsx den Context neu setzen kann.
-    setDoctype(doctype);
-    setViewtype(viewtype);
     triggerChange(route);
     navigate(route);
   };

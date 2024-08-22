@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Descriptions, Tabs } from "antd";
 import {
@@ -7,16 +7,13 @@ import {
 } from "../../../common/types/RequestTypes";
 import { DocCatalogType } from "../../../common/types/DocCatalog";
 
-import { App_Context } from "../../../frontend/App_Context";
 
 import ExportForm from "./exportForm";
 import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
 import { modul_props } from "../modul_props";
-import { DocType } from "../../../common/types/DocType";
 
 export function Catalog_View() {
   const { id } = useParams();
-  const app_context = useContext(App_Context);
 
   const [dataObject, setDataObject] = useState<DocCatalogType>(null);
   

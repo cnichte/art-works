@@ -30,7 +30,6 @@ import { DOCTYPE_HEADER_BUTTONS, DocType } from "../common/types/DocType";
 export function Header_Buttons(props: any) {
   const navigate = useNavigate();
 
-  const artworks_context = useContext(App_Context); // TODO artworks_context nutze ich nicht mehr?
   const [viewtype, setViewType] = useState<ViewType>("list");
   const [doctype, setDocType] = useState<DocType>("artwork");
   const [doclabel, setDocLabel] = useState<string>("Werk");
@@ -42,8 +41,6 @@ export function Header_Buttons(props: any) {
   } = theme.useToken();
 
   useEffect(() => {
-    console.log("ContextData", artworks_context);
-
     // Two-way communication, case 1
     //! Listen for Content-Request.
     // Register and remove the event listener.
