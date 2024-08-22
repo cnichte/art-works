@@ -3,7 +3,7 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import MyBasicView from "../../../frontend/myBasicView";
+import { MyBasicView } from "../../../frontend/myBasicView";
 import { Segments } from "../../../frontend/Segments";
 import { modul_props } from "../modul_props";
 import { AwardI } from "../../../common/types/DocAward";

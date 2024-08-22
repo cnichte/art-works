@@ -93,7 +93,7 @@ export default class ViewTool {
             if (ViewTool.is_string(fuckingValue)) {
               if (param.render) {
                 //! there is a custom render function
-                result = param.render(fuckingValue, data);
+                result = param.render(fuckingValue, record);
               } else {
                 //! Ein String wird als Markdown gerendert
                 // Markdown-Links werden im externen Browser geöffnet.
@@ -121,7 +121,7 @@ export default class ViewTool {
               // Fallback: Objekt, das ich einfach mal als Json-String ausgebe.
               let stringified: string = "";
               if (param.render) {
-                stringified = param.render(fuckingValue, data);
+                stringified = param.render(fuckingValue, record);
               } else {
                 stringified = JSON.stringify(fuckingValue);
               }
@@ -227,7 +227,7 @@ export default class ViewTool {
                 });
               } else {
                 if (param.render) {
-                  s = param.render(JSON.stringify(objResolved), data);
+                  s = param.render(JSON.stringify(objResolved), record);
                 } else {
                   s = JSON.stringify(objResolved);
                 }

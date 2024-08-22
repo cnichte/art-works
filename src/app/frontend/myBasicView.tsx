@@ -301,7 +301,7 @@ function RenderSegmentsInTabs<T>(reactParams: {
 }
  * @returns
  */
-function MyBasicView<T>({
+export function MyBasicView<T>({
   id,
   modul_props,
   //  requests,
@@ -363,4 +363,3 @@ function MyBasicView<T>({
   );
 } //* MyBasicView - Rendert den View.
 
-export default MyBasicView;

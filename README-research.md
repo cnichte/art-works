@@ -1,5 +1,10 @@
 # Developers Research
 
+## Global short cuts
+
+How can I do refresh in electron html app
+<https://github.com/electron/electron/issues/11895>
+
 ## Masonry Layout
 
 <https://github.com/cedricdelpoux/react-responsive-masonry#readme>

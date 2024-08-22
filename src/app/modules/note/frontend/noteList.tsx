@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router";
 
 import type { ColumnsType } from "antd/es/table";
-import Paragraph from "antd/es/typography/Paragraph";
 
 import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
-import { DocType } from "../../../common/types/DocType";
 
 import { NoteI } from "../../../common/types/DocNote";
 import { modul_props } from "../modul_props";
+import { Typography } from "antd";
 
 /**
  * Ein Liste der Notizen.
@@ -42,11 +41,14 @@ export function NoteList() {
       dataIndex: "content",
       key: "id",
       render: (text, record) => (
-        <Paragraph
-          ellipsis={{ rows: 5, expandable: true, symbol: "mehr lesen..." }}
+        <Typography.Paragraph
+          ellipsis={{
+            rows: 5,
+            expandable: "collapsible",
+          }}
         >
           {text}
-        </Paragraph>
+        </Typography.Paragraph>
       ),
     },
   ];

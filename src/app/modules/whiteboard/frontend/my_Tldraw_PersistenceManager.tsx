@@ -104,7 +104,7 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
 
           Image_Util.read_image_as_base64(value).then((val: string) => {
             valuesForm.preview = val; //! inject preview
-
+            
             FormTool_IPC.save_data<WhiteboardI>({
               ipcChannel: IPC_DATABASE,
               dataObject: dataOrigin,

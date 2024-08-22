@@ -5,7 +5,7 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import MyBasicView from "../../../frontend/myBasicView";
+import { MyBasicView } from "../../../frontend/myBasicView";
 
 import { GroupOfWorkI } from "../../../common/types/DocGroupOfWork";
 import { Segments } from "../../../frontend/Segments";

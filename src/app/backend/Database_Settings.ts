@@ -111,7 +111,7 @@ export class Database_Settings {
             },
           },
         },
-        book: {
+        address: {
           type: "object",
           properties: {
             active: {
@@ -120,7 +120,7 @@ export class Database_Settings {
             },
           },
         },
-        ipc: {
+        artist: {
           type: "object",
           properties: {
             active: {
@@ -129,7 +129,142 @@ export class Database_Settings {
             },
           },
         },
-        user: {
+        artwork: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        award: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        calculation: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        compilation: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        edition: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        exhibition: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        genre: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        groupofwork: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        note: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        publication: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        rental: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        resume: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        sale: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        salerightsofuse: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        tag: {
+          type: "object",
+          properties: {
+            active: {
+              description: "Modul aktiv?",
+              type: "boolean",
+            },
+          },
+        },
+        whiteboard: {
           type: "object",
           properties: {
             active: {
@@ -210,7 +345,8 @@ export class Database_Settings {
                 dbUser: "",
                 dbPassword: "",
                 dbTemplate: "{dbName}",
-              },          {
+              },
+              {
                 id: "af5401da-4226-4560-adc9-34ae18a426b4",
                 docType: "catalog",
                 templateName: "Werkverzeichnis Carsten Nichte (remote)",
@@ -222,20 +358,295 @@ export class Database_Settings {
                 dbName: "werkverzeichnis",
                 dbUser: "admin",
                 dbPassword: "adminadmin",
-                dbTemplate: "{protocoll}://{dbUser}:{dbPassword}@{dbHost}:{dbPort}/{dbName}",
+                dbTemplate:
+                  "{protocoll}://{dbUser}:{dbPassword}@{dbHost}:{dbPort}/{dbName}",
               },
             ],
           },
         },
-        book: {
+        global: {
+          list:{
+            startViewType:"list",
+            startCardSizeIndex: 15
+          },
+          view:{
+            lastTab:"grid",
+          },
+          form:{
+            lastTab:"grid",
+          }
+        },        
+        address: {
           active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
         },
-        ipc: {
+        artist: {
           active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
         },
-        user: {
+        artwork: {
           active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{            
+            useGlobal:true,
+          }
         },
+        award: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        calculation: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        compilation: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        edition: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        exhibition: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        genre: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        groupofwork: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        note: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        publication: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        rental: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        resume: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        sale: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        salerightsofuse: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        tag: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+        whiteboard: {
+          active: true,
+          list:{
+            useGlobal:true,
+            lastViewType:"grid",
+            lastCardSize:""
+          },
+          view:{
+            useGlobal:true,
+            lastTab:"grid",
+          },
+          form:{
+            useGlobal:true,
+          }
+        },
+
       }, // defaults
     });
   }
