@@ -10,7 +10,6 @@ import {
 import { DocCatalog, DocCatalogType } from "../../../common/types/DocCatalog";
 import { IPC_SETTINGS } from "../../../common/types/IPC_Channels";
 import { DbOptions_Setting } from "../../../common/types/SettingTypes";
-import { FormState } from "../../../frontend/types/FormState";
 import { modul_props } from "../modul_props";
 import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
 import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
@@ -22,7 +21,6 @@ export function Catalog_Form() {
   const triggerSaveRef = React.useRef(null);
 
   const [form] = Form.useForm();
-  const [formstate, setFormState] = useState<FormState>("create");
   const [dataObject, setDataObject] = useState<DocCatalogType>(null);
 
   const [dboptions, setDBOptions] = useState<DbOptions_Setting[]>([
@@ -70,7 +68,6 @@ export function Catalog_Form() {
 
     setDataObject(data);
     form.resetFields();
-    setFormState("create");
   }
 
   useEffect(() => {
