@@ -26,6 +26,7 @@ import { Action_Request, DB_Request } from "../common/types/RequestTypes";
 import { RequestData_IPC } from "./RequestData_IPC";
 import { Modul_Props_I } from "../common/Modul_Props";
 import { MyCardGridList, MyCardGridList_DataItem } from "./myCardGridList";
+import { TldrawUiDropdownMenuIndicator } from "tldraw";
 
 // TODO CSS import styles from './myBasicList.css';
 // <Table className={styles.antTableRow}
@@ -138,7 +139,9 @@ function MyBasicList<T>({
         setData(result);
       },
       doButtonActionCallback: function (response: Action_Request): void {
-        // only used in form so far.
+        if(response.type==="request:show-settings-dialog-action"){
+            console.log(`Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`)
+        }
       },
     });
 

@@ -103,6 +103,7 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
     -[x] Markdown-Links werden im externen Browser geöffnet.
 * Whiteboard
   -[x] preview image
+  -[x] View: my own custom renderer following the andt concept.
 
 ---
 

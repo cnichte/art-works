@@ -10,6 +10,7 @@ import MyBasicView from "../../../frontend/myBasicView";
 import { GroupOfWorkI } from "../../../common/types/DocGroupOfWork";
 import { Segments } from "../../../frontend/Segments";
 import { modul_props } from "../modul_props";
+import { ArtworkI } from "../../../common/types/DocArtwork";
 
 /* ==========================================================
 
@@ -32,7 +33,7 @@ import { modul_props } from "../modul_props";
 export function GroupOfWorkView() {
   const { id } = useParams();
 
-  const fieldsGroupofwork: MyBasicViewFieldParameterI[] = [
+  const fieldsGroupofwork: MyBasicViewFieldParameterI<GroupOfWorkI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -61,7 +62,7 @@ export function GroupOfWorkView() {
 
    ---------------------------------------------------------- */
 
-  const segmentGroupsofwork: MyBasicViewSegmentParameterI = {
+  const segmentGroupsofwork: MyBasicViewSegmentParameterI<GroupOfWorkI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsGroupofwork,
@@ -70,7 +71,7 @@ export function GroupOfWorkView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [
+  const segmentSets: MyBasicViewSegmentParameterI<GroupOfWorkI | ArtworkI>[] = [
     segmentGroupsofwork,
     Segments.getSegmentArtworks(modul_props.segment),
   ];

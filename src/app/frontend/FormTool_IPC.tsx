@@ -32,7 +32,9 @@ export class FormTool_IPC<T extends DocItentifiable> {
    * @param props IPC_Tool_Props<T>
    * @returns buaUnsubscribe_function
    */
-  public static init_and_load_data<T>(props: LoadData_IPC_InitAndLoadData_FUNC_Props<T>): any {
+  public static init_and_load_data<T>(
+    props: LoadData_IPC_InitAndLoadData_FUNC_Props<T>
+  ): any {
     Header_Buttons_IPC.request_buttons({
       viewtype: "form",
       doctype: props.modul_props.doctype,
@@ -75,10 +77,6 @@ export class FormTool_IPC<T extends DocItentifiable> {
           response.target === props.modul_props.doctype &&
           response.view == props.viewtype // should be form
         ) {
-          console.log(
-            `${props.modul_props.doctype}_${props.viewtype} says ACTION: `,
-            response
-          );
           props.doButtonActionCallback(response);
         }
       }

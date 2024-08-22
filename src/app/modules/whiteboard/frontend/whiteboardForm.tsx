@@ -4,7 +4,6 @@ import { Tldraw } from "tldraw";
 import "tldraw/tldraw.css";
 
 import { My_Tldraw_PersistenceManager } from "./my_Tldraw_PersistenceManager";
-import { DocType } from "../../../common/types/DocType";
 import { modul_props } from "../modul_props";
 
 /**

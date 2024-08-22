@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactElement } from "react";
+import { ReactElement } from "react";
 import { Image } from "antd";
 
 import Markdown from "markdown-to-jsx";
@@ -43,8 +43,8 @@ export default class ViewTool {
    * @param param  { dataIndex: 'resumes', label: 'Lebenslauf', childs:{}, mapKeyTo:'prop' }
    * @returns
    */
-  public static getMyFuckingValueFrom(
-    param: MyBasicViewFieldParameterI,
+  public static getMyFuckingValueFrom<T>(
+    param: MyBasicViewFieldParameterI<T>,
     segment: string,
     record: any,
     data: any
@@ -62,7 +62,7 @@ export default class ViewTool {
 
         if (Array.isArray(fuckingValue)) {
           //
-          result = ViewTool.buildMyFuckingValue(
+          result = ViewTool.buildMyFuckingValue<T>(
             param,
             segment,
             record,
@@ -81,7 +81,7 @@ export default class ViewTool {
               fuckingValue
             );
 
-            result = ViewTool.buildMyFuckingValue(
+            result = ViewTool.buildMyFuckingValue<T>(
               param,
               segment,
               record,
@@ -91,28 +91,40 @@ export default class ViewTool {
           } else {
             // String oder Objekt?
             if (ViewTool.is_string(fuckingValue)) {
-              //! Ein String wird als Markdown gerendert
-              // Markdown-Links werden im externen Browser geöffnet.
-              // https://github.com/quantizor/markdown-to-jsx/blob/main/README.md#optionsoverrides---override-any-html-tags-representation
-              result = (
-                <Markdown
-                  options={{
-                    overrides: {
-                      a: {
-                        component: ({ children, ...props }) => <External_Link children={children} props={props} />,
-                        props: {
-                          className: "foo",
+              if (param.render) {
+                //! there is a custom render function
+                result = param.render(fuckingValue, data);
+              } else {
+                //! Ein String wird als Markdown gerendert
+                // Markdown-Links werden im externen Browser geöffnet.
+                // https://github.com/quantizor/markdown-to-jsx/blob/main/README.md#optionsoverrides---override-any-html-tags-representation
+                result = (
+                  <Markdown
+                    options={{
+                      overrides: {
+                        a: {
+                          component: ({ children, ...props }) => (
+                            <External_Link children={children} props={props} />
+                          ),
+                          props: {
+                            className: "foo",
+                          },
                         },
                       },
-                    },
-                  }}
-                >
-                  {fuckingValue}
-                </Markdown>
-              );
+                    }}
+                  >
+                    {fuckingValue}
+                  </Markdown>
+                );
+              }
             } else {
               // Fallback: Objekt, das ich einfach mal als Json-String ausgebe.
-              const stringified: string = JSON.stringify(fuckingValue);
+              let stringified: string = "";
+              if (param.render) {
+                stringified = param.render(fuckingValue, data);
+              } else {
+                stringified = JSON.stringify(fuckingValue);
+              }
               result = <span>{stringified}</span>;
             }
           }
@@ -140,8 +152,8 @@ export default class ViewTool {
    * @param fuckingValue
    * @returns
    */
-  public static buildMyFuckingValue(
-    param: MyBasicViewFieldParameterI,
+  public static buildMyFuckingValue<T>(
+    param: MyBasicViewFieldParameterI<T>,
     segment: string,
     record: any,
     data: any,
@@ -214,7 +226,11 @@ export default class ViewTool {
                   }
                 });
               } else {
-                s = JSON.stringify(objResolved);
+                if (param.render) {
+                  s = param.render(JSON.stringify(objResolved), data);
+                } else {
+                  s = JSON.stringify(objResolved);
+                }
               }
             }
           } else {

@@ -30,7 +30,7 @@ import { modul_props } from "../modul_props";
 export function NoteView() {
   const { id } = useParams();
 
-  const fieldsNote: MyBasicViewFieldParameterI[] = [
+  const fieldsNote: MyBasicViewFieldParameterI<NoteI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -45,7 +45,7 @@ export function NoteView() {
     },
   ];
 
-  const segmentNotes: MyBasicViewSegmentParameterI = {
+  const segmentNotes: MyBasicViewSegmentParameterI<NoteI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsNote,
@@ -54,7 +54,7 @@ export function NoteView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentNotes];
+  const segmentSets: MyBasicViewSegmentParameterI<NoteI>[] = [segmentNotes];
 
   return (
     <MyBasicView<NoteI>

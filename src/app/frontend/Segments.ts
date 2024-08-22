@@ -11,6 +11,11 @@
  * @author Carsten Nichte, 2023
  */
 
+import { ArtworkI } from "../common/types/DocArtwork";
+import { AwardI } from "../common/types/DocAward";
+import { CompilationI } from "../common/types/DocCompilation";
+import { PublicationI } from "../common/types/DocPublication";
+import { SaleI } from "../common/types/DocSale";
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
@@ -22,7 +27,7 @@ export class Segments {
     * Segment Artworks
 
    ---------------------------------------------------------- */
-  private static fieldsArtwork: MyBasicViewFieldParameterI[] = [
+  private static fieldsArtwork: MyBasicViewFieldParameterI<ArtworkI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -39,7 +44,7 @@ export class Segments {
 
   public static getSegmentArtworks(
     backlink: string
-  ): MyBasicViewSegmentParameterI {
+  ): MyBasicViewSegmentParameterI<ArtworkI> {
     return {
       segment: "artworks",
       label: "Werke",
@@ -55,7 +60,7 @@ export class Segments {
 
    ---------------------------------------------------------- */
 
-  private static fieldsAward: MyBasicViewFieldParameterI[] = [
+  private static fieldsAward: MyBasicViewFieldParameterI<AwardI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -80,7 +85,7 @@ export class Segments {
 
   public static getSegmentAwards(
     backlink: string
-  ): MyBasicViewSegmentParameterI {
+  ): MyBasicViewSegmentParameterI<AwardI> {
     return {
       segment: "awards",
       label: "Auszeichnung",
@@ -96,7 +101,7 @@ export class Segments {
 
    ---------------------------------------------------------- */
 
-  private static fieldsCompilation: MyBasicViewFieldParameterI[] = [
+  private static fieldsCompilation: MyBasicViewFieldParameterI<CompilationI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -109,7 +114,7 @@ export class Segments {
 
   public static getSegmentCompilations(
     backlink: string
-  ): MyBasicViewSegmentParameterI {
+  ): MyBasicViewSegmentParameterI<CompilationI> {
     return {
       segment: "compilations",
       label: "Zusammenstellung",
@@ -125,7 +130,7 @@ export class Segments {
 
    ---------------------------------------------------------- */
 
-  private static fieldsPublication: MyBasicViewFieldParameterI[] = [
+  private static fieldsPublication: MyBasicViewFieldParameterI<PublicationI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -138,11 +143,11 @@ export class Segments {
 
   public static getSegmentPublications(
     backlink: string
-  ): MyBasicViewSegmentParameterI {
+  ): MyBasicViewSegmentParameterI<PublicationI> {
     return {
       segment: "publications",
       label: "Publikationen",
-      fields: Segments.fieldsCompilation,
+      fields: Segments.fieldsPublication,
       relationFilterIdField: backlink,
       render: "table",
     };
@@ -153,7 +158,7 @@ export class Segments {
     * Segment Sales
 
    ---------------------------------------------------------- */
-  private static fieldsSale: MyBasicViewFieldParameterI[] = [
+  private static fieldsSale: MyBasicViewFieldParameterI<SaleI>[] = [
     {
       dataIndex: "artwork",
       label: "Artwork",
@@ -166,11 +171,11 @@ export class Segments {
 
   public static getSegmentSales(
     backlink: string
-  ): MyBasicViewSegmentParameterI {
+  ): MyBasicViewSegmentParameterI<SaleI> {
     return {
       segment: "sales",
       label: "Verkäufe",
-      fields: Segments.fieldsCompilation,
+      fields: Segments.fieldsSale,
       relationFilterIdField: backlink,
       render: "table",
     };

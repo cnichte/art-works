@@ -33,14 +33,14 @@ import { RequestData_IPC } from "./RequestData_IPC";
  * @param reactParams { id, segmentParams, record, data }
  * @returns
  */
-function RenderDescriptions(reactParams: {
-  segmentParams: MyBasicViewSegmentParameterI;
+function RenderDescriptions<T>(reactParams: {
+  segmentParams: MyBasicViewSegmentParameterI<T>;
   record: any;
   data: any;
 }) {
   const { segmentParams, record, data } = reactParams;
 
-  function checkConditions(field: MyBasicViewFieldParameterI): boolean {
+  function checkConditions(field: MyBasicViewFieldParameterI<T>): boolean {
     return Condition.showField(field, record, "field");
   }
 
@@ -60,7 +60,7 @@ function RenderDescriptions(reactParams: {
                   span={3}
                   key={field.label}
                 >
-                  {ViewTool.getMyFuckingValueFrom(
+                  {ViewTool.getMyFuckingValueFrom<T>(
                     field,
                     segmentParams.segment,
                     record,
@@ -82,9 +82,9 @@ function RenderDescriptions(reactParams: {
  * @param reactParams { id, segmentParams, data }
  * @returns
  */
-function RenderTable(reactParams: {
+function RenderTable<T>(reactParams: {
   id: string;
-  segmentParams: MyBasicViewSegmentParameterI;
+  segmentParams: MyBasicViewSegmentParameterI<T>;
   data: any;
 }) {
   const { id, segmentParams, data } = reactParams;
@@ -164,9 +164,9 @@ function RenderTable(reactParams: {
  * @param reactParams { id, segmentParams, data }
  * @returns
  */
-function RenderData(reactParams: {
+function RenderData<T>(reactParams: {
   id: string;
-  segmentParams: MyBasicViewSegmentParameterI;
+  segmentParams: MyBasicViewSegmentParameterI<T>;
   data: any;
 }) {
   const { id, segmentParams, data } = reactParams;
@@ -180,10 +180,10 @@ function RenderData(reactParams: {
     if (segmentParams.render === "component") {
       return segmentParams.component;
     }
-    if (data!=null && segmentParams.segment in data) {
+    if (data != null && segmentParams.segment in data) {
       switch (segmentParams.render) {
         case "table": {
-          result = RenderTable({ id, segmentParams, data });
+          result = RenderTable<T>({ id, segmentParams, data });
           break;
         }
         case "description": {
@@ -244,14 +244,14 @@ function RenderData(reactParams: {
  * @param reactParams { id, fieldset, data }
  * @returns
  */
-function RenderSegmentsInTabs(reactParams: {
+function RenderSegmentsInTabs<T>(reactParams: {
   id: string;
-  fieldset: MyBasicViewSegmentParameterI[];
+  fieldset: MyBasicViewSegmentParameterI<T>[];
   data: any;
 }) {
   const { id, fieldset, data } = reactParams;
 
-  function getContent(segmentParams: MyBasicViewSegmentParameterI): any {
+  function getContent(segmentParams: MyBasicViewSegmentParameterI<T>): any {
     //* <RenderData id={id} segmentParams={segmentParams} data={data} />
     return RenderData({ id, segmentParams, data });
   }
@@ -260,7 +260,7 @@ function RenderSegmentsInTabs(reactParams: {
     let result: any = [];
 
     if (fieldset != null) {
-      result = fieldset.map((aSegment: MyBasicViewSegmentParameterI) => {
+      result = fieldset.map((aSegment: MyBasicViewSegmentParameterI<T>) => {
         console.log("RenderSegmentsInTabs:", aSegment);
         return {
           label: aSegment.label,
@@ -281,7 +281,6 @@ function RenderSegmentsInTabs(reactParams: {
     </Space>
   );
 } //* RenderSegmentsInTabs - Renders all records in the segment.
-
 
 /**
  ** MyBasicView - React Component.
@@ -307,12 +306,10 @@ function MyBasicView<T>({
   modul_props,
   //  requests,
   segmentSets: fieldset, // [{ key: 'city', label: 'Stadt'}]
-}: MyBasicViewProps) {
-
+}: MyBasicViewProps<T>) {
   const [data, setData] = useState<T>(null);
 
   useEffect(() => {
-
     const request: DB_Request = {
       type: "request:data",
       doctype: modul_props.doctype,
@@ -326,24 +323,25 @@ function MyBasicView<T>({
 
       request: request,
       ipc_channel: "ipc-database",
-      
+
       surpress_buttons: false,
       setDataCallback: function (result: T): void {
         setData(result);
       },
       doButtonActionCallback: function (response: Action_Request): void {
-        // only used in form so far.
+        if (response.type === "request:show-settings-dialog-action") {
+          console.log(
+            `Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`
+          );
+        }
       },
     });
-
 
     // Cleanup function to remove the listener on component unmount
     return () => {
       buaUnsubscribe_func();
     };
-
   }, []);
-
 
   /* ----------------------------------------------------------
 
@@ -359,7 +357,7 @@ function MyBasicView<T>({
           display: "flex",
         }}
       >
-        <RenderSegmentsInTabs id={id} fieldset={fieldset} data={data} />
+        <RenderSegmentsInTabs<T> id={id} fieldset={fieldset} data={data} />
       </Space>
     </div>
   );

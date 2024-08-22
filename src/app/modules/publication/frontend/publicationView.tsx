@@ -10,6 +10,9 @@ import { Segments } from "../../../frontend/Segments";
 
 import { PublicationI } from "../../../common/types/DocPublication";
 import { modul_props } from "../modul_props";
+import { ArtworkI } from "../../../common/types/DocArtwork";
+import { AwardI } from "../../../common/types/DocAward";
+import { SaleI } from "../../../common/types/DocSale";
 
 /* ==========================================================
 
@@ -32,7 +35,7 @@ import { modul_props } from "../modul_props";
 export function PublicationView() {
   const { id } = useParams();
 
-  const fieldsPublication: MyBasicViewFieldParameterI[] = [
+  const fieldsPublication: MyBasicViewFieldParameterI<PublicationI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -91,7 +94,7 @@ export function PublicationView() {
     },
   ];
 
-  const segmentPublications: MyBasicViewSegmentParameterI = {
+  const segmentPublications: MyBasicViewSegmentParameterI<PublicationI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsPublication,
@@ -100,7 +103,9 @@ export function PublicationView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [
+  const segmentSets: MyBasicViewSegmentParameterI<
+    PublicationI | ArtworkI | AwardI | SaleI
+  >[] = [
     segmentPublications,
     Segments.getSegmentArtworks(modul_props.segment),
     Segments.getSegmentAwards(modul_props.segment),

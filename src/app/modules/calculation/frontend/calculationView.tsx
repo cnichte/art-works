@@ -29,7 +29,7 @@ export function CalculationView() {
   const { id } = useParams();
 
 
-  const fieldsCalculation: MyBasicViewFieldParameterI[] = [
+  const fieldsCalculation: MyBasicViewFieldParameterI<CalculationI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -63,7 +63,7 @@ export function CalculationView() {
     },
   ];
 
-  const segmentCalculations: MyBasicViewSegmentParameterI = {
+  const segmentCalculations: MyBasicViewSegmentParameterI<CalculationI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsCalculation,
@@ -72,7 +72,7 @@ export function CalculationView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentCalculations];
+  const segmentSets: MyBasicViewSegmentParameterI<CalculationI>[] = [segmentCalculations];
 
   return (
     <MyBasicView<CalculationI>

@@ -8,6 +8,7 @@ import MyBasicView from "../../../frontend/myBasicView";
 import { ArtistI } from "../../../common/types/DocArtist";
 import { Segments } from "../../../frontend/Segments";
 import { modul_props } from "../modul_props";
+import { ArtworkI } from "../../../common/types/DocArtwork";
 
 /* ==========================================================
 
@@ -36,7 +37,7 @@ export function ArtistView() {
   const { id } = useParams();
 
 
-  const fieldsArtist: MyBasicViewFieldParameterI[] = [
+  const fieldsArtist: MyBasicViewFieldParameterI<ArtistI>[] = [
     {
       dataIndex: "name",
       label: "Name",
@@ -79,7 +80,7 @@ export function ArtistView() {
     },
   ];
 
-  const fieldsResume: MyBasicViewFieldParameterI[] = [
+  const fieldsResume: MyBasicViewFieldParameterI<ArtistI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -116,7 +117,7 @@ export function ArtistView() {
 
    ---------------------------------------------------------- */
 
-  const segmentArtists: MyBasicViewSegmentParameterI = {
+  const segmentArtists: MyBasicViewSegmentParameterI<ArtistI> = {
     segment: "artists",
     label: "Künstler",
     fields: fieldsArtist,
@@ -124,7 +125,7 @@ export function ArtistView() {
     render: "description",
   };
 
-  const segmentResumes: MyBasicViewSegmentParameterI = {
+  const segmentResumes: MyBasicViewSegmentParameterI<ArtistI> = {
     segment: "resumes",
     label: "Lebenslauf",
     fields: fieldsResume,
@@ -135,7 +136,7 @@ export function ArtistView() {
   const segments = new Segments(); // Relation Backlink to
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [
+  const segmentSets: MyBasicViewSegmentParameterI<ArtistI | ArtworkI>[] = [
     segmentArtists,
     segmentResumes,
     Segments.getSegmentArtworks(modul_props.segment),

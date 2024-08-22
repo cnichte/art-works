@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-bind */
 // import { RequestViewI } from '../../backend/types/RequestsFactoryTypes';
+import { ReactElement } from 'react';
 import { ConditionParameter } from '../../frontend/Condition';
 import { Modul_Props_I } from '../Modul_Props';
-import { DocType } from './DocType';
 
 /** Zusatz für mapKeyTo
  * Die Realation kann ich entweder mit einem String auflösen der das Ziel angibt,
@@ -19,7 +19,7 @@ interface MyBasicViewFieldMapToParameterI {
 type myBasicViewType = 'description' | 'table' | 'component';
 type myBasicViewChildsType = 'list' | 'string';
 
-interface MyBasicViewFieldParameterI {
+interface MyBasicViewFieldParameterI<T> {
   dataIndex: string; // required for Table
   key?: string; // required for Lists / Descriptions
   label: string;
@@ -28,6 +28,8 @@ interface MyBasicViewFieldParameterI {
   useChilds?: string[]; // Wird in Tags verwendet
   childs_render?:myBasicViewChildsType, // render_type: list, string
   childs?:MyBasicView_ChildFieldParameterI[] // TODO siehe editionView
+
+  render?: (text:string, record: T) => any; // ReactElement
 }
 
 interface MyBasicView_ChildFieldParameterI {
@@ -36,23 +38,23 @@ interface MyBasicView_ChildFieldParameterI {
   condition?: ConditionParameter;
 }
 
-interface MyBasicViewSegmentParameterI {
+interface MyBasicViewSegmentParameterI<T> {
   segment: string;
   label: string;
   relationFilterIdField: string;
   render: myBasicViewType;
-  fields?: Array<MyBasicViewFieldParameterI>;
+  fields?: Array<MyBasicViewFieldParameterI<T>>;
   component?: any;
 }
 
 /**
  * Parameter für MyBasicView.
  */
-interface MyBasicViewProps {
+interface MyBasicViewProps<T> {
   id: string;
   modul_props: Modul_Props_I;
 //  requests: RequestViewI;
-  segmentSets: Array<MyBasicViewSegmentParameterI>; //
+  segmentSets: Array<MyBasicViewSegmentParameterI<T>>; //
 }
 
 export {

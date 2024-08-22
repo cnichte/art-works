@@ -8,6 +8,7 @@ export interface WhiteboardI extends DocItentifiable {
 
   // Userdata
   name: string;
+  description:string;
   content: string;
   preview: string;
 
@@ -23,6 +24,7 @@ export class DocWhiteboard implements WhiteboardI {
 
   // Userdata
   name: string = '';
+  description:string = '';
   content: string = '';
   preview: string = '';
 }

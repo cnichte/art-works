@@ -36,7 +36,7 @@ export function CompilationView() {
    ---------------------------------------------------------- */
   const { id } = useParams();
 
-  const fieldsCompilation: MyBasicViewFieldParameterI[] = [
+  const fieldsCompilation: MyBasicViewFieldParameterI<CompilationI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -51,7 +51,7 @@ export function CompilationView() {
     },
   ];
 
-  const segmentCompilations: MyBasicViewSegmentParameterI = {
+  const segmentCompilations: MyBasicViewSegmentParameterI<CompilationI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsCompilation,
@@ -60,7 +60,7 @@ export function CompilationView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentCompilations];
+  const segmentSets: MyBasicViewSegmentParameterI<CompilationI>[] = [segmentCompilations];
 
   return (
     <MyBasicView<CompilationI>

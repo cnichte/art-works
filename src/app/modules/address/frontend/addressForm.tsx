@@ -29,7 +29,6 @@ import { AddressType } from "../../../common/types/DocAddressType";
  * @returns NoteForm
  */
 export function AddressForm() {
-
   const doclabel: string = modul_props.doclabel;
   const doctype: DocType = modul_props.doctype;
   const segment: string = modul_props.segment;
@@ -77,6 +76,11 @@ export function AddressForm() {
       doButtonActionCallback: function (response: Action_Request): void {
         if (response.type === "request:save-action") {
           triggerSaveRef.current?.click();
+        }
+        if (response.type === "request:show-settings-dialog-action") {
+          console.log(
+            `Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`
+          );
         }
       },
     });

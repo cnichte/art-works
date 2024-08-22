@@ -30,7 +30,7 @@ import { modul_props } from "../modul_props";
 export function ArtworkView() {
   const { id } = useParams();
 
-  const fieldsArtwork: MyBasicViewFieldParameterI[] = [
+  const fieldsArtwork: MyBasicViewFieldParameterI<Artwork>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -127,7 +127,7 @@ export function ArtworkView() {
     },
   ];
 
-  const segmentArtworks: MyBasicViewSegmentParameterI = {
+  const segmentArtworks: MyBasicViewSegmentParameterI<Artwork> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsArtwork,
@@ -136,7 +136,7 @@ export function ArtworkView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentArtworks];
+  const segmentSets: MyBasicViewSegmentParameterI<Artwork>[] = [segmentArtworks];
 
   return (
     <MyBasicView<Artwork>

@@ -18,7 +18,8 @@ export interface LoadData_IPC_LoadData_FUNC_Props<T> {
   setDataCallback: (result: T) => void;
 }
 
-export interface LoadData_IPC_InitAndLoadData_FUNC_Props<T> extends LoadData_IPC_LoadData_FUNC_Props<T> {
+export interface LoadData_IPC_InitAndLoadData_FUNC_Props<T>
+  extends LoadData_IPC_LoadData_FUNC_Props<T> {
   viewtype: ViewType;
   surpress_buttons: boolean;
   doButtonActionCallback: (response: Action_Request) => void;
@@ -69,7 +70,9 @@ export class RequestData_IPC {
    * @param props IPC_Tool_Props
    * @returns
    */
-  public static init_and_load_data<T>(props: LoadData_IPC_InitAndLoadData_FUNC_Props<T>): any {
+  public static init_and_load_data<T>(
+    props: LoadData_IPC_InitAndLoadData_FUNC_Props<T>
+  ): any {
     Header_Buttons_IPC.request_buttons({
       viewtype: props.viewtype,
       doctype: props.modul_props.doctype,
@@ -109,14 +112,7 @@ export class RequestData_IPC {
           response.target === props.modul_props.doctype &&
           response.view == props.viewtype
         ) {
-          console.log(
-            `${props.modul_props.doclabel}-${props.viewtype} says ACTION: `,
-            response
-          );
-          App_Messages_IPC.request_message(
-            "request:message-info",
-            "Action required."
-          );
+          props.doButtonActionCallback(response);
         }
       }
     );

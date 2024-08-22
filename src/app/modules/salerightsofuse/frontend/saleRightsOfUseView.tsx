@@ -7,6 +7,7 @@ import {
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
 import { modul_props } from "../modul_props";
+import { SaleRightsOfUseI } from "../../../common/types/DocSaleRightsOfUse";
 
 /* ==========================================================
 
@@ -29,7 +30,7 @@ import { modul_props } from "../modul_props";
 export function SaleRightsOfUseView() {
   const { id } = useParams();
 
-  const fieldsSalerightsofuse: MyBasicViewFieldParameterI[] = [
+  const fieldsSalerightsofuse: MyBasicViewFieldParameterI<SaleRightsOfUseI>[] = [
     {
       dataIndex: "name",
       label: "Name",
@@ -52,7 +53,7 @@ export function SaleRightsOfUseView() {
     },
   ];
 
-  const segmentSalerightsofuses: MyBasicViewSegmentParameterI = {
+  const segmentSalerightsofuses: MyBasicViewSegmentParameterI<SaleRightsOfUseI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsSalerightsofuse,
@@ -61,10 +62,10 @@ export function SaleRightsOfUseView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentSalerightsofuses];
+  const segmentSets: MyBasicViewSegmentParameterI<SaleRightsOfUseI>[] = [segmentSalerightsofuses];
 
   return (
-    <MyBasicView
+    <MyBasicView<SaleRightsOfUseI>
       id={id}
       modul_props={modul_props}
       segmentSets={segmentSets}

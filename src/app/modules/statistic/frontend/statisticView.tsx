@@ -6,6 +6,7 @@ import { Bar } from "@ant-design/plots";
 import { DocType } from "../../../common/types/DocType";
 import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
 import { Action_Request } from "../../../common/types/RequestTypes";
+import { modul_props } from "../modul_props";
 
 const { Meta } = Card;
 
@@ -63,17 +64,14 @@ const DemoBar = () => {
  * @returns EmptyList
  */
 export function StatisticView() {
-  const doclabel: string = "Statistik";
-  const doctype: DocType = "statistic";
-  const segment: string = "";
 
   useEffect(() => {
     //* Wird einmalig beim Laden der Seite ausgeführt.
     console.info("Request some data from backend...");
     Header_Buttons_IPC.request_buttons({
       viewtype: "list",
-      doctype: doctype,
-      doclabel: doclabel,
+      doctype: modul_props.doctype,
+      doclabel: modul_props.doclabel,
       id: "", // is perhaps id='new'
       surpress: true,
       options: {},
@@ -84,10 +82,15 @@ export function StatisticView() {
     const buaUnsubscribe = window.electronAPI.listen_to(
       "ipc-button-action",
       (response: Action_Request) => {
-        if (response.target === doctype && response.view == "list") {
+        if (response.type == "request:save-action") {
           // console.log("AddressForm says ACTION: ", response);
           // triggerSaveRef.current?.click();
           // message.info(response.type);
+        }
+        if (response.type === "request:show-settings-dialog-action") {
+          console.log(
+            `Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`
+          );
         }
       }
     );

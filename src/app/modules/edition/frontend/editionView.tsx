@@ -27,7 +27,7 @@ import { modul_props } from "../modul_props";
 export function EditionView() {
   const { id } = useParams();
 
-  const fieldsEdition: MyBasicViewFieldParameterI[] = [
+  const fieldsEdition: MyBasicViewFieldParameterI<EditionI>[] = [
     {
       dataIndex: "name",
       label: "Name",
@@ -74,7 +74,7 @@ export function EditionView() {
     },
   ];
 
-  const segmentEditions: MyBasicViewSegmentParameterI = {
+  const segmentEditions: MyBasicViewSegmentParameterI<EditionI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsEdition,
@@ -83,7 +83,7 @@ export function EditionView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentEditions];
+  const segmentSets: MyBasicViewSegmentParameterI<EditionI>[] = [segmentEditions];
 
   return (
       <MyBasicView<EditionI>

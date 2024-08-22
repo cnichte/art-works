@@ -31,7 +31,7 @@ import { modul_props } from "../modul_props";
 export function RentalView() {
   const { id } = useParams();
 
-  const fieldsSale: MyBasicViewFieldParameterI[] = [
+  const fieldsSale: MyBasicViewFieldParameterI<RentalI>[] = [
     {
       dataIndex: "saleType",
       mapKeyTo: {
@@ -118,7 +118,7 @@ export function RentalView() {
     },
   ];
 
-  const segmentSales: MyBasicViewSegmentParameterI = {
+  const segmentSales: MyBasicViewSegmentParameterI<RentalI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsSale,
@@ -127,7 +127,7 @@ export function RentalView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentSales];
+  const segmentSets: MyBasicViewSegmentParameterI<RentalI>[] = [segmentSales];
 
   return (
     <MyBasicView<RentalI>

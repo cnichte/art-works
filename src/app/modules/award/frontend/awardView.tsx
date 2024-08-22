@@ -6,6 +6,10 @@ import {
 import MyBasicView from "../../../frontend/myBasicView";
 import { Segments } from "../../../frontend/Segments";
 import { modul_props } from "../modul_props";
+import { AwardI } from "../../../common/types/DocAward";
+import { CompilationI } from "../../../common/types/DocCompilation";
+import { ArtworkI } from "../../../common/types/DocArtwork";
+import { PublicationI } from "../../../common/types/DocPublication";
 
 /* ==========================================================
 
@@ -29,7 +33,7 @@ export function AwardView() {
   const { id } = useParams();
 
 
-  const fieldsAward: MyBasicViewFieldParameterI[] = [
+  const fieldsAward: MyBasicViewFieldParameterI<AwardI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -52,7 +56,7 @@ export function AwardView() {
     },
   ];
 
-  const segmentAwards: MyBasicViewSegmentParameterI = {
+  const segmentAwards: MyBasicViewSegmentParameterI<AwardI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsAward,
@@ -61,7 +65,7 @@ export function AwardView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [
+  const segmentSets: MyBasicViewSegmentParameterI<AwardI | ArtworkI | CompilationI | PublicationI>[] = [
     segmentAwards,
     Segments.getSegmentArtworks(modul_props.segment),
     Segments.getSegmentCompilations(modul_props.segment),
@@ -74,7 +78,7 @@ export function AwardView() {
 
    ---------------------------------------------------------- */
   return (
-    <MyBasicView
+    <MyBasicView<AwardI>
       id={id}
       modul_props={modul_props}
       segmentSets={segmentSets}

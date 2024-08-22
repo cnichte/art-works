@@ -65,6 +65,11 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
         if (response.type === "request:save-action") {
           triggerSaveRef.current?.click();
         }
+        if (response.type === "request:show-settings-dialog-action") {
+          console.log(
+            `Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`
+          );
+        }
       },
     });
 
@@ -96,9 +101,9 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
           height: height,
         }).then((value: Blob) => {
           console.log("TLDraw getSvgAsImage:", width, height);
-          Image_Util.read_image_as_base64(value).then((vs: string) => {
-            valuesForm.preview = vs;
 
+          Image_Util.read_image_as_base64(value).then((val: string) => {
+            valuesForm.preview = val; //! inject preview
 
             FormTool_IPC.save_data<WhiteboardI>({
               ipcChannel: IPC_DATABASE,
@@ -109,14 +114,10 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
             }).then((result: WhiteboardI) => {
               //! has new rev from backend
               setDataOrigin(result);
-            });
-
-
-          });
-        });
-      });
-
-
+            }); // FormTool_IPC.save_data
+          }); // Image_Util.read_image_as_base64
+        }); // getSvgAsImage
+      }); // editor.getSvgString
   };
 
   const onFormFinishFailed = (errorInfo: any) => {

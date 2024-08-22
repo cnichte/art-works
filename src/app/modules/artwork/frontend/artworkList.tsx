@@ -11,7 +11,7 @@ import { Artwork, ArtworkI } from "../../../common/types/DocArtwork";
 import { MyBasicList } from "../../../frontend/myBasicList";
 import { modul_props } from "../modul_props";
 import { MyCardGridList_DataItem } from "../../../frontend/myCardGridList";
-import { Cover_Image } from "../../../frontend/Cover_Image";
+import { Image_Cover } from "../../../frontend/Image_Cover";
 import { Image_Util } from "../../../frontend/Image_Util";
 
 function MyExtaButton() {
@@ -51,7 +51,7 @@ export function ArtworkList() {
       title: "Bild",
       dataIndex: "attachmentsMeta",
       key: "id",
-      render: (text, record) => <Cover_Image attachment_meta={record.attachmentsMeta} />,
+      render: (text, record) => <Image_Cover attachment_meta={record.attachmentsMeta} />,
     },
     {
       title: "Titel",

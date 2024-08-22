@@ -8,9 +8,9 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import { DocType } from "../../../common/types/DocType";
 import { WhiteboardI } from "../../../common/types/DocWhiteboard";
 import { modul_props } from "../modul_props";
+import { Image_Cover2 } from "../../../frontend/Image_Cover";
 
 /* ==========================================================
 
@@ -33,18 +33,24 @@ import { modul_props } from "../modul_props";
 export function WhiteboardView() {
   const { id } = useParams();
 
-  const fieldsArtwork: MyBasicViewFieldParameterI[] = [
+  const fieldsArtwork: MyBasicViewFieldParameterI<WhiteboardI>[] = [
     {
       dataIndex: "name",
       label: "Name",
     },
     {
+      dataIndex: "description",
+      label: "Beschreibung",
+    },
+    {
       dataIndex: "preview",
       label: "Vorschau",
+      //! my own custom renderer following the andt concept.
+      render: (text:string, record:WhiteboardI) => <Image_Cover2 image_string={text} ignore_size={true} />,
     },
   ];
 
-  const segmentArtworks: MyBasicViewSegmentParameterI = {
+  const segmentArtworks: MyBasicViewSegmentParameterI<WhiteboardI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsArtwork,
@@ -53,7 +59,7 @@ export function WhiteboardView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentArtworks];
+  const segmentSets: MyBasicViewSegmentParameterI<WhiteboardI>[] = [segmentArtworks];
 
   return (
     <MyBasicView<WhiteboardI>

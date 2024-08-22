@@ -37,7 +37,7 @@ export function ExhibitionView() {
 
   const { id } = useParams();
 
-  const fieldsExhibition: MyBasicViewFieldParameterI[] = [
+  const fieldsExhibition: MyBasicViewFieldParameterI<ExhibitionI>[] = [
     {
       dataIndex: "title",
       label: "Titel",
@@ -64,7 +64,7 @@ export function ExhibitionView() {
     },
   ];
 
-  const segmentExhibitions: MyBasicViewSegmentParameterI = {
+  const segmentExhibitions: MyBasicViewSegmentParameterI<ExhibitionI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsExhibition,
@@ -73,7 +73,7 @@ export function ExhibitionView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentExhibitions];
+  const segmentSets: MyBasicViewSegmentParameterI<ExhibitionI>[] = [segmentExhibitions];
 
   return (
     <MyBasicView<ExhibitionI>

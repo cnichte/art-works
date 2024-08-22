@@ -1,16 +1,26 @@
 # Developers Research
 
+## Plugin-System aka external js-files
+
+* !! <https://code.lol/post/programming/plugin-architecture/>
+* <https://stackoverflow.com/questions/4481058/load-and-execute-external-js-file-in-node-js-with-access-to-local-variables>
+* <https://reactnative.dev/blog/2023/06/21/package-exports-support#what-is-package-exports>
+
+
+Introduced in Node.js 12.7.0, Package Exports is the modern approach for npm packages to specify entry points — the mapping of package subpaths which can be externally imported and which file(s) they should resolve to.
+
+
 ## Conflict-Management
 
 Das funktioniert noch überhaupt nicht.
 
 * <https://stackoverflow.com/questions/53342945/pouchdb-couchdb-conflict-resolution-server-side>
   * <https://github.com/glynnbird/deconflict> !!!
-* https://hasura.io/blog/couchdb-style-conflict-resolution-rxdb-hasura
-* https://www.bennadel.com/blog/3200-retrying-bulk-updates-in-pouchdb-using-a-recursive-promise-chain.htm
-* https://github.com/genglefr/my-gallery/blob/master/app/pouch-ws-adapter.js
+* <https://hasura.io/blog/couchdb-style-conflict-resolution-rxdb-hasura>
+* <https://www.bennadel.com/blog/3200-retrying-bulk-updates-in-pouchdb-using-a-recursive-promise-chain.htm>
+* <https://github.com/genglefr/my-gallery/blob/master/app/pouch-ws-adapter.js>
 
-https://stackoverflow.com/questions/24185125/pouchdb-manually-managing-conflicts?rq=3
+<https://stackoverflow.com/questions/24185125/pouchdb-manually-managing-conflicts?rq=3>
 
 ## Unterscheidung
 

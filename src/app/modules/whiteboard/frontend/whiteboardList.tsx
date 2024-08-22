@@ -6,9 +6,7 @@ import {
 } from "../../../common/types/DocWhiteboard";
 import { MyBasicList } from "../../../frontend/myBasicList";
 import { modul_props } from "../modul_props";
-
-// import { getAssetUrls } from 'tldraw/dist-cjs/lib/'
-// const assetUrls = getAssetUrls()
+import { Image_Cover2 } from "../../../frontend/Image_Cover";
 
 /**
  * Ein Liste der Whiteboards.
@@ -41,11 +39,16 @@ export function WhiteboardList() {
     ---------------------------------------------------------- */
   const columns: ColumnsType<WhiteboardI> = [
     {
+      title: "Vorschau",
+      dataIndex: "preview",
+      key: "id",
+      render: (text, record) => <Image_Cover2 image_string={record.preview} />,
+    },
+    {
       title: "Name",
       dataIndex: "name",
       key: "id",
       render: (text, record) => (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <a onClick={() => handleView(record)}> {text} </a>
       ),
       sorter: (a, b) => a.name.localeCompare(b.name),
@@ -68,7 +71,7 @@ export function WhiteboardList() {
 
   return (
     <MyBasicList<DocWhiteboard>
-      listTypes={["list"]}
+      listTypes={["list", "grid"]}
       modul_props={modul_props}
       columns={columns}
     />

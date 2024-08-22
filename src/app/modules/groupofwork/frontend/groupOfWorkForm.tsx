@@ -59,6 +59,11 @@ export function GroupOfWorkForm() {
         if (response.type === "request:save-action") {
           triggerSaveRef.current?.click();
         }
+        if (response.type === "request:show-settings-dialog-action") {
+          console.log(
+            `Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`
+          );
+        }
       },
     });
 

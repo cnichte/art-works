@@ -5,6 +5,7 @@ import {
   CloseCircleOutlined,
   EditOutlined,
   UploadOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 
 import { Action_Request } from "../common/types/RequestTypes";
@@ -113,11 +114,41 @@ export function Header_Buttons(props: any) {
 
       options: {},
       surpress: false,
-
     };
 
     window.electronAPI.send(IPC_BUTTON_ACTION, [request]);
   };
+
+  const callbackSettingsHandler = () => {
+    // Two-way communication, case 2
+    let request: Action_Request = {
+      type: "request:show-settings-dialog-action",
+      target: doctype,
+
+      view: viewtype,
+      doctype: doctype,
+      doclabel: doclabel,
+      id: id,
+
+      options: {},
+      surpress: false,
+    };
+
+    window.electronAPI.send(IPC_BUTTON_ACTION, [request]);
+  };
+
+  function Button_Settings() {
+    return (
+      <Button
+        id="settings-action"
+        onClick={(e) => {
+          callbackSettingsHandler();
+        }}
+      >
+        <SettingOutlined />
+      </Button>
+    );
+  }
 
   /**
    * List = "add" | "edit";
@@ -136,6 +167,7 @@ export function Header_Buttons(props: any) {
           >
             <PlusOutlined /> {doclabel} hinzufügen
           </Button>
+          {Button_Settings()}
         </Space>
       );
     } else if (viewtype === "view" && !supress) {
@@ -159,6 +191,7 @@ export function Header_Buttons(props: any) {
             <EditOutlined />
             {doclabel} bearbeiten
           </Button>
+          {Button_Settings()}
         </Space>
       );
     } else if (viewtype === "form" && !supress) {
@@ -184,6 +217,7 @@ export function Header_Buttons(props: any) {
             <UploadOutlined />
             {doclabel} {id == "new" ? "erzeugen" : "aktualisieren"}
           </Button>
+          {Button_Settings()}
         </Space>
       );
     }

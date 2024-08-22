@@ -28,7 +28,7 @@ import { modul_props } from '../modul_props';
 export function TagView() {
   const { id } = useParams();
 
-  const fieldsTag: MyBasicViewFieldParameterI[] = [
+  const fieldsTag: MyBasicViewFieldParameterI<TagI>[] = [
     {
       dataIndex: 'parent',
       label: 'Gehört zu Tag',
@@ -49,7 +49,7 @@ export function TagView() {
     },
   ];
 
-  const segmentTags: MyBasicViewSegmentParameterI = {
+  const segmentTags: MyBasicViewSegmentParameterI<TagI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsTag,
@@ -58,7 +58,7 @@ export function TagView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentTags];
+  const segmentSets: MyBasicViewSegmentParameterI<TagI>[] = [segmentTags];
 
   return (
     <MyBasicView<TagI>

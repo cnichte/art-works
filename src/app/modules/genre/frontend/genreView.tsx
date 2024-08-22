@@ -30,7 +30,7 @@ import { modul_props } from "../modul_props";
 export function GenreView() {
   const { id } = useParams();
 
-  const fieldsGenre: MyBasicViewFieldParameterI[] = [
+  const fieldsGenre: MyBasicViewFieldParameterI<GenreI>[] = [
     {
       dataIndex: "name",
       label: "Name",
@@ -45,7 +45,7 @@ export function GenreView() {
     },
   ];
 
-  const segmentGenres: MyBasicViewSegmentParameterI = {
+  const segmentGenres: MyBasicViewSegmentParameterI<GenreI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsGenre,
@@ -54,7 +54,7 @@ export function GenreView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentGenres];
+  const segmentSets: MyBasicViewSegmentParameterI<GenreI>[] = [segmentGenres];
 
   return (
     <MyBasicView<GenreI>

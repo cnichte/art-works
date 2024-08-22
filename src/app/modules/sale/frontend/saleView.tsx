@@ -6,7 +6,6 @@ import {
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
 import MyBasicView from "../../../frontend/myBasicView";
-import { DocType } from "../../../common/types/DocType";
 
 import { SaleI } from "../../../common/types/DocSale";
 import { modul_props } from "../modul_props";
@@ -32,7 +31,7 @@ import { modul_props } from "../modul_props";
 export function SaleView() {
   const { id } = useParams();
 
-  const fieldsSale: MyBasicViewFieldParameterI[] = [
+  const fieldsSale: MyBasicViewFieldParameterI<SaleI>[] = [
     {
       dataIndex: "saleType",
       mapKeyTo: {
@@ -119,7 +118,7 @@ export function SaleView() {
     },
   ];
 
-  const segmentSales: MyBasicViewSegmentParameterI = {
+  const segmentSales: MyBasicViewSegmentParameterI<SaleI> = {
     segment: "sales",
     label: "Verkauf",
     fields: fieldsSale,
@@ -128,7 +127,7 @@ export function SaleView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentSales];
+  const segmentSets: MyBasicViewSegmentParameterI<SaleI>[] = [segmentSales];
 
   return (
     <MyBasicView<SaleI>

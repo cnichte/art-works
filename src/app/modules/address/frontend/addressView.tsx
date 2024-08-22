@@ -27,7 +27,7 @@ import { modul_props } from '../modul_props';
 export function AddressView() {
   const { id } = useParams();
   
-  const fieldsAddress: MyBasicViewFieldParameterI[] = [
+  const fieldsAddress: MyBasicViewFieldParameterI<AddressI>[] = [
     {
       dataIndex: 'name',
       label: 'Name',
@@ -66,7 +66,7 @@ export function AddressView() {
     },
   ];
 
-  const segmentAddresses: MyBasicViewSegmentParameterI = {
+  const segmentAddresses: MyBasicViewSegmentParameterI<AddressI> = {
     segment: modul_props.segment,
     label: modul_props.doclabel,
     fields: fieldsAddress,
@@ -75,7 +75,7 @@ export function AddressView() {
   };
 
   //* Das erste Segment ist der Master, und wird für die Navigation verwendet.
-  const segmentSets: MyBasicViewSegmentParameterI[] = [segmentAddresses];
+  const segmentSets: MyBasicViewSegmentParameterI<AddressI>[] = [segmentAddresses];
 
   return (
     <MyBasicView<AddressI>

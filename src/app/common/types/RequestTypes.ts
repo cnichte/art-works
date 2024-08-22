@@ -71,6 +71,7 @@ export interface Action_Request {
 export type ActionRequestType =
   // Header-Buttons to (List | View | Form)-Component
   | "request:save-action"
+  | "request:show-settings-dialog-action"
   // (List | View | Form)-Component to Header-Buttons
   | "request:show-list-buttons"
   | "request:show-view-buttons"
