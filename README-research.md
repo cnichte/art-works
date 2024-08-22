@@ -1,5 +1,23 @@
 # Developers Research
 
+## Masonry Layout
+
+<https://github.com/cedricdelpoux/react-responsive-masonry#readme>
+
+```bash
+npm install react-responsive-masonry --save
+npm i --save-dev @types/react-responsive-masonry
+```
+
+Funktioniert leider nicht,
+
+<https://www.dhiwise.com/post/how-to-implement-a-react-masonry-component-in-web-application>
+https://github.com/jaredLunde/masonic
+
+```
+npm i masonic
+```
+
 ## Plugin-System aka external js-files
 
 * !! <https://code.lol/post/programming/plugin-architecture/>

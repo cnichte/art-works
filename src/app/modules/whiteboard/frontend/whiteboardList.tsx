@@ -7,6 +7,8 @@ import {
 import { MyBasicList } from "../../../frontend/myBasicList";
 import { modul_props } from "../modul_props";
 import { Image_Cover2 } from "../../../frontend/Image_Cover";
+import { MyCardGridList_DataItem } from "../../../frontend/myCardGridList";
+import { Image_Util } from "../../../frontend/Image_Util";
 
 /**
  * Ein Liste der Whiteboards.
@@ -74,6 +76,13 @@ export function WhiteboardList() {
       listTypes={["list", "grid"]}
       modul_props={modul_props}
       columns={columns}
+      render_grid={function (record: DocWhiteboard): MyCardGridList_DataItem {
+        const d: MyCardGridList_DataItem = {
+          preview: record.preview,
+          id: record.id,
+        };
+        return d;
+      }}
     />
   );
 }

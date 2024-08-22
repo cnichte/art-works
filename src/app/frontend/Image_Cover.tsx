@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-import { Image } from "antd";
+import { Empty, Image } from "antd";
 import { AttachmentMeta } from "../common/types/AttachmentTypes";
 import { Image_Util } from "./Image_Util";
 
@@ -11,6 +11,7 @@ export interface Image_Cover_Props {
 export interface Image_Cover2_Props {
   image_string: string;
   height?: number;
+  width?:number;
   ignore_size?: boolean;
 }
 
@@ -55,6 +56,7 @@ export function Image_Cover({ attachment_meta }: Image_Cover_Props) {
 export function Image_Cover2({
   image_string,
   height = 40,
+  width = 40,
   ignore_size = false,
 }: Image_Cover2_Props) {
   /**
@@ -62,19 +64,20 @@ export function Image_Cover2({
    * @returns
    */
   function getCoverImages(image_string: string): ReactElement {
-    let image: ReactElement = <Image src={Image_Util.image_src_fallback} />;
+    let image: ReactElement = <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />; //<Image src={Image_Util.image_src_fallback} />;
 
     if (image_string != null && image_string.length > 0) {
       if (ignore_size) {
         image = (
-          <Image src={image_string} fallback={Image_Util.image_src_fallback} />
+          <Image src={image_string} fallback={Image_Util.image_src_fallback} preview={false} />
         );
       } else {
         image = (
           <Image
             src={image_string}
-            height={height}
+            width={width}
             fallback={Image_Util.image_src_fallback}
+            preview={false} 
           />
         );
       }

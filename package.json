@@ -61,6 +61,7 @@
     "i18next": "^23.12.2",
     "i18next-fs-backend": "^2.3.2",
     "markdown-to-jsx": "^7.4.7",
+    "masonic": "^4.0.1",
     "mysql2": "^3.11.0",
     "pouchdb": "^8.0.1",
     "pouchdb-find": "^8.0.1",

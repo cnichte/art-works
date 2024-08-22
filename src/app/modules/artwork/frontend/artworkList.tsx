@@ -33,7 +33,6 @@ function MyExtaButton() {
 export function ArtworkList() {
   const navigate = useNavigate();
 
-
   //* open view
   const handleView = (record: { id: any }) => {
     console.log("--- handleView:", record);
@@ -46,7 +45,7 @@ export function ArtworkList() {
   };
 
 
-  const columns: ColumnsType<ArtworkI> = [
+  const table_columns: ColumnsType<ArtworkI> = [
     {
       title: "Bild",
       dataIndex: "attachmentsMeta",
@@ -103,12 +102,11 @@ export function ArtworkList() {
     <MyBasicList<Artwork>
       listTypes={["list", "grid"]}
       modul_props={modul_props}
-      columns={columns}
+      columns={table_columns}
       render_grid={function (record: Artwork): MyCardGridList_DataItem {
         const d: MyCardGridList_DataItem = {
-          title: record.title,
-          description: record.description_short,
-          cover: Image_Util.get_coverImage_src(record.attachmentsMeta),
+          preview: Image_Util.get_coverImage_src(record.attachmentsMeta),
+          id: record.id
         };
         return d;
       }}

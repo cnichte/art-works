@@ -26,7 +26,6 @@ import { Action_Request, DB_Request } from "../common/types/RequestTypes";
 import { RequestData_IPC } from "./RequestData_IPC";
 import { Modul_Props_I } from "../common/Modul_Props";
 import { MyCardGridList, MyCardGridList_DataItem } from "./myCardGridList";
-import { TldrawUiDropdownMenuIndicator } from "tldraw";
 
 // TODO CSS import styles from './myBasicList.css';
 // <Table className={styles.antTableRow}
@@ -42,6 +41,12 @@ type RowSelectionCallbackType = (
 ) => any;
 
 interface MyBasicList_GridRenderer_Props<T> {
+  /**
+   * Callback to render an grid item.
+   * 
+   * @param record 
+   * @returns 
+   */
   render_grid?: (record: T) => MyCardGridList_DataItem;
 }
 

@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { Modul_Props_I } from "../common/Modul_Props";
-import { Card, Col, Empty } from "antd";
-import Meta from "antd/es/card/Meta";
+import { Col, Empty } from "antd";
+import { useNavigate } from "react-router";
+import { DocItentifiable } from "../common/types/DocType";
+import { Image_Cover2 } from "./Image_Cover";
+import { Masonry } from "masonic";
 
 type ListType = "list" | "grid"; // Der gehört in eigene Datei
 
@@ -14,9 +17,11 @@ function getTheProperty<T, K extends keyof T>(o: T, propertyName: K): T[K] {
 }
 
 export interface MyCardGridList_DataItem {
-  title: string;
-  description: string;
-  cover: string;
+  title?: string;
+  description?: string;
+  href?: string;
+  preview?: string;
+  id: string;
 }
 
 export interface MyCardGridList_Props<T> {
@@ -26,61 +31,78 @@ export interface MyCardGridList_Props<T> {
   render: (record: T) => MyCardGridList_DataItem;
 }
 
+export interface My_Masonry_Props {}
+
 export function MyCardGridList<T>({
   modul_props,
   cardSize,
   data,
   render,
 }: MyCardGridList_Props<T>) {
+  const navigate = useNavigate();
+  // not used so here
   useEffect(() => {}, []);
 
+  //* open view
+  const handleView = (record: any | DocItentifiable) => {
+    console.log("--- handleView:", record);
+    console.log(`--- navigate  : '/${modul_props.doctype}/view/${record.id}'`);
+    navigate(`/${modul_props.doctype}/view/${record.id}`);
+  };
+
   // TODO Render a Grid of Cards
-  const result: any[] = [];
+  const grid_data: any[] = [];
   const gap = 20;
 
   for (let i = 0; i < data.length; i += 1) {
-    const key = `col-${i}`;
+    const col_key = `col-${i}`;
+    const img_key = `img-${i}`;
 
     let di: MyCardGridList_DataItem = {
-      title: "Title",
-      description: "Descriptiond",
-      cover: "",
+      id: "",
     };
 
     if (render) {
       di = render(data[i]);
+    } else {
     }
 
-    // const title: any = data[i][data_keys.dataIndex_title as any];
-    // const desc: any = data[i][data_keys.dataIndex_description as any];
-    // const cover: any = data[i][data_keys.dataIndex_cover as any];
+    const test: string = `${cardSize}`;
 
-    result.push(
-      <div style={{ marginBottom: `${gap}px` }}>
-        <Col
-          key={key}
-          xs={{ flex: "100%" }}
-          sm={{ flex: "50%" }}
-          md={{ flex: "40%" }}
-          lg={{ flex: "20%" }}
-          xl={{ flex: "10%" }}
-        >
-          <Card
-            hoverable
-            style={{ width: cardSize }}
-            cover={<img alt="example" src={di?.cover} />}
-          >
-            <Meta title={di?.title} description={di?.description} />
-          </Card>
-        </Col>
-      </div>
-    );
+    grid_data.push(di);
   }
+
+
+  //! https://github.com/jaredLunde/masonic
+  const My_Masonry_Grid = (props: My_Masonry_Props) => (
+    <Masonry
+      items={grid_data}
+      render={My_Masonry_Card}
+      columnWidth={cardSize}
+      columnGutter={10}
+      rowGutter={10}
+      role="list"
+    />
+  );
+
+  const My_Masonry_Card = ({
+    index,
+    data,
+    width,
+  }: {
+    index: any;
+    data: any;
+    width: any;
+  }) => (
+    <a key={index} onClick={() => handleView(data)}>
+      <Image_Cover2 image_string={data?.preview} width={width}/>
+    </a>
+  );
 
   return (
     <>
-      {result.length > 0 ? (
-        result
+      {grid_data.length > 0 ? (
+        <My_Masonry_Grid />
       ) : (
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       )}

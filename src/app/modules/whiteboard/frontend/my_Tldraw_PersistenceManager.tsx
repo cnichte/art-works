@@ -96,7 +96,7 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
         getSvgAsImage(editor, svg, {
           type: "png",
           quality: 1,
-          scale: 2,
+          scale: 0.5,
           width: width,
           height: height,
         }).then((value: Blob) => {
