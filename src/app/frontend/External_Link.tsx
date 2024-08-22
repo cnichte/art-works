@@ -3,8 +3,20 @@ interface External_Link_Props {
   props: any;
 }
 
+/**
+ * Is used to open rendered Markdown links in the external default browser.
+ * 
+ * @see ViewTools.getMyFuckingValueFrom
+ * @param props 
+ * @returns 
+ */
 export function External_Link(props:External_Link_Props) {
 
+  /**
+   * request to open a link in the external browser.
+   * 
+   * @param href 
+   */
   function open_external_link(href: string): void {
     window.electronAPI.send("ipc-external-link", [href]);
   }
