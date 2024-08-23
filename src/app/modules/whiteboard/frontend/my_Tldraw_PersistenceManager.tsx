@@ -59,7 +59,7 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
       ipc_channel: "ipc-database",
 
       surpress_buttons: false,
-      setDataCallback: function (result: any): void {
+      handleResultCallback: function (result: any): void {
         setDataOrigin(result.whiteboards[0]);
         //!load data to Tldraw
         loadSnapshot(editor.store, JSON.parse(result.whiteboards[0].content));

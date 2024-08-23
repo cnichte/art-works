@@ -9,6 +9,7 @@ import {
   RadioChangeEvent,
   Segmented,
   Slider,
+  Tooltip,
 } from "antd";
 import {
   DeleteOutlined,
@@ -33,6 +34,7 @@ import {
   MyBasicList_SearchPanel_Buttons,
   SearchPanelType,
 } from "./myBasicList_SearchPanel";
+import { SegmentType } from "../common/types/SegmentType";
 
 // TODO CSS import styles from './myBasicList.css';
 // <Table className={styles.antTableRow}
@@ -153,7 +155,7 @@ function MyBasicList<T>({
       ipc_channel: "ipc-database",
 
       surpress_buttons: false,
-      setDataCallback: function (result: T[]): void {
+      handleResultCallback: function (result: T[]): void {
         setData(result);
       },
       doButtonActionCallback: function (response: Action_Request): void {
@@ -194,13 +196,38 @@ function MyBasicList<T>({
     console.log(`Clicked Okay Button for ${record.id}`);
     setConfirmLoading(true); // Umbenennen: Loading Animation
 
-    // Das item aus der Tabelle entfernen.
-    //! Das sollte erst gemacht werden, wenn erfolgreich aus DB entfernt...
-    const newData = data.filter((item: any) => item.id !== record.id);
-    setData(newData);
+    const request: DB_Request = {
+      type: "request:delete",
+      doctype: modul_props.doctype,
+      id: record.id,
+      options: {},
+    };
 
-    console.info("Request data delete from backend...");
-    // window.electronAPI.sendMessage(requests.channel, [ requests.deleteData, record,]);
+    RequestData_IPC.perform_request<any>({ // TODO load_data ist hier irreführend.
+      modul_props: modul_props,
+      ipc_channel: "ipc-database",
+      request: request,
+      handleResultCallback: function (result: any): void {
+        // Das item aus der Tabelle entfernen.
+
+        // let test:any =  data[modul_props.segment];
+        //TODO Das Element weist implizit einen Typ "any" auf, weil der Indexausdruck nicht vom Typ "number" ist.ts(7015)
+        // https://stackoverflow.com/questions/57438198/typescript-element-implicitly-has-an-any-type-because-expression-of-type-st
+        // Medium: https://typescriptcenter.com/demystifying-typescript-resolving-the-element-implicitly-has-an-any-type-error-a8ab4d948879
+        
+        // const key: SegmentType = "addresses";
+        // console.log(data[key as keyof typeof data]);
+        
+
+        let records:any = [];
+        records = data[modul_props.segment as any];
+
+        const newData = records.filter((item: any) => item.id !== record.id);
+        setData(newData);
+
+        console.info("Request data delete from backend...");
+      },
+    });
   };
 
   const handlePopconfirmCancel = (record: any) => {
@@ -295,30 +322,38 @@ function MyBasicList<T>({
     {
       title: "Aktionen",
       key: "action",
-      render: (_, record) =>
-        data.length >= 1 ? (
-          <Space size="middle">
+      render: (_, record) => (
+        <Space size="middle">
+          <Button
+            type="default"
+            shape="circle"
+            size="middle"
+            onClick={() => handleEdit(record.id)}
+          >
+            <Tooltip placement="left" title="Eintrag bearbeiten">
+              <EditOutlined />
+            </Tooltip>
+          </Button>
+          <Popconfirm
+            title="Eintrag löschen!"
+            description="Bist du ganz sicher?"
+            onConfirm={() => handlePopconfirmOk(record)}
+            okButtonProps={{ loading: confirmLoading }}
+            onCancel={() => handlePopconfirmCancel(record)}
+          >
             <Button
-              type="primary"
+              type="default"
               shape="circle"
               size="middle"
-              onClick={() => handleEdit(record.id)}
+              style={{ color: "red" }}
             >
-              <EditOutlined />
-            </Button>
-            <Popconfirm
-              title="Eintrag löschen!"
-              description="Bist du ganz sicher?"
-              onConfirm={() => handlePopconfirmOk(record)}
-              okButtonProps={{ loading: confirmLoading }}
-              onCancel={() => handlePopconfirmCancel(record)}
-            >
-              <Button type="primary" shape="circle" size="middle">
+              <Tooltip placement="right" title="Eintrag löschen">
                 <DeleteOutlined />
-              </Button>
-            </Popconfirm>
-          </Space>
-        ) : null,
+              </Tooltip>
+            </Button>
+          </Popconfirm>
+        </Space>
+      ),
     },
   ];
 

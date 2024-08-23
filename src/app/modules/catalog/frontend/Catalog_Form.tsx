@@ -73,7 +73,7 @@ export function Catalog_Form() {
       ipc_channel: "ipc-settings",
 
       surpress_buttons: false,
-      setDataCallback: function (result: DocCatalog): void {
+      handleResultCallback: function (result: DocCatalog): void {
         setDataObject(result);
         form.setFieldsValue(result);
         

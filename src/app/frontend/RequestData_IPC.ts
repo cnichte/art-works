@@ -15,7 +15,7 @@ export interface LoadData_IPC_LoadData_FUNC_Props<T> {
   ipc_channel: IPC_Channels;
   request: DB_Request | Settings_Request;
 
-  setDataCallback: (result: T) => void;
+  handleResultCallback: (result: T) => void; // handleResultCallback
 }
 
 export interface LoadData_IPC_InitAndLoadData_FUNC_Props<T>
@@ -39,13 +39,13 @@ export class RequestData_IPC {
   /**
    * @param props RequestData_IPC_Props
    */
-  public static load_data<T>(props: LoadData_IPC_LoadData_FUNC_Props<T>): void {
+  public static perform_request<T>(props: LoadData_IPC_LoadData_FUNC_Props<T>): void {
     // Request data from pouchdb
     //! Following Pattern 2 for the Database requests
     window.electronAPI
       .invoke_request(props.ipc_channel, [props.request])
       .then((result: T) => {
-        props.setDataCallback(result);
+        props.handleResultCallback(result);
 
         App_Messages_IPC.request_message(
           "request:message-info",
@@ -89,7 +89,7 @@ export class RequestData_IPC {
     window.electronAPI
       .invoke_request(props.ipc_channel, [props.request])
       .then((result: T) => {
-        props.setDataCallback(result);
+        props.handleResultCallback(result);
 
         App_Messages_IPC.request_message(
           "request:message-info",

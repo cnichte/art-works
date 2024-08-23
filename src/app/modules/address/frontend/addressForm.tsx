@@ -69,7 +69,7 @@ export function AddressForm() {
       ipc_channel: "ipc-database",
 
       surpress_buttons: false,
-      setDataCallback: function (result: any): void {
+      handleResultCallback: function (result: any): void {
         setDataOrigin(result[segment][0]);
         form.setFieldsValue(result[segment][0]);
       },
@@ -91,12 +91,12 @@ export function AddressForm() {
       options: {},
     };
 
-    RequestData_IPC.load_data<any>({
+    RequestData_IPC.perform_request<any>({
       // TODO AddressType[] statt <any>
       modul_props: modul_props,
       ipc_channel: "ipc-database",
       request: request_2,
-      setDataCallback: function (result: any): void {
+      handleResultCallback: function (result: any): void {
         setAddressTypes(result.addressTypes);
       },
     });

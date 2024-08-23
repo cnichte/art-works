@@ -63,7 +63,7 @@ export class FormTool_IPC<T extends DocItentifiable> {
       window.electronAPI
         .invoke_request(props.ipc_channel, [props.request])
         .then((result: T) => {
-          props.setDataCallback(result);
+          props.handleResultCallback(result);
 
           App_Messages_IPC.request_message(
             "request:message-info",

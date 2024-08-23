@@ -53,7 +53,7 @@ export function CalculationForm() {
       ipc_channel: "ipc-database",
 
       surpress_buttons: false,
-      setDataCallback: function (result: any): void {
+      handleResultCallback: function (result: any): void {
         setDataOrigin(result[segment][0]);
         form.setFieldsValue(result[segment][0]);
       },

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import {
   Button,
-  Col,
   Form,
   Input,
   Row,
@@ -75,7 +74,11 @@ export function MyBasicList_SearchPanel<T>({
   searchPanelType,
 }: MyBasicList_SearchPanel_Props<T>) {
   const { token } = theme.useToken();
-  const [form] = Form.useForm();
+
+  const [form1] = Form.useForm();
+  const [form2] = Form.useForm();
+  const [form3] = Form.useForm();
+
   const [expand, setExpand] = useState(false);
 
   const formStyle: React.CSSProperties = {
@@ -88,23 +91,56 @@ export function MyBasicList_SearchPanel<T>({
     display: show ? "block" : "none",
   };
 
-  const getFields = (searchPanelType: SearchPanelType) => {
-    const count = expand ? 10 : 6;
+  const getFormularFields = (searchPanelType: SearchPanelType) => {
+
     const children = [];
 
-    //! BEISPIEL für (un)sichtares Teilformular
-    //! Ich mache hier aber für jedes Panel ein Formular und führe die Daten vor dem speichern
-    //! zu einer anfrage zusammen ??
-    // https://ant.design/components/form#form-demo-form-context
-    // https://ant.design/components/form#form-demo-form-context
+    //! Text Formular
+
+    children.push(
+      // Das variiert je nach Dokumententyp
+      <Select
+        style={{
+          width: 250,
+          display: searchPanelType === "text" ? "flex" : "none",
+        }}
+        defaultValue={"all"}
+        options={[
+          { value: "all", label: "Alle durchsuchbaren Felder" },
+          { value: "filename", label: "Dateiname" },
+          { value: "title", label: "Titel" },
+          { value: "description", label: "Beschreibung" },
+        ]}
+      />
+    );
+    children.push(
+      // Das variiert je nach Dokumententyp
+      <Select
+        style={{
+          width: 150,
+          display: searchPanelType === "text" ? "flex" : "none",
+        }}
+        defaultValue={"contains"}
+        options={[
+          { value: "contains", label: "Enthält" },
+          { value: "contains-all", label: "Enthält alles" },
+          { value: "contains-words", label: "Enthält Wörter" },
+          { value: "contains-not", label: "Enthält nicht" },
+          { value: "starts-with", label: "Beginnt mit" },
+          { value: "ends-with", label: "Endet mit" },
+          { value: "is-empty", label: "Ist leer" },
+          { value: "is-not-empty", label: "Ist nicht leer" },
+        ]}
+      />
+    );
 
     children.push(
       <Form.Item
-        name={`Text`}
         style={{
-          visibility: searchPanelType == "text" ? "visible" : "hidden",
+          width: 250,
+          display: searchPanelType === "text" ? "flex" : "none",
         }}
-        label={`Text`}
+        name={`searchtext`}
         rules={[
           {
             required: true,
@@ -116,13 +152,16 @@ export function MyBasicList_SearchPanel<T>({
       </Form.Item>
     );
 
+    //! Attribut Formular
+
     children.push(
       <Form.Item
-        name={`Attribut`}
         style={{
-          visibility: searchPanelType == "attribut" ? "visible" : "hidden",
+          width: 250,
+          display: searchPanelType === "attribut" ? "flex" : "none",
         }}
-        label={`Attribut`}
+        name={`searchtext`}
+        label={"Attribut Suche"}
         rules={[
           {
             required: true,
@@ -134,13 +173,16 @@ export function MyBasicList_SearchPanel<T>({
       </Form.Item>
     );
 
+    //! Metadata Formular
+
     children.push(
       <Form.Item
-        name={`Metadata`}
         style={{
-          visibility: searchPanelType == "metadata" ? "visible" : "hidden",
+          width: 250,
+          display: searchPanelType === "metadata" ? "flex" : "none",
         }}
-        label={`Metadata`}
+        name={`searchtext`}
+        label={"Metadata Suche"}
         rules={[
           {
             required: true,
@@ -152,47 +194,6 @@ export function MyBasicList_SearchPanel<T>({
       </Form.Item>
     );
 
-    // !
-
-    for (let i = 0; i < count; i++) {
-      children.push(
-        <Col span={8} key={i}>
-          {i % 3 !== 1 ? (
-            <Form.Item
-              name={`field-${i}`}
-              label={`Field ${i}`}
-              rules={[
-                {
-                  required: true,
-                  message: "Input something!",
-                },
-              ]}
-            >
-              <Input placeholder="placeholder" />
-            </Form.Item>
-          ) : (
-            <Form.Item
-              name={`field-${i}`}
-              label={`Field ${i}`}
-              rules={[
-                {
-                  required: true,
-                  message: "Select something!",
-                },
-              ]}
-              initialValue="1"
-            >
-              <Select>
-                <Option value="1">
-                  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-                </Option>
-                <Option value="2">222</Option>
-              </Select>
-            </Form.Item>
-          )}
-        </Col>
-      );
-    }
     return children;
   };
 
@@ -200,16 +201,23 @@ export function MyBasicList_SearchPanel<T>({
     console.log("Received values of form: ", values);
   };
 
-  // TODO  felder müssen unsichtbar geschaltet werden.
-
   return (
     <Form
-      form={form}
-      name="advanced_search"
-      style={formStyle}
+      form={form1}
+      name="advanced_search_1"
+      style={{
+        maxWidth: "none",
+        background: token.colorFillAlter,
+        borderRadius: token.borderRadiusLG,
+        padding: 24,
+
+        backgroundColor: "#efefef",
+        display: show ? "block" : "none",
+      }}
       onFinish={onFinish}
+      hidden={searchPanelType == "text" ? true : false}
     >
-      <Row gutter={24}>{getFields(searchPanelType)}</Row>
+      <Row gutter={24}>{getFormularFields(searchPanelType)}</Row>
 
       <div style={{ textAlign: "right" }}>
         <Space size="small">
@@ -218,7 +226,7 @@ export function MyBasicList_SearchPanel<T>({
           </Button>
           <Button
             onClick={() => {
-              form.resetFields();
+              form1.resetFields();
             }}
           >
             Clear

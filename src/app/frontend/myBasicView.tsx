@@ -329,7 +329,7 @@ export function MyBasicView<T>({
       ipc_channel: "ipc-database",
 
       surpress_buttons: false,
-      setDataCallback: function (result: T): void {
+      handleResultCallback: function (result: T): void {
         setData(result);
       },
       doButtonActionCallback: function (response: Action_Request): void {

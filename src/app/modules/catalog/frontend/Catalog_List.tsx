@@ -1,7 +1,13 @@
 import React, { Key, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-import { Select, Space, Table, Popconfirm, Tabs } from "antd";
+import { Select, Space, Table, Popconfirm, Tabs, Button, Tooltip } from "antd";
+import {
+  EyeOutlined,
+  EditOutlined,
+  FileZipOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 
 import type { ColumnsType } from "antd/es/table";
 import type { TableRowSelection } from "antd/es/table/interface";
@@ -48,7 +54,7 @@ export function Catalog_List() {
       ipc_channel: "ipc-settings",
 
       surpress_buttons: false,
-      setDataCallback: function (result: any): void {
+      handleResultCallback: function (result: any): void {
         let list: DocCatalogType[] = result.options;
         setSelectedRowKeys([result.selected]);
 
@@ -107,11 +113,11 @@ export function Catalog_List() {
       options: {},
     };
 
-    RequestData_IPC.load_data<any>({
+    RequestData_IPC.perform_request<any>({
       modul_props: modul_props,
       ipc_channel: "ipc-settings",
       request: request,
-      setDataCallback: function (result: any): void {
+      handleResultCallback: function (result: any): void {
         let list: DocCatalogType[] = result.options;
         setSelectedRowKeys([result.selected]);
 
@@ -306,21 +312,65 @@ export function Catalog_List() {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a onClick={() => handleView(record)}>View</a>
-          <a onClick={() => handleEdit(record)}>Edit</a>
-          <a onClick={() => handleBackup(record)}>backup</a>
+          <Button
+            type="default"
+            shape="circle"
+            size="middle"
+            onClick={() => handleView(record)}
+          >
+            <Tooltip title="Eintrag ansehen">
+              <EyeOutlined />
+            </Tooltip>
+          </Button>
+
+          <Button
+            type="default"
+            shape="circle"
+            size="middle"
+            onClick={() => handleEdit(record)}
+          >
+            <Tooltip title="Eintrag bearbeiten">
+              <EditOutlined />
+            </Tooltip>
+          </Button>
+
+          <Button
+            type="default"
+            shape="circle"
+            size="middle"
+            onClick={() => handleBackup(record)}
+          >
+            <Tooltip title="Backup anlegen (Zip-Archiv)">
+              <FileZipOutlined />
+            </Tooltip>
+          </Button>
+
           <Popconfirm
             title="Datenbank löschen!"
             description="Bist du ganz sicher?"
             onConfirm={() => handleDeletePopconfirmOk(record)}
             onCancel={() => handleDeletePopconfirmCancel(record)}
           >
-            <a style={{ color: "red" }}>Delete</a>
+            <Button
+              type="default"
+              shape="circle"
+              size="middle"
+              style={{ color: "red" }}
+            >
+              <Tooltip placement="right" title="Eintrag löschen">
+                <DeleteOutlined />
+              </Tooltip>
+            </Button>
           </Popconfirm>
         </Space>
       ),
     },
   ];
+
+  // <a onClick={() => handleView(record)}>View</a>
+  // <a onClick={() => handleEdit(record)}>Edit</a>
+  // <a onClick={() => handleBackup(record)}>backup</a>
+  // <a style={{ color: "red" }}>Delete</a>
 
   const onTableSelectChange = (newSelectedRowKeys: React.Key[]) => {
     console.log("selectedRowKeys changed: ", newSelectedRowKeys);
@@ -368,7 +418,7 @@ export function Catalog_List() {
         <Select
           defaultValue={selectedStartoption}
           value={selectedStartoption}
-          style={{ width: 310, marginBottom: 15, }}
+          style={{ width: 310, marginBottom: 15 }}
           onChange={handleStartoptionsChange}
           options={getStartoptions()}
         />

@@ -1,4 +1,5 @@
 import { DocType } from "./types/DocType";
+import { SegmentType } from "./types/SegmentType";
 
 /**
  * @author Carsten Nichte - //carsten-nichte.de/apps/
@@ -7,5 +8,5 @@ import { DocType } from "./types/DocType";
 export interface Modul_Props_I {
   doclabel: string;
   doctype: DocType;
-  segment: string; //? muss 'any' sein, weil als Index in Array verwendet.
+  segment: SegmentType; //? muss 'any' sein, weil als Index in Array verwendet.
 }
