@@ -15,6 +15,8 @@ import {
   EditOutlined,
   AppstoreOutlined,
   BarsOutlined,
+  FilterOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
@@ -26,6 +28,11 @@ import { Action_Request, DB_Request } from "../common/types/RequestTypes";
 import { RequestData_IPC } from "./RequestData_IPC";
 import { Modul_Props_I } from "../common/Modul_Props";
 import { MyCardGridList, MyCardGridList_DataItem } from "./myCardGridList";
+import {
+  MyBasicList_SearchPanel,
+  MyBasicList_SearchPanel_Buttons,
+  SearchPanelType,
+} from "./myBasicList_SearchPanel";
 
 // TODO CSS import styles from './myBasicList.css';
 // <Table className={styles.antTableRow}
@@ -43,9 +50,9 @@ type RowSelectionCallbackType = (
 interface MyBasicList_GridRenderer_Props<T> {
   /**
    * Callback to render an grid item.
-   * 
-   * @param record 
-   * @returns 
+   *
+   * @param record
+   * @returns
    */
   render_grid?: (record: T) => MyCardGridList_DataItem;
 }
@@ -70,6 +77,9 @@ interface MyBasicListProps<T> extends MyBasicList_GridRenderer_Props<T> {
  *
  * Liste, und List Funktionen sind für alle Module gleich.
  *
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ *
  * @param param0 Properties
  * @returns
  */
@@ -93,8 +103,11 @@ function MyBasicList<T>({
   const [data, setData] = useState<T[]>([]);
   //* PopConfirm - delete action
   const [confirmLoading, setConfirmLoading] = useState(false);
-
   const [listType, setListType] = useState<ListType>("list");
+
+  const [showSearchPanel, setShowSearchPanel] = useState<boolean>(false);
+  const [searchPanelType, setSearchPanelType] =
+    useState<SearchPanelType>("text");
 
   function getListTypeOptions(): Array<any> {
     let listTypeOptions = [];
@@ -103,7 +116,7 @@ function MyBasicList<T>({
       listTypeOptions.push({
         label: "List",
         value: "list",
-        icon:  <BarsOutlined /> ,
+        icon: <BarsOutlined />,
       });
     }
 
@@ -144,8 +157,10 @@ function MyBasicList<T>({
         setData(result);
       },
       doButtonActionCallback: function (response: Action_Request): void {
-        if(response.type==="request:show-settings-dialog-action"){
-            console.log(`Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`)
+        if (response.type === "request:show-settings-dialog-action") {
+          console.log(
+            `Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`
+          );
         }
       },
     });
@@ -256,7 +271,7 @@ function MyBasicList<T>({
   const cardSizes: Record<PropertyKey, number> = {};
   [
     100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240,
-    250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390
+    250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390,
   ].forEach((v, i) => {
     cardSizes[i] = v;
   });
@@ -271,6 +286,10 @@ function MyBasicList<T>({
      rowKey={(record) => record._id} adds a data-row-key Property to <tr>
 
     ---------------------------------------------------------- */
+
+  const doShowSearchPanel = () => {
+    setShowSearchPanel(!showSearchPanel);
+  };
 
   const columnActions: ColumnsType<GroupOfWorkI> = [
     {
@@ -306,7 +325,9 @@ function MyBasicList<T>({
   // Die übergebenen Benutzer-TabellenSpalten vor den Aktionen einfügen.
   const allColumns = columns.concat(columnActions);
 
-  function Render_Table_Or_Grid({ render_grid }: MyBasicList_GridRenderer_Props<T>) {
+  function Render_Table_Or_Grid({
+    render_grid,
+  }: MyBasicList_GridRenderer_Props<T>) {
     if (listType == "list") {
       return (
         <Col span={24}>
@@ -381,7 +402,25 @@ function MyBasicList<T>({
             // TODO tooltip={{ formatter }}
           />
         ) : null}
+        <Button
+          type={showSearchPanel ? "primary" : "default"}
+          icon={<SearchOutlined />}
+          onClick={(e) => {
+            doShowSearchPanel();
+          }}
+        />
+        <MyBasicList_SearchPanel_Buttons<T>
+          show={showSearchPanel}
+          onChange={function (value: SearchPanelType): void {
+            setSearchPanelType(value);
+          }}
+        />
       </Space>
+      <MyBasicList_SearchPanel<T>
+        modul_props={modul_props}
+        show={showSearchPanel}
+        searchPanelType={searchPanelType}
+      />
       <Row gutter={[40, 0]}>
         <Render_Table_Or_Grid
           render_grid={function (record: T): MyCardGridList_DataItem {

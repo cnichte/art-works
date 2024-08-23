@@ -13,6 +13,9 @@ interface MyInputFieldProps extends FormItem_Props<string> {
  * der Andt DatePicker aber mit datejs Objekten arbeitet.
  * Hier wird also konvertiert.
  *
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ * 
  * @param param0
  * @returns
  */

@@ -19,9 +19,9 @@ interface MyDateValue {
 }
 
 /**
- *
- *
  * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ * 
  * @class DateTool
  */
 class DateTool {

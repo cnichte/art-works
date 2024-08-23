@@ -32,7 +32,7 @@ export function GenreForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<Genre>();
+  const [dataOrigin, setDataOrigin] = useState<Genre>(new Genre());
   const triggerSaveRef = React.useRef(null);
 
    useEffect(() => {

@@ -286,7 +286,10 @@ interface AttachmentMetaView_Props extends FormItem_Props<AttachmentMeta[]> {
  *
  * https://masonry.desandro.com
  *
+*
  * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ *
  * @param {{
  *   value?: AttachmentMeta[];
  *   onChange?: (value: any) => void;

@@ -18,12 +18,25 @@ export interface FormTool_Props<T> {
 }
 
 /**
- * Form Requests with Message handling.
- *
+ * Form-Requests with Message-Handling.
  * List and View have their own tool.
+ *
+ * ! Differentiation with or without relational-pouch plugin!
+ * mit  relational-pouch: {"id":"", "rev":""}
+ * ohne relational-pouch: {"_id":"", "_rev":""}
+ *
+ * TODO: The database could indicate what is used in the result.
+ * or I simply look at which props are in the result
+ * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ *
  * @see RequestData_IPC
  */
 export class FormTool_IPC<T extends DocItentifiable> {
+  //TODO set this up during design time
+  static useReleationalPouchPlugin: boolean = true;
+
   /**
    * Request Header Buttons.
    * Request Data from Database.
@@ -103,9 +116,16 @@ export class FormTool_IPC<T extends DocItentifiable> {
         FormTool_IPC.transport(props.valuesForm, props.dataObject);
 
         //* Operating modes: new and edit (needed when you have a opened form)
-        if (!UUIDTool.uuidValidateV4(props.dataObject._id)) {
-          console.log(`NEW ID because ${props.dataObject._id}`);
-          props.dataObject._id = uuidv4();
+        if (FormTool_IPC.useReleationalPouchPlugin) {
+          if (!UUIDTool.uuidValidateV4(props.dataObject.id)) {
+            console.log(`NEW ID because ${props.dataObject.id}`);
+            props.dataObject.id = uuidv4();
+          }
+        } else {
+          if (!UUIDTool.uuidValidateV4(props.dataObject._id)) {
+            console.log(`NEW ID because ${props.dataObject._id}`);
+            props.dataObject._id = uuidv4();
+          }
         }
 
         let request: any; // DB_RequestData<T> | Settings_RequestData<T>
@@ -213,7 +233,13 @@ export class FormTool_IPC<T extends DocItentifiable> {
 
     for (const [key] of Object.entries(dataObject)) {
       o[key] = dataObject[key];
-      o["_rev"] = result.rev; //! rev must be transferred to the original data.
+
+      //! rev must be transferred to the original data.
+      if (FormTool_IPC.useReleationalPouchPlugin) {
+        o["rev"] = result.rev; 
+      } else {
+        o["_rev"] = result.rev;
+      }
     }
 
     return o;

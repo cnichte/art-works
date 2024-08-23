@@ -65,6 +65,9 @@ function getTagFromId(id: string, tags: MyTag[]): MyTag | null {
  *
  * 'value' is an array with the uuids of the tags.
  *
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ * 
  * @param param0
  * @returns
  */

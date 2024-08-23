@@ -4,7 +4,8 @@ import { AttachmentMeta } from "../common/types/AttachmentTypes";
 import { RcFile } from "antd/es/upload";
 
 /**
- * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
  */
 export class Image_Util {
   public static image_src_fallback =

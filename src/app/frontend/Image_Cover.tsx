@@ -18,6 +18,9 @@ export interface Image_Cover2_Props {
 /**
  * A Cover-Image React-Component.
  *
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ * 
  * @param props CoverImage_Props
  * @returns
  */

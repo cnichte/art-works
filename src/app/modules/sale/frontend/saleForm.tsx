@@ -75,7 +75,7 @@ export function SaleForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<Sale>();
+  const [dataOrigin, setDataOrigin] = useState<Sale>(new Sale());
   const [saleTypes, setSaleTypes] = useState([]);
 
   const triggerSaveRef = React.useRef(null);

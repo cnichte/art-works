@@ -59,7 +59,7 @@ export function ArtworkForm() {
   // either: 'new', or a uuid
   const { id } = useParams();
 
-  const [dataOrigin, setDataOrigin] = useState<Artwork>(null);
+  const [dataOrigin, setDataOrigin] = useState<Artwork>(new Artwork());
   const [uploading, setUploading] = useState(false);
   const triggerSaveRef = React.useRef(null);
 

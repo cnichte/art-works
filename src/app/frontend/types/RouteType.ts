@@ -1,5 +1,10 @@
-// Note the path Structur: A Route starts with the `doctype`
-// Always write all three, even if you don't use them.
+/**
+ * Note the path Structur: A Route starts with the `doctype`
+ * Always write all three, even if you don't use them.
+ * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export const FIRSTSTART = "/firststart";
 
 export const CATALOG_ROUTE_LIST = "/catalog/list";

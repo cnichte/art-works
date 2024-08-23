@@ -5,7 +5,6 @@ import EXIF from 'exif-js';
  * https://gist.github.com/SagiMedina/f00a57de4e211456225d3114fd10b0d0
  *
  */
-
 const hasBlobConstructor =
   typeof Blob !== 'undefined' &&
   (function checkBlobConstructor() {

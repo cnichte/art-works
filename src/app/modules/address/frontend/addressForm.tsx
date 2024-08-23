@@ -38,7 +38,7 @@ export function AddressForm() {
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
 
-  const [dataOrigin, setDataOrigin] = useState<Address>(null);
+  const [dataOrigin, setDataOrigin] = useState<Address>(new Address());
   const [addressTypes, setAddressTypes] = useState<AddressType[]>([]);
 
   const triggerSaveRef = React.useRef(null);

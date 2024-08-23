@@ -5,6 +5,7 @@ import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../fronten
 
 import { GroupOfWorkI } from "../../../common/types/DocGroupOfWork";
 import { modul_props } from "../modul_props";
+import { Typography } from "antd";
 
 /**
  * Ein Liste der Werkgruppen.
@@ -39,6 +40,16 @@ export function GroupOfWorkList() {
       title: "Beschreibung",
       dataIndex: "description",
       key: "id",
+      render: (text, record) => (
+        <Typography.Paragraph
+          ellipsis={{
+            rows: 3,
+            expandable: "collapsible",
+          }}
+        >
+          {text}
+        </Typography.Paragraph>
+      ),
     },
     {
       title: "Artworks",

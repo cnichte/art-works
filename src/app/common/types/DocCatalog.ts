@@ -1,11 +1,12 @@
 import { DocItentifiable, DocType } from "./DocType";
+import { DbOptionsType } from "./SettingTypes";
 
 export interface DocCatalogType extends DocItentifiable {
   id: string;
   docType: DocType;
   templateName: string;
   templateDescription: string;
-  dbOption: string;
+  dbOption: DbOptionsType;
   protocoll: string;
   dbHost: string;
   dbPort: string;
@@ -21,7 +22,7 @@ export class DocCatalog implements DocCatalogType {
 
   templateName: string = "";
   templateDescription: string = "";
-  dbOption: string = "";
+  dbOption: DbOptionsType = "local";
   protocoll: string = "http://";
   dbHost: string = "";
   dbPort: string = "";

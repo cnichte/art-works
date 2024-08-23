@@ -32,7 +32,7 @@ export function PublicationForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<Publication>();
+  const [dataOrigin, setDataOrigin] = useState<Publication>(new Publication());
   const triggerSaveRef = React.useRef(null);
 
   const [publicationTypes, setPublicationTypes] = useState([]);

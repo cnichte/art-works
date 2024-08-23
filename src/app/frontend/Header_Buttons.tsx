@@ -24,6 +24,9 @@ import { DOCTYPE_HEADER_BUTTONS, DocType } from "../common/types/DocType";
  * 1. the underlying-content requests that certain buttons are displayed, depending on the ViewType (list, view or form).
  * 2. the header buttons request the underlying-content to perform actions (load, save, etc)
  *
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ * 
  * @param props
  * @returns
  */

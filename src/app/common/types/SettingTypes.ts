@@ -1,5 +1,7 @@
+export type DbOptionsType = "local" | "remote";
+
 export type DbOptions_Setting = {
-    type: string;
-    label: string;
-    template: string;
-  };
+  type: DbOptionsType;
+  label: string;
+  template: string;
+};

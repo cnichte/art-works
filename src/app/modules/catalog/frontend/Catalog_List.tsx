@@ -1,7 +1,7 @@
 import React, { Key, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-import { Select, Space, Table, Popconfirm } from "antd";
+import { Select, Space, Table, Popconfirm, Tabs } from "antd";
 
 import type { ColumnsType } from "antd/es/table";
 import type { TableRowSelection } from "antd/es/table/interface";
@@ -17,6 +17,7 @@ import { DocCatalogType } from "../../../common/types/DocCatalog";
 import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
 import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
 import { modul_props } from "../modul_props";
+import ExportForm from "./exportForm";
 
 export function Catalog_List() {
   const navigate = useNavigate();
@@ -367,7 +368,7 @@ export function Catalog_List() {
         <Select
           defaultValue={selectedStartoption}
           value={selectedStartoption}
-          style={{ width: 310 }}
+          style={{ width: 310, marginBottom: 15, }}
           onChange={handleStartoptionsChange}
           options={getStartoptions()}
         />
@@ -377,19 +378,37 @@ export function Catalog_List() {
           style={{
             visibility: selectedShowCatalogChooser ? "visible" : "hidden",
             width: 310,
+            marginBottom: 15,
           }}
           onChange={handleCatalogChooserChange}
           options={getCatalogChooser()}
         />
       </Space>
-      <Table
-        rowSelection={{
-          type: "radio",
-          ...rowSelection,
-        }}
-        columns={columns}
-        dataSource={tabledata}
-      />
+
+      <Tabs
+        type="card"
+        items={[
+          {
+            label: modul_props.doclabel,
+            key: "0",
+            children: (
+              <Table
+                rowSelection={{
+                  type: "radio",
+                  ...rowSelection,
+                }}
+                columns={columns}
+                dataSource={tabledata}
+              />
+            ),
+          },
+          {
+            label: `Datentransport`,
+            key: "1",
+            children: <ExportForm />,
+          },
+        ]}
+      ></Tabs>
     </>
   );
 }

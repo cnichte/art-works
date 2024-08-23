@@ -58,6 +58,9 @@ interface AttachmentMetaInput_Props extends FormItem_Props<AttachmentMeta[]> {
  * It has a controlled property value or other name which is equal to the value of valuePropName.
  * It has event onChange or an event which name is equal to the value of trigger.
  * Forward the ref or pass the id property to dom to support the scrollToField method.
+ * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
  *
  * @param {FormItemProps} - React / Antd Properties
  * @return {*}  {*}

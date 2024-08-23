@@ -43,7 +43,7 @@ export function NoteList() {
       render: (text, record) => (
         <Typography.Paragraph
           ellipsis={{
-            rows: 5,
+            rows: 3,
             expandable: "collapsible",
           }}
         >

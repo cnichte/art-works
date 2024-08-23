@@ -46,6 +46,10 @@ import { Tag } from "../common/types/DocTag";
 import { DocWhiteboard } from "../common/types/DocWhiteboard";
 import { Edition, EditionType } from "../common/types/DocEdition";
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export class Database_Pouchdb implements DatabaseCRUD_Interface {
   databaseUri: string;
   db: any;

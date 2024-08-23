@@ -4,6 +4,10 @@ import path from "path";
 
 import { DatabaseCRUD_Interface } from "./Database_Types";
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export class DocumentCreator {
 
   /**

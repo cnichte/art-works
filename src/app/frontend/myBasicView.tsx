@@ -297,6 +297,10 @@ function RenderSegmentsInTabs<T>(reactParams: {
  * https://stern.sh/blog/2018/daten-zwischen-react-komponenten-austauschen.html
  * https://ant.design/components/descriptions
  *
+*
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ * 
  * @param param0 MyBasicViewPropertiesI
 }
  * @returns

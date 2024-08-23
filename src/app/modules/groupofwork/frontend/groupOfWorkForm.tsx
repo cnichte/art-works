@@ -30,7 +30,7 @@ export function GroupOfWorkForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<GroupOfWork>();
+  const [dataOrigin, setDataOrigin] = useState<GroupOfWork>(new GroupOfWork());
   const triggerSaveRef = React.useRef(null);
 
   useEffect(() => {

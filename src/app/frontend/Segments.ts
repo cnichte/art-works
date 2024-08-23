@@ -8,7 +8,8 @@
  *
  * Dem View sind also weitere Dokumente zu geordnet.
  *
- * @author Carsten Nichte, 2023
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
  */
 
 import { ArtworkI } from "../common/types/DocArtwork";

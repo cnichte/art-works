@@ -13,6 +13,11 @@ export interface ConditionParameter {
 export interface ConditionProperty {
   condition: ConditionParameter;
 }
+
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export class Condition {
 
   static check_condition(fieldDef: any, record: any, scope:ConditionScope):boolean {

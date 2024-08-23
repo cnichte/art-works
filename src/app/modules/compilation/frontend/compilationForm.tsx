@@ -29,7 +29,7 @@ export function CompilationForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<Compilation>();
+  const [dataOrigin, setDataOrigin] = useState<Compilation>(new Compilation());
   const triggerSaveRef = React.useRef(null);
 
   useEffect(() => {

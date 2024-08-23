@@ -14,6 +14,10 @@ const selectAfter = (
   </Select>
 );
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export function My_Price_Input({
   value = '',
   onChange,

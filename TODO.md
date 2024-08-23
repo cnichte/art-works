@@ -105,11 +105,29 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
   -[x] preview image
   -[x] View: my own custom renderer following the andt concept.
 
+* 2024-08-23 Freitag
+
+Versions-Nummern eingeführt. Das ist wichtig, da ich viele der Klassen in unterschiedlichen Programmen verwende:
+
+* Basic Electron-TS-React Starter (ist die Referenz)
+* Art.Works!
+* DFI-Dashboard
+
+Ich arbeite ja momentan an allen Apps mehr oder weniger gleichzeitig, und muss Änderungen an zentralen Klassen in die anderen Apps Übernehmen.
+Das geht manchmal nicht zeitnah. Da hilft die Nummer ein wenig, Übersicht zu behalten welche der Dateien den aktuelleren Stand hat.
+
+Es ist sinnvol trotzdem einen Dateivergleich mit Beyond-Compare zu machen, bzw. Änderungen zeitnah zu übernehmen.
+
 ---
 
 ## Heute
 
-* 2024-08-13 Dienstag
+-[ ] In andere Übernehmen:
+
+* Catalog überarbeitet
+* DocCatalog
+* SettingTypes
+* FormTool ! (unterscheidet jetzt zwischen 'mit relational-pouch' und ohne)
 
   * Artwork
     -[ ] Weiter testen: Artwork-Attachments, Tags
@@ -131,11 +149,9 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
   -[ ] Feld Gesamt Summe (automatisch berechnen)
   -[ ] Wie ist das mit der Steuer? Mehrwertsteuer / Umsatzsteuer.
 
-
-
 Drag and Drop
 DnD Kit
-https://dndkit.com
+<https://dndkit.com>
 
 ## Demnächst zu erledigen
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Modul_Props_I } from "../common/Modul_Props";
-import { Col, Empty } from "antd";
+import { Empty } from "antd";
 import { useNavigate } from "react-router";
 import { DocItentifiable } from "../common/types/DocType";
 import { Image_Cover2 } from "./Image_Cover";
@@ -33,6 +33,10 @@ export interface MyCardGridList_Props<T> {
 
 export interface My_Masonry_Props {}
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export function MyCardGridList<T>({
   modul_props,
   cardSize,
@@ -79,9 +83,10 @@ export function MyCardGridList<T>({
       items={grid_data}
       render={My_Masonry_Card}
       columnWidth={cardSize}
-      columnGutter={10}
-      rowGutter={10}
+      columnGutter={15}
+      rowGutter={15}
       role="list"
+      style={{margin:"20px", padding:"20px"}}
     />
   );
 

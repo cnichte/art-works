@@ -3,6 +3,10 @@ import fs from "fs-extra";
 import { App_Info } from "../common/App_Info";
 import { app } from "electron";
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export class FileTool {
   /**
    * userData points to

@@ -25,7 +25,7 @@ export function AwardForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<Award>();
+  const [dataOrigin, setDataOrigin] = useState<Award>(new Award());
   const triggerSaveRef = React.useRef(null);
 
   useEffect(() => {

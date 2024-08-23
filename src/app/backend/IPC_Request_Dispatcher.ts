@@ -20,6 +20,9 @@ import { Database_Backup } from "./Database_Backup";
  * dispatches all the ipc requests from the frontend,
  * to database commands.
  *
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ *
  * @see https://www.electronjs.org/docs/latest/tutorial/ipc
  */
 export class IPC_Request_Dispatcher {
@@ -277,7 +280,7 @@ export class IPC_Request_Dispatcher {
           break;
         default:
           result = new Promise((reject) => {
-            reject(`Sorry, this is a unknown request: ${request}`);
+            reject(`Sorry, this is a unknown SETTINGS-Request: ${request}`);
           });
       }
 
@@ -376,7 +379,7 @@ export class IPC_Request_Dispatcher {
           break;
         default:
           result = new Promise((reject) => {
-            reject(`Sorry, this is a unknown request: ${request}`);
+            reject(`Sorry, this is a unknown DATABASE-Request: ${request}`);
           });
       }
 

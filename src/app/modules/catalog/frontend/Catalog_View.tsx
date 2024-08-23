@@ -7,8 +7,6 @@ import {
 } from "../../../common/types/RequestTypes";
 import { DocCatalogType } from "../../../common/types/DocCatalog";
 
-
-import ExportForm from "./exportForm";
 import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
 import { modul_props } from "../modul_props";
 
@@ -31,7 +29,7 @@ export function Catalog_View() {
       modul_props: modul_props,
 
       request: request,
-      ipc_channel: "ipc-database",
+      ipc_channel: "ipc-settings",
       
       surpress_buttons: false,
       setDataCallback: function (result: DocCatalogType): void {
@@ -54,7 +52,7 @@ export function Catalog_View() {
         type="card"
         items={[
           {
-            label: `Datenbank`,
+            label: modul_props.doclabel,
             key: "0",
             children: (
               <Descriptions title="">
@@ -87,11 +85,6 @@ export function Catalog_View() {
                 </Descriptions.Item>
               </Descriptions>
             ),
-          },
-          {
-            label: `Housekeeping`,
-            key: "1",
-            children: <ExportForm />,
           },
         ]}
       ></Tabs>

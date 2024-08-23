@@ -64,6 +64,9 @@ export interface SideNavigationBar_Props {
 
 /**
  * Builds the Sidebar for Navigation.
+ * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
  *
  * @returns The Sidebar.
  */

@@ -5,6 +5,10 @@ import {
   Action_Request_Props_I,
 } from "../common/types/RequestTypes";
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export class Header_Buttons_IPC {
   /**
    *

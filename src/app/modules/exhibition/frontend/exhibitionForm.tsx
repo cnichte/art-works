@@ -29,7 +29,7 @@ export function ExhibitionForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<Exhibition>();
+  const [dataOrigin, setDataOrigin] = useState<Exhibition>(new Exhibition());
   const triggerSaveRef = React.useRef(null);
 
    useEffect(() => {

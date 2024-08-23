@@ -29,7 +29,7 @@ export function NoteForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<Note>();
+  const [dataOrigin, setDataOrigin] = useState<Note>(new Note());
   const triggerSaveRef = React.useRef(null);
 
 

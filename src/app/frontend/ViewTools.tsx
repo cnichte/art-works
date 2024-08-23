@@ -18,6 +18,9 @@ import { External_Link } from "./External_Link";
  * Addresses: Warning Each child in a list should have a unique "key" prop.
  *
  * ViewTool.createKeyFieldFrom('dataIndex', segmentParams.fields);
+ * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
  */
 export default class ViewTool {
   public static createKeyFieldFrom(

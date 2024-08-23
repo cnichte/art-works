@@ -29,6 +29,10 @@ export interface LoadData_IPC_InitAndLoadData_FUNC_Props<T>
  * List and View Requests with Message handling.
  *
  * Form has its own tool.
+ * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ *
  * @see FormTool_IPC
  */
 export class RequestData_IPC {

@@ -1,6 +1,10 @@
 import { Flex, InputNumber } from "antd";
 import { FormItem_Props } from "../common/types/FormPropertiesInterface";
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export function My_PriceSimple_Input({
   value = '',
   onChange,

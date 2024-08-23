@@ -37,7 +37,7 @@ export function ArtistForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<Artist>(null);
+  const [dataOrigin, setDataOrigin] = useState<Artist>(new Artist());
   const triggerSaveRef = React.useRef(null);
 
   const [uploading, setUploading] = useState(false);

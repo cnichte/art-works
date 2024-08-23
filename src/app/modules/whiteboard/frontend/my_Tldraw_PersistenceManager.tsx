@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
 import { getSnapshot, getSvgAsImage, loadSnapshot, useEditor } from "tldraw";
 
-import { WhiteboardI } from "../../../common/types/DocWhiteboard";
+import {
+  DocWhiteboard,
+  WhiteboardI,
+} from "../../../common/types/DocWhiteboard";
 import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
 import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
 import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
@@ -35,7 +38,7 @@ interface MyProps {
 export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
   const [form] = Form.useForm();
   const editor = useEditor();
-  const [dataOrigin, setDataOrigin] = useState(null);
+  const [dataOrigin, setDataOrigin] = useState<DocWhiteboard>(new DocWhiteboard());
 
   const triggerSaveRef = React.useRef(null);
 
@@ -104,7 +107,7 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
 
           Image_Util.read_image_as_base64(value).then((val: string) => {
             valuesForm.preview = val; //! inject preview
-            
+
             FormTool_IPC.save_data<WhiteboardI>({
               ipcChannel: IPC_DATABASE,
               dataObject: dataOrigin,
@@ -137,9 +140,17 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
         onFinishFailed={onFormFinishFailed}
         autoComplete="off"
       >
+        <Form.Item name="name" initialValue={"Neues Whiteboard"}>
+          <Input style={{ display: "none" }} />
+        </Form.Item>
+        <Form.Item name="description">
+          <Input style={{ display: "none" }} />
+        </Form.Item>
+
         <Form.Item name="content">
           <Input style={{ display: "none" }} />
         </Form.Item>
+
         <Form.Item name="preview">
           <Input style={{ display: "none" }} />
         </Form.Item>

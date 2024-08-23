@@ -24,6 +24,8 @@ const { RangePicker } = DatePicker;
  * DynamicDatePicker adapts dynamically depending on type and mode.
  *
  * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ *
  * @param param0 Parameter Object.
  * @returns React Component, DatePicker or RangePicker.
  */

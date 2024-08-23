@@ -2,6 +2,10 @@ import { Message_Request } from "../common/types/RequestTypes";
 import { useEffect } from "react";
 import { message } from "antd";
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export function App_Messages() {
   const [messageApi, contextHolder] = message.useMessage();
 

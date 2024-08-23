@@ -49,6 +49,10 @@ import { StatisticView } from "../modules/statistic/frontend";
 import { TagList, TagView, TagForm } from "../modules/tag/frontend";
 import { WhiteboardList, WhiteboardView, WhiteboardForm } from "../modules/whiteboard/frontend";
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export function App_Routes() {
   const [collapsed, setCollapsed] = useState(false);
   const {

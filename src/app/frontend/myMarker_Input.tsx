@@ -18,14 +18,16 @@ const genPresets = (presets = presetPalettes) =>
   }));
 
 
-
 /**
- * Markierungen für ein Dokument.
+ ** Markierungen für ein Dokument.
  *
  * - Rating - funktioniert
  * - Color - funktioniert
  * - Flag - funktioniert
- *
+ * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ * 
  * @param param0
  * @returns
  */

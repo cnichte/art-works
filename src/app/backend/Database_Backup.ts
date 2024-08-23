@@ -1,8 +1,12 @@
 import { zip } from "zip-a-folder";
-const dayjs = require("dayjs");
+import dayjs from "dayjs";
 
 import { FileTool } from "./FileTool";
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export class Database_Backup {
   static performBackup(databasename: string): Promise<any> {
     return new Promise((resolve, reject) => {

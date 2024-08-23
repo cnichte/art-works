@@ -2,6 +2,10 @@ import { createContext } from "react";
 import { DocType } from "../common/types/DocType";
 import { ViewType } from "./types/ViewType";
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export interface ContextData {
   
   viewtype: ViewType;

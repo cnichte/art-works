@@ -2,6 +2,9 @@ import { Menu_Links } from "../../menu";
 
 /**
  * Basic App-Info, is used in Backend and Frontend.
+ * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
  */
 export class App_Info {
   static MY_APP_NAME = "Art.Works!";

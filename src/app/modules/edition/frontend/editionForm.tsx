@@ -36,7 +36,7 @@ export function EditionForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<Edition>(null);
+  const [dataOrigin, setDataOrigin] = useState<Edition>(new Edition());
   const triggerSaveRef = React.useRef(null);
 
   useEffect(() => {

@@ -9,6 +9,9 @@ import {
 /**
  * taucht die ID im Content auf.
  * Das Feld ist entweder ein string (mit der UUID, oder ein array mit vielen uuids)
+ *
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
  */
 export default class RelationResolver {
   /**

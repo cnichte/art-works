@@ -6,6 +6,9 @@ interface External_Link_Props {
 /**
  * Is used to open rendered Markdown links in the external default browser.
  * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ *
  * @see ViewTools.getMyFuckingValueFrom
  * @param props 
  * @returns 

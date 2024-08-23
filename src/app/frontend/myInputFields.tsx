@@ -18,6 +18,9 @@ interface MyInputFieldProps extends FormItem_Props<string> {
 
 /**
  * My URL Input-Field
+ * 
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
  *
  * @param {Props} { value = '', onChange }
  * @return {*}
@@ -86,6 +89,9 @@ function MyInputURLField({ value = '', onChange }: MyInputFieldProps ) {
 
 /**
  * My Search Input-Field.
+ *
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
  * 
  * @param {Props} { value = '', onChange }
  * @return {*}
@@ -129,6 +135,9 @@ const onSearchMoreClick = () => {
 
 /**
  * TODO options und defaultValue müssen noch verarbeitet werden (exportForm)
+ *
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
  *
  * @param {Props} { value = '', onChange }
  * @return {*}

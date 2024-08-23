@@ -4,6 +4,10 @@ import {
   v4 as uuidv4,
 } from "uuid";
 
+/**
+ * @author Carsten Nichte - //carsten-nichte.de/apps/
+ * @version 1.0.0
+ */
 export class UUIDTool {
   /**
    * Checks a string to see if it is a valid uuid.

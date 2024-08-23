@@ -9,7 +9,7 @@ import {
 } from "../../../common/types/RequestTypes";
 import { DocCatalog, DocCatalogType } from "../../../common/types/DocCatalog";
 import { IPC_SETTINGS } from "../../../common/types/IPC_Channels";
-import { DbOptions_Setting } from "../../../common/types/SettingTypes";
+import { DbOptions_Setting, DbOptionsType } from "../../../common/types/SettingTypes";
 import { modul_props } from "../modul_props";
 import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
 import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
@@ -21,7 +21,7 @@ export function Catalog_Form() {
   const triggerSaveRef = React.useRef(null);
 
   const [form] = Form.useForm();
-  const [dataObject, setDataObject] = useState<DocCatalogType>(null);
+  const [dataObject, setDataObject] = useState<DocCatalog>(new DocCatalog());
 
   const [dboptions, setDBOptions] = useState<DbOptions_Setting[]>([
     {
@@ -31,14 +31,14 @@ export function Catalog_Form() {
     },
   ]);
   const [isLocal, setLocal] = useState<boolean>(false);
-  const [uripreview, setUriPreview] = useState<string>("");
+  const [uripreview, setUriPreview] = useState<string>("TEST");
 
   type MyForm_FieldType = {
     name: string;
     templateName: string;
     templateDescription: string;
     protocoll: string;
-    dbOption: string;
+    dbOption: DbOptionsType;
     dbHost: string;
     dbPort: string;
     dbName: string;
@@ -49,24 +49,9 @@ export function Catalog_Form() {
 
   function reset_form(): void {
     // init form
-
+    setDataObject(new DocCatalog());
     // see src/app/backend/Database_Settings.ts
-    let data: DocCatalogType = {
-      id: "",
-      docType: "catalog",
-      templateName: "",
-      templateDescription: "",
-      dbOption: "",
-      protocoll: "http://",
-      dbHost: "",
-      dbPort: "",
-      dbName: "",
-      dbUser: "",
-      dbPassword: "",
-      dbTemplate: "",
-    };
 
-    setDataObject(data);
     form.resetFields();
   }
 
@@ -91,6 +76,9 @@ export function Catalog_Form() {
       setDataCallback: function (result: DocCatalog): void {
         setDataObject(result);
         form.setFieldsValue(result);
+        
+        changeDBOptions(result.dbOption);
+
       },
       doButtonActionCallback: function (response: Action_Request): void {
         if (response.type === "request:save-action") {
@@ -106,7 +94,7 @@ export function Catalog_Form() {
 
     const request_2: Settings_Request = {
       type: "request:get-dbOptions",
-      doctype: "catalog",
+      doctype: modul_props.doctype,
       id: id,
       options: {},
     };
@@ -117,6 +105,7 @@ export function Catalog_Form() {
         setDBOptions(result);
         changeDBOptions("local");
         setLocal(true);
+        buildURIFromTemplate();
       })
       .catch(function (error: any) {
         App_Messages_IPC.request_message(
@@ -206,33 +195,35 @@ export function Catalog_Form() {
 
   function buildURIFromTemplate(): void {
     let dbTemplate: string = form.getFieldValue("dbTemplate");
-    let db_option: any = {
+    let db_option: any = { // DocCatalogType
       dbHost:
         form.getFieldValue("dbHost") == null
-          ? ""
+          ? " "
           : form.getFieldValue("dbHost"),
       dbPort:
         form.getFieldValue("dbPort") == null
-          ? ""
+          ? " "
           : form.getFieldValue("dbPort"),
       dbName:
         form.getFieldValue("dbName") == null
-          ? ""
+          ? " "
           : form.getFieldValue("dbName"),
       dbUser:
         form.getFieldValue("dbUser") == null
-          ? ""
+          ? " "
           : form.getFieldValue("dbUser"),
       dbPassword:
         form.getFieldValue("dbPassword") == null
-          ? ""
+          ? " "
           : form.getFieldValue("dbPassword"),
     };
 
     let result: string = "";
 
     if (dbTemplate != null) {
-      result = dbTemplate.replace(
+
+
+    result = dbTemplate.replace(
         /{(\w+)}/g,
         function (_: any, k: string | number) {
           return db_option[k];
@@ -315,6 +306,7 @@ export function Catalog_Form() {
         >
           <Input onChange={buildURIFromTemplate} />
         </Form.Item>
+
         <Form.Item<MyForm_FieldType>
           label="Password"
           name="dbPassword"
@@ -323,13 +315,16 @@ export function Catalog_Form() {
           <Input onChange={buildURIFromTemplate} />
         </Form.Item>
 
-        <Form.Item<MyForm_FieldType> label="Template">
-          <Form.Item name="dbTemplate" noStyle>
-            <Input disabled />
-          </Form.Item>{" "}
+        <Form.Item<MyForm_FieldType>
+          label="Template"
+          name="dbTemplate"
+          // noStyle
+        >
+          <Input disabled />
           <span>{uripreview}</span>
         </Form.Item>
       </Form>
+
       <ul>
         <li>uuid: {dataObject?.id}</li>
       </ul>
