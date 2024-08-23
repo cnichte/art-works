@@ -39,7 +39,8 @@ export function EditionForm() {
   const [dataOrigin, setDataOrigin] = useState<Edition>(new Edition());
   const triggerSaveRef = React.useRef(null);
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     //* Wird einmalig beim Laden der Seite ausgeführt.
     const request: DB_Request = {
       type: "request:data",

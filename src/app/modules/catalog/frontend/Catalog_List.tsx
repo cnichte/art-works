@@ -37,7 +37,8 @@ export function Catalog_List() {
   const [tabledata, setTableData] = useState<DataType[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     // Request data from pouchdb on page load.
     //! Following Pattern 2 for the Database requests
     const request_1: Settings_Request = {

@@ -313,7 +313,8 @@ export function MyBasicView<T>({
 }: MyBasicViewProps<T>) {
   const [data, setData] = useState<T>(null);
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     const request: DB_Request = {
       type: "request:data",
       doctype: modul_props.doctype,

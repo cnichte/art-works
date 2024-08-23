@@ -64,7 +64,8 @@ export function FirstStartSteps() {
     marginTop: 16,
   };
 
-  useEffect(() => { 
+    useEffect(() => {
+    // Beim laden der Seite... 
     //* Wird einmalig beim Laden der Seite ausgeführt.
     console.info("Request some data from backend...");
     Header_Buttons_IPC.request_buttons({

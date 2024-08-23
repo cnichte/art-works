@@ -55,7 +55,8 @@ export function Catalog_Form() {
     form.resetFields();
   }
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     reset_form();
 
     const request: Settings_Request = {

@@ -93,7 +93,8 @@ function MyTags_Input({ value = [], onChange }: FormItem_Props<string[]>): any {
 
     ---------------------------------------------------------- */
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     // Get all tags from the database, for the suggestion list
     const doctype: DocType = "tag";
     const segment: string = "tags";

@@ -63,7 +63,8 @@ export function ArtworkForm() {
   const [uploading, setUploading] = useState(false);
   const triggerSaveRef = React.useRef(null);
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     // Executed once when the page is loaded.
     // behavier depends on id, which is an uuid, or 'new'
     // we request form data,

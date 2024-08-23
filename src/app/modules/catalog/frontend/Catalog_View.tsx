@@ -15,7 +15,8 @@ export function Catalog_View() {
 
   const [dataObject, setDataObject] = useState<DocCatalogType>(null);
   
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
 
     const request: Settings_Request = {
       type: "request:get-connection",

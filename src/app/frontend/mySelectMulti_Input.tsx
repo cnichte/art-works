@@ -70,7 +70,8 @@ export function MySelectMulti_Input<T extends MyIdentifiable>({
 
     ---------------------------------------------------------- */
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     // Get all tags from the database, for the suggestion list
 
     const request: DB_Request = {

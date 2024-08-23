@@ -65,7 +65,8 @@ const DemoBar = () => {
  */
 export function StatisticView() {
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     //* Wird einmalig beim Laden der Seite ausgeführt.
     console.info("Request some data from backend...");
     Header_Buttons_IPC.request_buttons({

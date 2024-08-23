@@ -43,7 +43,8 @@ export function Header_Buttons(props: any) {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     // Two-way communication, case 1
     //! Listen for Content-Request.
     // Register and remove the event listener.

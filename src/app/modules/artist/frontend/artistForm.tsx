@@ -42,7 +42,8 @@ export function ArtistForm() {
 
   const [uploading, setUploading] = useState(false);
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     //* Wird einmalig beim Laden der Seite ausgeführt.
     const request: DB_Request = {
       type: "request:data",

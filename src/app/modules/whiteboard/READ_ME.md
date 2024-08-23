@@ -36,7 +36,8 @@ function WhiteboardForm() {
 
   const canvasEl = useRef<HTMLCanvasElement>(null);
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     const options = {};
     const canvas = new fabric.Canvas(canvasEl.current, options);
     // make the fabric.Canvas instance available to your app

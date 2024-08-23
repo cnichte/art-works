@@ -16,7 +16,8 @@ export function App_Messages() {
     justifyContent: "flex-end",
   };
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     //! Listen for Message-Actions.
     // Register and remove the event listener
     const buaUnsubscribe = window.electronAPI.listen_to(

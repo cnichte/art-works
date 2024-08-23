@@ -45,7 +45,8 @@ export function MyCardGridList<T>({
 }: MyCardGridList_Props<T>) {
   const navigate = useNavigate();
   // not used so here
-  useEffect(() => {}, []);
+    useEffect(() => {
+    // Beim laden der Seite...}, []);
 
   //* open view
   const handleView = (record: any | DocItentifiable) => {

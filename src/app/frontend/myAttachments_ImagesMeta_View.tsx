@@ -52,12 +52,14 @@ const useResetFormOnCloseModal = ({
   open: boolean;
 }) => {
   const prevOpenRef = useRef<boolean>();
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     prevOpenRef.current = open;
   }, [open]);
   const prevOpen = prevOpenRef.current;
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     if (!open && prevOpen) {
       form.resetFields();
     }

@@ -34,7 +34,6 @@ import {
   MyBasicList_SearchPanel_Buttons,
   SearchPanelType,
 } from "./myBasicList_SearchPanel";
-import { SegmentType } from "../common/types/SegmentType";
 
 // TODO CSS import styles from './myBasicList.css';
 // <Table className={styles.antTableRow}
@@ -139,7 +138,8 @@ function MyBasicList<T>({
 
     ---------------------------------------------------------- */
 
-  useEffect(() => {
+    useEffect(() => {
+    // Beim laden der Seite...
     const request: DB_Request = {
       type: "request:list-all",
       doctype: modul_props.doctype,
@@ -203,7 +203,8 @@ function MyBasicList<T>({
       options: {},
     };
 
-    RequestData_IPC.perform_request<any>({ // TODO load_data ist hier irreführend.
+    RequestData_IPC.perform_request<any>({
+      // TODO load_data ist hier irreführend.
       modul_props: modul_props,
       ipc_channel: "ipc-database",
       request: request,
@@ -214,12 +215,12 @@ function MyBasicList<T>({
         //TODO Das Element weist implizit einen Typ "any" auf, weil der Indexausdruck nicht vom Typ "number" ist.ts(7015)
         // https://stackoverflow.com/questions/57438198/typescript-element-implicitly-has-an-any-type-because-expression-of-type-st
         // Medium: https://typescriptcenter.com/demystifying-typescript-resolving-the-element-implicitly-has-an-any-type-error-a8ab4d948879
-        
+        // -> obsidian://open?vault=carsten-nichte-projekte&file=Software%20Projekte%2FResolving%20the%20%E2%80%9CElement%20implicitly%20has%20an%20%E2%80%98any%E2%80%99%20type%E2%80%9D%20Error
         // const key: SegmentType = "addresses";
         // console.log(data[key as keyof typeof data]);
-        
 
-        let records:any = [];
+        //! Das ist ein Hack des Problems:
+        let records: any = [];
         records = data[modul_props.segment as any];
 
         const newData = records.filter((item: any) => item.id !== record.id);

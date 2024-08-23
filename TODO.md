@@ -107,7 +107,9 @@ Bild entfernen - Die Änderung wird erst wirksam wenn du das Werk speicherst.
 
 * 2024-08-23 Freitag
 
-Versions-Nummern eingeführt. Das ist wichtig, da ich viele der Klassen in unterschiedlichen Programmen verwende:
+-[x] Für Segmente gibt es jetzt einen eigenen Datentyp.
+-[x] Suchformular mit drei Teilen.
+-[x] Versions-Nummern eingeführt. Das ist wichtig, da ich viele der Klassen in unterschiedlichen Programmen verwende:
 
 * Basic Electron-TS-React Starter (ist die Referenz)
 * Art.Works!
