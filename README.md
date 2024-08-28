@@ -2,6 +2,7 @@
 
 A catalog raisonne application.
 
+* Learn about [the license](LICENSE.MD).
 * Based on my boilerplate [basic-electron-typescript-react-starter](https://github.com/cnichte/basic-electron-typescript-react-starter)
 * There are a few special features here:
   * uses the `relational-pouch` plugin für `pouchdb`.
@@ -43,6 +44,11 @@ npm install --save i18next i18next-fs-backend
 # https://github.com/ant-design/ant-design-charts
 # https://ant-design-charts.antgroup.com/en/examples
 npm install @ant-design/charts
+
+# https://github.com/bvaughn/react-highlight-words
+npm i react-highlight-words
+# https://github.com/ankeetmaini/react-infinite-scroll-component
+npm i react-infinite-scroll-component
 ```
 
 ## Use the Application Repository
@@ -72,7 +78,7 @@ npm run publish
 
 ## Coding
 
-Made with VS-Code. Recomendes Plugins:
+Made with VS-Code. Recomended Plugins:
 
 * Better Comments
 * Todo Tree
