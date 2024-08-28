@@ -1,4 +1,4 @@
-# License - Art.Works! Catalogue raisonné App
+# License - Art.Works! App
 
 All rights reserved.
 
