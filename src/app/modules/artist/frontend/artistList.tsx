@@ -27,9 +27,11 @@ export function ArtistList() {
       title: "Name",
       dataIndex: "name",
       key: "id",
+     /*
       render: (text, record) => (
         <a onClick={() => handleView(record)}> {text} </a>
       ),
+      */
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Space,
   Popconfirm,
@@ -10,6 +10,10 @@ import {
   Segmented,
   Slider,
   Tooltip,
+  InputRef,
+  TableColumnType,
+  Input,
+  Typography,
 } from "antd";
 import {
   DeleteOutlined,
@@ -34,34 +38,49 @@ import {
   MyBasicList_SearchPanel_Buttons,
   SearchPanelType,
 } from "./myBasicList_SearchPanel";
+import Highlighter from "react-highlight-words";
+import { FilterDropdownProps } from "antd/es/table/interface";
+import { DocItentifiable } from "../common/types/DocType";
+import { MyBasicList_ColumnSearchInput } from "./myBasicList_ColumnSearchInput";
+
+export type DataIndex<T> = keyof T; // Das sind die Property-Namen von T
+//! https://www.typescriptlang.org/docs/handbook/2/keyof-types.html
+//! https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-9.html#:~:text=Given%20an%20object%20type%20X,representing%20symbol%2Dlike%20properties%2C%20otherwise
+//! https://www.typescriptlang.org/docs/handbook/2/generics.html#using-type-parameters-in-generic-constraints
 
 // TODO CSS import styles from './myBasicList.css';
 // <Table className={styles.antTableRow}
 
-type RowSelectionType = "checkbox" | "radio";
-type ListType = "list" | "grid";
+export type RowSelectionType = "checkbox" | "radio";
+export type ListType = "list" | "grid";
 
-type RowSelectionCallbackType = (
+export type RowSelectionCallbackType = (
   // eslint-disable-next-line no-unused-vars
   selectedRowKeys: React.Key[],
   // eslint-disable-next-line no-unused-vars
   selectedRows: Array<any> // TODO ? DataType
 ) => any;
 
-interface MyBasicList_GridRenderer_Props<T> {
+export interface MyBasicList_GridRenderer_Props<T> {
   /**
    * Callback to render an grid item.
-   *
-   * @param record
-   * @returns
+   * Es wird nicht wirklich gerendert,
+   * sondern Daten / Properties zugeordnet.
+   * map_record_callback
    */
-  render_grid?: (record: T) => MyCardGridList_DataItem;
+  map_record_callback?: (record: T) => MyCardGridList_DataItem;
 }
 
-interface MyBasicListProps<T> extends MyBasicList_GridRenderer_Props<T> {
+export interface MyBasicListProps<T> extends MyBasicList_GridRenderer_Props<T> {
   modul_props: Modul_Props_I;
   listTypes: ListType[];
-  columns: Array<any>;
+  columns: Array<any>; // TODO Array<ColumnsType<T>>
+  // Columns-Filter
+  columns_search_exclude?: Array<string>; // columns (dataIndex) to exclude from decoration with search
+  // additional Column-Features
+  columns_as_link?: Array<string>;
+  columns_as_ellipsis?: Array<string>;
+
   columns_meta?: MyBasicList_Meta_I[];
   rowSelectionActive?: boolean;
   rowSelectionType?: RowSelectionType; // TODO Type checkbox' | 'radio
@@ -84,15 +103,21 @@ interface MyBasicListProps<T> extends MyBasicList_GridRenderer_Props<T> {
  * @param param0 Properties
  * @returns
  */
-function MyBasicList<T>({
+export function MyBasicList<T extends DocItentifiable>({
+  // Generic with Constrait
   modul_props,
   listTypes,
+
   columns,
   columns_meta,
+  columns_search_exclude,
+  columns_as_link,
+  columns_as_ellipsis,
+
   rowSelectionActive = false,
   rowSelectionType = "radio", // checkbox' | 'radio
   rowSelectionCallback = null,
-  render_grid,
+  map_record_callback: render_grid,
 }: MyBasicListProps<T>) {
   /* ----------------------------------------------------------
 
@@ -110,35 +135,13 @@ function MyBasicList<T>({
   const [searchPanelType, setSearchPanelType] =
     useState<SearchPanelType>("text");
 
-  function getListTypeOptions(): Array<any> {
-    let listTypeOptions = [];
-
-    if (listTypes.includes("list")) {
-      listTypeOptions.push({
-        label: "List",
-        value: "list",
-        icon: <BarsOutlined />,
-      });
-    }
-
-    if (listTypes.includes("grid")) {
-      listTypeOptions.push({
-        label: "Grid",
-        value: "grid",
-        icon: <AppstoreOutlined />,
-      });
-    }
-
-    return listTypeOptions;
-  }
-
   /* ----------------------------------------------------------
 
-     List Actions
+     React Hook
 
     ---------------------------------------------------------- */
 
-    useEffect(() => {
+  useEffect(() => {
     // Beim laden der Seite...
     const request: DB_Request = {
       type: "request:list-all",
@@ -173,14 +176,21 @@ function MyBasicList<T>({
     };
   }, []);
 
+  /* ----------------------------------------------------------
+
+   * callbacks
+
+   ---------------------------------------------------------- */
+
   //* open form in mode 'edit'
   const handleEdit = (id: string) => {
     navigate(`/${modul_props.doctype}/form/${id}`);
   };
 
-  //* open form in mode 'new'
-  const handleAdd = () => {
-    navigate(`/${modul_props.doctype}/form/new`);
+  const handleView = (record: T) => {
+    console.log("--- handleView:", record);
+    console.log(`--- navigate  : '/${modul_props.doctype}/view/${record.id}'`);
+    navigate(`/${modul_props.doctype}/view/${record.id}`);
   };
 
   const handleSearch = () => {
@@ -240,9 +250,8 @@ function MyBasicList<T>({
   };
 
   /* ----------------------------------------------------------
-
-     List Actions: ROW SELECTION Support for Radio and checkbox
-
+     * List Actions: ROW SELECTION Support for Radio and checkbox
+     TODO Funktioniert das, nutze ich das (in Catalog-Module nicht)?
     ---------------------------------------------------------- */
 
   const [doRowSelection, setdoRowSelection] = useState(rowSelectionActive);
@@ -292,7 +301,7 @@ function MyBasicList<T>({
 
   /* ----------------------------------------------------------
 
-     Grid Actions
+     * Button-Bar Options
 
     ---------------------------------------------------------- */
 
@@ -306,11 +315,31 @@ function MyBasicList<T>({
   const [cardSizesIndex, setCardSizesIndex] = useState<number>(3);
   const formatter = (n: number) => `${n + 1} ${n > 0 ? "Spalten" : "Spalte"}`;
 
+  function getListTypeOptions(): Array<any> {
+    let listTypeOptions = [];
+
+    if (listTypes.includes("list")) {
+      listTypeOptions.push({
+        label: "List",
+        value: "list",
+        icon: <BarsOutlined />,
+      });
+    }
+
+    if (listTypes.includes("grid")) {
+      listTypeOptions.push({
+        label: "Grid",
+        value: "grid",
+        icon: <AppstoreOutlined />,
+      });
+    }
+
+    return listTypeOptions;
+  }
+
   /* ----------------------------------------------------------
 
-     Tabelle mit den Aktionen
-     Die Aktionen werden an die Benutzer-TabellenSpalten angehängt.
-
+    * Row-Actions
      rowKey={(record) => record._id} adds a data-row-key Property to <tr>
 
     ---------------------------------------------------------- */
@@ -319,7 +348,7 @@ function MyBasicList<T>({
     setShowSearchPanel(!showSearchPanel);
   };
 
-  const columnActions: ColumnsType<GroupOfWorkI> = [
+  const column_actions: ColumnsType<GroupOfWorkI> = [
     {
       title: "Aktionen",
       key: "action",
@@ -358,11 +387,131 @@ function MyBasicList<T>({
     },
   ];
 
-  // Die übergebenen Benutzer-TabellenSpalten vor den Aktionen einfügen.
-  const allColumns = columns.concat(columnActions);
+  /* ----------------------------------------------------------
 
+     * Columns preparation
+
+    ---------------------------------------------------------- */
+
+  //* Columns-Filter
+  //! Spalten-Filter für alle Spalten.
+  //! https://ant.design/components/table#table-demo-custom-filter-panel
+
+  // TODO Überschreibt noch die custom renderer
+  const [searchText, setSearchText] = useState<string>("");
+  const [searchedColumn, setSearchedColumn] = useState<DataIndex<T>>();
+  const searchInput = useRef<InputRef>(null);
+
+  const getColumnSearchProps = (
+    dataIndex: DataIndex<T>
+  ): TableColumnType<T> => (
+    
+    {
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      close,
+    }) => (
+      <MyBasicList_ColumnSearchInput
+        dataIndex={dataIndex}
+        setSelectedKeys={setSelectedKeys}
+        selectedKeys={selectedKeys}
+        confirm={confirm}
+        clearFilters={clearFilters}
+        close={close}
+        // callbacks
+      />
+    ),
+    filterIcon: (filtered: boolean) => (
+      <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
+    ),
+    onFilter: (value: any, record: any) => {
+      const test = record[dataIndex]
+        .toString()
+        .toLowerCase()
+        .includes((value as string).toLowerCase());
+
+      console.log("Column-Filter - value: ", value);
+      console.log("Column-Filter - record: ", record);
+      console.log("Column-Filter - dataIndex: ", dataIndex);
+      console.log("Column-Filter - test:", test);
+      console.log("------------------------------------------");
+      return test;
+    },
+    onFilterDropdownOpenChange: (visible: boolean) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text, record, index) => {
+      let to_render = text;
+      let highlighted_text = text;
+
+      if (searchedColumn === dataIndex) {
+        highlighted_text = (
+          <Highlighter
+            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={text}
+          />
+        );
+      }
+
+      to_render = highlighted_text;
+
+      if (columns_as_link?.includes(dataIndex as string)) {
+        to_render = (
+          <a onClick={() => handleView(record)}> {highlighted_text} </a>
+        );
+      }
+
+      // TODO ellipsis funktioniert noch nicht
+      // /*
+      if (columns_as_ellipsis?.includes(dataIndex as string)) {
+        to_render = (
+          <Typography.Paragraph
+            ellipsis={{
+              rows: 3,
+              expandable: "collapsible",
+            }}
+          >
+            {to_render}
+          </Typography.Paragraph>
+        );
+      }
+      // */
+      return to_render;
+    },
+  });
+
+  //! Alle Spalten werden mit dem Columns-Filter aussgestattet.
+  let decorated_columns = columns.map((col) => {
+    if (
+      columns_search_exclude == null ||
+      !columns_search_exclude.includes(col.dataIndex)
+    ) {
+      return {
+        ...col,
+        ...getColumnSearchProps(col.dataIndex),
+      };
+    }
+  });
+
+  //! Die Row-Actions werden hinten angefügt.
+  const all_columns = decorated_columns.concat(column_actions); //! columns
+
+  /**
+   ** Button-Bar:List|Grid, Grid-Adjuster, Suche,
+   ** Tabelle oder Masonry-Grid rendern.
+   *
+   * @param param0
+   * @returns
+   */
   function Render_Table_Or_Grid({
-    render_grid,
+    map_record_callback: render_grid,
   }: MyBasicList_GridRenderer_Props<T>) {
     if (listType == "list") {
       return (
@@ -376,7 +525,7 @@ function MyBasicList<T>({
                   }
                 : null
             }
-            columns={allColumns}
+            columns={all_columns}
             dataSource={getContent()}
             rowKey={(record) => record.id}
           />
@@ -402,12 +551,6 @@ function MyBasicList<T>({
       );
     }
   }
-
-  /* ----------------------------------------------------------
-
-     View -  Data gets dynamically adjusted
-
-    ---------------------------------------------------------- */
 
   return (
     <Space
@@ -459,7 +602,7 @@ function MyBasicList<T>({
       />
       <Row gutter={[40, 0]}>
         <Render_Table_Or_Grid
-          render_grid={function (record: T): MyCardGridList_DataItem {
+          map_record_callback={function (record: T): MyCardGridList_DataItem {
             if (render_grid) {
               return render_grid(record);
             }
@@ -469,5 +612,3 @@ function MyBasicList<T>({
     </Space>
   );
 }
-
-export { MyBasicList, RowSelectionType };

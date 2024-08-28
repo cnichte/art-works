@@ -33,11 +33,24 @@ export function AddressList() {
         <a onClick={() => handleView(record)}> {text} </a>
       ),
       sorter: (a, b) => a.name.localeCompare(b.name),
+      filters: [
+        {
+          text: "London",
+          value: "London",
+        },
+        {
+          text: "New York",
+          value: "New York",
+        },
+      ],
+      onFilter: (value, record) =>
+        record.name.indexOf(value as string) === 0,
     },
     {
       title: "Stadt",
       dataIndex: "city",
       key: "id",
+      
     },
     {
       title: "eMail",

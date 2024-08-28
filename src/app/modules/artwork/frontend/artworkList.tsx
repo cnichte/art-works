@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
-import { Button, ColorPicker, Image } from "antd";
+import { Button, ColorPicker } from "antd";
 import {
   StarFilled,
   FlagOutlined,
@@ -103,7 +103,8 @@ export function ArtworkList() {
       listTypes={["list", "grid"]}
       modul_props={modul_props}
       columns={table_columns}
-      render_grid={function (record: Artwork): MyCardGridList_DataItem {
+      columns_search_exclude={["attachmentsMeta","labels"]}
+      map_record_callback={function (record: Artwork): MyCardGridList_DataItem {
         const d: MyCardGridList_DataItem = {
           preview: Image_Util.get_coverImage_src(record.attachmentsMeta),
           id: record.id

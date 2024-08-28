@@ -7,6 +7,7 @@ import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../fronten
 import { NoteI } from "../../../common/types/DocNote";
 import { modul_props } from "../modul_props";
 import { Typography } from "antd";
+import { MyBasicList_Meta_I } from "../../../common/types/MyBasicListTypes";
 
 /**
  * Ein Liste der Notizen.
@@ -31,33 +32,22 @@ export function NoteList() {
       title: "Name",
       dataIndex: "title",
       key: "id",
-      render: (text, record) => (
-        <a onClick={() => handleView(record)}> {text} </a>
-      ),
       sorter: (a, b) => a.title.localeCompare(b.title),
     },
     {
       title: "Inhalt",
       dataIndex: "content",
       key: "id",
-      render: (text, record) => (
-        <Typography.Paragraph
-          ellipsis={{
-            rows: 3,
-            expandable: "collapsible",
-          }}
-        >
-          {text}
-        </Typography.Paragraph>
-      ),
     },
   ];
 
   return (
-    <MyBasicList
+    <MyBasicList<NoteI>
       listTypes={["list"]}
       modul_props={modul_props}
       columns={columns}
+      columns_as_link={["title"]}
+      columns_as_ellipsis={["content"]}
     />
   );
 }

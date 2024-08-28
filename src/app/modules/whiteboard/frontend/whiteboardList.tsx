@@ -76,7 +76,8 @@ export function WhiteboardList() {
       listTypes={["list", "grid"]}
       modul_props={modul_props}
       columns={columns}
-      render_grid={function (record: DocWhiteboard): MyCardGridList_DataItem {
+      columns_search_exclude={["preview"]}
+      map_record_callback={function (record: DocWhiteboard): MyCardGridList_DataItem {
         const d: MyCardGridList_DataItem = {
           preview: record.preview,
           id: record.id,

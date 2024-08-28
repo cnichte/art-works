@@ -46,7 +46,8 @@ export function MyCardGridList<T>({
   const navigate = useNavigate();
   // not used so here
     useEffect(() => {
-    // Beim laden der Seite...}, []);
+    // Beim laden der Seite...
+    }, []);
 
   //* open view
   const handleView = (record: any | DocItentifiable) => {
