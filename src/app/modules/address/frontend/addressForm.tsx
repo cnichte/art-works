@@ -55,7 +55,7 @@ export function AddressForm() {
     // Beim laden der Seite...
     //* Wird einmalig beim Laden der Seite ausgeführt.
     const request: DB_Request = {
-      type: "request:data",
+      type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
       options: {},
@@ -70,7 +70,7 @@ export function AddressForm() {
       ipc_channel: "ipc-database",
 
       surpress_buttons: false,
-      handleResultCallback: function (result: any): void {
+      setDataCallback: function (result: any): void {
         setDataOrigin(result[segment][0]);
         form.setFieldsValue(result[segment][0]);
       },
@@ -87,17 +87,17 @@ export function AddressForm() {
     });
 
     const request_2: DB_Request = {
-      type: "request:data",
+      type: "request:data-from-id",
       doctype: "addressType",
       options: {},
     };
 
-    RequestData_IPC.perform_request<any>({
+    RequestData_IPC.load_data<any>({
       // TODO AddressType[] statt <any>
       modul_props: modul_props,
       ipc_channel: "ipc-database",
       request: request_2,
-      handleResultCallback: function (result: any): void {
+      setDataCallback: function (result: any): void {
         setAddressTypes(result.addressTypes);
       },
     });

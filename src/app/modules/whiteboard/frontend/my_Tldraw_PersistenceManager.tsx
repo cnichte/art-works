@@ -46,7 +46,7 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
     // Beim laden der Seite...
     //* Wird einmalig beim Laden der Seite ausgeführt.
     const request: DB_Request = {
-      type: "request:data",
+      type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
       options: {},
@@ -60,7 +60,7 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
       ipc_channel: "ipc-database",
 
       surpress_buttons: false,
-      handleResultCallback: function (result: any): void {
+      setDataCallback: function (result: any): void {
         setDataOrigin(result.whiteboards[0]);
         //!load data to Tldraw
         loadSnapshot(editor.store, JSON.parse(result.whiteboards[0].content));

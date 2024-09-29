@@ -55,7 +55,7 @@ export function Catalog_List() {
       ipc_channel: "ipc-settings",
 
       surpress_buttons: false,
-      handleResultCallback: function (result: any): void {
+      setDataCallback: function (result: any): void {
         let list: DocCatalogType[] = result.options;
         setSelectedRowKeys([result.selected]);
 
@@ -114,11 +114,11 @@ export function Catalog_List() {
       options: {},
     };
 
-    RequestData_IPC.perform_request<any>({
+    RequestData_IPC.load_data<any>({
       modul_props: modul_props,
       ipc_channel: "ipc-settings",
       request: request,
-      handleResultCallback: function (result: any): void {
+      setDataCallback: function (result: any): void {
         let list: DocCatalogType[] = result.options;
         setSelectedRowKeys([result.selected]);
 

@@ -7,6 +7,7 @@ import {
   HeartOutlined,
   BankOutlined,
   CoffeeOutlined,
+  CrownOutlined,
 } from "@ant-design/icons";
 import {
   RouteType,
@@ -30,6 +31,7 @@ import {
   STATISTIC_ROUTE_LIST,
   ARTWORK_ROUTE_LIST,
   FIRSTSTART_ROUTE_LIST,
+  USERS_ROUTE_LIST,
 } from "./types/RouteType";
 import { App_Context } from "./App_Context";
 import {
@@ -51,6 +53,7 @@ import {
   DOCTYPE_SALE_RIGHTSOFUSE,
   DOCTYPE_STATISTIC,
   DOCTYPE_TAG,
+  DOCTYPE_USER,
   DOCTYPE_WHITEBOARD,
   DocType,
 } from "../common/types/DocType";
@@ -64,14 +67,13 @@ export interface SideNavigationBar_Props {
 
 /**
  * Builds the Sidebar for Navigation.
- * 
+ *
  * @author Carsten Nichte - //carsten-nichte.de/apps/
  * @version 1.0.0
  *
  * @returns The Sidebar.
  */
-export function SideNavigationBar({ onChange }: SideNavigationBar_Props) {
-
+export function App_SideNavigationBar({ onChange }: SideNavigationBar_Props) {
   const navigate = useNavigate();
 
   const triggerChange = (changedValue: RouteType) => {
@@ -167,32 +169,52 @@ export function SideNavigationBar({ onChange }: SideNavigationBar_Props) {
 
     getMenuItem("Präsentation", "sub2", <BankOutlined />, undefined, [
       getMenuItem("Whiteboards", "100", null, () =>
-        handleChange(WHITEBORD_ROUTE_LIST, DOCTYPE_WHITEBOARD, VIEWTYPE_FORM)),
+        handleChange(WHITEBORD_ROUTE_LIST, DOCTYPE_WHITEBOARD, VIEWTYPE_FORM)
+      ),
       getMenuItem("Publikationen", "110", null, () =>
-        handleChange(PUBLICATION_ROUTE_LIST, DOCTYPE_PUBLICATION, VIEWTYPE_LIST)),
+        handleChange(PUBLICATION_ROUTE_LIST, DOCTYPE_PUBLICATION, VIEWTYPE_LIST)
+      ),
       getMenuItem("Ausstellungen", "120", null, () =>
-        handleChange(EXHIBITION_ROUTE_LIST, DOCTYPE_EXHIBITION, VIEWTYPE_LIST)),
+        handleChange(EXHIBITION_ROUTE_LIST, DOCTYPE_EXHIBITION, VIEWTYPE_LIST)
+      ),
       getMenuItem("Auszeichnungen", "130", null, () =>
-        handleChange(AWARD_ROUTE_LIST, DOCTYPE_AWARD, VIEWTYPE_LIST)),
+        handleChange(AWARD_ROUTE_LIST, DOCTYPE_AWARD, VIEWTYPE_LIST)
+      ),
     ]),
 
-    getMenuItem('Büro', 'sub3', <CoffeeOutlined />, undefined, [
-      getMenuItem('Kalkulationen', '140', null, () =>
-        handleChange(CALCULATION_ROUTE_LIST, DOCTYPE_CALCULATION, VIEWTYPE_LIST)),
-      getMenuItem('Verleih', '150', null, () =>
-        handleChange(RENTAL_ROUTE_LIST, DOCTYPE_RENTAL, VIEWTYPE_LIST)),
-      getMenuItem('Verkauf', '160', null, () =>
-        handleChange(SALE_ROUTE_LIST, DOCTYPE_SALE, VIEWTYPE_LIST)),
-      getMenuItem('Nutzungsrechte', '170', null, () =>
-        handleChange(SALERIGHTSOFUSE_ROUTE_LIST, DOCTYPE_SALE_RIGHTSOFUSE, VIEWTYPE_LIST)),
-      getMenuItem('Kontakte', '180', null, () =>
-        handleChange(ADDRESS_ROUTE_LIST, DOCTYPE_ADDRESS, VIEWTYPE_LIST)),
-      getMenuItem('Statistik', '190', null, () =>
-        handleChange(STATISTIC_ROUTE_LIST, DOCTYPE_STATISTIC, VIEWTYPE_LIST)),
-      getMenuItem('First Start', '200', null, () =>
-        handleChange(FIRSTSTART_ROUTE_LIST, DOCTYPE_FIRSTSTART, VIEWTYPE_LIST)),
+    getMenuItem("Büro", "sub3", <CoffeeOutlined />, undefined, [
+      getMenuItem("Kalkulationen", "140", null, () =>
+        handleChange(CALCULATION_ROUTE_LIST, DOCTYPE_CALCULATION, VIEWTYPE_LIST)
+      ),
+      getMenuItem("Verleih", "150", null, () =>
+        handleChange(RENTAL_ROUTE_LIST, DOCTYPE_RENTAL, VIEWTYPE_LIST)
+      ),
+      getMenuItem("Verkauf", "160", null, () =>
+        handleChange(SALE_ROUTE_LIST, DOCTYPE_SALE, VIEWTYPE_LIST)
+      ),
+      getMenuItem("Nutzungsrechte", "170", null, () =>
+        handleChange(
+          SALERIGHTSOFUSE_ROUTE_LIST,
+          DOCTYPE_SALE_RIGHTSOFUSE,
+          VIEWTYPE_LIST
+        )
+      ),
+      getMenuItem("Kontakte", "180", null, () =>
+        handleChange(ADDRESS_ROUTE_LIST, DOCTYPE_ADDRESS, VIEWTYPE_LIST)
+      ),
     ]),
 
+    getMenuItem("Administration", "sub4", <CrownOutlined />, undefined, [
+      getMenuItem("Benutzer", "200", null, () =>
+        handleChange(USERS_ROUTE_LIST, DOCTYPE_USER, VIEWTYPE_LIST)
+      ),
+      getMenuItem("Statistik", "210", null, () =>
+        handleChange(STATISTIC_ROUTE_LIST, DOCTYPE_STATISTIC, VIEWTYPE_LIST)
+      ),
+      getMenuItem("First Start", "220", null, () =>
+        handleChange(FIRSTSTART_ROUTE_LIST, DOCTYPE_FIRSTSTART, VIEWTYPE_LIST)
+      ),
+    ]),
   ];
 
   return (

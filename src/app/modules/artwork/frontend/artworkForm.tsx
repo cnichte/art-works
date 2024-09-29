@@ -71,7 +71,7 @@ export function ArtworkForm() {
     // or a new empty Formdata-Object with an fresh uuid.
     //* Wird einmalig beim Laden der Seite ausgeführt.
     const request: DB_Request = {
-      type: "request:data",
+      type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
       options: {},
@@ -86,7 +86,7 @@ export function ArtworkForm() {
       ipc_channel: "ipc-database",
 
       surpress_buttons: false,
-      handleResultCallback: function (result: any): void {
+      setDataCallback: function (result: any): void {
         setDataOrigin(result[segment][0]);
         form.setFieldsValue(result[segment][0]);
       },

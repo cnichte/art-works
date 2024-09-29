@@ -63,7 +63,7 @@ export class FormTool_IPC<T extends DocItentifiable> {
       window.electronAPI
         .invoke_request(props.ipc_channel, [props.request])
         .then((result: T) => {
-          props.handleResultCallback(result);
+          props.setDataCallback(result);
 
           App_Messages_IPC.request_message(
             "request:message-info",
@@ -90,6 +90,10 @@ export class FormTool_IPC<T extends DocItentifiable> {
           response.target === props.modul_props.doctype &&
           response.view == props.viewtype // should be form
         ) {
+          console.log(
+            `${props.modul_props.doctype}_${props.viewtype} says ACTION: `,
+            response
+          );
           props.doButtonActionCallback(response);
         }
       }

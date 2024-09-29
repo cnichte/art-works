@@ -1,16 +1,22 @@
 /**
  * Note the path Structur: A Route starts with the `doctype`
  * Always write all three, even if you don't use them.
- * 
+ *
  * @author Carsten Nichte - //carsten-nichte.de/apps/
  * @version 1.0.0
  */
 export const FIRSTSTART = "/firststart";
 
+// System
 export const CATALOG_ROUTE_LIST = "/catalog/list";
 export const CATALOG_ROUTE_VIEW = "/catalog/view/:id";
 export const CATALOG_ROUTE_FORM = "/catalog/form/:id";
 
+export const USERS_ROUTE_LIST = "/user/list";
+export const USERS_ROUTE_VIEW = "/user/view/:id";
+export const USERS_ROUTE_FORM = "/user/form/:id";
+
+// User definied
 export const ADDRESS_ROUTE_LIST = "/address/list";
 export const ADDRESS_ROUTE_VIEW = "/address/view/:id";
 export const ADDRESS_ROUTE_FORM = "/address/form/:id";
@@ -86,9 +92,14 @@ export const WHITEBORD_ROUTE_VIEW = "/whiteboard/view/:id";
 export const WHITEBORD_ROUTE_FORM = "/whiteboard/form/:id";
 
 export type RouteType =
+  // System
   | typeof CATALOG_ROUTE_LIST
   | typeof CATALOG_ROUTE_VIEW
   | typeof CATALOG_ROUTE_FORM
+  | typeof USERS_ROUTE_LIST
+  | typeof USERS_ROUTE_VIEW
+  | typeof USERS_ROUTE_FORM
+  // User defined
   | typeof ADDRESS_ROUTE_LIST
   | typeof ADDRESS_ROUTE_VIEW
   | typeof ADDRESS_ROUTE_FORM

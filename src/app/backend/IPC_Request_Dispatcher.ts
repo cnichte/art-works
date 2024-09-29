@@ -15,9 +15,37 @@ import {
 } from "../common/types/RequestTypes";
 import { DocCatalog } from "../common/types/DocCatalog";
 import { Database_Backup } from "./Database_Backup";
+import { Crypto_Manager } from "./Crypto_Manager";
+import { DocUser } from "../common/types/DocUser";
 
 /**
- * dispatches all the ipc requests from the frontend,
+ * Private Helper-Class to compose and set 
+ * the BrowserWindow-Title
+ * from current user and catalog.
+ */
+class BrowserWindowTitle {
+  public static browserWindow: BrowserWindow;
+  private static catalog: string = "Kein Katalog gewählt";
+  private static user: string = "Bitte anmelden!";
+
+  public static setCatalog(name: string) {
+    BrowserWindowTitle.catalog = `Catalog: '${name}'`;
+    BrowserWindowTitle.setTitle();
+  }
+  public static setUser(name: string) {
+    BrowserWindowTitle.user = `Benutzer: ${name}`;
+    BrowserWindowTitle.setTitle();
+  }
+  private static setTitle() {
+    // compose and set the BrowserWindow title
+    BrowserWindowTitle?.browserWindow.setTitle(
+      BrowserWindowTitle.catalog + " | " + BrowserWindowTitle.user
+    );
+  }
+}
+
+/**
+ * Dispatches all the ipc requests from the frontend,
  * to database commands.
  *
  * @author Carsten Nichte - //carsten-nichte.de/apps/
@@ -34,6 +62,7 @@ export class IPC_Request_Dispatcher {
 
   constructor(browserWindow: BrowserWindow) {
     this.browserWindow = browserWindow;
+    BrowserWindowTitle.browserWindow = browserWindow;
 
     this.settings = new Database_Settings();
 
@@ -43,12 +72,10 @@ export class IPC_Request_Dispatcher {
     );
 
     browserWindow.webContents.on("did-finish-load", () => {
-      this.browserWindow.setTitle(
-        `Catalog: ${
-          this.settings.get_database_template_from_uuid(
-            this.settings.get_database_uuid_from_startoptions()
-          ).templateName
-        } `
+      BrowserWindowTitle.setCatalog(
+        this.settings.get_database_template_from_uuid(
+          this.settings.get_database_uuid_from_startoptions()
+        ).templateName
       );
     });
 
@@ -260,6 +287,18 @@ export class IPC_Request_Dispatcher {
               });
           });
           break;
+        case "request:database-export":
+          result = new Promise((resolve, reject) => {
+            this.pouchdb
+              .export_all()
+              .then(function (response:any) {
+                return resolve(response);
+              })
+              .catch(function (err:any) {
+                return reject(err);
+              });
+          });
+          break;
         case "request:switch-catalog":
           // save the option
           this.settings.conf.set("catalog.connection.selected", request.id);
@@ -277,6 +316,45 @@ export class IPC_Request_Dispatcher {
             } `
           );
 
+          break;
+        case "request:get-current-user":
+          result = new Promise((resolve) => {
+            // Chain of decryption:
+            let encrypted_str: any = this.settings.conf.get("currentuser");
+            let decrypted_str = "";
+            let decrypted_obj = null;
+
+            encrypted_str = encrypted_str.trim();
+
+            if (encrypted_str.length > 0) {
+              decrypted_str = Crypto_Manager.decrypt(encrypted_str);
+            }
+
+            try {
+              decrypted_obj = JSON.parse(decrypted_str);
+
+              BrowserWindowTitle.setUser((decrypted_obj as DocUser).name);
+
+              resolve(decrypted_obj);
+            } catch (e) {
+              // Ein korrupter Eintrag wird null gesetzt, um ein einloggen erzwingen.
+              BrowserWindowTitle.setUser("Bitte anmelden.");
+
+              this.settings.conf.set("currentuser", "");
+              resolve(null);
+            }
+          });
+          break;
+        case "request:set-current-user":
+          result = new Promise((resolve) => {
+            // Chain of encryption:
+            let decrypted_obj = request.data;
+            let decrypted_str = JSON.stringify(decrypted_obj);
+            let encrypted_str: any = Crypto_Manager.encrypt(decrypted_str);
+
+            this.settings.conf.set("currentuser", encrypted_str);
+            resolve(true);
+          });
           break;
         default:
           result = new Promise((reject) => {
@@ -319,6 +397,25 @@ export class IPC_Request_Dispatcher {
               });
           });
           break;
+        case "request:data-from-query":
+          result = new Promise((resolve, reject) => {
+            this.pouchdb
+              .readFromQuery(request.query)
+              .then(function (response) {
+                // This is space to transform the result before send it back.
+                console.log("query-then: ", response);
+                console.log("---------------------");
+                return resolve(response.docs);
+              })
+              .catch(function (err) {
+                console.log("---------------------");
+                console.log("query-error: ", err);
+                console.log("---------------------");
+                return reject(err);
+              });
+          });
+          break;
+
         case `request:save`:
           result = new Promise((resolve, reject) => {
             this.pouchdb
@@ -338,7 +435,7 @@ export class IPC_Request_Dispatcher {
               });
           });
           break;
-        case "request:data":
+        case "request:data-from-id":
           result = new Promise((resolve, reject) => {
             this.pouchdb
               .readFromRelationsID(request.doctype, request.id)

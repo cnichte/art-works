@@ -316,7 +316,7 @@ export function MyBasicView<T>({
     useEffect(() => {
     // Beim laden der Seite...
     const request: DB_Request = {
-      type: "request:data",
+      type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
       options: {},
@@ -330,7 +330,7 @@ export function MyBasicView<T>({
       ipc_channel: "ipc-database",
 
       surpress_buttons: false,
-      handleResultCallback: function (result: T): void {
+      setDataCallback: function (result: T): void {
         setData(result);
       },
       doButtonActionCallback: function (response: Action_Request): void {

@@ -44,7 +44,6 @@ export function ArtworkList() {
     console.log("handleExtra in ArtworkList");
   };
 
-
   const table_columns: ColumnsType<ArtworkI> = [
     {
       title: "Bild",
@@ -103,11 +102,11 @@ export function ArtworkList() {
       listTypes={["list", "grid"]}
       modul_props={modul_props}
       columns={table_columns}
-      columns_search_exclude={["attachmentsMeta","labels"]}
+      columns_search_exclude={["attachmentsMeta", "labels"]}
       map_record_callback={function (record: Artwork): MyCardGridList_DataItem {
         const d: MyCardGridList_DataItem = {
           preview: Image_Util.get_coverImage_src(record.attachmentsMeta),
-          id: record.id
+          id: record.id,
         };
         return d;
       }}

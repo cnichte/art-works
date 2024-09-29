@@ -32,7 +32,9 @@ import { GroupOfWorkI } from "../common/types/DocGroupOfWork";
 import { Action_Request, DB_Request } from "../common/types/RequestTypes";
 import { RequestData_IPC } from "./RequestData_IPC";
 import { Modul_Props_I } from "../common/Modul_Props";
+
 import { MyCardGridList, MyCardGridList_DataItem } from "./myCardGridList";
+
 import {
   MyBasicList_SearchPanel,
   MyBasicList_SearchPanel_Buttons,
@@ -70,7 +72,6 @@ export interface MyBasicList_GridRenderer_Props<T> {
    */
   map_record_callback?: (record: T) => MyCardGridList_DataItem;
 }
-
 export interface MyBasicListProps<T> extends MyBasicList_GridRenderer_Props<T> {
   modul_props: Modul_Props_I;
   listTypes: ListType[];
@@ -158,7 +159,7 @@ export function MyBasicList<T extends DocItentifiable>({
       ipc_channel: "ipc-database",
 
       surpress_buttons: false,
-      handleResultCallback: function (result: T[]): void {
+      setDataCallback: function (result: T[]): void {
         setData(result);
       },
       doButtonActionCallback: function (response: Action_Request): void {
@@ -213,12 +214,12 @@ export function MyBasicList<T extends DocItentifiable>({
       options: {},
     };
 
-    RequestData_IPC.perform_request<any>({
+    RequestData_IPC.load_data<any>({
       // TODO load_data ist hier irreführend.
       modul_props: modul_props,
       ipc_channel: "ipc-database",
       request: request,
-      handleResultCallback: function (result: any): void {
+      setDataCallback: function (result: any): void {
         // Das item aus der Tabelle entfernen.
 
         // let test:any =  data[modul_props.segment];
@@ -404,9 +405,7 @@ export function MyBasicList<T extends DocItentifiable>({
 
   const getColumnSearchProps = (
     dataIndex: DataIndex<T>
-  ): TableColumnType<T> => (
-    
-    {
+  ): TableColumnType<T> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -488,6 +487,7 @@ export function MyBasicList<T extends DocItentifiable>({
   });
 
   //! Alle Spalten werden mit dem Columns-Filter aussgestattet.
+  // TODO das funktioniert noch nicht.
   let decorated_columns = columns.map((col) => {
     if (
       columns_search_exclude == null ||
@@ -501,7 +501,10 @@ export function MyBasicList<T extends DocItentifiable>({
   });
 
   //! Die Row-Actions werden hinten angefügt.
-  const all_columns = decorated_columns.concat(column_actions); //! columns
+ // const all_columns = columns;
+  const all_columns = columns.concat(column_actions); //! columns
+ // const all_columns = decorated_columns.concat(column_actions); //! columns
+
 
   /**
    ** Button-Bar:List|Grid, Grid-Adjuster, Suche,
@@ -531,7 +534,7 @@ export function MyBasicList<T extends DocItentifiable>({
           />
         </Col>
       );
-    } else if (listType == "grid") {
+    }  else if (listType == "grid") {
       // TODO Render a Grid of Cards
 
       let records: any = [];

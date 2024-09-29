@@ -8,6 +8,7 @@ import { Menu_Links } from "../../menu";
  */
 export class App_Info {
   static MY_APP_NAME = "Art.Works!";
+  static MY_APP_DESCRIPTION = "Die Werkverzeichns-App für die Verwaltung deines Werkes";
   // TODO use https://www.npmjs.com/package/genversion
   static MY_APP_VERSION = "1.0.0"; // Semantic Versioning: https://de.wikipedia.org/wiki/Version_(Software)
   static MY_APP_FOLDER = "Art.Works!";

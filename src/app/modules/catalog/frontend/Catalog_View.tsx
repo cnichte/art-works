@@ -33,7 +33,7 @@ export function Catalog_View() {
       ipc_channel: "ipc-settings",
       
       surpress_buttons: false,
-      handleResultCallback: function (result: DocCatalogType): void {
+      setDataCallback: function (result: DocCatalogType): void {
         setDataObject(result);
       },
       doButtonActionCallback: function (response: Action_Request): void {

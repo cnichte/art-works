@@ -4,6 +4,19 @@
 export const DOCTYPE_HEADER_BUTTONS = "headerbuttons";
 export type ActionTarget = typeof DOCTYPE_HEADER_BUTTONS;
 export const DOCTYPE_CATALOG = "catalog";
+export const DOCTYPE_USER = "user";
+
+export const TYPE_USERRIGHT_SUPERADMIN = "superadmin";
+export const TYPE_USERRIGHT_ADMIN = "admin";
+export const TYPE_USERRIGHT_READ_ONLY = "read-only";
+export const TYPE_USERRIGHT_READ_WRITE = "read-write";
+export const TYPE_USERRIGHT_NONE = "none";
+
+export type DocUserRights =
+  | typeof TYPE_USERRIGHT_ADMIN
+  | typeof TYPE_USERRIGHT_READ_ONLY
+  | typeof TYPE_USERRIGHT_READ_WRITE
+  | typeof TYPE_USERRIGHT_NONE;
 
 //* custom types
 
@@ -49,6 +62,7 @@ export const DOCTYPE_WHITEBOARD = "whiteboard";
 export type DocType =
   // system
   | typeof DOCTYPE_CATALOG
+  | typeof DOCTYPE_USER
   // custom
   | typeof DOCTYPE_ADDRESS
   | typeof DOCTYPE_ADDRESS_TYPE
