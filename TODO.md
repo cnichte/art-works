@@ -1,5 +1,7 @@
 # What needs to be done
 
+-[ ] App-Logo SVG im Login Screen geht noch nicht.
+
 ## Erledigt
 
 * 2024-05-30 Donnerstag

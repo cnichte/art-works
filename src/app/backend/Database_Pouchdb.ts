@@ -271,7 +271,7 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
     return new Promise((resolve, reject) => {
       if (exampleData) {
         console.log(`pouchdb: create data`);
-        db_initialize()
+        db_initialize(this.db);
       } else {
         console.log(`pouchdb: skip data creation.`);
       }
