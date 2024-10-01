@@ -15,10 +15,10 @@ import Icon from "@ant-design/icons";
 
 import { compareSync } from "bcrypt-ts"; // password crypto
 
-import { DB_Request, Settings_RequestData } from "../common/types/RequestTypes";
-import { DocUser } from "../common/types/DocUser";
+import { DB_Request, Settings_RequestData } from "../common/types/system/RequestTypes";
+import { DocUser } from "../common/types/documents/DocUser";
 import { App_Info } from "../common/App_Info";
-import { App_Messages_IPC } from "./App_Messages_IPC";
+import { App_Messages_IPC } from "./tools/App_Messages_IPC";
 
 export interface App_User_LoginForm_Props {
   title: string;
@@ -63,7 +63,7 @@ export const App_User_LoginForm: React.FC<App_User_LoginForm_Props> = ({
           },
         },
       },
-      options: {},
+      options: [],
     };
 
     window.electronAPI
@@ -86,11 +86,10 @@ export const App_User_LoginForm: React.FC<App_User_LoginForm_Props> = ({
             //* formValues.remember = true : Speichere den aktuellen User verschlüsselt in den Settings.
             // Das verschlüsseln und entschlüsseln passiert im Backend.
             // Das Passwort ist separat (zusätzlich) verschlüsselt.
+
             const request: Settings_RequestData<DocUser> = {
               type: "request:set-current-user",
-              options: {
-                remember: formValues.remember,
-              },
+              options: formValues.remember ? ["formvalues_remember"] : [],
               data: result[0],
             };
 
@@ -146,9 +145,8 @@ export const App_User_LoginForm: React.FC<App_User_LoginForm_Props> = ({
           background: "#efefef",
         }}
       >
-
         <Title style={{ marginBottom: "0px", marginTop: "0px" }}>
-          { App_Info.MY_APP_NAME }
+          {App_Info.MY_APP_NAME}
         </Title>
         <Text>{App_Info.MY_APP_DESCRIPTION}</Text>
         <Text>Bitte mit Usernamen und Passwort anmelden.</Text>

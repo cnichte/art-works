@@ -9,19 +9,19 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import type { RcFile } from "antd/es/upload";
 
 // Application imports
-import { MyInputURLField } from "../../../frontend/myInputFields";
-import { MyDatePicker } from "../../../frontend/myDatePicker";
+import { MyInputURLField } from "../../../frontend/components/myInputFields";
+import { MyDatePicker } from "../../../frontend/components/myDatePicker";
 
-import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
+import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
 import { DocType } from "../../../common/types/DocType";
-import { FormPropertiesInterface } from "../../../common/types/FormPropertiesInterface";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
+import { FormPropertiesInterface } from "../../../common/types/system/FormPropertiesInterface";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
 
-import { Address } from "../../../common/types/DocAddress";
+import { Address } from "../../../common/types/documents/DocAddress";
 import { modul_props } from "../modul_props";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
-import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
-import { AddressType } from "../../../common/types/DocAddressType";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
+import { RequestData_IPC } from "../../../frontend/tools/RequestData_IPC";
+import { AddressType } from "../../../common/types/documents/DocAddressType";
 
 /**
  * Formular für das Modul Note.
@@ -58,7 +58,7 @@ export function AddressForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({
@@ -89,7 +89,7 @@ export function AddressForm() {
     const request_2: DB_Request = {
       type: "request:data-from-id",
       doctype: "addressType",
-      options: {},
+      options: [],
     };
 
     RequestData_IPC.load_data<any>({

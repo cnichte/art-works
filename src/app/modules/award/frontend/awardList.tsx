@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 
-import { MyBasicList } from "../../../frontend/myBasicList"; // src/app/frontend/myBasicList'
+import { MyBasicList } from "../../../frontend/components/myBasicList"; // src/app/frontend/myBasicList'
 
-import { AwardI } from "../../../common/types/DocAward";
+import { AwardI } from "../../../common/types/documents/DocAward";
 import { modul_props } from "../modul_props";
 
 /**

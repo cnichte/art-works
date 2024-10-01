@@ -4,11 +4,11 @@ import { useParams } from "react-router";
 import { Input, Form, Button } from 'antd';
 
 import { DocType } from "../../../common/types/DocType";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { DB_Request } from "../../../common/types/RequestTypes";
-import { Action_Request } from "../../../common/types/RequestTypes";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
-import { Genre } from "../../../common/types/DocGenre";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
+import { DB_Request } from "../../../common/types/system/RequestTypes";
+import { Action_Request } from "../../../common/types/system/RequestTypes";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
+import { Genre } from "../../../common/types/documents/DocGenre";
 import { modul_props } from "../modul_props";
 
 //* above are the default imports
@@ -42,7 +42,7 @@ export function GenreForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({

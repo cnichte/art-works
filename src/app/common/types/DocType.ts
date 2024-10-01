@@ -105,16 +105,16 @@ export type DocType =
 
 // TODO Varianten PouchDB with and without Plugin relational-pouch 
 //* PouchDB without Plugin relational-pouch
-/*
+
 export interface DocItentifiable {
   _id: string;
   _rev?: string;
   docType: DocType;
 }
-*/
+
 
 //* PouchDB with Plugin relational-pouch
-export interface DocItentifiable {
+export interface DocItentifiable_Rel {
   id: string;
   rev?: string;
   docType: DocType;

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 // import { RequestViewI } from '../../backend/types/RequestsFactoryTypes';
-import { ConditionParameter } from '../../frontend/Condition';
-import { Modul_Props_I } from '../Modul_Props';
+import { ConditionParameter } from '../../frontend/tools/Condition';
+import { Modul_Props_I } from './system/Modul_Props';
 
 /** Zusatz für mapKeyTo
  * Die Realation kann ich entweder mit einem String auflösen der das Ziel angibt,

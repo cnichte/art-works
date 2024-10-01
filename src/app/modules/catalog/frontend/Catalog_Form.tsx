@@ -6,13 +6,13 @@ import {
   Action_Request,
   Settings_Request,
   Settings_RequestData,
-} from "../../../common/types/RequestTypes";
-import { DocCatalog, DocCatalogType } from "../../../common/types/DocCatalog";
-import { IPC_SETTINGS } from "../../../common/types/IPC_Channels";
+} from "../../../common/types/system/RequestTypes";
+import { DocCatalog, DocCatalogType } from "../../../common/types/documents/DocCatalog";
+import { IPC_SETTINGS } from "../../../common/types/system/IPC_Channels";
 import { DbOptions_Setting, DbOptionsType } from "../../../common/types/SettingTypes";
 import { modul_props } from "../modul_props";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
+import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
 
 const { TextArea } = Input;
 
@@ -63,7 +63,7 @@ export function Catalog_Form() {
       type: "request:get-connection",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: [],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<DocCatalog>({
@@ -97,7 +97,7 @@ export function Catalog_Form() {
       type: "request:get-dbOptions",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: [],
     };
 
     window.electronAPI
@@ -129,7 +129,7 @@ export function Catalog_Form() {
       doctype: modul_props.doctype,
       id: id,
       data: null,
-      options: {},
+      options: [],
     };
 
     FormTool_IPC.save_data<DocCatalog>({

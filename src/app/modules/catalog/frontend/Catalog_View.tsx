@@ -4,10 +4,10 @@ import { Descriptions, Tabs } from "antd";
 import {
   Action_Request,
   Settings_Request,
-} from "../../../common/types/RequestTypes";
-import { DocCatalogType } from "../../../common/types/DocCatalog";
+} from "../../../common/types/system/RequestTypes";
+import { DocCatalogType } from "../../../common/types/documents/DocCatalog";
 
-import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
+import { RequestData_IPC } from "../../../frontend/tools/RequestData_IPC";
 import { modul_props } from "../modul_props";
 
 export function Catalog_View() {
@@ -22,7 +22,7 @@ export function Catalog_View() {
       type: "request:get-connection",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: [],
     };
 
     const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<DocCatalogType>({

@@ -5,12 +5,12 @@ import { getSnapshot, getSvgAsImage, loadSnapshot, useEditor } from "tldraw";
 import {
   DocWhiteboard,
   WhiteboardI,
-} from "../../../common/types/DocWhiteboard";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
-import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
-import { Modul_Props_I } from "../../../common/Modul_Props";
-import { Image_Util } from "../../../frontend/Image_Util";
+} from "../../../common/types/documents/DocWhiteboard";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
+import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
+import { Modul_Props_I } from "../../../common/types/system/Modul_Props";
+import { Image_Util } from "../../../frontend/tools/Image_Util";
 
 interface MyProps {
   id: string;
@@ -49,7 +49,7 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({

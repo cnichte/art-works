@@ -13,8 +13,8 @@ import {
 } from "antd";
 import { useNavigate } from "react-router-dom";
 // TODO import TransportTool from './TransportTool';
-import { MyAttachments_ImagesMeta_Input } from "../../../frontend/myAttachments_ImagesMeta_Input";
-import { MySelectEditField } from "../../../frontend/myInputFields";
+import { MyAttachments_ImagesMeta_Input } from "../../../frontend/components/myAttachments_ImagesMeta_Input";
+import { MySelectEditField } from "../../../frontend/components/myInputFields";
 
 const { TextArea } = Input;
 const { Text } = Typography;

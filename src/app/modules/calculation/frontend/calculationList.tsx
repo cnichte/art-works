@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 
-import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
-import { CalculationI } from "../../../common/types/DocCalculation";
+import { MyBasicList } from "../../../frontend/components/myBasicList"; // ../../../frontend/myBasicList'
+import { CalculationI } from "../../../common/types/documents/DocCalculation";
 import { modul_props } from "../modul_props";
 
 /**

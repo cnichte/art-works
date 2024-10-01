@@ -4,13 +4,13 @@ import { useParams, useNavigate } from "react-router";
 import { Input, Form, Button } from "antd";
 
 import { DocType } from "../../../common/types/DocType";
-import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
-import { DB_Request } from "../../../common/types/RequestTypes";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
-import { Action_Request } from "../../../common/types/RequestTypes";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
-import { Compilation } from "../../../common/types/DocCompilation";
+import { Header_Buttons_IPC } from "../../../frontend/tools/Header_Buttons_IPC";
+import { DB_Request } from "../../../common/types/system/RequestTypes";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
+import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
+import { Action_Request } from "../../../common/types/system/RequestTypes";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
+import { Compilation } from "../../../common/types/documents/DocCompilation";
 import { modul_props } from "../modul_props";
 
 /**
@@ -39,7 +39,7 @@ export function CompilationForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({

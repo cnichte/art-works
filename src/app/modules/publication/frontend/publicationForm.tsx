@@ -5,11 +5,11 @@ import { Input, Form, Button, Select } from "antd";
 
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { DocType } from "../../../common/types/DocType";
-import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
-import { Publication } from "../../../common/types/DocPublication";
+import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
+import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
+import { Publication } from "../../../common/types/documents/DocPublication";
 import { modul_props } from "../modul_props";
 
 //* above are the default imports
@@ -46,7 +46,7 @@ export function PublicationForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({
@@ -78,7 +78,7 @@ export function PublicationForm() {
     const request_2: DB_Request = {
       type: "request:data-from-id",
       doctype: "publicationType",
-      options: {},
+      options: [],
     };
 
     window.electronAPI
@@ -98,7 +98,7 @@ export function PublicationForm() {
     const request_3: DB_Request = {
       type: "request:data-from-id",
       doctype: "publicationWhat",
-      options: {},
+      options: [],
     };
 
     window.electronAPI
@@ -118,7 +118,7 @@ export function PublicationForm() {
     const request_4: DB_Request = {
       type: "request:data-from-id",
       doctype: "publicationMedium",
-      options: {},
+      options: [],
     };
 
     window.electronAPI

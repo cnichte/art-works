@@ -1,5 +1,5 @@
 import path from "path";
-import { FileTool } from "./app/backend/FileTool";
+import { FileTool } from "./app/backend/tools/FileTool";
 
 import log from "electron-log/main";
 

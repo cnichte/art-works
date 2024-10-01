@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message, Steps, theme, Typography } from 'antd';
-import { Header_Buttons_IPC } from '../../../frontend/Header_Buttons_IPC';
+import { Header_Buttons_IPC } from '../../../frontend/tools/Header_Buttons_IPC';
 import { DocType } from '../../../common/types/DocType';
-import { Action_Request } from '../../../common/types/RequestTypes';
+import { Action_Request } from '../../../common/types/system/RequestTypes';
 import { modul_props } from '../modul_props';
 
 // https://ant.design/components/typography
@@ -74,7 +74,7 @@ export function FirstStartSteps() {
       doclabel: doclabel,
       id: "", // is perhaps id='new'
       surpress: true,
-      options: {},
+      options: [],
     });
 
     // TODO hir wird noxh nix aus der DB gelesen

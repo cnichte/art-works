@@ -1,6 +1,55 @@
 # What needs to be done
 
 -[ ] App-Logo SVG im Login Screen geht noch nicht.
+-[ ] Database_Pouchdb.ts unterstützt sauber "mit und ohne" relational-pouch, sowie Mischbetrieb.
+  -[ ] DocUser läuft ohne relational-pouch.
+  -[ ] Der Rest läuft mit relational-pouch.
+
+Ne Inbox brauch ich nicht.
+Aber den Status "Neu".
+
+Die Bilder und Attachmemts werden neben der Datenbank abgelegt:
+
+DAS GEHT ABER NUR BEM LOCAL-Store, der remote store muss alles in der Datenbank ablegen.
+
+* Jedes Werk bekommt beim Import erst mal eine temporäre laufende Nummer zugeordnet: Jahr der Erfassung-Nummer.
+* Die wird dann reorganisiert wenn die Daten angelegt sind.
+
+Werknummer - Eingang
+
+* Werkverzeichnis-Kennung (Sammlung / Katalog-Name / „cnichte“)
+* jahr (erfassung)
+* Lfd. Nr. (Schema „001“)
+* Beispiele
+  * neu-2024.15
+
+Werknummer - vollständig
+
+* Werkverzeichnis-Kennung (Sammlung / Katalog-Name / „cnichte“)
+* Werkgruppe
+* Genre
+* optionaler title
+* jahr (erstellung)
+* Lfd. Nr. (Schema „001“)
+* Beispiele
+  * cnichte.generative-art.ai.2020-100
+  * cnichte.photography.portait.2018-20
+  * cnichte.photography.[portait,conceputual].2018-20  ???
+
+werkverzeichnis-artist/datenbank
+werkverzeichnis-artist/werke/eingang/
+werkverzeichnis-artist/werke/verzeichnis/
+
+Und darin:
+
+/werk-a/werk-a.json
+/werk-a/werk-a.md
+/werk-a/Abbildungen/Werk-a-1-print.jpg
+/werk-a/attachments/
+
+Werk-a-print.jpg
+Werk-a.json
+Werk-a.md
 
 ## Erledigt
 

@@ -14,13 +14,13 @@ import ImgCrop from "antd-img-crop";
 //* Application imports
 import { UploadChangeParam, UploadFile } from "antd/es/upload";
 import { DocType } from "../../../common/types/DocType";
-import { DB_Request } from "../../../common/types/RequestTypes";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { Action_Request } from "../../../common/types/RequestTypes";
-import { Artist } from "../../../common/types/DocArtist";
-import { MyInputURLField } from "../../../frontend/myInputFields";
+import { DB_Request } from "../../../common/types/system/RequestTypes";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
+import { Action_Request } from "../../../common/types/system/RequestTypes";
+import { Artist } from "../../../common/types/documents/DocArtist";
+import { MyInputURLField } from "../../../frontend/components/myInputFields";
 import { modul_props } from "../modul_props";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
 
 /**
  * Formular für das Modul Note.
@@ -49,7 +49,7 @@ export function ArtistForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({

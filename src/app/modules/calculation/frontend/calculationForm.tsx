@@ -6,13 +6,13 @@ import { v4 as uuidv4 } from "uuid";
 
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { DocType } from "../../../common/types/DocType";
-import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
-import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
-import { Calculation } from "../../../common/types/DocCalculation";
-import { My_PriceSimple_Input } from "../../../frontend/myPriceSimple_Input";
+import { Header_Buttons_IPC } from "../../../frontend/tools/Header_Buttons_IPC";
+import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
+import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
+import { Calculation } from "../../../common/types/documents/DocCalculation";
+import { My_PriceSimple_Input } from "../../../frontend/components/myPriceSimple_Input";
 import { modul_props } from "../modul_props";
 
 const { TextArea } = Input;
@@ -42,7 +42,7 @@ export function CalculationForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({

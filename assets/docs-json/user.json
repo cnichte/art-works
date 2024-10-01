@@ -1,14 +1,10 @@
 [
     {
         "id": "e0c9b078-3782-444a-baf7-6ac1e7873313",
+        "doctype":"user",
         "name": "Fritz Müller-Admin",
         "userid": "f_mueller",
         "password": "$2a$10$vN6Wg9ilv2pohqd5WKpAHOYDJ7AOgc72wmvl7iHzxM8JBPuNpsHbi",
-        "userrights": "admin",
-        "meta": {
-            "datum_geaendert": "2024-05-06 16:00:00.000",
-            "datum_hinzugefuegt": "2024-05-05 15:00:00.000",
-            "letzter_bearbeiter": "2024-05-05 15:00:00.000"
-        }
+        "userrights": "admin"
     }
 ]

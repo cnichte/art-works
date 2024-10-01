@@ -4,9 +4,9 @@ import { Button, Form, FormProps, Input, Select } from "antd";
 
 import { genSaltSync, hashSync } from "bcrypt-ts"; // password crypto
 
-import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
-import { DocUserType } from "../../../common/types/DocUser";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
+import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
+import { DocUserType } from "../../../common/types/documents/DocUser";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
 import {
   TYPE_USERRIGHT_ADMIN,
   TYPE_USERRIGHT_NONE,
@@ -16,7 +16,7 @@ import {
   DocType,
 } from "../../../common/types/DocType";
 
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
 import { modul_props } from "../modul_props";
 
 /**
@@ -51,7 +51,7 @@ export function User_Form() {
     // init form
 
     let data: DocUserType = {
-      id: "", // is perhaps id='new'
+      _id: "", // is perhaps id='new'
       docType: "user",
       name: "",
       userid: "",
@@ -70,7 +70,7 @@ export function User_Form() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: [], // "use_relation"
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<DocUserType>({
@@ -208,8 +208,8 @@ export function User_Form() {
         </Form.Item>
       </Form>
       <ul>
-        <li>uuid: {dataObject?.id}</li>
-        <li>_ref: {dataObject?.rev}</li>
+        <li>uuid: {dataObject?._id}</li>
+        <li>_ref: {dataObject?._rev}</li>
       </ul>
     </>
   );

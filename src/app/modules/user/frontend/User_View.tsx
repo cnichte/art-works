@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Descriptions } from "antd";
-import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
-import { DocUserType } from "../../../common/types/DocUser";
+import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
+import { DocUserType } from "../../../common/types/documents/DocUser";
 import { DocType } from "../../../common/types/DocType";
 import { modul_props } from "../modul_props";
-import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
+import { RequestData_IPC } from "../../../frontend/tools/RequestData_IPC";
 
 export function User_View() {
 
@@ -24,7 +24,7 @@ export function User_View() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: [], // "use_relation"
     };
 
     const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<DocUserType>({
@@ -63,8 +63,8 @@ export function User_View() {
         </Descriptions.Item>
       </Descriptions>
       <Descriptions layout="horizontal" title="">
-        <Descriptions.Item label="id">{dataObject?.id}</Descriptions.Item>
-        <Descriptions.Item label="rev">{dataObject?.rev}</Descriptions.Item>
+        <Descriptions.Item label="id">{dataObject?._id}</Descriptions.Item>
+        <Descriptions.Item label="rev">{dataObject?._rev}</Descriptions.Item>
       </Descriptions>
     </>
   );

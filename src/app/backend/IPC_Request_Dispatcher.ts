@@ -1,25 +1,25 @@
 import { BrowserWindow, ipcMain, shell } from "electron";
-import { DatabaseCRUD_Interface } from "./Database_Types";
-import { Database_Pouchdb } from "./Database_Pouchdb";
-import { Database_Settings } from "./Database_Settings";
+import { DatabaseCRUD_Interface } from "./types/Database_Types";
+import { Database_Pouchdb } from "./database/pouchdb/Database_Pouchdb";
+import { Database_Settings } from "./database/settings/Database_Settings";
 import {
   IPC_BUTTON_ACTION,
   IPC_DATABASE,
   IPC_EXTERNAL_LINK,
   IPC_MESSAGE,
   IPC_SETTINGS,
-} from "../common/types/IPC_Channels";
+} from "../common/types/system/IPC_Channels";
 import {
   DB_RequestData,
   Settings_RequestData,
-} from "../common/types/RequestTypes";
-import { DocCatalog } from "../common/types/DocCatalog";
-import { Database_Backup } from "./Database_Backup";
-import { Crypto_Manager } from "./Crypto_Manager";
-import { DocUser } from "../common/types/DocUser";
+} from "../common/types/system/RequestTypes";
+import { DocCatalog } from "../common/types/documents/DocCatalog";
+import { Database_Backup } from "./tools/Database_Backup";
+import { Crypto_Manager } from "./tools/Crypto_Manager";
+import { DocUser } from "../common/types/documents/DocUser";
 
 /**
- * Private Helper-Class to compose and set 
+ * Private Helper-Class to compose and set
  * the BrowserWindow-Title
  * from current user and catalog.
  */
@@ -278,7 +278,7 @@ export class IPC_Request_Dispatcher {
           break;
         case "request:database-backup":
           result = new Promise((resolve, reject) => {
-            Database_Backup.performBackup(request.options.dbName)
+            Database_Backup.performBackup(request.properties.dbName)
               .then(function (response) {
                 return resolve(response);
               })
@@ -291,10 +291,10 @@ export class IPC_Request_Dispatcher {
           result = new Promise((resolve, reject) => {
             this.pouchdb
               .export_all()
-              .then(function (response:any) {
+              .then(function (response: any) {
                 return resolve(response);
               })
-              .catch(function (err:any) {
+              .catch(function (err: any) {
                 return reject(err);
               });
           });
@@ -378,10 +378,24 @@ export class IPC_Request_Dispatcher {
       let result: Promise<any>;
 
       switch (request.type) {
-        case `request:list-all`:
+        case "request:list-all":
+          console.log("###########################################");
+          console.log("###########################################");
+          console.log("###########################################");
+          if (request.options.includes("use_relation")) {
+            console.log("use_relation !");
+          } else {
+            console.log("use_relation NOT !");
+          }
+          console.log("###########################################");
+          console.log("###########################################");
+          console.log("###########################################");
           result = new Promise((resolve, reject) => {
             this.pouchdb
-              .readFromRelations(request.doctype, {})
+              .read({
+                type: request.doctype,
+                use_relation: request.options.includes("use_relation"),
+              })
               //! .readFromQuery({ selector: { docType: request.doctype },})
               .then(function (response) {
                 // This is space to transform the result before send it back.
@@ -400,7 +414,10 @@ export class IPC_Request_Dispatcher {
         case "request:data-from-query":
           result = new Promise((resolve, reject) => {
             this.pouchdb
-              .readFromQuery(request.query)
+              .read({
+                query: request.query,
+                use_relation: request.options.includes("use_relation"),
+              })
               .then(function (response) {
                 // This is space to transform the result before send it back.
                 console.log("query-then: ", response);
@@ -438,7 +455,11 @@ export class IPC_Request_Dispatcher {
         case "request:data-from-id":
           result = new Promise((resolve, reject) => {
             this.pouchdb
-              .readFromRelationsID(request.doctype, request.id)
+              .readFromID({
+                type: request.doctype,
+                id: request.id,
+                use_relation: request.options.includes("use_relation"),
+              })
               //! .readFromID(request.id, request.options)
               .then(function (response) {
                 // This is space to transform the result before send it back.

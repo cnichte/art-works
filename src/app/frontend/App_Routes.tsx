@@ -18,7 +18,7 @@ import { App_Info } from "../common/App_Info";
 const { Header, Sider, Content, Footer } = Layout;
 
 import { App_Context, ContextData } from "./App_Context";
-import { Header_Buttons } from "./Header_Buttons";
+import { Header_Buttons } from "./components/Header_Buttons";
 
 import { DocType } from "../common/types/DocType";
 import { ViewType } from "./types/ViewType";
@@ -29,7 +29,7 @@ import {
   Catalog_Form,
 } from "../modules/catalog/frontend/";
 
-import { App_Messages } from "./App_Messages";
+import { App_Messages } from "./components/App_Messages";
 
 // Lists, View, Form
 import {
@@ -96,8 +96,8 @@ import {
   WhiteboardForm,
 } from "../modules/whiteboard/frontend";
 import { User_Form, User_List, User_View } from "../modules/user/frontend";
-import { DocUser } from "../common/types/DocUser";
-import { Settings_Request } from "../common/types/RequestTypes";
+import { DocUser } from "../common/types/documents/DocUser";
+import { Settings_Request } from "../common/types/system/RequestTypes";
 import { App_User_LoginForm } from "./App_User_LoginForm";
 
 /**
@@ -124,7 +124,7 @@ export function App_Routes() {
   useEffect(() => {
     const request: Settings_Request = {
       type: "request:get-current-user",
-      options: {},
+      options: [],
     };
 
     window.electronAPI

@@ -7,14 +7,14 @@ import {
   Action_Request,
   DB_Request,
   DB_RequestData,
-} from "../../../common/types/RequestTypes";
+} from "../../../common/types/system/RequestTypes";
 import { DocType } from "../../../common/types/DocType";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { DocUserType } from "../../../common/types/DocUser";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
+import { DocUserType } from "../../../common/types/documents/DocUser";
 
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
+import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
 import { modul_props } from "../modul_props";
-import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
+import { RequestData_IPC } from "../../../frontend/tools/RequestData_IPC";
 
 export function User_List() {
   const doclabel: string = modul_props.doclabel;
@@ -31,7 +31,7 @@ export function User_List() {
     const request: DB_Request = {
       type: "request:list-all",
       doctype: modul_props.doctype,
-      options: {},
+      options: [], // "use_relation"
     };
 
     RequestData_IPC.load_data<DocUserType[]>({
@@ -48,7 +48,7 @@ export function User_List() {
     const request: DB_Request = {
       type: "request:list-all",
       doctype: modul_props.doctype,
-      options: {},
+      options: [], // "use_relation"
     };
 
     const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<
@@ -80,7 +80,7 @@ export function User_List() {
     const request: DB_RequestData<DocUserType> = {
       type: "request:delete",
       doctype: doctype,
-      options: {},
+      options: [],
       data: item,
     };
 
@@ -104,13 +104,13 @@ export function User_List() {
   const handleDeletePopconfirmCancel = (record: DocUserType) => {};
 
   function onListItemEdit(item: DocUserType): any {
-    console.log(`/${item.docType}/form/${item.id}`);
-    navigate(`/${item.docType}/form/${item.id}`);
+    console.log(`/${item.docType}/form/${item._id}`);
+    navigate(`/${item.docType}/form/${item._id}`);
   }
 
   function onListItemView(item: DocUserType): any {
-    console.log(`/${item.docType}/view/${item.id}`);
-    navigate(`/${item.docType}/view/${item.id}`);
+    console.log(`/${item.docType}/view/${item._id}`);
+    navigate(`/${item.docType}/view/${item._id}`);
   }
 
   return (

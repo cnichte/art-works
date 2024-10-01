@@ -3,12 +3,12 @@ import type { ColumnsType } from "antd/es/table";
 import {
   DocWhiteboard,
   WhiteboardI,
-} from "../../../common/types/DocWhiteboard";
-import { MyBasicList } from "../../../frontend/myBasicList";
+} from "../../../common/types/documents/DocWhiteboard";
+import { MyBasicList } from "../../../frontend/components/myBasicList";
 import { modul_props } from "../modul_props";
-import { Image_Cover2 } from "../../../frontend/Image_Cover";
-import { MyCardGridList_DataItem } from "../../../frontend/myCardGridList";
-import { Image_Util } from "../../../frontend/Image_Util";
+import { Image_Cover2 } from "../../../frontend/components/Image_Cover";
+import { MyCardGridList_DataItem } from "../../../frontend/components/myCardGridList";
+import { Image_Util } from "../../../frontend/tools/Image_Util";
 
 /**
  * Ein Liste der Whiteboards.

@@ -6,13 +6,13 @@ import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
 
 import { DocType } from "../../../common/types/DocType";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { DB_Request } from "../../../common/types/RequestTypes";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
-import { Header_Buttons_IPC } from "../../../frontend/Header_Buttons_IPC";
-import { Action_Request } from "../../../common/types/RequestTypes";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
-import { Edition } from "../../../common/types/DocEdition";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
+import { DB_Request } from "../../../common/types/system/RequestTypes";
+import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
+import { Header_Buttons_IPC } from "../../../frontend/tools/Header_Buttons_IPC";
+import { Action_Request } from "../../../common/types/system/RequestTypes";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
+import { Edition } from "../../../common/types/documents/DocEdition";
 import { modul_props } from "../modul_props";
 
 //* above are the default imports
@@ -46,7 +46,7 @@ export function EditionForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({

@@ -17,7 +17,7 @@ import {
 } from "@ant-design/icons";
 import type { RcFile, UploadProps } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
-import MyTags_Input from "../../../frontend/myTags_Input";
+import MyTags_Input from "../../../frontend/components/myTags_Input";
 
 /**
  *

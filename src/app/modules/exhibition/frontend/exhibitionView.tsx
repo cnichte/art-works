@@ -5,9 +5,9 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import { MyBasicView } from "../../../frontend/myBasicView";
+import { MyBasicView } from "../../../frontend/components/myBasicView";
 
-import { ExhibitionI } from "../../../common/types/DocExhibition";
+import { ExhibitionI } from "../../../common/types/documents/DocExhibition";
 import { modul_props } from "../modul_props";
 
 /* ==========================================================

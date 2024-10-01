@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 
-import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
+import { MyBasicList } from "../../../frontend/components/myBasicList"; // ../../../frontend/myBasicList'
 
-import { PublicationI } from "../../../common/types/DocPublication";
+import { PublicationI } from "../../../common/types/documents/DocPublication";
 import { modul_props } from "../modul_props";
 
 /**

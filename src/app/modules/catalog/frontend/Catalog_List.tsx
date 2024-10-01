@@ -15,13 +15,13 @@ import type { TableRowSelection } from "antd/es/table/interface";
 import {
   Action_Request,
   Settings_Request,
-} from "../../../common/types/RequestTypes";
+} from "../../../common/types/system/RequestTypes";
 
-import { IPC_SETTINGS } from "../../../common/types/IPC_Channels";
+import { IPC_SETTINGS } from "../../../common/types/system/IPC_Channels";
 
-import { DocCatalogType } from "../../../common/types/DocCatalog";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
-import { RequestData_IPC } from "../../../frontend/RequestData_IPC";
+import { DocCatalogType } from "../../../common/types/documents/DocCatalog";
+import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
+import { RequestData_IPC } from "../../../frontend/tools/RequestData_IPC";
 import { modul_props } from "../modul_props";
 import ExportForm from "./exportForm";
 
@@ -37,14 +37,14 @@ export function Catalog_List() {
   const [tabledata, setTableData] = useState<DataType[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
-    useEffect(() => {
+  useEffect(() => {
     // Beim laden der Seite...
     // Request data from pouchdb on page load.
     //! Following Pattern 2 for the Database requests
     const request_1: Settings_Request = {
       type: "request:list-connections",
       doctype: modul_props.doctype,
-      options: {},
+      options: [],
     };
 
     const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<any>({
@@ -81,7 +81,7 @@ export function Catalog_List() {
     const request_2: Settings_Request = {
       type: "request:get-startoptions",
       doctype: "catalog",
-      options: {},
+      options: [],
     };
 
     window.electronAPI
@@ -111,7 +111,7 @@ export function Catalog_List() {
     const request: Settings_Request = {
       type: "request:list-connections",
       doctype: "catalog",
-      options: {},
+      options: [],
     };
 
     RequestData_IPC.load_data<any>({
@@ -181,7 +181,7 @@ export function Catalog_List() {
       type: "request:save-startoption-selected",
       doctype: "catalog",
       id: value,
-      options: {},
+      options: [],
     };
 
     window.electronAPI
@@ -204,7 +204,7 @@ export function Catalog_List() {
       type: "request:save-startoption-opensOnStartup",
       doctype: "catalog",
       id: value as string,
-      options: {},
+      options: [],
     };
 
     window.electronAPI
@@ -235,9 +235,10 @@ export function Catalog_List() {
     const request: Settings_Request = {
       type: "request:database-backup",
       doctype: "catalog",
-      options: {
+      options: [],
+      properties: {
         dbName: item.dbName,
-      },
+      }
     };
 
     window.electronAPI
@@ -259,7 +260,7 @@ export function Catalog_List() {
       type: "request:delete-connection",
       id: record.key as string,
       doctype: "catalog",
-      options: {},
+      options: [],
     };
 
     window.electronAPI
@@ -388,7 +389,7 @@ export function Catalog_List() {
       type: "request:switch-catalog",
       doctype: "catalog",
       id: newSelectedRowKeys[0] as string,
-      options: {},
+      options: [],
     };
 
     window.electronAPI

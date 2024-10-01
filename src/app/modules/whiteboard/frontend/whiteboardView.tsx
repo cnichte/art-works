@@ -2,18 +2,18 @@
 import { useParams } from "react-router-dom";
 
 //import RequestFactory from '../../../common/backend/RequestFactory';
-import { MyBasicView } from "../../../frontend/myBasicView";
+import { MyBasicView } from "../../../frontend/components/myBasicView";
 
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import { WhiteboardI } from "../../../common/types/DocWhiteboard";
+import { WhiteboardI } from "../../../common/types/documents/DocWhiteboard";
 import { modul_props } from "../modul_props";
-import { Image_Cover2 } from "../../../frontend/Image_Cover";
+import { Image_Cover2 } from "../../../frontend/components/Image_Cover";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useState } from "react";
-import { DB_RequestData } from "../../../common/types/RequestTypes";
+import { DB_RequestData } from "../../../common/types/system/RequestTypes";
 
 /* ==========================================================
 
@@ -50,7 +50,7 @@ export function WhiteboardView() {
       doctype: modul_props.doctype,
       id: record.id,
       data: record,
-      options: {},
+      options: [],
     };
 
     window.electronAPI
@@ -81,7 +81,7 @@ export function WhiteboardView() {
       doctype: modul_props.doctype,
       id: record.id,
       data: record,
-      options: {},
+      options: [],
     };
 
     window.electronAPI

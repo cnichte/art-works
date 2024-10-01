@@ -8,6 +8,7 @@ import {
   BankOutlined,
   CoffeeOutlined,
   CrownOutlined,
+  InboxOutlined,
 } from "@ant-design/icons";
 import {
   RouteType,
@@ -142,10 +143,10 @@ export function App_SideNavigationBar({ onChange }: SideNavigationBar_Props) {
     getMenuItem("Künstler", "20", <UserOutlined />, () =>
       handleChange(ARTIST_ROUTE_LIST, DOCTYPE_ARTIST, VIEWTYPE_LIST)
     ),
+
     getMenuItem("Werke", "30", <HeartOutlined />, () =>
       handleChange(ARTWORK_ROUTE_LIST, DOCTYPE_ARTWORK, VIEWTYPE_LIST)
     ),
-
     getMenuItem("Sammlungen", "sub1", <AppstoreOutlined />, undefined, [
       getMenuItem("Notizen", "40", null, () =>
         handleChange(NOTE_ROUTE_LIST, DOCTYPE_NOTE, VIEWTYPE_LIST)

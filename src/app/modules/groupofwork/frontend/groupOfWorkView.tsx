@@ -5,12 +5,12 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import { MyBasicView } from "../../../frontend/myBasicView";
+import { MyBasicView } from "../../../frontend/components/myBasicView";
 
-import { GroupOfWorkI } from "../../../common/types/DocGroupOfWork";
-import { Segments } from "../../../frontend/Segments";
+import { GroupOfWorkI } from "../../../common/types/documents/DocGroupOfWork";
+import { Segments } from "../../../frontend/tools/Segments";
 import { modul_props } from "../modul_props";
-import { ArtworkI } from "../../../common/types/DocArtwork";
+import { ArtworkI } from "../../../common/types/documents/DocArtwork";
 
 /* ==========================================================
 

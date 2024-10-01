@@ -4,22 +4,22 @@ import { useParams } from "react-router-dom";
 import { Input, Form, Button, Switch } from "antd";
 
 import { DocType } from "../../../common/types/DocType";
-import { DB_Request } from "../../../common/types/RequestTypes";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { Action_Request } from "../../../common/types/RequestTypes";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
-import { Artwork } from "../../../common/types/DocArtwork";
-import { MySelectMulti_Input } from "../../../frontend/mySelectMulti_Input";
-import { MyAttachments_ImagesMeta_Input } from "../../../frontend/myAttachments_ImagesMeta_Input";
+import { DB_Request } from "../../../common/types/system/RequestTypes";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
+import { Action_Request } from "../../../common/types/system/RequestTypes";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
+import { Artwork } from "../../../common/types/documents/DocArtwork";
+import { MySelectMulti_Input } from "../../../frontend/components/mySelectMulti_Input";
+import { MyAttachments_ImagesMeta_Input } from "../../../frontend/components/myAttachments_ImagesMeta_Input";
 import { AttachmentMeta } from "../../../common/types/AttachmentTypes";
-import { MyDatePickerInput } from "../../../frontend/myDatePickerInput";
-import { My_Price_Input } from "../../../frontend/myPrice_Input";
+import { MyDatePickerInput } from "../../../frontend/components/myDatePickerInput";
+import { My_Price_Input } from "../../../frontend/components/myPrice_Input";
 
-import MyTags_Input from "../../../frontend/myTags_Input";
-import { My_Marker_Input } from "../../../frontend/myMarker_Input";
+import MyTags_Input from "../../../frontend/components/myTags_Input";
+import { My_Marker_Input } from "../../../frontend/components/myMarker_Input";
 import { modul_props } from "../modul_props";
-import { AttachmentToolReturnValue } from "../../../frontend/AttachmentTool";
-import { AttachmentTool } from "../../../frontend/AttachmentTool";
+import { AttachmentToolReturnValue } from "../../../frontend/tools/AttachmentTool";
+import { AttachmentTool } from "../../../frontend/tools/AttachmentTool";
 
 // log.info('########################################### Log from the renderer process');
 // log.info() wird auf der Konsole im Backend ausgegeben.
@@ -74,7 +74,7 @@ export function ArtworkForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({

@@ -2,8 +2,8 @@
 import { useParams } from "react-router-dom";
 
 import { MyBasicViewFieldParameterI, MyBasicViewSegmentParameterI } from '../../../common/types/MyBasicViewTypes';
-import { MyBasicView } from '../../../frontend/myBasicView';
-import { EditionI } from "../../../common/types/DocEdition";
+import { MyBasicView } from '../../../frontend/components/myBasicView';
+import { EditionI } from "../../../common/types/documents/DocEdition";
 import { modul_props } from "../modul_props";
 
 /* ==========================================================

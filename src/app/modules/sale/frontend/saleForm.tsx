@@ -5,11 +5,11 @@ import { Space, Input, Form, Button, Select, SelectProps } from "antd";
 
 import { InfoCircleOutlined, EditOutlined } from "@ant-design/icons";
 import { DocType } from "../../../common/types/DocType";
-import { Sale } from "../../../common/types/DocSale";
-import { IPC_DATABASE } from "../../../common/types/IPC_Channels";
-import { Action_Request, DB_Request } from "../../../common/types/RequestTypes";
-import { App_Messages_IPC } from "../../../frontend/App_Messages_IPC";
-import { FormTool_IPC } from "../../../frontend/FormTool_IPC";
+import { Sale } from "../../../common/types/documents/DocSale";
+import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
+import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
+import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
+import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
 import { modul_props } from "../modul_props";
 
 /**
@@ -87,7 +87,7 @@ export function SaleForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: {},
+      options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({
@@ -118,7 +118,7 @@ export function SaleForm() {
     const request_2: DB_Request = {
       type: "request:data-from-id",
       doctype: "saleType",
-      options: {},
+      options: [],
     };
 
     window.electronAPI

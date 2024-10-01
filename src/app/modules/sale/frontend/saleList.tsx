@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 
-import { MyBasicList } from "../../../frontend/myBasicList"; // ../../../frontend/myBasicList'
-import { MyBasicList_Meta_I } from "../../../common/types/MyBasicListTypes";
+import { MyBasicList } from "../../../frontend/components/myBasicList"; // ../../../frontend/myBasicList'
+import { MyBasicList_Meta_I } from "../../../common/types/system/MyBasicListTypes";
 
-import { SaleI } from "../../../common/types/DocSale";
+import { SaleI } from "../../../common/types/documents/DocSale";
 import { modul_props } from "../modul_props";
 
 /**
