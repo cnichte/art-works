@@ -14,13 +14,12 @@ import ImgCrop from "antd-img-crop";
 //* Application imports
 import { UploadChangeParam, UploadFile } from "antd/es/upload";
 import { DocType } from "../../../common/types/DocType";
-import { DB_Request } from "../../../common/types/system/RequestTypes";
-import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
-import { Action_Request } from "../../../common/types/system/RequestTypes";
-import { Artist } from "../../../common/types/documents/DocArtist";
-import { MyInputURLField } from "../../../frontend/components/myInputFields";
 import { modul_props } from "../modul_props";
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
+import { Artist } from "../../../common/custom/types/documents/DocArtist";
+import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
+import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
+import { MyInputURLField } from "../../../frontend/custom/components/myInputFields";
 
 /**
  * Formular für das Modul Note.

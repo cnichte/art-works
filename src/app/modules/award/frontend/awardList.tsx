@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 
-import { MyBasicList } from "../../../frontend/components/myBasicList"; // src/app/frontend/myBasicList'
-
-import { AwardI } from "../../../common/types/documents/DocAward";
 import { modul_props } from "../modul_props";
+import { AwardI } from "../../../common/custom/types/documents/DocAward";
+import { MyBasicList } from "../../../frontend/custom/components/myBasicList";
 
 /**
  * Ein Liste der Awards.

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Descriptions } from "antd";
-import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
-import { DocUserType } from "../../../common/types/documents/DocUser";
 import { DocType } from "../../../common/types/DocType";
 import { modul_props } from "../modul_props";
 import { RequestData_IPC } from "../../../frontend/tools/RequestData_IPC";
+import { DocUserType } from "../../../common/framework/types/documents/DocUser";
+import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 
 export function User_View() {
 

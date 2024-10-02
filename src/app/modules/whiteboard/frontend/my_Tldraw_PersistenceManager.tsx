@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
 import { getSnapshot, getSvgAsImage, loadSnapshot, useEditor } from "tldraw";
 
-import {
-  DocWhiteboard,
-  WhiteboardI,
-} from "../../../common/types/documents/DocWhiteboard";
-import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
-import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
-import { Modul_Props_I } from "../../../common/types/system/Modul_Props";
 import { Image_Util } from "../../../frontend/tools/Image_Util";
+import { DocWhiteboard, WhiteboardI } from "../../../common/custom/types/documents/DocWhiteboard";
+import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
+import { Modul_Props_I } from "../../../common/framework/types/system/Modul_Props";
+import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 
 interface MyProps {
   id: string;

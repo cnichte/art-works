@@ -4,22 +4,20 @@ import { useParams } from "react-router-dom";
 import { Input, Form, Button, Switch } from "antd";
 
 import { DocType } from "../../../common/types/DocType";
-import { DB_Request } from "../../../common/types/system/RequestTypes";
-import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
-import { Action_Request } from "../../../common/types/system/RequestTypes";
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
-import { Artwork } from "../../../common/types/documents/DocArtwork";
-import { MySelectMulti_Input } from "../../../frontend/components/mySelectMulti_Input";
-import { MyAttachments_ImagesMeta_Input } from "../../../frontend/components/myAttachments_ImagesMeta_Input";
 import { AttachmentMeta } from "../../../common/types/AttachmentTypes";
-import { MyDatePickerInput } from "../../../frontend/components/myDatePickerInput";
-import { My_Price_Input } from "../../../frontend/components/myPrice_Input";
 
-import MyTags_Input from "../../../frontend/components/myTags_Input";
-import { My_Marker_Input } from "../../../frontend/components/myMarker_Input";
 import { modul_props } from "../modul_props";
 import { AttachmentToolReturnValue } from "../../../frontend/tools/AttachmentTool";
 import { AttachmentTool } from "../../../frontend/tools/AttachmentTool";
+import { Artwork } from "../../../common/custom/types/documents/DocArtwork";
+import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
+import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
+import { MyAttachments_ImagesMeta_Input } from "../../../frontend/custom/components/myAttachments_ImagesMeta_Input";
+import { My_Marker_Input } from "../../../frontend/custom/components/myMarker_Input";
+import { My_Price_Input } from "../../../frontend/custom/components/myPrice_Input";
+import { MySelectMulti_Input } from "../../../frontend/custom/components/mySelectMulti_Input";
+import MyTags_Input from "../../../frontend/custom/components/myTags_Input";
 
 // log.info('########################################### Log from the renderer process');
 // log.info() wird auf der Konsole im Backend ausgegeben.

@@ -11,7 +11,8 @@ import {
   MyBasicView_ChildFieldParameterI,
 } from "../../common/types/MyBasicViewTypes";
 import { AttachmentMeta } from "../../common/types/AttachmentTypes";
-import { External_Link } from "../components/External_Link";
+import { External_Link } from "../custom/components/External_Link";
+
 
 /**
  * Map propertyName to antd required 'key' Propery.

@@ -6,14 +6,12 @@ import { v4 as uuidv4 } from "uuid";
 
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { DocType } from "../../../common/types/DocType";
-import { Header_Buttons_IPC } from "../../../frontend/tools/Header_Buttons_IPC";
-import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
-import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
-import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
-import { Calculation } from "../../../common/types/documents/DocCalculation";
-import { My_PriceSimple_Input } from "../../../frontend/components/myPriceSimple_Input";
 import { modul_props } from "../modul_props";
+import { Calculation } from "../../../common/custom/types/documents/DocCalculation";
+import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
+import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
+import { My_PriceSimple_Input } from "../../../frontend/custom/components/myPriceSimple_Input";
 
 const { TextArea } = Input;
 

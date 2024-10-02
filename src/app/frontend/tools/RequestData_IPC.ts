@@ -1,10 +1,10 @@
-import { Modul_Props_I } from "../../common/types/system/Modul_Props";
-import { IPC_Channels } from "../../common/types/system/IPC_Channels";
+import { Modul_Props_I } from "../../common/framework/types/system/Modul_Props";
+import { IPC_Channels } from "../../common/framework/types/system/IPC_Channels";
 import {
   Action_Request,
   DB_Request,
   Settings_Request,
-} from "../../common/types/system/RequestTypes";
+} from "../../common/framework/types/system/RequestTypes";
 import { App_Messages_IPC } from "./App_Messages_IPC";
 import { Header_Buttons_IPC } from "./Header_Buttons_IPC";
 import { ViewType } from "../types/ViewType";

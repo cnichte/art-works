@@ -1,37 +1,37 @@
-import { DocumentCreator } from "../../tools/DocumentCreator";
-import { Address } from "../../../common/types/documents/DocAddress";
-import { AddressType } from "../../../common/types/documents/DocAddressType";
-import { Artist } from "../../../common/types/documents/DocArtist";
-import { Artwork } from "../../../common/types/documents/DocArtwork";
-import { Award } from "../../../common/types/documents/DocAward";
+import { DocumentCreator } from "../../framework/tools/DocumentCreator";
+import { Address } from "../../../common/custom/types/documents/DocAddress";
+import { AddressType } from "../../../common/custom/types/documents/DocAddressType";
+import { Artist } from "../../../common/custom/types/documents/DocArtist";
+import { Artwork } from "../../../common/custom/types/documents/DocArtwork";
+import { Award } from "../../../common/custom/types/documents/DocAward";
 import {
   Calculation,
   CalculationGroup,
   CalculationItem,
-} from "../../../common/types/documents/DocCalculation";
-import { Compilation } from "../../../common/types/documents/DocCompilation";
-import { Exhibition, ExhibitionType } from "../../../common/types/documents/DocExhibition";
-import { Genre } from "../../../common/types/documents/DocGenre";
-import { GroupOfWork } from "../../../common/types/documents/DocGroupOfWork";
-import { Note } from "../../../common/types/documents/DocNote";
+} from "../../../common/custom/types/documents/DocCalculation";
+import { Compilation } from "../../../common/custom/types/documents/DocCompilation";
+import { Exhibition, ExhibitionType } from "../../../common/custom/types/documents/DocExhibition";
+import { Genre } from "../../../common/custom/types/documents/DocGenre";
+import { GroupOfWork } from "../../../common/custom/types/documents/DocGroupOfWork";
+import { Note } from "../../../common/custom/types/documents/DocNote";
 import {
   Publication,
   PublicationMedium,
   PublicationType,
   PublicationWhat,
-} from "../../../common/types/documents/DocPublication";
-import { Rental } from "../../../common/types/documents/DocRental";
-import { Resume, ResumeType } from "../../../common/types/documents/DocResume";
+} from "../../../common/custom/types/documents/DocPublication";
+import { Rental } from "../../../common/custom/types/documents/DocRental";
+import { Resume, ResumeType } from "../../../common/custom/types/documents/DocResume";
 import {
   SaleRightsOfUse,
   SaleRightsOfUseType,
-} from "../../../common/types/documents/DocSaleRightsOfUse";
-import { Sale, SaleType } from "../../../common/types/documents/DocSale";
-import { Tag } from "../../../common/types/documents/DocTag";
-import { DocWhiteboard } from "../../../common/types/documents/DocWhiteboard";
-import { Edition, EditionType } from "../../../common/types/documents/DocEdition";
-import { DocUser } from "../../../common/types/documents/DocUser";
-import { DatabaseCRUD_Interface } from "../../types/Database_Types";
+} from "../../../common/custom/types/documents/DocSaleRightsOfUse";
+import { Sale, SaleType } from "../../../common/custom/types/documents/DocSale";
+import { Tag } from "../../../common/custom/types/documents/DocTag";
+import { DocWhiteboard } from "../../../common/custom/types/documents/DocWhiteboard";
+import { Edition, EditionType } from "../../../common/custom/types/documents/DocEdition";
+import { DocUser } from "../../../common/framework/types/documents/DocUser";
+import { DatabaseCRUD_Interface } from "../../framework/types/Database_Types";
 
 export function db_initialize(db:DatabaseCRUD_Interface) {
   DocumentCreator.loadTo<DocUser>(db, "./docs-json/user.json", DocUser, false);

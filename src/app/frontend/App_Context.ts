@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { DocUser } from "../common/types/documents/DocUser";
+import { DocUser } from "../common/framework/types/documents/DocUser";
 
 // This is the users session.
 export interface ContextData {

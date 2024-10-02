@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 
-import { MyBasicList } from "../../../frontend/components/myBasicList"; // ../../../frontend/myBasicList'
-import { CalculationI } from "../../../common/types/documents/DocCalculation";
 import { modul_props } from "../modul_props";
+import { CalculationI } from "../../../common/custom/types/documents/DocCalculation";
+import { MyBasicList } from "../../../frontend/custom/components/myBasicList";
 
 /**
  * Ein Liste der Kalkulationen.

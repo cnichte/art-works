@@ -8,12 +8,11 @@ import { Input, Form, Button } from 'antd';
 
 //* Application imports
 import { DocType } from "../../../common/types/DocType";
-import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
-import { DB_Request } from "../../../common/types/system/RequestTypes";
-import { Action_Request } from "../../../common/types/system/RequestTypes";
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
-import { Exhibition } from "../../../common/types/documents/DocExhibition";
 import { modul_props } from "../modul_props";
+import { Exhibition } from "../../../common/custom/types/documents/DocExhibition";
+import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
+import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 
 /**
  * Formular für das Modul Note.

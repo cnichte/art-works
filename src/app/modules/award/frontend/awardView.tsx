@@ -3,13 +3,13 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import { MyBasicView } from "../../../frontend/components/myBasicView";
 import { Segments } from "../../../frontend/tools/Segments";
 import { modul_props } from "../modul_props";
-import { AwardI } from "../../../common/types/documents/DocAward";
-import { CompilationI } from "../../../common/types/documents/DocCompilation";
-import { ArtworkI } from "../../../common/types/documents/DocArtwork";
-import { PublicationI } from "../../../common/types/documents/DocPublication";
+import { ArtworkI } from "../../../common/custom/types/documents/DocArtwork";
+import { AwardI } from "../../../common/custom/types/documents/DocAward";
+import { CompilationI } from "../../../common/custom/types/documents/DocCompilation";
+import { PublicationI } from "../../../common/custom/types/documents/DocPublication";
+import { MyBasicView } from "../../../frontend/custom/components/myBasicView";
 
 /* ==========================================================
 

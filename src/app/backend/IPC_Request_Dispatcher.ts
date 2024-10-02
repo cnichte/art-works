@@ -1,48 +1,24 @@
 import { BrowserWindow, ipcMain, shell } from "electron";
-import { DatabaseCRUD_Interface } from "./types/Database_Types";
+import { DatabaseCRUD_Interface } from "./framework/types";
+import { Crypto_Manager, Database_Backup } from "./framework/tools";
+
 import { Database_Pouchdb } from "./database/pouchdb/Database_Pouchdb";
 import { Database_Settings } from "./database/settings/Database_Settings";
+
 import {
   IPC_BUTTON_ACTION,
   IPC_DATABASE,
   IPC_EXTERNAL_LINK,
   IPC_MESSAGE,
   IPC_SETTINGS,
-} from "../common/types/system/IPC_Channels";
+} from "../common/framework/types/system/IPC_Channels";
 import {
   DB_RequestData,
   Settings_RequestData,
-} from "../common/types/system/RequestTypes";
-import { DocCatalog } from "../common/types/documents/DocCatalog";
-import { Database_Backup } from "./tools/Database_Backup";
-import { Crypto_Manager } from "./tools/Crypto_Manager";
-import { DocUser } from "../common/types/documents/DocUser";
-
-/**
- * Private Helper-Class to compose and set
- * the BrowserWindow-Title
- * from current user and catalog.
- */
-class BrowserWindowTitle {
-  public static browserWindow: BrowserWindow;
-  private static catalog: string = "Kein Katalog gewählt";
-  private static user: string = "Bitte anmelden!";
-
-  public static setCatalog(name: string) {
-    BrowserWindowTitle.catalog = `Catalog: '${name}'`;
-    BrowserWindowTitle.setTitle();
-  }
-  public static setUser(name: string) {
-    BrowserWindowTitle.user = `Benutzer: ${name}`;
-    BrowserWindowTitle.setTitle();
-  }
-  private static setTitle() {
-    // compose and set the BrowserWindow title
-    BrowserWindowTitle?.browserWindow.setTitle(
-      BrowserWindowTitle.catalog + " | " + BrowserWindowTitle.user
-    );
-  }
-}
+} from "../common/framework/types/system/RequestTypes";
+import { DocCatalog } from "../common/framework/types/documents/DocCatalog";
+import { DocUser } from "../common/framework/types/documents/DocUser";
+import { BrowserWindowTitle } from "./framework/tools/BrowserWindowTitle";
 
 /**
  * Dispatches all the ipc requests from the frontend,
@@ -379,17 +355,6 @@ export class IPC_Request_Dispatcher {
 
       switch (request.type) {
         case "request:list-all":
-          console.log("###########################################");
-          console.log("###########################################");
-          console.log("###########################################");
-          if (request.request_options.includes("use_relation")) {
-            console.log("use_relation !");
-          } else {
-            console.log("use_relation NOT !");
-          }
-          console.log("###########################################");
-          console.log("###########################################");
-          console.log("###########################################");
           result = new Promise((resolve, reject) => {
             this.pouchdb
               .read(request)

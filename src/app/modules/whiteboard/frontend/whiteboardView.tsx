@@ -1,19 +1,19 @@
 /* eslint-disable react/jsx-no-bind */
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 //import RequestFactory from '../../../common/backend/RequestFactory';
-import { MyBasicView } from "../../../frontend/components/myBasicView";
 
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import { WhiteboardI } from "../../../common/types/documents/DocWhiteboard";
 import { modul_props } from "../modul_props";
-import { Image_Cover2 } from "../../../frontend/components/Image_Cover";
 import Paragraph from "antd/es/typography/Paragraph";
-import { useState } from "react";
-import { DB_RequestData } from "../../../common/types/system/RequestTypes";
+import { WhiteboardI } from "../../../common/custom/types/documents/DocWhiteboard";
+import { DB_RequestData } from "../../../common/framework/types/system/RequestTypes";
+import { Image_Cover2 } from "../../../frontend/custom/components/Image_Cover";
+import { MyBasicView } from "../../../frontend/custom/components/myBasicView";
 
 /* ==========================================================
 

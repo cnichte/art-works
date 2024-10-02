@@ -12,11 +12,11 @@
  * @version 1.0.0
  */
 
-import { ArtworkI } from "../../common/types/documents/DocArtwork";
-import { AwardI } from "../../common/types/documents/DocAward";
-import { CompilationI } from "../../common/types/documents/DocCompilation";
-import { PublicationI } from "../../common/types/documents/DocPublication";
-import { SaleI } from "../../common/types/documents/DocSale";
+import { ArtworkI } from "../../common/custom/types/documents/DocArtwork";
+import { AwardI } from "../../common/custom/types/documents/DocAward";
+import { CompilationI } from "../../common/custom/types/documents/DocCompilation";
+import { PublicationI } from "../../common/custom/types/documents/DocPublication";
+import { SaleI } from "../../common/custom/types/documents/DocSale";
 import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,

@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams } from "react-router";
 
 import { Space, Input, Form, Button } from "antd";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
 
 import { DocType } from "../../../common/types/DocType";
-import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
-import { DB_Request } from "../../../common/types/system/RequestTypes";
-import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
-import { Header_Buttons_IPC } from "../../../frontend/tools/Header_Buttons_IPC";
-import { Action_Request } from "../../../common/types/system/RequestTypes";
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
-import { Edition } from "../../../common/types/documents/DocEdition";
 import { modul_props } from "../modul_props";
+import { Edition } from "../../../common/custom/types/documents/DocEdition";
+import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
+import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 
 //* above are the default imports
 

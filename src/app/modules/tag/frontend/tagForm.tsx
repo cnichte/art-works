@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
-import { Input, Form, Button, ColorPicker, Select, Divider } from "antd";
+import { Input, Form, Button, ColorPicker, Select, Divider, Tag } from "antd";
 
 import { DocType } from "../../../common/types/DocType";
-import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
-import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
-import { Tag } from "../../../common/types/documents/DocTag";
 import { modul_props } from "../modul_props";
+import { Tag as DocTag } from "../../../common/custom/types/documents/DocTag"; // TODO TagRename
+import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
+import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 
 /**
  * Formular für das Modul Tag.
@@ -24,7 +24,7 @@ export function TagForm() {
   // Die id wird als Parameter übergeben
   // entweder: 'new', oder eine uuid
   const { id } = useParams();
-  const [dataOrigin, setDataOrigin] = useState<Tag>(new Tag());
+  const [dataOrigin, setDataOrigin] = useState<DocTag>(new DocTag());
 
   const triggerSaveRef = React.useRef(null);
 
@@ -70,13 +70,13 @@ export function TagForm() {
   }, []);
 
   const onFormFinish = (valuesForm: any) => {
-    FormTool_IPC.save_data<Tag>({
+    FormTool_IPC.save_data<DocTag>({
       ipcChannel: IPC_DATABASE,
       dataObject: dataOrigin,
       valuesForm: valuesForm,
       force_save: false,
       modul_props: modul_props,
-    }).then((result: Tag) => {
+    }).then((result: DocTag) => {
       //! has new rev from backend
       setDataOrigin(result);
     });

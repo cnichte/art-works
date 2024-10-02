@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
-import { Action_Request, DB_RequestData } from "../../common/types/system/RequestTypes";
 import { DocItentifiable_Rel } from "../../common/types/DocType";
-import { UUIDTool } from "../../common/tools/UUIDTool";
-import { IPC_Channels } from "../../common/types/system/IPC_Channels";
+import { UUIDTool } from "../../common/framework/tools/UUIDTool";
+import { IPC_Channels } from "../../common/framework/types/system/IPC_Channels";
 import { App_Messages_IPC } from "./App_Messages_IPC";
 import { Header_Buttons_IPC } from "./Header_Buttons_IPC";
-import { Modul_Props_I } from "../../common/types/system/Modul_Props";
+import { Modul_Props_I } from "../../common/framework/types/system/Modul_Props";
 import { LoadData_IPC_InitAndLoadData_FUNC_Props } from "./RequestData_IPC";
+import { Action_Request, DB_RequestData } from "../../common/framework/types/system/RequestTypes";
 
 export interface FormTool_Props<T> {
   modul_props: Modul_Props_I;
@@ -170,7 +170,7 @@ export class FormTool_IPC<T extends DocItentifiable_Rel> {
 
             resolve(FormTool_IPC.transform_result(props.dataObject, result));
           })
-          .catch(function (error) {
+          .catch(function (error: { message: any; }) {
             App_Messages_IPC.request_message(
               "request:message-error",
               error instanceof Error ? `Error: ${error.message}` : ""

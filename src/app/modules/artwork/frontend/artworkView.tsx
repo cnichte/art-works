@@ -4,10 +4,9 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import { MyBasicView } from "../../../frontend/components/myBasicView";
-
-import { Artwork } from "../../../common/types/documents/DocArtwork";
 import { modul_props } from "../modul_props";
+import { Artwork } from "../../../common/custom/types/documents/DocArtwork";
+import { MyBasicView } from "../../../frontend/custom/components/myBasicView";
 
 /* ==========================================================
 

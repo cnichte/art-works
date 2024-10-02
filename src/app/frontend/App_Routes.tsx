@@ -18,7 +18,7 @@ import { App_Info } from "../common/App_Info";
 const { Header, Sider, Content, Footer } = Layout;
 
 import { App_Context, ContextData } from "./App_Context";
-import { Header_Buttons } from "./components/Header_Buttons";
+
 
 import { DocType } from "../common/types/DocType";
 import { ViewType } from "./types/ViewType";
@@ -28,8 +28,6 @@ import {
   Catalog_View,
   Catalog_Form,
 } from "../modules/catalog/frontend/";
-
-import { App_Messages } from "./components/App_Messages";
 
 // Lists, View, Form
 import {
@@ -96,9 +94,11 @@ import {
   WhiteboardForm,
 } from "../modules/whiteboard/frontend";
 import { User_Form, User_List, User_View } from "../modules/user/frontend";
-import { DocUser } from "../common/types/documents/DocUser";
-import { Settings_Request } from "../common/types/system/RequestTypes";
+import { DocUser } from "../common/framework/types/documents/DocUser";
+import { Settings_Request } from "../common/framework/types/system/RequestTypes";
 import { App_User_LoginForm } from "./App_User_LoginForm";
+import { Header_Buttons } from "./custom/components/Header_Buttons";
+import { App_Messages } from "./custom/components/App_Messages";
 
 /**
  * @author Carsten Nichte - //carsten-nichte.de/apps/

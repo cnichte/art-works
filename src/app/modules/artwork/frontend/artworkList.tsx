@@ -7,12 +7,13 @@ import {
   FlagFilled,
   BgColorsOutlined,
 } from "@ant-design/icons";
-import { Artwork, ArtworkI } from "../../../common/types/documents/DocArtwork";
-import { MyBasicList } from "../../../frontend/components/myBasicList";
 import { modul_props } from "../modul_props";
-import { MyCardGridList_DataItem } from "../../../frontend/components/myCardGridList";
-import { Image_Cover } from "../../../frontend/components/Image_Cover";
+
 import { Image_Util } from "../../../frontend/tools/Image_Util";
+import { ArtworkI, Artwork } from "../../../common/custom/types/documents/DocArtwork";
+import { Image_Cover } from "../../../frontend/custom/components/Image_Cover";
+import { MyBasicList } from "../../../frontend/custom/components/myBasicList";
+import { MyCardGridList_DataItem } from "../../../frontend/custom/components/myCardGridList";
 
 function MyExtaButton() {
   const handleMyExtaButton = () => {

@@ -4,12 +4,11 @@ import { useParams } from "react-router";
 import { Input, Form, Button } from "antd";
 
 import { DocType } from "../../../common/types/DocType";
-import { DB_Request } from "../../../common/types/system/RequestTypes";
-import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
-import { Action_Request } from "../../../common/types/system/RequestTypes";
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
-import { Award } from "../../../common/types/documents/DocAward";
 import { modul_props } from "../modul_props";
+import { Award } from "../../../common/custom/types/documents/DocAward";
+import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
+import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 
 /**
  * Formular für das Modul Note.

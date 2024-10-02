@@ -6,8 +6,8 @@ import rel from "relational-pouch"; // https://github.com/pouchdb-community/rela
 import {
   DatabaseCRUD_Interface,
   Query_Props,
-} from "../../types/Database_Types";
-import { FileTool } from "../../tools/FileTool";
+} from "../../framework/types/Database_Types";
+import { FileTool } from  "../../framework/tools/FileTool";
 import {
   PouchDB_Info_Localstore,
   PouchDB_Info_Remotestore,
@@ -15,7 +15,7 @@ import {
 
 import { pouchdb_relations } from "./Database_Pouchdb_Relations";
 import { db_initialize } from "./Database_Pouchdb_Initialize";
-import { DB_Request } from "../../../common/types/system/RequestTypes";
+import { DB_Request } from "../../../common/framework/types/system/RequestTypes";
 
 /**
  * You can use this apdapter with or without relational-pouch.

@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
-
-import { MyBasicList } from "../../../frontend/components/myBasicList"; // ../../../frontend/myBasicList'
-import { MyBasicList_Meta_I } from "../../../common/types/system/MyBasicListTypes";
-
-import { SaleI } from "../../../common/types/documents/DocSale";
 import { modul_props } from "../modul_props";
+import { SaleI } from "../../../common/custom/types/documents/DocSale";
+import { MyBasicList_Meta_I } from "../../../common/framework/types/system/MyBasicListTypes";
+import { MyBasicList } from "../../../frontend/custom/components/myBasicList";
 
 /**
  * Ein Liste der Verkäufen.

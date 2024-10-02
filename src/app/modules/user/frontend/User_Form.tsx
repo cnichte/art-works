@@ -4,9 +4,6 @@ import { Button, Form, FormProps, Input, Select } from "antd";
 
 import { genSaltSync, hashSync } from "bcrypt-ts"; // password crypto
 
-import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
-import { DocUserType } from "../../../common/types/documents/DocUser";
-import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
 import {
   TYPE_USERRIGHT_ADMIN,
   TYPE_USERRIGHT_NONE,
@@ -18,6 +15,9 @@ import {
 
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
 import { modul_props } from "../modul_props";
+import { DocUserType } from "../../../common/framework/types/documents/DocUser";
+import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
+import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 
 /**
  ** Formular um einen Benutzer an zu legen.

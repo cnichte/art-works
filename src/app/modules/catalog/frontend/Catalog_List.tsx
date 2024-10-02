@@ -11,19 +11,13 @@ import {
 
 import type { ColumnsType } from "antd/es/table";
 import type { TableRowSelection } from "antd/es/table/interface";
-
-import {
-  Action_Request,
-  Settings_Request,
-} from "../../../common/types/system/RequestTypes";
-
-import { IPC_SETTINGS } from "../../../common/types/system/IPC_Channels";
-
-import { DocCatalogType } from "../../../common/types/documents/DocCatalog";
 import { App_Messages_IPC } from "../../../frontend/tools/App_Messages_IPC";
 import { RequestData_IPC } from "../../../frontend/tools/RequestData_IPC";
 import { modul_props } from "../modul_props";
 import ExportForm from "./exportForm";
+import { DocCatalogType } from "../../../common/framework/types/documents/DocCatalog";
+import { IPC_SETTINGS } from "../../../common/framework/types/system/IPC_Channels";
+import { Settings_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 
 export function Catalog_List() {
   const navigate = useNavigate();
@@ -272,7 +266,7 @@ export function Catalog_List() {
         );
         reload_list();
       })
-      .catch(function (error): any {
+      .catch(function (error: { message: any; }): any {
         App_Messages_IPC.request_message(
           "request:message-error",
           error instanceof Error ? `Error: ${error.message}` : ""

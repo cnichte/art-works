@@ -2,16 +2,16 @@ import dayjs from 'dayjs';
 // https://day.js.org/docs/en/parse/now
 
 // https://www.typescriptlang.org/docs/handbook/2/objects.html
-type DatePickerType = 'time' | 'date' | 'month' | 'year';
-type DatePickerMode = 'dateMoment' | 'datePeriod';
-type DatePickerFormat = 'YYYY-MM-DD' | 'MM-DD' | 'YYYY-MM' | 'YYYY';
+export type DatePickerType = 'time' | 'date' | 'month' | 'year';
+export type DatePickerMode = 'dateMoment' | 'datePeriod';
+export type DatePickerFormat = 'YYYY-MM-DD' | 'MM-DD' | 'YYYY-MM' | 'YYYY';
 
 /**
  * TODO Den Typ MyDateValue-Interface ins Backend auslagern.
  * @author Carsten Nichte - //carsten-nichte.de/apps/
  * @interface MyDateValue
  */
-interface MyDateValue {
+export interface MyDateValue {
   dateMode?: DatePickerMode;
   dateType?: DatePickerType;
   dateFormat?: DatePickerFormat;
@@ -24,7 +24,7 @@ interface MyDateValue {
  * 
  * @class DateTool
  */
-class DateTool {
+export class DateTool {
   static FORMAT_DATE: DatePickerFormat = 'YYYY-MM-DD';
 
   static FORMAT_WEEK: DatePickerFormat = 'MM-DD';
@@ -143,14 +143,6 @@ class DateTool {
     return DateTool.FORMAT_DATE;
   }
 }
-
-export {
-  DateTool,
-  DatePickerType,
-  DatePickerMode,
-  DatePickerFormat,
-  MyDateValue,
-};
 
 /*
 https://codesandbox.io/s/ngsv5v?file=/demo.tsx:1314-1421

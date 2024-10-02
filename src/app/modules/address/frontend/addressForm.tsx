@@ -9,19 +9,18 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import type { RcFile } from "antd/es/upload";
 
 // Application imports
-import { MyInputURLField } from "../../../frontend/components/myInputFields";
-import { MyDatePicker } from "../../../frontend/components/myDatePicker";
-
-import { Action_Request, DB_Request } from "../../../common/types/system/RequestTypes";
 import { DocType } from "../../../common/types/DocType";
-import { FormPropertiesInterface } from "../../../common/types/system/FormPropertiesInterface";
-import { IPC_DATABASE } from "../../../common/types/system/IPC_Channels";
-
-import { Address } from "../../../common/types/documents/DocAddress";
 import { modul_props } from "../modul_props";
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
 import { RequestData_IPC } from "../../../frontend/tools/RequestData_IPC";
-import { AddressType } from "../../../common/types/documents/DocAddressType";
+import { Address } from "../../../common/custom/types/documents/DocAddress";
+import { AddressType } from "../../../common/custom/types/documents/DocAddressType";
+import { FormPropertiesInterface } from "../../../common/framework/types/system/FormPropertiesInterface";
+import { DB_Request } from "../../../common/framework/types/system/RequestTypes";
+import { Action_Request } from "../../../common/framework/types/system/RequestTypes";
+import { MyDatePicker } from "../../../frontend/custom/components/myDatePicker";
+import { MyInputURLField } from "../../../frontend/custom/components/myInputFields";
+import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
 
 /**
  * Formular für das Modul Note.

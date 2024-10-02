@@ -5,10 +5,9 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../common/types/MyBasicViewTypes";
-import { MyBasicView } from "../../../frontend/components/myBasicView";
-
-import { RentalI } from "../../../common/types/documents/DocRental";
 import { modul_props } from "../modul_props";
+import { RentalI } from "../../../common/custom/types/documents/DocRental";
+import { MyBasicView } from "../../../frontend/custom/components/myBasicView";
 
 /* ==========================================================
 

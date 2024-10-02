@@ -1,10 +1,11 @@
 // Header_Buttons_IPC.request_buttons("list", "catalog", "");
+
 import {
-  DatabaseRequestType,
   MessageRequestType,
   Message_Request,
+  DatabaseRequestType,
   SettingsRequestType,
-} from "../../common/types/system/RequestTypes";
+} from "../../common/framework/types/system/RequestTypes";
 
 /**
  * @author Carsten Nichte - //carsten-nichte.de/apps/
@@ -17,7 +18,6 @@ export class App_Messages_IPC {
    * @param content
    */
   public static request_message(type: MessageRequestType, content: string) {
-    
     let request: Message_Request = {
       type: type,
       content: content,
@@ -28,11 +28,14 @@ export class App_Messages_IPC {
 
   /**
    * Baut sinvolle Nachrichten aus den Rückmeldungen der Datenbank zusammen.
-   * @param request 
-   * @param prefix 
-   * @returns 
+   * @param request
+   * @param prefix
+   * @returns
    */
-  public static get_message_from_request(request: DatabaseRequestType | SettingsRequestType, prefix: string) {
+  public static get_message_from_request(
+    request: DatabaseRequestType | SettingsRequestType,
+    prefix: string
+  ) {
     let result: string = `Keine Übersetzung für request ${request}`;
 
     if (request != null) {

@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
-
-import { MyBasicList } from "../../../frontend/components/myBasicList"; // ../../../frontend/myBasicList'
-
-import { CompilationI } from "../../../common/types/documents/DocCompilation";
 import { modul_props } from "../modul_props";
+import { CompilationI } from "../../../common/custom/types/documents/DocCompilation";
+import { MyBasicList } from "../../../frontend/custom/components/myBasicList";
 
 /**
  * Ein Liste der Zusammenstellungen.

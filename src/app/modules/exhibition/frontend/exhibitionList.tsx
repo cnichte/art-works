@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
 
-import { MyBasicList } from "../../../frontend/components/myBasicList"; // ../../../frontend/myBasicList'
-import { DocType } from "../../../common/types/DocType";
-import { ExhibitionI } from "../../../common/types/documents/DocExhibition";
 import { modul_props } from "../modul_props";
+import { ExhibitionI } from "../../../common/custom/types/documents/DocExhibition";
+import { MyBasicList } from "../../../frontend/custom/components/myBasicList";
 
 /**
  * Ein Liste der Ausstellungen.

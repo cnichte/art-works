@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router";
 import type { ColumnsType } from "antd/es/table";
-
-import { MyBasicList } from "../../../frontend/components/myBasicList"; // ../../../frontend/myBasicList'
-
-import { GroupOfWorkI } from "../../../common/types/documents/DocGroupOfWork";
 import { modul_props } from "../modul_props";
 import { Typography } from "antd";
+import { GroupOfWorkI } from "../../../common/custom/types/documents/DocGroupOfWork";
+import { MyBasicList } from "../../../frontend/custom/components/myBasicList";
 
 /**
  * Ein Liste der Werkgruppen.
