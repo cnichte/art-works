@@ -46,7 +46,7 @@ export function PublicationForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: ["use_relation"],
+      request_options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({
@@ -78,7 +78,7 @@ export function PublicationForm() {
     const request_2: DB_Request = {
       type: "request:data-from-id",
       doctype: "publicationType",
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI
@@ -98,7 +98,7 @@ export function PublicationForm() {
     const request_3: DB_Request = {
       type: "request:data-from-id",
       doctype: "publicationWhat",
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI
@@ -118,7 +118,7 @@ export function PublicationForm() {
     const request_4: DB_Request = {
       type: "request:data-from-id",
       doctype: "publicationMedium",
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI

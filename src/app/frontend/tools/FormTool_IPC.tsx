@@ -138,7 +138,7 @@ export class FormTool_IPC<T extends DocItentifiable_Rel> {
           request = {
             type: "request:save",
             doctype: props.dataObject.docType,
-            options: [],
+            request_options: [],
             data: props.dataObject,
           } as DB_RequestData<T>;
         } else {

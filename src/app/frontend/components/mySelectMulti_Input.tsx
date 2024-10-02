@@ -78,7 +78,7 @@ export function MySelectMulti_Input<T extends MyIdentifiable>({
       type: "request:list-all",
       doctype: doctype,
       id: "",
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI

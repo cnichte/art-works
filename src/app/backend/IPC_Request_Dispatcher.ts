@@ -382,7 +382,7 @@ export class IPC_Request_Dispatcher {
           console.log("###########################################");
           console.log("###########################################");
           console.log("###########################################");
-          if (request.options.includes("use_relation")) {
+          if (request.request_options.includes("use_relation")) {
             console.log("use_relation !");
           } else {
             console.log("use_relation NOT !");
@@ -392,10 +392,7 @@ export class IPC_Request_Dispatcher {
           console.log("###########################################");
           result = new Promise((resolve, reject) => {
             this.pouchdb
-              .read({
-                type: request.doctype,
-                use_relation: request.options.includes("use_relation"),
-              })
+              .read(request)
               //! .readFromQuery({ selector: { docType: request.doctype },})
               .then(function (response) {
                 // This is space to transform the result before send it back.
@@ -416,7 +413,7 @@ export class IPC_Request_Dispatcher {
             this.pouchdb
               .read({
                 query: request.query,
-                use_relation: request.options.includes("use_relation"),
+                use_relation: request.request_options.includes("use_relation"),
               })
               .then(function (response) {
                 // This is space to transform the result before send it back.
@@ -458,7 +455,7 @@ export class IPC_Request_Dispatcher {
               .readFromID({
                 type: request.doctype,
                 id: request.id,
-                use_relation: request.options.includes("use_relation"),
+                use_relation: request.request_options.includes("use_relation"),
               })
               //! .readFromID(request.id, request.options)
               .then(function (response) {

@@ -20,9 +20,12 @@ export interface DB_Request {
   type: DatabaseRequestType;
   doctype?: DocType; // equals a 'module'
   id?: string;
+  
   query?: Object;
-  options?: DatabaseRequestOptionType[];
-  properties?:any
+  query_options?:Object;
+
+  request_options?: DatabaseRequestOptionType[];
+  request_properties?:any
 }
 
 export interface DB_RequestData<T> extends DB_Request {

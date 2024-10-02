@@ -3,7 +3,10 @@ import find from "pouchdb-find";
 
 import rel from "relational-pouch"; // https://github.com/pouchdb-community/relational-pouch
 
-import { DatabaseCRUD_Interface, Query_Props } from "../../types/Database_Types";
+import {
+  DatabaseCRUD_Interface,
+  Query_Props,
+} from "../../types/Database_Types";
 import { FileTool } from "../../tools/FileTool";
 import {
   PouchDB_Info_Localstore,
@@ -12,6 +15,7 @@ import {
 
 import { pouchdb_relations } from "./Database_Pouchdb_Relations";
 import { db_initialize } from "./Database_Pouchdb_Initialize";
+import { DB_Request } from "../../../common/types/system/RequestTypes";
 
 /**
  * You can use this apdapter with or without relational-pouch.
@@ -298,21 +302,27 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
   }
 
   // TODO: readFromID hier mit einbinden...
-  read(props: Query_Props): Promise<any> {
-    if (props.use_relation) {
+  read(props: DB_Request): Promise<any> {
+    if (props.request_options.includes("use_relation")) {
+      console.log("you want to use relational-pouch.");
       if ("rel" in this.db) {
+        console.log("relational-pouch is in place.");
         // use relational-pouch find
         // https://github.com/pouchdb-community/relational-pouch?tab=readme-ov-file#dbrelfindtype-options
-        return this.db.rel.find(props.type, props.options);
+        return this.db.rel.find(props.type, props.query_options);
       } else {
+        console.log(
+          "relational-pouch is NOT in place. I try a standard query."
+        );
         // no plugin found, try a query
         let query = {
           selector: { doctype: props.type },
-          ...props.options,
+          ...props.query_options,
         };
         return this.db.find(query);
       }
     } else {
+      console.log("you DONT want to use relational-pouch, but the default.");
       // dont use_relation
       return this.db.find(props.query);
     }

@@ -50,7 +50,7 @@ export function WhiteboardView() {
       doctype: modul_props.doctype,
       id: record.id,
       data: record,
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI
@@ -81,7 +81,7 @@ export function WhiteboardView() {
       doctype: modul_props.doctype,
       id: record.id,
       data: record,
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI

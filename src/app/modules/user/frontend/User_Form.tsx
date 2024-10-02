@@ -70,7 +70,7 @@ export function User_Form() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: [], // "use_relation"
+      request_options: [], // "use_relation"
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<DocUserType>({

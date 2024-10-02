@@ -148,7 +148,7 @@ export function MyBasicList<T extends DocItentifiable_Rel>({
       type: "request:list-all",
       doctype: modul_props.doctype,
       id: "",
-      options: [],
+      request_options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<T[]>({
@@ -211,7 +211,7 @@ export function MyBasicList<T extends DocItentifiable_Rel>({
       type: "request:delete",
       doctype: modul_props.doctype,
       id: record.id,
-      options: [],
+      request_options: [],
     };
 
     RequestData_IPC.load_data<any>({

@@ -103,7 +103,7 @@ function MyTags_Input({ value = [], onChange }: FormItem_Props<string[]>): any {
       type: "request:list-all",
       doctype: doctype,
       id: "",
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI

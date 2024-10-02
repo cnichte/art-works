@@ -87,7 +87,7 @@ export function SaleForm() {
       type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
-      options: ["use_relation"],
+      request_options: ["use_relation"],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<any>({
@@ -118,7 +118,7 @@ export function SaleForm() {
     const request_2: DB_Request = {
       type: "request:data-from-id",
       doctype: "saleType",
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI

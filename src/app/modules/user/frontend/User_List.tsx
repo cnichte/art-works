@@ -31,7 +31,10 @@ export function User_List() {
     const request: DB_Request = {
       type: "request:list-all",
       doctype: modul_props.doctype,
-      options: [], // "use_relation"
+      query:{
+        selector: { docType: modul_props.doctype }
+      },
+      request_options: [], // dont use "use_relation", use the default
     };
 
     RequestData_IPC.load_data<DocUserType[]>({
@@ -48,7 +51,10 @@ export function User_List() {
     const request: DB_Request = {
       type: "request:list-all",
       doctype: modul_props.doctype,
-      options: [], // "use_relation"
+      query:{
+        selector: { docType: modul_props.doctype }
+      },
+      request_options: [], // "use_relation"
     };
 
     const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<
@@ -80,7 +86,7 @@ export function User_List() {
     const request: DB_RequestData<DocUserType> = {
       type: "request:delete",
       doctype: doctype,
-      options: [],
+      request_options: [],
       data: item,
     };
 
