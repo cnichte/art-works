@@ -1,5 +1,5 @@
 import * as crypto from "crypto"; // It has NOT to be like this: import crypto from "crypto";
-import { Database_Settings } from "../../database/settings/Database_Settings";
+import { Database_Settings } from "../database/settings/Database_Settings";
 
 /**
  ** Encryption and Decryption - The Final Solution.

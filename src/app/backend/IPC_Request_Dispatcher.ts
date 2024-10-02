@@ -2,8 +2,8 @@ import { BrowserWindow, ipcMain, shell } from "electron";
 import { DatabaseCRUD_Interface } from "./framework/types";
 import { Crypto_Manager, Database_Backup } from "./framework/tools";
 
-import { Database_Pouchdb } from "./database/pouchdb/Database_Pouchdb";
-import { Database_Settings } from "./database/settings/Database_Settings";
+import { Database_Pouchdb } from "../backend/framework/database/pouchdb/Database_Pouchdb";
+import { Database_Settings } from "./framework/database/settings/Database_Settings";
 
 import {
   IPC_BUTTON_ACTION,
@@ -376,10 +376,7 @@ export class IPC_Request_Dispatcher {
         case "request:data-from-query":
           result = new Promise((resolve, reject) => {
             this.pouchdb
-              .read({
-                query: request.query,
-                use_relation: request.request_options.includes("use_relation"),
-              })
+              .read(request)
               .then(function (response) {
                 // This is space to transform the result before send it back.
                 console.log("query-then: ", response);
@@ -398,7 +395,7 @@ export class IPC_Request_Dispatcher {
         case `request:save`:
           result = new Promise((resolve, reject) => {
             this.pouchdb
-              .update(request.doctype, request.data)
+              .update(request)
               .then(function (response) {
                 // This is space to transform the result before send it back.
                 // { ok: true, id: '4983cc2b-27e2-49de-aa2d-3a93f732bc80', rev: '1-96b9cb7d256fd1b29c51b84dc7d59c55'
@@ -417,11 +414,7 @@ export class IPC_Request_Dispatcher {
         case "request:data-from-id":
           result = new Promise((resolve, reject) => {
             this.pouchdb
-              .readFromID({
-                type: request.doctype,
-                id: request.id,
-                use_relation: request.request_options.includes("use_relation"),
-              })
+              .read(request)
               //! .readFromID(request.id, request.options)
               .then(function (response) {
                 // This is space to transform the result before send it back.
@@ -441,7 +434,7 @@ export class IPC_Request_Dispatcher {
         case `request:delete`:
           result = new Promise((resolve, reject) => {
             this.pouchdb
-              .delete(request.doctype, request.data)
+              .delete(request)
               .then(function (response) {
                 // This is space to transform the result before send it back.
                 // { ok: true, id: '4983cc2b-27e2-49de-aa2d-3a93f732bc80', rev: '1-96b9cb7d256fd1b29c51b84dc7d59c55'

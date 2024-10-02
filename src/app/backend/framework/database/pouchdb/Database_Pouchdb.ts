@@ -2,17 +2,20 @@ import PouchDB from "pouchdb";
 import find from "pouchdb-find";
 import rel from "relational-pouch"; // https://github.com/pouchdb-community/relational-pouch
 
-import { DatabaseCRUD_Interface } from "../../framework/types/Database_Types";
-import { FileTool } from "../../framework/tools/FileTool";
+import { DatabaseCRUD_Interface } from "../../../framework/types/Database_Types";
+import { FileTool } from "../../../framework/tools/FileTool";
 import {
   PouchDB_Info_Localstore,
   PouchDB_Info_Remotestore,
-} from "../../../common/types/PouchDB_InfoTypes";
+} from "../../../../common/types/PouchDB_InfoTypes";
 
-import { pouchdb_relations } from "./Database_Pouchdb_Relations";
-import { db_initialize } from "./Database_Pouchdb_Initialize";
-import { DB_Request } from "../../../common/framework/types/system/RequestTypes";
-import { Database_Export } from "../../framework/tools/Database_Export";
+import { pouchdb_relations } from "../../../custom/database/pouchdb/Database_Pouchdb_Relations";
+import { db_initialize } from "../../../custom/database/pouchdb/Database_Pouchdb_Initialize";
+import {
+  DB_Request,
+  DB_RequestData,
+} from "../../../../common/framework/types/system/RequestTypes";
+import { Database_Export } from "../../../framework/tools/Database_Export";
 
 /**
  * You can use this apdapter with or without relational-pouch.
@@ -200,7 +203,7 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
   // https://stackoverflow.com/questions/37229561/how-to-import-export-database-from-pouchdb
   // https://stackoverflow.com/questions/13405129/create-and-save-a-file-with-javascript/30832210#30832210
 
-  export_all(): Promise<boolean> {
+  public export_all(): Promise<boolean> {
     let self = this;
     return new Promise((resolve, reject) => {
       console.log("PERFORMING EXPORT: DB", this.db);
@@ -261,7 +264,7 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
     */
   }
 
-  does_remote_db_exist(name: string): Promise<boolean> {
+  private does_remote_db_exist(name: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       var db = new PouchDB(name, { skip_setup: true });
       db.info()
@@ -282,7 +285,7 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
     });
   }
 
-  get_info(
+  private get_info(
     uri: string
   ): Promise<PouchDB_Info_Localstore | PouchDB_Info_Remotestore> {
     return new Promise((resolve, reject) => {
@@ -302,7 +305,7 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
     });
   }
 
-  initialize(exampleData: boolean, createViews: boolean): Promise<any> {
+  public initialize(exampleData: boolean, createViews: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
       if (exampleData) {
         console.log(`pouchdb: create data`);
@@ -312,7 +315,8 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
       }
     });
   }
-  create(data: any, use_relation: boolean): Promise<any> {
+
+  public create(data: any, use_relation: boolean): Promise<any> {
     if (use_relation) {
       if ("rel" in this.db) {
         // use relational-pouch find
@@ -330,14 +334,28 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
   }
 
   // TODO: readFromID hier mit einbinden...
-  read(props: DB_Request): Promise<any> {
+  public read(props: DB_Request): Promise<any> {
     if (props.request_options.includes("use_relation")) {
       console.log("you want to use relational-pouch.");
       if ("rel" in this.db) {
         console.log("relational-pouch is in place.");
         // use relational-pouch find
         // https://github.com/pouchdb-community/relational-pouch?tab=readme-ov-file#dbrelfindtype-options
-        if ("query_options" in props) {
+
+        // entweder id oder options:
+        // db.rel.find(type)
+        // db.rel.find(type, id)
+        // db.rel.find(type, ids) - unterstütze ich im moment nicht
+        // db.rel.find(type, options)
+
+        if ("id" in props) {
+          // use relational-pouch find
+          // https://github.com/pouchdb-community/relational-pouch?tab=readme-ov-file#dbrelfindtype-id
+          //! const composite_id: string = this.db.rel.makeDocID({type:type,id:id});
+          // return this.db.get(composite_id, { conflicts: true });
+          //? Mist: liefert keine Konflikte für das 2. artwork in der liste
+          return this.db.rel.find(props.doctype, props.id);
+        } else if ("query_options" in props) {
           return this.db.rel.find(props.doctype, props.query_options);
         } else {
           return this.db.rel.find(props.doctype);
@@ -354,73 +372,41 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
         return this.db.find(query);
       }
     } else {
-      console.log("you DONT want to use relational-pouch, but the default.");
+      console.log(
+        "you DONT want to use relational-pouch, but the default (mango-query)."
+      );
       // dont use_relation
       return this.db.find(props.query);
     }
   }
 
-  readFromID(props: DB_Request): Promise<any> {
+  public update(props: DB_RequestData<any>): Promise<any> {
     if (props.request_options.includes("use_relation")) {
       if ("rel" in this.db) {
-        // use relational-pouch find
-        // https://github.com/pouchdb-community/relational-pouch?tab=readme-ov-file#dbrelfindtype-id
-        //! const composite_id: string = this.db.rel.makeDocID({type:type,id:id});
-        // return this.db.get(composite_id, { conflicts: true });
-        //? Mist: liefert keine Konflikte für das 2. artwork in der liste
-        return this.db.rel.find(props.doctype, props.id);
+        return this.db.rel.save(props.doctype, props.data);
       } else {
-        // no plugin found, try a query
-        let query = {
-          selector: {
-            doctype: props.doctype,
-            id: props.id,
-          },
-          ...props.query_options,
-        };
-        return this.db.find(query);
+        // no plugin found, try default
+        this.db.put(props.data);
       }
     } else {
       // dont use_relation
-      return this.db.get(props.id, props.query_options);
-    }
-  }
-
-  update(type: string, data: any): Promise<any> {
-    if (this.useRelations) {
-      console.log("this.db.rel.save", type, data);
-      /*
-      let self = this;
-      return this.db.rel.save(type, data)    
-      .catch(function (err: any) {
-        
-        if (err.status === 409) {
-
-        } else {
-          throw err; // some other error
-        }
-      });
-*/
-      return this.db.rel.save(type, data);
-    } else {
-      console.log("this.db.put", data);
-      return this.db.put(data);
+      return this.db.put(props.data);
     }
   }
 
   //? https://pouchdb.com/api.html#delete_document
-  delete(type: string, data: any): Promise<any> {
+  public delete(props: DB_RequestData<any>): Promise<any> {
     if (this.useRelations) {
-      console.log("this.db.rel.del", type, data);
-      return this.db.rel.del(type, data);
+      console.log("this.db.rel.del", props.doctype, props.data);
+      return this.db.rel.del(props.doctype, props.data);
     } else {
-      console.log("this.db.remove", data);
-      return this.db.remove(data);
+      console.log("this.db.remove", props.data);
+      return this.db.remove(props.data);
     }
   }
 
   //? https://stackoverflow.com/questions/29877607/pouchdb-delete-alldocs-javascript
-  deleteAll(): Promise<any> {
+  public delete_all(): Promise<any> {
     return this.db
       .allDocs({ include_docs: true })
       .then((allDocs: { rows: any[] }) => {

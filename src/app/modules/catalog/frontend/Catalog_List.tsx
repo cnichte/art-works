@@ -243,7 +243,10 @@ export function Catalog_List() {
     window.electronAPI
       .invoke_request(IPC_SETTINGS, [request])
       .then((result: any) => {
-        console.log("Database backup erzeugt.");
+        App_Messages_IPC.request_message(
+          "request:message-success",
+          "Das Backup wurde erzeugt."
+        );
       })
       .catch(function (error: any) {
         App_Messages_IPC.request_message(
@@ -267,7 +270,10 @@ export function Catalog_List() {
     window.electronAPI
       .invoke_request(IPC_SETTINGS, [request])
       .then((result: any) => {
-        console.log("Database backup erzeugt.");
+        App_Messages_IPC.request_message(
+          "request:message-success",
+          "Der JSON- export wurde erzeugt."
+        );
       })
       .catch(function (error: any) {
         App_Messages_IPC.request_message(

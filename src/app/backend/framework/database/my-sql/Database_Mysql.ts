@@ -1,5 +1,6 @@
 import mysql, { ConnectionOptions } from "mysql2/promise";
-import { DatabaseCRUD_Interface, Query_Props } from "../../framework/types/Database_Types";
+import { DatabaseCRUD_Interface } from "../../../framework/types/Database_Types";
+import { DB_Request, DB_RequestData } from "../../../../common/framework/types/system/RequestTypes";
 
 /**
  * https://evertpot.com/executing-a-mysql-query-in-nodejs/
@@ -12,36 +13,28 @@ import { DatabaseCRUD_Interface, Query_Props } from "../../framework/types/Datab
  */
 export class Database_Mysql implements DatabaseCRUD_Interface {
   constructor() {}
-  read(props: Query_Props): Promise<any> {
+  initialize(exampleData: boolean, createViews: boolean): Promise<any | null> {
     throw new Error("Method not implemented.");
   }
-  readFromID(props: Query_Props): Promise<any> {
+  create(data: any, use_relation: boolean): Promise<any> {
     throw new Error("Method not implemented.");
   }
-  export_all(): Promise<any> {
+  read(props: DB_Request): Promise<any> {
     throw new Error("Method not implemented.");
   }
-  initialize(exampleData: boolean, createViews: boolean): Promise<any> {
+  update(props: DB_RequestData<any>): Promise<any> {
     throw new Error("Method not implemented.");
   }
-  create(data: any): Promise<any> {
+  delete(props: DB_RequestData<any>): Promise<any> {
     throw new Error("Method not implemented.");
   }
-  readFromQuery(query: Object): Promise<any> {
+  delete_all(): Promise<any> {
     throw new Error("Method not implemented.");
   }
-  readFromRelationsID(type: string, id: string): Promise<any> {
+  export_all(): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
-  update(type: string, data: any): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
-  delete(type: string, data: any): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
-  deleteAll(): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
+
 
   public async test(): Promise<mysql.Connection> {
     let connection;

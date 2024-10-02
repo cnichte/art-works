@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 
+import { DB_Request, DB_RequestData } from "../../../common/framework/types/system/RequestTypes";
+
 export interface QueryAble {
   query?: any;
 }
@@ -33,14 +35,12 @@ export interface DatabaseCRUD_Interface {
   //* CRUD: Create, Read, Update and Delete from Database.
   create(data: any, use_relation:boolean): Promise<any>;
 
-  // TODO hier baue ich die neue query auf für "mit und ohne" relations.
-  read(props: Query_Props): Promise<any>;
-  readFromID(props: Query_Props): Promise<any>;
+  read(props: DB_Request): Promise<any>;
 
-  update(type: string, data: any): Promise<any>;
+  update(props: DB_RequestData<any>): Promise<any>;
+  delete(props: DB_RequestData<any>): Promise<any>;
 
-  delete(type: string, data: any): Promise<any>;
-  deleteAll(): Promise<any>;
+  delete_all(): Promise<any>;
   export_all(): Promise<boolean>;
 }
 

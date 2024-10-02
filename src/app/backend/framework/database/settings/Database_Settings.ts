@@ -1,6 +1,6 @@
 import { Conf } from "electron-conf/main";
-import { FileTool } from "../../framework/tools";
-import { DocCatalogType } from "../../../common/framework/types/documents/DocCatalog";
+import { FileTool } from "../../tools";
+import { DocCatalogType } from "../../../../common/framework/types/documents/DocCatalog";
 
 /**
  * this.conf.set("foo", "🌈");
