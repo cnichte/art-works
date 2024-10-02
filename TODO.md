@@ -1,45 +1,28 @@
 # What needs to be done
 
-UPDATE
+UPDATE - do not update
 
+* @vercel/webpack-asset-relocator-loader
+* eslint-plugin-import
+* @typescript-eslint/eslint-plugin
+* @typescript-eslint/parser
+* eslint
+
+```bash
 Patch   Backwards-compatible bug fixes
-❯ ◉ @types/react                                 ^18.3.3  →  ^18.3.10
-  ◉ @vercel/webpack-asset-relocator-loader         1.7.3  →     1.7.4
-  ◉ dayjs                                       ^1.11.12  →  ^1.11.13
-  ◉ mysql2                                       ^3.11.0  →   ^3.11.3
-  ◉ react-router                                 ^6.26.0  →   ^6.26.2
-  ◉ react-router-dom                             ^6.26.0  →   ^6.26.2
+  ◯ @vercel/webpack-asset-relocator-loader    1.7.3  →    1.7.4
 
 Minor   Backwards-compatible features
-  ◉ @ant-design/charts                            ^2.1.2  →    ^2.2.1
-  ◉ @electron-forge/cli                           ^7.4.0  →    ^7.5.0
-  ◉ @electron-forge/maker-deb                     ^7.4.0  →    ^7.5.0
-  ◉ @electron-forge/maker-rpm                     ^7.4.0  →    ^7.5.0
-  ◉ @electron-forge/maker-squirrel                ^7.4.0  →    ^7.5.0
-  ◉ @electron-forge/maker-zip                     ^7.4.0  →    ^7.5.0
-  ◉ @electron-forge/plugin-auto-unpack-natives    ^7.4.0  →    ^7.5.0
-  ◉ @electron-forge/plugin-fuses                  ^7.4.0  →    ^7.5.0
-  ◉ @electron-forge/plugin-webpack                ^7.4.0  →    ^7.5.0
-  ◉ @electron-forge/publisher-github              ^7.4.0  →    ^7.5.0
-  ◉ @types/node                                  ^22.1.0  →   ^22.7.4
-  ◉ antd                                         ^5.20.0  →   ^5.21.2
-  ◉ antd-img-crop                                ^4.22.0  →   ^4.23.0
-  ◉ electron-conf                                 ^1.1.0  →    ^1.2.1
-  ◉ electron-log                                  ^5.1.7  →    ^5.2.0
-  ◉ eslint-plugin-import                         ^2.29.1  →   ^2.30.0
-  ◉ i18next                                     ^23.12.2  →  ^23.15.1
-  ◉ markdown-to-jsx                               ^7.4.7  →    ^7.5.0
-  ◉ relational-pouch                              ^4.0.4  →    ^4.1.1
-  ◉ typescript                                    ~5.5.4  →    ~5.6.2
+❯ ◯ eslint-plugin-import                    ^2.29.1  →  ^2.30.0
 
 Major   Potentially breaking API changes
-  ◯ @typescript-eslint/eslint-plugin             ^7.10.0  →    ^8.8.0
-  ◯ @typescript-eslint/parser                    ^7.10.0  →    ^8.8.0
-  ◯ electron                                      31.3.1  →    32.1.2
-  ◯ eslint                                        ^8.0.1  →   ^9.11.1
-  ◯ pouchdb                                       ^8.0.1  →    ^9.0.0
-  ◯ pouchdb-find                                  ^8.0.1  →    ^9.0.0
-  ◯ tldraw                                        ^2.4.4  →    ^3.2.0
+  ◯ @typescript-eslint/eslint-plugin        ^7.10.0  →   ^8.8.0
+  ◯ @typescript-eslint/parser               ^7.10.0  →   ^8.8.0
+  ◯ eslint                                   ^8.0.1  →  ^9.11.1
+
+  ◯ pouchdb                                  ^8.0.1  →   ^9.0.0
+  ◯ pouchdb-find                             ^8.0.1  →   ^9.0.0
+```
 
 ## Verzeichnis-Struktur
 
@@ -75,7 +58,6 @@ Nachteil: Der Code liegt mehr fragmentiert in verschiedenen Verzeichnissen.
 -[x] Database_Pouchdb.ts unterstützt sauber "mit und ohne" relational-pouch, sowie Mischbetrieb.
   -[x] DocUser läuft ohne relational-pouch.
   -[x] Der Rest läuft mit relational-pouch.
-
 
 Ne Inbox brauch ich nicht.
 Aber den Status "Neu".
@@ -332,11 +314,11 @@ Abmessungen: x,y,z pixel, mm, cm
   -[ ] Beim Backup erstellen gibts ne Fehlermeldung. Backup ist aber da.
   -[ ] Remote store `werkverzeichnis`:
   
-      * Daraus lesen geht mit der umgebauten app immer noch nicht: `find` error.
-        * `pouchdb` und `find` sind aktueller.
-      * Mit der alten App gibt es den Fehler nicht:
-      `/Users/cnichte/develop-software/01-active/art-works-deprecated/art-works`
-      * Deshalb ist backup and restore mit Attachments essentiell.
+* Daraus lesen geht mit der umgebauten app immer noch nicht: `find` error.
+  * `pouchdb` und `find` sind aktueller.
+  * Mit der alten App gibt es den Fehler nicht:
+  `/Users/cnichte/develop-software/01-active/art-works-deprecated/art-works`
+  * Deshalb ist backup and restore mit Attachments essentiell.
 
 * Editionen
   -[ ] Preis-Anzahl (berechnet aus start und ende)
