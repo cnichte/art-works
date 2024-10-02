@@ -47,9 +47,9 @@ export function User_List() {
       request_type: "request:list-all",
       doctype: modul_props.doctype,
       query:{
-        selector: { docType: modul_props.doctype }
+        selector: { docType: modul_props.doctype } // TODO überall: docType = doctype
       },
-      request_options: [], // "use_relation"
+      request_options: [], //! do not use "use_relation"
     };
 
     const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<

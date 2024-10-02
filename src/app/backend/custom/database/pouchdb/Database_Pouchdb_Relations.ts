@@ -168,6 +168,20 @@ export const pouchdb_relations: Array<any> = [
     },
   },
   {
+    singular: "rental",
+    plural: "rentals",
+    relations: {
+      resumeType: { belongsTo: "rentalType" },
+    },
+  }, 
+  {
+    singular: "rentalType",
+    plural: "rentalTypes",
+    relations: {
+      rentals: { hasMany: "rental" },
+    },
+  }, 
+  {
     singular: "resume",
     plural: "resumes",
     relations: {

@@ -13,12 +13,15 @@ import { DB_Request, DB_RequestData } from "../../../../common/framework/types/s
  */
 export class Database_Mysql implements DatabaseCRUD_Interface {
   constructor() {}
+
   initialize(exampleData: boolean, createViews: boolean): Promise<any | null> {
     throw new Error("Method not implemented.");
   }
-  create(data: any, use_relation: boolean): Promise<any> {
+  
+  create(props: DB_RequestData<any>): Promise<any> {
     throw new Error("Method not implemented.");
   }
+
   read(props: DB_Request): Promise<any> {
     throw new Error("Method not implemented.");
   }

@@ -33,7 +33,7 @@ export interface DatabaseCRUD_Interface {
   initialize(exampleData: boolean, createViews: boolean): Promise<any | null>;
 
   //* CRUD: Create, Read, Update and Delete from Database.
-  create(data: any, use_relation:boolean): Promise<any>;
+  create(props: DB_RequestData<any>): Promise<any>;
 
   read(props: DB_Request): Promise<any>;
 

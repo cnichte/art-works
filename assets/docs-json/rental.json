@@ -5,9 +5,12 @@
     "title": "Eine Leihgabe",
     "shortnote": "TODO: Ein Kunstwerk, eine Compilation, eine Ausstellung, oder eine Publikation",
 
+    "rentalType":"0ad711be-179b-4fd6-b069-3ee8ada9591a",
     "customer": "",
+
     "artwork": "",
     "exhibition":"",
-    "publication": ""
+    "publication": "",
+     "edition": ""
   }
 ]

@@ -23,6 +23,7 @@ export interface RentalI extends DocItentifiable_Rel {
   customer: string;
 
   artwork: string;
+  exhibition:string,
   publication: string;
   edition: string;
 }
@@ -42,6 +43,8 @@ export interface RentalTypeI extends DocItentifiable_Rel {
 
 
 export class Rental implements RentalI {
+
+  rev?: string;
   // System
   id: string = ""; // _id: string = '';
 
@@ -60,6 +63,8 @@ export class Rental implements RentalI {
   customer: string = "";
 
   artwork: string = "";
+
+  exhibition: string = "";
 
   publication: string = "";
 

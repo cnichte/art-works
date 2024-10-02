@@ -316,20 +316,24 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
     });
   }
 
-  public create(data: any, use_relation: boolean): Promise<any> {
-    if (use_relation) {
+  public create(props: DB_RequestData<any>): Promise<any> {
+    if (props.request_options.includes("use_relation")) {
+      console.log("you want to use relational-pouch.");
       if ("rel" in this.db) {
-        // use relational-pouch find
-        // https://github.com/pouchdb-community/relational-pouch?tab=readme-ov-file#dbrelfindtype-options
-        // https://github.com/pouchdb-community/relational-pouch?tab=readme-ov-file#dbrelsavetype-object
-        return this.db.rel.save(data.docType, data);
+        console.log("relational-pouch is in place.");
+
+        // db.rel.save(type, object)
+        return this.db.rel.save(props.doctype, props.data);
       } else {
-        // no plugin found
-        return this.db.put(data);
+        console.log("relational-pouch is NOT in place. I try a standard.");
+        return this.db.put(props.data);
       }
     } else {
+      console.log(
+        "you DONT want to use relational-pouch, but the default (mango-query)."
+      );
+      return this.db.put(props.data);
       // dont use_relation
-      return this.db.put(data);
     }
   }
 

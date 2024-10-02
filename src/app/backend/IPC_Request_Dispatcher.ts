@@ -363,7 +363,11 @@ export class IPC_Request_Dispatcher {
                 // This is space to transform the result before send it back.
                 console.log("query-then: ", response);
                 console.log("---------------------");
-                return resolve(response); // response.docs
+                if (request.request_options.includes("use_relation")) {
+                  return resolve(response);
+                } else {
+                  return resolve(response.docs);
+                }
               })
               .catch(function (err) {
                 console.log("---------------------");
@@ -381,7 +385,11 @@ export class IPC_Request_Dispatcher {
                 // This is space to transform the result before send it back.
                 console.log("query-then: ", response);
                 console.log("---------------------");
-                return resolve(response.docs);
+                if (request.request_options.includes("use_relation")) {
+                  return resolve(response);
+                } else {
+                  return resolve(response.docs);
+                }
               })
               .catch(function (err) {
                 console.log("---------------------");

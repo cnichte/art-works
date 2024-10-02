@@ -147,7 +147,6 @@ export function MyBasicList<T extends DocItentifiable_Rel>({
     const request: DB_Request = {
       request_type: "request:list-all",
       doctype: modul_props.doctype,
-      id: "",
       request_options: ["use_relation"],
     };
 

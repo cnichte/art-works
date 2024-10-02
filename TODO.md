@@ -72,9 +72,9 @@ Nachteil: Der Code liegt mehr fragmentiert in verschiedenen Verzeichnissen.
 ## Aktuell
 
 -[ ] App-Logo SVG im Login Screen geht noch nicht.
--[ ] Database_Pouchdb.ts unterstützt sauber "mit und ohne" relational-pouch, sowie Mischbetrieb.
-  -[ ] DocUser läuft ohne relational-pouch.
-  -[ ] Der Rest läuft mit relational-pouch.
+-[x] Database_Pouchdb.ts unterstützt sauber "mit und ohne" relational-pouch, sowie Mischbetrieb.
+  -[x] DocUser läuft ohne relational-pouch.
+  -[x] Der Rest läuft mit relational-pouch.
 
 
 Ne Inbox brauch ich nicht.

@@ -1,6 +1,6 @@
 [
     {
-        "id": "e0c9b078-3782-444a-baf7-6ac1e7873313",
+        "_id": "e0c9b078-3782-444a-baf7-6ac1e7873313",
         "doctype":"user",
         "name": "Fritz Müller-Admin",
         "userid": "f_mueller",
