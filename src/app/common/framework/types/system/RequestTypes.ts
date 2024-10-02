@@ -17,15 +17,15 @@ export type DatabaseRequestType =
 export type DatabaseRequestOptionType = "use_relation";
 
 export interface DB_Request {
-  type: DatabaseRequestType;
+  request_type: DatabaseRequestType;
+  request_options?: DatabaseRequestOptionType[];
+  request_properties?:any
+
   doctype?: DocType; // equals a 'module'
   id?: string;
   
   query?: Object;
   query_options?:Object;
-
-  request_options?: DatabaseRequestOptionType[];
-  request_properties?:any
 }
 
 export interface DB_RequestData<T> extends DB_Request {
@@ -55,11 +55,12 @@ export type SettingsRequestType =
 export type SettingsRequestOptionType = "formvalues_remember";
 
 export interface Settings_Request {
-  type: SettingsRequestType;
+  request_type: SettingsRequestType;
+  request_options?: SettingsRequestOptionType[];
+  request_properties?:any
+
   doctype?: DocType; // equals a 'module'
   id?: string;
-  options?: SettingsRequestOptionType[];
-  properties?:any
 }
 export interface Settings_RequestData<T> extends Settings_Request {
   data: T;
@@ -70,7 +71,7 @@ export interface Settings_RequestData<T> extends Settings_Request {
 // ----------------------------------------------------------------------
 
 export interface Action_Request {
-  type: ActionRequestType;
+  request_type: ActionRequestType;
   target: DocType | ActionTarget;
 
   view: ViewType;

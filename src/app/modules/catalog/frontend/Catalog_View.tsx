@@ -15,10 +15,10 @@ export function Catalog_View() {
     // Beim laden der Seite...
 
     const request: Settings_Request = {
-      type: "request:get-connection",
+      request_type: "request:get-connection",
       doctype: modul_props.doctype,
       id: id,
-      options: [],
+      request_options: [],
     };
 
     const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<DocCatalogType>({

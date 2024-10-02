@@ -56,10 +56,10 @@ export function Catalog_Form() {
     reset_form();
 
     const request: Settings_Request = {
-      type: "request:get-connection",
+      request_type: "request:get-connection",
       doctype: modul_props.doctype,
       id: id,
-      options: [],
+      request_options: [],
     };
 
     const buaUnsubscribe_func = FormTool_IPC.init_and_load_data<DocCatalog>({
@@ -78,10 +78,10 @@ export function Catalog_Form() {
 
       },
       doButtonActionCallback: function (response: Action_Request): void {
-        if (response.type === "request:save-action") {
+        if (response.request_type === "request:save-action") {
           triggerSaveRef.current?.click();
         }
-        if (response.type === "request:show-settings-dialog-action") {
+        if (response.request_type === "request:show-settings-dialog-action") {
           console.log(
             `Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`
           );
@@ -90,10 +90,10 @@ export function Catalog_Form() {
     });
 
     const request_2: Settings_Request = {
-      type: "request:get-dbOptions",
+      request_type: "request:get-dbOptions",
       doctype: modul_props.doctype,
       id: id,
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI
@@ -121,11 +121,11 @@ export function Catalog_Form() {
     // create a new record and save the data.
     // i do not use the default here
     let request: Settings_RequestData<DocCatalog> = {
-      type: "request:save-connection",
+      request_type: "request:save-connection",
       doctype: modul_props.doctype,
       id: id,
       data: null,
-      options: [],
+      request_options: [],
     };
 
     FormTool_IPC.save_data<DocCatalog>({

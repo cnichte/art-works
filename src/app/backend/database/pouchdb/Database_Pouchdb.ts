@@ -1,13 +1,9 @@
 import PouchDB from "pouchdb";
 import find from "pouchdb-find";
-
 import rel from "relational-pouch"; // https://github.com/pouchdb-community/relational-pouch
 
-import {
-  DatabaseCRUD_Interface,
-  Query_Props,
-} from "../../framework/types/Database_Types";
-import { FileTool } from  "../../framework/tools/FileTool";
+import { DatabaseCRUD_Interface } from "../../framework/types/Database_Types";
+import { FileTool } from "../../framework/tools/FileTool";
 import {
   PouchDB_Info_Localstore,
   PouchDB_Info_Remotestore,
@@ -16,6 +12,7 @@ import {
 import { pouchdb_relations } from "./Database_Pouchdb_Relations";
 import { db_initialize } from "./Database_Pouchdb_Initialize";
 import { DB_Request } from "../../../common/framework/types/system/RequestTypes";
+import { Database_Export } from "../../framework/tools/Database_Export";
 
 /**
  * You can use this apdapter with or without relational-pouch.
@@ -199,8 +196,39 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
 
     // */
   }
-  export_all(): Promise<any> {
-    throw new Error("Method not implemented.");
+
+  // https://stackoverflow.com/questions/37229561/how-to-import-export-database-from-pouchdb
+  // https://stackoverflow.com/questions/13405129/create-and-save-a-file-with-javascript/30832210#30832210
+
+  export_all(): Promise<boolean> {
+    let self = this;
+    return new Promise((resolve, reject) => {
+      console.log("PERFORMING EXPORT: DB", this.db);
+      this.db
+        .allDocs({
+          include_docs: true,
+          attachments: true,
+        })
+        .then(function (result: { rows: any }) {
+          const json = result.rows;
+          const json_doc = json.map((item: any) => item.doc);
+
+          // console.log("PERFORMING EXPORT: file", file);
+          // console.log("PERFORMING EXPORT: json", json);
+          // console.log("PERFORMING EXPORT: json-doc", json_doc);
+          Database_Export.perform(self.databaseUri, json_doc)
+            .then(function (result: any) {
+              resolve(result);
+            })
+            .catch(function (err: any) {
+              reject(err);
+            });
+        })
+        .catch(function (error: any) {
+          console.log(error);
+          reject(error);
+        });
+    });
   }
 
   does_local_db_exist(name: string): Promise<boolean> {
@@ -309,14 +337,18 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
         console.log("relational-pouch is in place.");
         // use relational-pouch find
         // https://github.com/pouchdb-community/relational-pouch?tab=readme-ov-file#dbrelfindtype-options
-        return this.db.rel.find(props.type, props.query_options);
+        if ("query_options" in props) {
+          return this.db.rel.find(props.doctype, props.query_options);
+        } else {
+          return this.db.rel.find(props.doctype);
+        }
       } else {
         console.log(
           "relational-pouch is NOT in place. I try a standard query."
         );
         // no plugin found, try a query
         let query = {
-          selector: { doctype: props.type },
+          selector: { doctype: props.doctype },
           ...props.query_options,
         };
         return this.db.find(query);
@@ -326,41 +358,31 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
       // dont use_relation
       return this.db.find(props.query);
     }
-
-    /*
-    if (this.useRelations) {
-      return this.db.rel.find(type, options);
-    } else {
-      return new Promise((reject) => {
-        reject("Please use Relational Pouch...");
-      });
-    }
- */
   }
 
-  readFromID(props: Query_Props): Promise<any> {
-    if (props.use_relation) {
+  readFromID(props: DB_Request): Promise<any> {
+    if (props.request_options.includes("use_relation")) {
       if ("rel" in this.db) {
         // use relational-pouch find
         // https://github.com/pouchdb-community/relational-pouch?tab=readme-ov-file#dbrelfindtype-id
         //! const composite_id: string = this.db.rel.makeDocID({type:type,id:id});
         // return this.db.get(composite_id, { conflicts: true });
         //? Mist: liefert keine Konflikte für das 2. artwork in der liste
-        return this.db.rel.find(props.type, props.id);
+        return this.db.rel.find(props.doctype, props.id);
       } else {
         // no plugin found, try a query
         let query = {
           selector: {
-            doctype: props.type,
+            doctype: props.doctype,
             id: props.id,
           },
-          ...props.options,
+          ...props.query_options,
         };
         return this.db.find(query);
       }
     } else {
       // dont use_relation
-      return this.db.get(props.id, props.options);
+      return this.db.get(props.id, props.query_options);
     }
   }
 

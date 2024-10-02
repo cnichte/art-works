@@ -105,7 +105,7 @@ export function Header_Buttons(props: any) {
   const callbackSaveHandler = () => {
     // Two-way communication, case 2
     let request: Action_Request = {
-      type: "request:save-action",
+      request_type: "request:save-action",
       target: doctype,
 
       view: viewtype,
@@ -123,7 +123,7 @@ export function Header_Buttons(props: any) {
   const callbackSettingsHandler = () => {
     // Two-way communication, case 2
     let request: Action_Request = {
-      type: "request:show-settings-dialog-action",
+      request_type: "request:show-settings-dialog-action",
       target: doctype,
 
       view: viewtype,

@@ -1,9 +1,10 @@
 import { BrowserWindow } from "electron";
 
 /**
- * Private Helper-Class to compose and set
+ * Helper-Class to compose and set
  * the BrowserWindow-Title
  * from current user and catalog.
+ * TODO rename to BrowserWindowTitle_Composer 
  */
 export class BrowserWindowTitle {
   public static browserWindow: BrowserWindow;

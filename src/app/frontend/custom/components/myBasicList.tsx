@@ -145,7 +145,7 @@ export function MyBasicList<T extends DocItentifiable_Rel>({
   useEffect(() => {
     // Beim laden der Seite...
     const request: DB_Request = {
-      type: "request:list-all",
+      request_type: "request:list-all",
       doctype: modul_props.doctype,
       id: "",
       request_options: ["use_relation"],
@@ -163,7 +163,7 @@ export function MyBasicList<T extends DocItentifiable_Rel>({
         setData(result);
       },
       doButtonActionCallback: function (response: Action_Request): void {
-        if (response.type === "request:show-settings-dialog-action") {
+        if (response.request_type === "request:show-settings-dialog-action") {
           console.log(
             `Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`
           );
@@ -208,7 +208,7 @@ export function MyBasicList<T extends DocItentifiable_Rel>({
     setConfirmLoading(true); // Umbenennen: Loading Animation
 
     const request: DB_Request = {
-      type: "request:delete",
+      request_type: "request:delete",
       doctype: modul_props.doctype,
       id: record.id,
       request_options: [],

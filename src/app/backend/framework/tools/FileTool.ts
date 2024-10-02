@@ -70,4 +70,12 @@ export class FileTool {
 
     return the_path;
   }
+
+  public static path_remove_suffix(path: string): string {
+    return path.endsWith("/") ? path.slice(0, -1) : path;
+  }
+
+  public static path_add_suffix(path: string): string {
+    return path.endsWith("/") ? path : path.concat("/");
+  }
 }

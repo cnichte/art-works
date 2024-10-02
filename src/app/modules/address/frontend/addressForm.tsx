@@ -54,7 +54,7 @@ export function AddressForm() {
     // Beim laden der Seite...
     //* Wird einmalig beim Laden der Seite ausgeführt.
     const request: DB_Request = {
-      type: "request:data-from-id",
+      request_type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
       request_options: ["use_relation"],
@@ -74,10 +74,10 @@ export function AddressForm() {
         form.setFieldsValue(result[segment][0]);
       },
       doButtonActionCallback: function (response: Action_Request): void {
-        if (response.type === "request:save-action") {
+        if (response.request_type === "request:save-action") {
           triggerSaveRef.current?.click();
         }
-        if (response.type === "request:show-settings-dialog-action") {
+        if (response.request_type === "request:show-settings-dialog-action") {
           console.log(
             `Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`
           );
@@ -86,7 +86,7 @@ export function AddressForm() {
     });
 
     const request_2: DB_Request = {
-      type: "request:data-from-id",
+      request_type: "request:data-from-id",
       doctype: "addressType",
       request_options: [],
     };

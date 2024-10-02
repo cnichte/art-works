@@ -154,7 +154,7 @@ export class IPC_Request_Dispatcher {
 
       let result: Promise<any>;
 
-      switch (request.type) {
+      switch (request.request_type) {
         case "request:list-connections":
           result = new Promise((resolve) => {
             let obj: any = this.settings.conf.get("catalog.connection");
@@ -254,7 +254,7 @@ export class IPC_Request_Dispatcher {
           break;
         case "request:database-backup":
           result = new Promise((resolve, reject) => {
-            Database_Backup.performBackup(request.properties.dbName)
+            Database_Backup.perform(request.request_properties.dbName)
               .then(function (response) {
                 return resolve(response);
               })
@@ -353,7 +353,7 @@ export class IPC_Request_Dispatcher {
 
       let result: Promise<any>;
 
-      switch (request.type) {
+      switch (request.request_type) {
         case "request:list-all":
           result = new Promise((resolve, reject) => {
             this.pouchdb

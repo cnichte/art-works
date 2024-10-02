@@ -54,7 +54,7 @@ export const App_User_LoginForm: React.FC<App_User_LoginForm_Props> = ({
     // handle save login
     //! 1. Prüfe, ob es den User in der Datenbank gibt
     const request: DB_Request = {
-      type: "request:data-from-query",
+      request_type: "request:data-from-query",
       query: {
         selector: {
           docType: "user",
@@ -88,8 +88,8 @@ export const App_User_LoginForm: React.FC<App_User_LoginForm_Props> = ({
             // Das Passwort ist separat (zusätzlich) verschlüsselt.
 
             const request: Settings_RequestData<DocUser> = {
-              type: "request:set-current-user",
-              options: formValues.remember ? ["formvalues_remember"] : [],
+              request_type: "request:set-current-user",
+              request_options: formValues.remember ? ["formvalues_remember"] : [],
               data: result[0],
             };
 

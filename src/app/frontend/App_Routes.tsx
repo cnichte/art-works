@@ -123,8 +123,8 @@ export function App_Routes() {
 
   useEffect(() => {
     const request: Settings_Request = {
-      type: "request:get-current-user",
-      options: [],
+      request_type: "request:get-current-user",
+      request_options: [],
     };
 
     window.electronAPI

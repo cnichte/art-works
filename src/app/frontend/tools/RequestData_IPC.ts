@@ -49,7 +49,7 @@ export class RequestData_IPC {
         App_Messages_IPC.request_message(
           "request:message-info",
           App_Messages_IPC.get_message_from_request(
-            props.request.type,
+            props.request.request_type,
             props.modul_props.doclabel
           )
         );
@@ -91,7 +91,7 @@ export class RequestData_IPC {
         App_Messages_IPC.request_message(
           "request:message-info",
           App_Messages_IPC.get_message_from_request(
-            props.request.type,
+            props.request.request_type,
             props.modul_props.doclabel
           )
         );

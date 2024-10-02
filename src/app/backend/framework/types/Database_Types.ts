@@ -41,7 +41,7 @@ export interface DatabaseCRUD_Interface {
 
   delete(type: string, data: any): Promise<any>;
   deleteAll(): Promise<any>;
-  export_all(): Promise<any>;
+  export_all(): Promise<boolean>;
 }
 
 export interface DatabasePouchDB_Interface extends DatabaseCRUD_Interface {

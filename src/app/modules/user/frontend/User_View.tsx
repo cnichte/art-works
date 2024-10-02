@@ -21,7 +21,7 @@ export function User_View() {
   useEffect(() => {
 
     const request: DB_Request = {
-      type: "request:data-from-id",
+      request_type: "request:data-from-id",
       doctype: modul_props.doctype,
       id: id,
       request_options: [], // "use_relation"

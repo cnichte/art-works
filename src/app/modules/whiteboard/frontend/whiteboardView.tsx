@@ -46,7 +46,7 @@ export function WhiteboardView() {
     console.log('SAVE THE VALUE', record, value);
 
     const request: DB_RequestData<WhiteboardI> = {
-      type: "request:save",
+      request_type: "request:save",
       doctype: modul_props.doctype,
       id: record.id,
       data: record,
@@ -77,7 +77,7 @@ export function WhiteboardView() {
     console.log('SAVE THE VALUE', record, value);
 
     const request: DB_RequestData<WhiteboardI> = {
-      type: "request:save",
+      request_type: "request:save",
       doctype: modul_props.doctype,
       id: record.id,
       data: record,

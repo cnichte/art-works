@@ -7,6 +7,7 @@ import {
   EditOutlined,
   FileZipOutlined,
   DeleteOutlined,
+  DownloadOutlined,
 } from "@ant-design/icons";
 
 import type { ColumnsType } from "antd/es/table";
@@ -17,7 +18,11 @@ import { modul_props } from "../modul_props";
 import ExportForm from "./exportForm";
 import { DocCatalogType } from "../../../common/framework/types/documents/DocCatalog";
 import { IPC_SETTINGS } from "../../../common/framework/types/system/IPC_Channels";
-import { Settings_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
+import {
+  Settings_Request,
+  Action_Request,
+  DB_Request,
+} from "../../../common/framework/types/system/RequestTypes";
 
 export function Catalog_List() {
   const navigate = useNavigate();
@@ -36,9 +41,9 @@ export function Catalog_List() {
     // Request data from pouchdb on page load.
     //! Following Pattern 2 for the Database requests
     const request_1: Settings_Request = {
-      type: "request:list-connections",
+      request_type: "request:list-connections",
       doctype: modul_props.doctype,
-      options: [],
+      request_options: [],
     };
 
     const buaUnsubscribe_func = RequestData_IPC.init_and_load_data<any>({
@@ -73,9 +78,9 @@ export function Catalog_List() {
     });
 
     const request_2: Settings_Request = {
-      type: "request:get-startoptions",
+      request_type: "request:get-startoptions",
       doctype: "catalog",
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI
@@ -103,9 +108,9 @@ export function Catalog_List() {
 
   function reload_list(): void {
     const request: Settings_Request = {
-      type: "request:list-connections",
+      request_type: "request:list-connections",
       doctype: "catalog",
-      options: [],
+      request_options: [],
     };
 
     RequestData_IPC.load_data<any>({
@@ -172,10 +177,10 @@ export function Catalog_List() {
     console.log(`selectedStartoption after:${selectedStartoption}`);
 
     const request: Settings_Request = {
-      type: "request:save-startoption-selected",
+      request_type: "request:save-startoption-selected",
       doctype: "catalog",
       id: value,
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI
@@ -195,10 +200,10 @@ export function Catalog_List() {
     setSelectedCatalog(option);
 
     const request: Settings_Request = {
-      type: "request:save-startoption-opensOnStartup",
+      request_type: "request:save-startoption-opensOnStartup",
       doctype: "catalog",
       id: value as string,
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI
@@ -227,12 +232,36 @@ export function Catalog_List() {
   function handleBackup(item: DataType): any {
     console.log("Backup", item);
     const request: Settings_Request = {
-      type: "request:database-backup",
+      request_type: "request:database-backup",
       doctype: "catalog",
-      options: [],
-      properties: {
+      request_options: [],
+      request_properties: {
         dbName: item.dbName,
-      }
+      },
+    };
+
+    window.electronAPI
+      .invoke_request(IPC_SETTINGS, [request])
+      .then((result: any) => {
+        console.log("Database backup erzeugt.");
+      })
+      .catch(function (error: any) {
+        App_Messages_IPC.request_message(
+          "request:message-error",
+          error instanceof Error ? `Error: ${error.message}` : ""
+        );
+      });
+  }
+
+  function handleExport(item: DataType): any {
+    console.log("Export", item);
+
+    const request: Settings_Request = {
+      request_type: "request:database-export",
+      request_properties: {
+        dbName: item.dbName,
+      },
+      doctype: "catalog",
     };
 
     window.electronAPI
@@ -251,10 +280,10 @@ export function Catalog_List() {
   const handleDeletePopconfirmOk = (record: DataType) => {
     console.log("delete", record);
     const request: Settings_Request = {
-      type: "request:delete-connection",
+      request_type: "request:delete-connection",
       id: record.key as string,
       doctype: "catalog",
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI
@@ -266,7 +295,7 @@ export function Catalog_List() {
         );
         reload_list();
       })
-      .catch(function (error: { message: any; }): any {
+      .catch(function (error: { message: any }): any {
         App_Messages_IPC.request_message(
           "request:message-error",
           error instanceof Error ? `Error: ${error.message}` : ""
@@ -341,6 +370,17 @@ export function Catalog_List() {
             </Tooltip>
           </Button>
 
+          <Button
+            type="default"
+            shape="circle"
+            size="middle"
+            onClick={() => handleExport(record)}
+          >
+            <Tooltip title="Export als Json Datei">
+              <DownloadOutlined />
+            </Tooltip>
+          </Button>
+
           <Popconfirm
             title="Datenbank löschen!"
             description="Bist du ganz sicher?"
@@ -380,10 +420,10 @@ export function Catalog_List() {
     console.log("selectedRowKeys changed: ", newSelectedRowKeys);
 
     const request: Settings_Request = {
-      type: "request:switch-catalog",
+      request_type: "request:switch-catalog",
       doctype: "catalog",
       id: newSelectedRowKeys[0] as string,
-      options: [],
+      request_options: [],
     };
 
     window.electronAPI

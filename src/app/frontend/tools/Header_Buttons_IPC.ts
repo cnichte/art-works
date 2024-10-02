@@ -20,7 +20,7 @@ export class Header_Buttons_IPC {
    */
   public static request_buttons(props: Action_Request_Props_I) {
     let request: Action_Request = {
-      type: `request:show-${props.viewtype}-buttons`,
+      request_type: `request:show-${props.viewtype}-buttons`,
       target: DOCTYPE_HEADER_BUTTONS, //this is the target-component we address
 
       view: props.viewtype,

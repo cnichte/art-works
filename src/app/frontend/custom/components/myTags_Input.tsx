@@ -101,7 +101,7 @@ function MyTags_Input({ value = [], onChange }: FormItem_Props<string[]>): any {
     const segment: string = "tags";
 
     const request: DB_Request = {
-      type: "request:list-all",
+      request_type: "request:list-all",
       doctype: doctype,
       id: "",
       request_options: [],

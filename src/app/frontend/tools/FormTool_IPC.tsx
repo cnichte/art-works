@@ -68,7 +68,7 @@ export class FormTool_IPC<T extends DocItentifiable_Rel> {
           App_Messages_IPC.request_message(
             "request:message-info",
             App_Messages_IPC.get_message_from_request(
-              props.request.type,
+              props.request.request_type,
               props.modul_props.doclabel
             )
           );
@@ -136,7 +136,7 @@ export class FormTool_IPC<T extends DocItentifiable_Rel> {
 
         if (props.request == null) {
           request = {
-            type: "request:save",
+            request_type: "request:save",
             doctype: props.dataObject.docType,
             request_options: [],
             data: props.dataObject,

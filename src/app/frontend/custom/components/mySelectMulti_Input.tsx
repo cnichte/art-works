@@ -76,7 +76,7 @@ export function MySelectMulti_Input<T extends MyIdentifiable>({
     // Get all tags from the database, for the suggestion list
 
     const request: DB_Request = {
-      type: "request:list-all",
+      request_type: "request:list-all",
       doctype: doctype,
       id: "",
       request_options: [],

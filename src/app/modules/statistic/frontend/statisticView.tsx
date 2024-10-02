@@ -81,12 +81,12 @@ export function StatisticView() {
     const buaUnsubscribe = window.electronAPI.listen_to(
       "ipc-button-action",
       (response: Action_Request) => {
-        if (response.type == "request:save-action") {
+        if (response.request_type == "request:save-action") {
           // console.log("AddressForm says ACTION: ", response);
           // triggerSaveRef.current?.click();
           // message.info(response.type);
         }
-        if (response.type === "request:show-settings-dialog-action") {
+        if (response.request_type === "request:show-settings-dialog-action") {
           console.log(
             `Show Settigs-Dialog for ${modul_props.doctype}_${response.view}`
           );

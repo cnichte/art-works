@@ -24,7 +24,7 @@ export function User_List() {
     // Request data from pouchdb on page load.
     //! Following Pattern 2 for the Database requests
     const request: DB_Request = {
-      type: "request:list-all",
+      request_type: "request:list-all",
       doctype: modul_props.doctype,
       query:{
         selector: { docType: modul_props.doctype }
@@ -44,7 +44,7 @@ export function User_List() {
 
   useEffect(() => {
     const request: DB_Request = {
-      type: "request:list-all",
+      request_type: "request:list-all",
       doctype: modul_props.doctype,
       query:{
         selector: { docType: modul_props.doctype }
@@ -79,7 +79,7 @@ export function User_List() {
 
   function handleDeletePopconfirmOk(item: DocUserType): any {
     const request: DB_RequestData<DocUserType> = {
-      type: "request:delete",
+      request_type: "request:delete",
       doctype: doctype,
       request_options: [],
       data: item,
@@ -90,7 +90,7 @@ export function User_List() {
       .then((result: any) => {
         App_Messages_IPC.request_message(
           "request:message-success",
-          App_Messages_IPC.get_message_from_request(request.type, doclabel)
+          App_Messages_IPC.get_message_from_request(request.request_type, doclabel)
         );
         reload_list();
       })
