@@ -27,73 +27,73 @@ import {
   Catalog_List,
   Catalog_View,
   Catalog_Form,
-} from "../modules/catalog/frontend/";
+} from "../modules/framework/catalog/frontend/";
 
 // Lists, View, Form
 import {
   AddressList,
   AddressView,
   AddressForm,
-} from "../modules/address/frontend";
-import { ArtistList, ArtistView, ArtistForm } from "../modules/artist/frontend";
+} from "../modules/custom/address/frontend";
+import { ArtistList, ArtistView, ArtistForm } from "../modules/custom/artist/frontend";
 import {
   ArtworkList,
   ArtworkView,
   ArtworkForm,
-} from "../modules/artwork/frontend";
-import { AwardList, AwardView, AwardForm } from "../modules/award/frontend";
+} from "../modules/custom/artwork/frontend";
+import { AwardList, AwardView, AwardForm } from "../modules/custom/award/frontend";
 import {
   CalculationList,
   CalculationView,
   CalculationForm,
-} from "../modules/calculation/frontend";
+} from "../modules/custom/calculation/frontend";
 import {
   CompilationList,
   CompilationView,
   CompilationForm,
-} from "../modules/compilation/frontend";
+} from "../modules/custom/compilation/frontend";
 import {
   EditionList,
   EditionView,
   EditionForm,
-} from "../modules/edition/frontend";
+} from "../modules/custom/edition/frontend";
 import {
   ExhibitionList,
   ExhibitionView,
   ExhibitionForm,
-} from "../modules/exhibition/frontend";
+} from "../modules/custom/exhibition/frontend";
 
-import { FirstStartSteps } from "../modules/firtststart/frontend";
+import { FirstStartSteps } from "../modules/custom/firtststart/frontend";
 
-import { GenreList, GenreView, GenreForm } from "../modules/genre/frontend";
+import { GenreList, GenreView, GenreForm } from "../modules/custom/genre/frontend";
 import {
   GroupOfWorkList,
   GroupOfWorkView,
   GroupOfWorkForm,
-} from "../modules/groupofwork/frontend";
-import { NoteList, NoteView, NoteForm } from "../modules/note/frontend";
+} from "../modules/custom/groupofwork/frontend";
+import { NoteList, NoteView, NoteForm } from "../modules/custom/note/frontend";
 import {
   PublicationList,
   PublicationView,
   PublicationForm,
-} from "../modules/publication/frontend";
-import { RentalList, RentalView, RentalForm } from "../modules/rental/frontend";
-import { SaleList, SaleView, SaleForm } from "../modules/sale/frontend";
+} from "../modules/custom/publication/frontend";
+import { RentalList, RentalView, RentalForm } from "../modules/custom/rental/frontend";
+import { SaleList, SaleView, SaleForm } from "../modules/custom/sale/frontend";
 import {
   SaleRightsOfUseList,
   SaleRightsOfUseView,
   SaleRightsOfUseForm,
-} from "../modules/salerightsofuse/frontend";
+} from "../modules/custom/salerightsofuse/frontend";
 
-import { StatisticView } from "../modules/statistic/frontend";
+import { StatisticView } from "../modules/custom/statistic/frontend";
 
-import { TagList, TagView, TagForm } from "../modules/tag/frontend";
+import { TagList, TagView, TagForm } from "../modules/custom/tag/frontend";
 import {
   WhiteboardList,
   WhiteboardView,
   WhiteboardForm,
-} from "../modules/whiteboard/frontend";
-import { User_Form, User_List, User_View } from "../modules/user/frontend";
+} from "../modules/custom/whiteboard/frontend";
+import { User_Form, User_List, User_View } from "../modules/framework/user/frontend";
 import { DocUser } from "../common/framework/types/documents/DocUser";
 import { Settings_Request } from "../common/framework/types/system/RequestTypes";
 import { App_User_LoginForm } from "./App_User_LoginForm";
