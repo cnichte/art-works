@@ -13,7 +13,7 @@ import {
   DocType,
 } from "../../../../common/types/DocType";
 
-import { FormTool_IPC } from "../../../../frontend/tools/FormTool_IPC";
+import { FormTool_IPC } from "../../../../frontend/framework/tools/FormTool_IPC";
 import { modul_props } from "../modul_props";
 import { DocUserType } from "../../../../common/framework/types/documents/DocUser";
 import { IPC_DATABASE } from "../../../../common/framework/types/system/IPC_Channels";

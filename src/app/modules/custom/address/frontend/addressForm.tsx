@@ -11,8 +11,7 @@ import type { RcFile } from "antd/es/upload";
 // Application imports
 import { DocType } from "../../../../common/types/DocType";
 import { modul_props } from "../modul_props";
-import { FormTool_IPC } from "../../../../frontend/tools/FormTool_IPC";
-import { RequestData_IPC } from "../../../../frontend/tools/RequestData_IPC";
+
 import { Address } from "../../../../common/custom/types/documents/DocAddress";
 import { AddressType } from "../../../../common/custom/types/documents/DocAddressType";
 import { FormPropertiesInterface } from "../../../../common/framework/types/system/FormPropertiesInterface";
@@ -21,6 +20,8 @@ import { Action_Request } from "../../../../common/framework/types/system/Reques
 import { MyDatePicker } from "../../../../frontend/custom/components/myDatePicker";
 import { MyInputURLField } from "../../../../frontend/custom/components/myInputFields";
 import { IPC_DATABASE } from "../../../../common/framework/types/system/IPC_Channels";
+import { FormTool_IPC } from "../../../../frontend/framework/tools/FormTool_IPC";
+import { RequestData_IPC } from "../../../../frontend/framework/tools/RequestData_IPC";
 
 /**
  * Formular für das Modul Note.

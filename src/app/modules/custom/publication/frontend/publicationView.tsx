@@ -5,7 +5,7 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../../common/types/MyBasicViewTypes";
-import { Segments } from "../../../../frontend/tools/Segments";
+import { Segments } from "../../../../frontend/framework/tools/Segments";
 import { modul_props } from "../modul_props";
 import { ArtworkI } from "../../../../common/custom/types/documents/DocArtwork";
 import { AwardI } from "../../../../common/custom/types/documents/DocAward";

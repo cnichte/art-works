@@ -15,7 +15,7 @@ import ImgCrop from "antd-img-crop";
 import { UploadChangeParam, UploadFile } from "antd/es/upload";
 import { DocType } from "../../../../common/types/DocType";
 import { modul_props } from "../modul_props";
-import { FormTool_IPC } from "../../../../frontend/tools/FormTool_IPC";
+import { FormTool_IPC } from "../../../../frontend/framework/tools/FormTool_IPC";
 import { Artist } from "../../../../common/custom/types/documents/DocArtist";
 import { IPC_DATABASE } from "../../../../common/framework/types/system/IPC_Channels";
 import { DB_Request, Action_Request } from "../../../../common/framework/types/system/RequestTypes";

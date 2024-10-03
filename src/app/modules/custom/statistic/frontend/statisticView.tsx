@@ -2,9 +2,10 @@ import { useEffect } from "react";
 
 import { Card, Col, Row } from "antd";
 import { Bar } from "@ant-design/plots";
-import { Header_Buttons_IPC } from "../../../../frontend/tools/Header_Buttons_IPC";
+
 import { modul_props } from "../modul_props";
 import { Action_Request } from "../../../../common/framework/types/system/RequestTypes";
+import { Header_Buttons_IPC } from "../../../../frontend/framework/tools/Header_Buttons_IPC";
 
 const { Meta } = Card;
 

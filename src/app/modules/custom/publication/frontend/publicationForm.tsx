@@ -5,12 +5,13 @@ import { Input, Form, Button, Select } from "antd";
 
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { DocType } from "../../../../common/types/DocType";
-import { App_Messages_IPC } from "../../../../frontend/tools/App_Messages_IPC";
-import { FormTool_IPC } from "../../../../frontend/tools/FormTool_IPC";
+
+import { FormTool_IPC } from "../../../../frontend/framework/tools/FormTool_IPC";
 import { modul_props } from "../modul_props";
 import { Publication } from "../../../../common/custom/types/documents/DocPublication";
 import { IPC_DATABASE } from "../../../../common/framework/types/system/IPC_Channels";
 import { DB_Request, Action_Request } from "../../../../common/framework/types/system/RequestTypes";
+import { App_Messages_IPC } from "../../../../frontend/framework/tools/App_Messages_IPC";
 
 //* above are the default imports
 

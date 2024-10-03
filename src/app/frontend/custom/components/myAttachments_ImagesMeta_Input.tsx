@@ -9,7 +9,8 @@ import { v4 as uuidv4 } from "uuid";
 import { MyAttachments_ImagesMeta_View } from "./myAttachments_ImagesMeta_View";
 import { FormItem_Props } from "../../../common/framework/types/system/FormPropertiesInterface";
 import { AttachmentMeta } from "../../../common/types/AttachmentTypes";
-import { Image_Util } from "../../tools/Image_Util";
+import { Image_Util } from "../../framework/tools/Image_Util";
+
 
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];

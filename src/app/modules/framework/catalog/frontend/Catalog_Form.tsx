@@ -4,8 +4,8 @@ import { Button, Form, FormProps, Input, Select } from "antd";
 
 import { DbOptions_Setting, DbOptionsType } from "../../../../common/types/SettingTypes";
 import { modul_props } from "../modul_props";
-import { FormTool_IPC } from "../../../../frontend/tools/FormTool_IPC";
-import { App_Messages_IPC } from "../../../../frontend/tools/App_Messages_IPC";
+import { FormTool_IPC } from "../../../../frontend/framework/tools/FormTool_IPC";
+import { App_Messages_IPC } from "../../../../frontend/framework/tools/App_Messages_IPC";
 import { DocCatalog, DocCatalogType } from "../../../../common/framework/types/documents/DocCatalog";
 import { IPC_SETTINGS } from "../../../../common/framework/types/system/IPC_Channels";
 import { Settings_Request, Action_Request, Settings_RequestData } from "../../../../common/framework/types/system/RequestTypes";

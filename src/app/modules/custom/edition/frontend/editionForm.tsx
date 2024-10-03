@@ -6,7 +6,7 @@ import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
 
 import { DocType } from "../../../../common/types/DocType";
-import { FormTool_IPC } from "../../../../frontend/tools/FormTool_IPC";
+import { FormTool_IPC } from "../../../../frontend/framework/tools/FormTool_IPC";
 import { modul_props } from "../modul_props";
 import { Edition } from "../../../../common/custom/types/documents/DocEdition";
 import { IPC_DATABASE } from "../../../../common/framework/types/system/IPC_Channels";

@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { Descriptions, Space, Col, Row, Tabs, Table } from "antd";
 import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 import { MyBasicViewSegmentParameterI, MyBasicViewFieldParameterI, MyBasicViewProps } from "../../../common/types/MyBasicViewTypes";
-import { Condition } from "../../tools/Condition";
-import RelationResolver from "../../tools/RelationResolver";
-import { RequestData_IPC } from "../../tools/RequestData_IPC";
-import ViewTool from "../../tools/ViewTools";
+import { Condition } from "../../framework/tools/Condition";
+import RelationResolver from "../../framework/tools/RelationResolver";
+import { RequestData_IPC } from "../../framework/tools/RequestData_IPC";
+import ViewTool from "../../framework/tools/ViewTools";
 
 /* ==========================================================
 

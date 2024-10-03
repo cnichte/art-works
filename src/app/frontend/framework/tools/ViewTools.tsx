@@ -9,9 +9,9 @@ import { Condition } from "./Condition";
 import {
   MyBasicViewFieldParameterI,
   MyBasicView_ChildFieldParameterI,
-} from "../../common/types/MyBasicViewTypes";
-import { AttachmentMeta } from "../../common/types/AttachmentTypes";
-import { External_Link } from "../custom/components/External_Link";
+} from "../../../common/types/MyBasicViewTypes";
+import { AttachmentMeta } from "../../../common/types/AttachmentTypes";
+import { External_Link } from "../../custom/components/External_Link";
 
 
 /**

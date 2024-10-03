@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { Descriptions } from "antd";
 import { DocType } from "../../../../common/types/DocType";
 import { modul_props } from "../modul_props";
-import { RequestData_IPC } from "../../../../frontend/tools/RequestData_IPC";
+import { RequestData_IPC } from "../../../../frontend/framework/tools/RequestData_IPC";
 import { DocUserType } from "../../../../common/framework/types/documents/DocUser";
 import { DB_Request, Action_Request } from "../../../../common/framework/types/system/RequestTypes";
 

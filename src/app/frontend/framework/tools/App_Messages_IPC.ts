@@ -1,11 +1,6 @@
 // Header_Buttons_IPC.request_buttons("list", "catalog", "");
 
-import {
-  MessageRequestType,
-  Message_Request,
-  DatabaseRequestType,
-  SettingsRequestType,
-} from "../../common/framework/types/system/RequestTypes";
+import { MessageRequestType, Message_Request, DatabaseRequestType, SettingsRequestType } from "../../../common/framework/types/system/RequestTypes";
 
 /**
  * @author Carsten Nichte - //carsten-nichte.de/apps/

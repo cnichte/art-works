@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message, Steps, theme, Typography } from 'antd';
-import { Header_Buttons_IPC } from '../../../../frontend/tools/Header_Buttons_IPC';
+
 import { DocType } from '../../../../common/types/DocType';
 import { modul_props } from '../modul_props';
 import { Action_Request } from '../../../../common/framework/types/system/RequestTypes';
+import { Header_Buttons_IPC } from '../../../../frontend/framework/tools/Header_Buttons_IPC';
 
 // https://ant.design/components/typography
 const { Text } = Typography;

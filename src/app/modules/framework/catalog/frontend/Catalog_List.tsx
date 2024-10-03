@@ -12,8 +12,8 @@ import {
 
 import type { ColumnsType } from "antd/es/table";
 import type { TableRowSelection } from "antd/es/table/interface";
-import { App_Messages_IPC } from "../../../../frontend/tools/App_Messages_IPC";
-import { RequestData_IPC } from "../../../../frontend/tools/RequestData_IPC";
+import { App_Messages_IPC } from "../../../../frontend/framework/tools/App_Messages_IPC";
+import { RequestData_IPC } from "../../../../frontend/framework/tools/RequestData_IPC";
 import { modul_props } from "../modul_props";
 import ExportForm from "./exportForm";
 import { DocCatalogType } from "../../../../common/framework/types/documents/DocCatalog";

@@ -2,8 +2,7 @@ import { ReactElement } from "react";
 
 import { Empty, Image } from "antd";
 import { AttachmentMeta } from "../../../common/types/AttachmentTypes";
-import { Image_Util } from "../../tools/Image_Util";
-
+import { Image_Util } from "../../framework/tools/Image_Util";
 
 export interface Image_Cover_Props {
   attachment_meta: AttachmentMeta[];

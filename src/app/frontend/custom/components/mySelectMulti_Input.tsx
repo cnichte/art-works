@@ -5,7 +5,7 @@ import { FormItem_Props } from "../../../common/framework/types/system/FormPrope
 import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
 import { DB_Request } from "../../../common/framework/types/system/RequestTypes";
 import { DocType } from "../../../common/types/DocType";
-import { App_Messages_IPC } from "../../tools/App_Messages_IPC";
+import { App_Messages_IPC } from "../../framework/tools/App_Messages_IPC";
 
 // import { TagInterface } from 'app/backend/docs/TagInterface';
 

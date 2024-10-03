@@ -5,7 +5,7 @@ import { DatePicker, Radio, RadioChangeEvent, Select, TimePicker } from 'antd';
 // import { DatePickerType } from 'antd/es/date-picker';
 
 import { FormItem_Props } from '../../../common/framework/types/system/FormPropertiesInterface';
-import { DatePickerMode, DatePickerType, DateTool, MyDateValue } from '../../tools/DateTool';
+import { DatePickerMode, DateTool, MyDateValue, DatePickerType } from '../../framework/tools/DateTool';
 
 const { RangePicker } = DatePicker;
 

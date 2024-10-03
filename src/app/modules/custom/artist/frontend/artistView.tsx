@@ -4,11 +4,11 @@ import {
   MyBasicViewFieldParameterI,
   MyBasicViewSegmentParameterI,
 } from "../../../../common/types/MyBasicViewTypes";
-import { Segments } from "../../../../frontend/tools/Segments";
 import { modul_props } from "../modul_props";
 import { ArtistI } from "../../../../common/custom/types/documents/DocArtist";
 import { ArtworkI } from "../../../../common/custom/types/documents/DocArtwork";
 import { MyBasicView } from "../../../../frontend/custom/components/myBasicView";
+import { Segments } from "../../../../frontend/framework/tools/Segments";
 
 /* ==========================================================
 

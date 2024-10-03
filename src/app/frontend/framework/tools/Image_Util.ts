@@ -1,6 +1,6 @@
 import Resizer from "react-image-file-resizer";
 
-import { AttachmentMeta } from "../../common/types/AttachmentTypes";
+import { AttachmentMeta } from "../../../common/types/AttachmentTypes";
 import { RcFile } from "antd/es/upload";
 
 /**

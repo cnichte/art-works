@@ -5,8 +5,8 @@ import { Space, Input, Form, Button, Select, SelectProps } from "antd";
 
 import { InfoCircleOutlined, EditOutlined } from "@ant-design/icons";
 import { DocType } from "../../../../common/types/DocType";
-import { App_Messages_IPC } from "../../../../frontend/tools/App_Messages_IPC";
-import { FormTool_IPC } from "../../../../frontend/tools/FormTool_IPC";
+import { App_Messages_IPC } from "../../../../frontend/framework/tools/App_Messages_IPC";
+import { FormTool_IPC } from "../../../../frontend/framework/tools/FormTool_IPC";
 import { modul_props } from "../modul_props";
 import { Sale } from "../../../../common/custom/types/documents/DocSale";
 import { IPC_DATABASE } from "../../../../common/framework/types/system/IPC_Channels";

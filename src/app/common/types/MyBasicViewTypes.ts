@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 // import { RequestViewI } from '../../backend/types/RequestsFactoryTypes';
-import { ConditionParameter } from '../../frontend/tools/Condition';
+import { ConditionParameter } from '../../frontend/framework/tools/Condition';
 import { Modul_Props_I } from '../framework/types/system/Modul_Props';
 
 /** Zusatz für mapKeyTo

@@ -1,6 +1,6 @@
+import { MyDateValue } from "../../../../frontend/framework/tools/DateTool";
 import { AttachmentMeta } from "../../../../common/types/AttachmentTypes";
 import { DocItentifiable_Rel, DocType } from "../../../../common/types/DocType";
-import { MyDateValue } from "../../../../frontend/tools/DateTool";
 import { Tagging_Props } from "../Tagging_Types";
 
 export interface ArtworkI extends DocItentifiable_Rel {

@@ -4,9 +4,9 @@ import { useNavigate } from "react-router";
 import { List, Popconfirm, Tooltip, Typography } from "antd";
 
 import { DocType } from "../../../../common/types/DocType";
-import { App_Messages_IPC } from "../../../../frontend/tools/App_Messages_IPC";
+import { App_Messages_IPC } from "../../../../frontend/framework/tools/App_Messages_IPC";
 import { modul_props } from "../modul_props";
-import { RequestData_IPC } from "../../../../frontend/tools/RequestData_IPC";
+import { RequestData_IPC } from "../../../../frontend/framework/tools/RequestData_IPC";
 import { DocUserType } from "../../../../common/framework/types/documents/DocUser";
 import { IPC_DATABASE } from "../../../../common/framework/types/system/IPC_Channels";
 import { DB_Request, Action_Request, DB_RequestData } from "../../../../common/framework/types/system/RequestTypes";

@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { Input, Form, Button, ColorPicker, Select, Divider, Tag } from "antd";
 
 import { DocType } from "../../../../common/types/DocType";
-import { FormTool_IPC } from "../../../../frontend/tools/FormTool_IPC";
+import { FormTool_IPC } from "../../../../frontend/framework/tools/FormTool_IPC";
 import { modul_props } from "../modul_props";
 import { Tag as DocTag } from "../../../../common/custom/types/documents/DocTag"; // TODO TagRename
 import { IPC_DATABASE } from "../../../../common/framework/types/system/IPC_Channels";

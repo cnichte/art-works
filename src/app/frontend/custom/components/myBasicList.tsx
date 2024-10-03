@@ -42,8 +42,8 @@ import { Modul_Props_I } from "../../../common/framework/types/system/Modul_Prop
 import { MyBasicList_Meta_I } from "../../../common/framework/types/system/MyBasicListTypes";
 import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 import { DocItentifiable_Rel } from "../../../common/types/DocType";
-import RelationResolver from "../../tools/RelationResolver";
-import { RequestData_IPC } from "../../tools/RequestData_IPC";
+import RelationResolver from "../../framework/tools/RelationResolver";
+import { RequestData_IPC } from "../../framework/tools/RequestData_IPC";
 
 export type DataIndex<T> = keyof T; // Das sind die Property-Namen von T
 //! https://www.typescriptlang.org/docs/handbook/2/keyof-types.html

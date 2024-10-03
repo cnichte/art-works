@@ -1,9 +1,6 @@
-import { IPC_BUTTON_ACTION } from "../../common/framework/types/system/IPC_Channels";
-import { DOCTYPE_HEADER_BUTTONS } from "../../common/types/DocType";
-import {
-  Action_Request,
-  Action_Request_Props_I,
-} from "../../common/framework/types/system/RequestTypes";
+import { IPC_BUTTON_ACTION } from "../../../common/framework/types/system/IPC_Channels";
+import { Action_Request_Props_I, Action_Request } from "../../../common/framework/types/system/RequestTypes";
+import { DOCTYPE_HEADER_BUTTONS } from "../../../common/types/DocType";
 
 /**
  * @author Carsten Nichte - //carsten-nichte.de/apps/

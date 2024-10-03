@@ -18,7 +18,7 @@ import { compareSync } from "bcrypt-ts"; // password crypto
 import { DB_Request, Settings_RequestData } from "../common/framework/types/system/RequestTypes";
 import { DocUser } from "../common/framework/types/documents/DocUser";
 import { App_Info } from "../common/App_Info";
-import { App_Messages_IPC } from "./tools/App_Messages_IPC";
+import { App_Messages_IPC } from "./framework/tools/App_Messages_IPC";
 
 export interface App_User_LoginForm_Props {
   title: string;

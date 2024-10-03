@@ -8,7 +8,7 @@ import { Input, Form, Button } from "antd";
 
 //* Application imports
 import { DocType } from "../../../../common/types/DocType";
-import { FormTool_IPC } from "../../../../frontend/tools/FormTool_IPC";
+import { FormTool_IPC } from "../../../../frontend/framework/tools/FormTool_IPC";
 import { modul_props } from "../modul_props";
 import { GroupOfWork } from "../../../../common/custom/types/documents/DocGroupOfWork";
 import { IPC_DATABASE } from "../../../../common/framework/types/system/IPC_Channels";

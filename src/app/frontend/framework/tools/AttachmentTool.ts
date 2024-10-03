@@ -1,4 +1,4 @@
-import { AttachmentAction, AttachmentMeta } from "../../common/types/AttachmentTypes";
+import { AttachmentAction, AttachmentMeta } from "../../../common/types/AttachmentTypes";
 import { Image_Util } from "./Image_Util";
 
 /**

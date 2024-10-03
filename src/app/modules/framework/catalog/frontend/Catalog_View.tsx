@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Descriptions, Tabs } from "antd";
-import { RequestData_IPC } from "../../../../frontend/tools/RequestData_IPC";
+import { RequestData_IPC } from "../../../../frontend/framework/tools/RequestData_IPC";
 import { modul_props } from "../modul_props";
 import { DocCatalogType } from "../../../../common/framework/types/documents/DocCatalog";
 import { Settings_Request, Action_Request } from "../../../../common/framework/types/system/RequestTypes";

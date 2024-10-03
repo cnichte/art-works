@@ -12,15 +12,12 @@
  * @version 1.0.0
  */
 
-import { ArtworkI } from "../../common/custom/types/documents/DocArtwork";
-import { AwardI } from "../../common/custom/types/documents/DocAward";
-import { CompilationI } from "../../common/custom/types/documents/DocCompilation";
-import { PublicationI } from "../../common/custom/types/documents/DocPublication";
-import { SaleI } from "../../common/custom/types/documents/DocSale";
-import {
-  MyBasicViewFieldParameterI,
-  MyBasicViewSegmentParameterI,
-} from "../../common/types/MyBasicViewTypes";
+import { ArtworkI } from "../../../common/custom/types/documents/DocArtwork";
+import { AwardI } from "../../../common/custom/types/documents/DocAward";
+import { CompilationI } from "../../../common/custom/types/documents/DocCompilation";
+import { PublicationI } from "../../../common/custom/types/documents/DocPublication";
+import { SaleI } from "../../../common/custom/types/documents/DocSale";
+import { MyBasicViewFieldParameterI, MyBasicViewSegmentParameterI } from "../../../common/types/MyBasicViewTypes";
 
 export class Segments {
   /* ----------------------------------------------------------
