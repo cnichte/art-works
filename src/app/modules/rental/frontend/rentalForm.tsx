@@ -148,7 +148,14 @@ export function RentalForm() {
   }, []);
 
   const onFormFinish = (valuesForm: any) => {
+    const request: DB_Request = {
+      request_type: "request:save",
+      doctype: modul_props.doctype,
+      request_options: ["use_relation"],
+    };
+    
     FormTool_IPC.save_data<Rental>({
+      request: request,
       ipcChannel: IPC_DATABASE,
       dataObject: dataOrigin,
       valuesForm: valuesForm,

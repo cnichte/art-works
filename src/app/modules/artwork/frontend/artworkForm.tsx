@@ -120,7 +120,14 @@ export function ArtworkForm() {
     valuesForm.attachmentsMeta = result.attachmentsMeta;
 
     //TODO Hier passiert ein conflict-fehler wenn nix am Datensatz geändert wurde, aber ein neues Attachment angehängt wird. 
+    const request: DB_Request = {
+      request_type: "request:save",
+      doctype: modul_props.doctype,
+      request_options: ["use_relation"],
+    };
+    
     FormTool_IPC.save_data<Artwork>({
+      request: request,
       ipcChannel: IPC_DATABASE,
       dataObject: dataOrigin,
       valuesForm: valuesForm,

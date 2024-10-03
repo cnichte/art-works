@@ -6,17 +6,16 @@ import { App_Messages_IPC } from "./App_Messages_IPC";
 import { Header_Buttons_IPC } from "./Header_Buttons_IPC";
 import { Modul_Props_I } from "../../common/framework/types/system/Modul_Props";
 import { LoadData_IPC_InitAndLoadData_FUNC_Props } from "./RequestData_IPC";
-import { Action_Request, DB_RequestData } from "../../common/framework/types/system/RequestTypes";
+import { Action_Request, DatabaseRequestOptionType, DB_RequestData, Settings_RequestData } from "../../common/framework/types/system/RequestTypes";
 
-export interface FormTool_Props<T> {
+export interface FormTool_Save_Props<T> {
   modul_props: Modul_Props_I;
   ipcChannel: IPC_Channels;
-  request?: any; // DB_RequestData<T> | Settings_RequestData<T> | null
   dataObject: any;
   valuesForm: any;
   force_save: boolean;
+  request: any | DB_RequestData<T> | Settings_RequestData<T>; // is used in init_and_load_data.
 }
-
 /**
  * Form-Requests with Message-Handling.
  * List and View have their own tool.
@@ -35,7 +34,6 @@ export interface FormTool_Props<T> {
  */
 export class FormTool_IPC<T extends DocItentifiable_Rel> {
   //TODO set this up during design time
-  static useReleationalPouchPlugin: boolean = true;
 
   /**
    * Request Header Buttons.
@@ -110,7 +108,7 @@ export class FormTool_IPC<T extends DocItentifiable_Rel> {
    * @param props FormTool_Props
    * @returns
    */
-  public static save_data<T>(props: FormTool_Props<T>): Promise<T> {
+  public static save_data<T>(props: FormTool_Save_Props<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       if (
         FormTool_IPC.dataHasChanged(props.valuesForm, props.dataObject) ||
@@ -120,7 +118,10 @@ export class FormTool_IPC<T extends DocItentifiable_Rel> {
         FormTool_IPC.transport(props.valuesForm, props.dataObject);
 
         //* Operating modes: new and edit (needed when you have a opened form)
-        if (FormTool_IPC.useReleationalPouchPlugin) {
+
+        //! Das Argument vom Typ "string" kann dem Parameter vom Typ "never" nicht zugewiesen werden.ts(2345)
+        // deshalb muss ich oben FormTool_Props drequest als 'any' deklarieren.
+        if (props.request.request_options.includes("use_relation")) {
           if (!UUIDTool.uuidValidateV4(props.dataObject.id)) {
             console.log(`NEW ID because ${props.dataObject.id}`);
             props.dataObject.id = uuidv4();
@@ -168,7 +169,7 @@ export class FormTool_IPC<T extends DocItentifiable_Rel> {
 
             console.log(result);
 
-            resolve(FormTool_IPC.transform_result(props.dataObject, result));
+            resolve(FormTool_IPC.transform_result<T>(props.request, props.dataObject, result));
           })
           .catch(function (error: { message: any; }) {
             App_Messages_IPC.request_message(
@@ -227,7 +228,8 @@ export class FormTool_IPC<T extends DocItentifiable_Rel> {
    * @param result
    * @returns
    */
-  public static transform_result(
+  public static transform_result<T>(
+    request: any | DB_RequestData<T> | Settings_RequestData<T>,
     dataObject: any,
     result: { rev: string }
   ): any {
@@ -239,7 +241,7 @@ export class FormTool_IPC<T extends DocItentifiable_Rel> {
       o[key] = dataObject[key];
 
       //! rev must be transferred to the original data.
-      if (FormTool_IPC.useReleationalPouchPlugin) {
+      if (request.request_options.includes("use_relation")) {
         o["rev"] = result.rev; 
       } else {
         o["_rev"] = result.rev;

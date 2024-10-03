@@ -106,7 +106,14 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
           Image_Util.read_image_as_base64(value).then((val: string) => {
             valuesForm.preview = val; //! inject preview
 
+            const request: DB_Request = {
+              request_type: "request:save",
+              doctype: modul_props.doctype,
+              request_options: ["use_relation"],
+            };
+            
             FormTool_IPC.save_data<WhiteboardI>({
+              request: request,
               ipcChannel: IPC_DATABASE,
               dataObject: dataOrigin,
               valuesForm: valuesForm,
@@ -115,7 +122,7 @@ export function My_Tldraw_PersistenceManager({ id, modul_props }: MyProps) {
             }).then((result: WhiteboardI) => {
               //! has new rev from backend
               setDataOrigin(result);
-            }); // FormTool_IPC.save_data
+            });
           }); // Image_Util.read_image_as_base64
         }); // getSvgAsImage
       }); // editor.getSvgString

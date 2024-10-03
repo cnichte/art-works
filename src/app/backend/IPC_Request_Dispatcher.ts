@@ -377,6 +377,26 @@ export class IPC_Request_Dispatcher {
               });
           });
           break;
+          case "request:data-from-id":
+            result = new Promise((resolve, reject) => {
+              this.pouchdb
+                .read(request)
+                //! .readFromID(request.id, request.options)
+                .then(function (response) {
+                  // This is space to transform the result before send it back.
+                  // { ok: true, id: '4983cc2b-27e2-49de-aa2d-3a93f732bc80', rev: '1-96b9cb7d256fd1b29c51b84dc7d59c55'
+                  console.log("data-then: ", response);
+                  console.log("---------------------");
+                  return resolve(response);
+                })
+                .catch(function (err) {
+                  console.log("---------------------");
+                  console.log("data-error: ", err);
+                  console.log("---------------------");
+                  return reject(err);
+                });
+            });
+            break;
         case "request:data-from-query":
           result = new Promise((resolve, reject) => {
             this.pouchdb
@@ -414,26 +434,6 @@ export class IPC_Request_Dispatcher {
               .catch(function (err) {
                 console.log("---------------------");
                 console.log("save-error: ", err);
-                console.log("---------------------");
-                return reject(err);
-              });
-          });
-          break;
-        case "request:data-from-id":
-          result = new Promise((resolve, reject) => {
-            this.pouchdb
-              .read(request)
-              //! .readFromID(request.id, request.options)
-              .then(function (response) {
-                // This is space to transform the result before send it back.
-                // { ok: true, id: '4983cc2b-27e2-49de-aa2d-3a93f732bc80', rev: '1-96b9cb7d256fd1b29c51b84dc7d59c55'
-                console.log("data-then: ", response);
-                console.log("---------------------");
-                return resolve(response);
-              })
-              .catch(function (err) {
-                console.log("---------------------");
-                console.log("data-error: ", err);
                 console.log("---------------------");
                 return reject(err);
               });

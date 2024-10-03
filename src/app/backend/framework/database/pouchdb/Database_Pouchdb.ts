@@ -393,7 +393,7 @@ export class Database_Pouchdb implements DatabaseCRUD_Interface {
         this.db.put(props.data);
       }
     } else {
-      // dont use_relation
+      // dont use_relation at all
       return this.db.put(props.data);
     }
   }

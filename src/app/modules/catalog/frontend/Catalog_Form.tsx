@@ -125,7 +125,7 @@ export function Catalog_Form() {
       doctype: modul_props.doctype,
       id: id,
       data: null,
-      request_options: [],
+      request_options: [], // dont use "use_relation" here
     };
 
     FormTool_IPC.save_data<DocCatalog>({

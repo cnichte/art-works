@@ -6,7 +6,7 @@ import { Input, Form, Button, ColorPicker, Select, Divider, Tag } from "antd";
 import { DocType } from "../../../common/types/DocType";
 import { FormTool_IPC } from "../../../frontend/tools/FormTool_IPC";
 import { modul_props } from "../modul_props";
-import { Tag as DocTag } from "../../../common/custom/types/documents/DocTag"; // TODO TagRename
+import { Tag as DocTag, Tag } from "../../../common/custom/types/documents/DocTag"; // TODO TagRename
 import { IPC_DATABASE } from "../../../common/framework/types/system/IPC_Channels";
 import { DB_Request, Action_Request } from "../../../common/framework/types/system/RequestTypes";
 
@@ -70,7 +70,14 @@ export function TagForm() {
   }, []);
 
   const onFormFinish = (valuesForm: any) => {
+    const request: DB_Request = {
+      request_type: "request:save",
+      doctype: modul_props.doctype,
+      request_options: ["use_relation"],
+    };
+    
     FormTool_IPC.save_data<DocTag>({
+      request: request,
       ipcChannel: IPC_DATABASE,
       dataObject: dataOrigin,
       valuesForm: valuesForm,

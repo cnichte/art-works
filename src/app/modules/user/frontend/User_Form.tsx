@@ -117,7 +117,14 @@ export function User_Form() {
       formValues.password = passwordHash;
     }
 
+    const request: DB_Request = {
+      request_type: "request:save",
+      doctype: modul_props.doctype, //TODO this is ignored in pouchdb default - can be removed? 
+      request_options: [], // dont use "use_relation" here.
+    };
+    
     FormTool_IPC.save_data<DocUserType>({
+      request: request,
       ipcChannel: IPC_DATABASE,
       dataObject: dataObject,
       valuesForm: formValues,
