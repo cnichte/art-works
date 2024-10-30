@@ -123,15 +123,18 @@ export function RentalForm() {
     });
 
     const request_2: DB_Request = {
-      request_type: "request:data-from-id",
+      request_type: "request:list-all",
       doctype: "saleType",
-      request_options: [],
+      query:{
+        selector: { docType: "saleType" }
+      },
+      request_options: ["use_relation"],
     };
 
     window.electronAPI
       .invoke_request(IPC_DATABASE, [request_2])
       .then((result: any) => {
-        setSaleTypes(result.addressTypes); //
+        setSaleTypes(result.saleTypes); //
       })
       .catch(function (error: any) {
         App_Messages_IPC.request_message(

@@ -22,7 +22,11 @@ npm i electron-log
 
 npm i antd-img-crop
 npm i dayjs
+
 npm i exif-js
+npm install exifreader --save
+https://github.com/mattiasw/ExifReader
+
 npm i react-countup
 
 npm i markdown-to-jsx
@@ -53,7 +57,7 @@ npm i react-infinite-scroll-component
 
 ## Use the Application Repository
 
-clone git from <https://github.com/cnichte/.git>
+clone git from <https://github.com/cnichte/art-works.git>
 
 ```bash
 npm install

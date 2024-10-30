@@ -18,6 +18,8 @@ import { MySelectMulti_Input } from "../../../../frontend/custom/components/mySe
 import MyTags_Input from "../../../../frontend/custom/components/myTags_Input";
 import { AttachmentTool, AttachmentToolReturnValue } from "../../../../frontend/framework/tools/AttachmentTool";
 
+import { MyDatePickerInput } from "../../../../frontend/custom/components/myDatePickerInput";
+
 // log.info('########################################### Log from the renderer process');
 // log.info() wird auf der Konsole im Backend ausgegeben.
 // Der electron-log hab ich in main.ts so konfiguriert, das er die console.log('') einfängt und ins backend weiter leitet.

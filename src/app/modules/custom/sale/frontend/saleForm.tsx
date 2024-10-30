@@ -118,7 +118,10 @@ export function SaleForm() {
     const request_2: DB_Request = {
       request_type: "request:data-from-id",
       doctype: "saleType",
-      request_options: [],
+      query:{
+        selector: { docType: "saleType" }
+      },
+      request_options: ["use_relation"],
     };
 
     window.electronAPI

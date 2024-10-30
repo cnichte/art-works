@@ -89,7 +89,10 @@ export function AddressForm() {
     const request_2: DB_Request = {
       request_type: "request:data-from-id",
       doctype: "addressType",
-      request_options: [],
+      query:{
+        selector: { docType: "addressType" }
+      },
+      request_options: ["use_relation"],
     };
 
     RequestData_IPC.load_data<any>({

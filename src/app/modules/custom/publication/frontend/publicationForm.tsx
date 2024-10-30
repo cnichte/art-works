@@ -79,7 +79,10 @@ export function PublicationForm() {
     const request_2: DB_Request = {
       request_type: "request:data-from-id",
       doctype: "publicationType",
-      request_options: [],
+      query:{
+        selector: { docType: "publicationType" }
+      },
+      request_options: ["use_relation"],
     };
 
     window.electronAPI
@@ -99,7 +102,10 @@ export function PublicationForm() {
     const request_3: DB_Request = {
       request_type: "request:data-from-id",
       doctype: "publicationWhat",
-      request_options: [],
+      query:{
+        selector: { docType: "publicationWhat" }
+      },
+      request_options: ["use_relation"],
     };
 
     window.electronAPI
@@ -119,7 +125,10 @@ export function PublicationForm() {
     const request_4: DB_Request = {
       request_type: "request:data-from-id",
       doctype: "publicationMedium",
-      request_options: [],
+      query:{
+        selector: { docType: "publicationMedium" }
+      },
+      request_options: ["use_relation"],
     };
 
     window.electronAPI

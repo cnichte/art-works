@@ -78,8 +78,10 @@ export function MySelectMulti_Input<T extends MyIdentifiable>({
     const request: DB_Request = {
       request_type: "request:list-all",
       doctype: doctype,
-      id: "",
-      request_options: [],
+      query:{
+        selector: { docType: doctype }
+      },
+      request_options: ["use_relation"],
     };
 
     window.electronAPI

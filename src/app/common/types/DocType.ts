@@ -4,6 +4,9 @@
 export const DOCTYPE_HEADER_BUTTONS = "headerbuttons";
 export type ActionTarget = typeof DOCTYPE_HEADER_BUTTONS;
 export const DOCTYPE_CATALOG = "catalog";
+
+//* custom types
+
 export const DOCTYPE_USER = "user";
 
 export const TYPE_USERRIGHT_SUPERADMIN = "superadmin";

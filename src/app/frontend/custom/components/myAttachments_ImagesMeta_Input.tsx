@@ -10,8 +10,7 @@ import { MyAttachments_ImagesMeta_View } from "./myAttachments_ImagesMeta_View";
 import { FormItem_Props } from "../../../common/framework/types/system/FormPropertiesInterface";
 import { AttachmentMeta } from "../../../common/types/AttachmentTypes";
 import { Image_Util } from "../../framework/tools/Image_Util";
-
-
+import { Image_Exif_Tool } from "../../framework/tools/Image_Exif_Tool";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -59,7 +58,7 @@ interface AttachmentMetaInput_Props extends FormItem_Props<AttachmentMeta[]> {
  * It has a controlled property value or other name which is equal to the value of valuePropName.
  * It has event onChange or an event which name is equal to the value of trigger.
  * Forward the ref or pass the id property to dom to support the scrollToField method.
- * 
+ *
  * @author Carsten Nichte - //carsten-nichte.de/apps/
  * @version 1.0.0
  *
@@ -137,6 +136,18 @@ export function MyAttachments_ImagesMeta_Input({
         message.error("Image must smaller than 50 MB.");
         // TODO sollte natürlich nicht zur Liste hinzugefügt werden
       }
+
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onload = () => {
+        Image_Exif_Tool.get_tags(reader.result as ArrayBuffer).then(
+          (tags: ExifReader.Tags) => {
+            // TODO: EXIF tags da?
+            console.log("############## EXIF Tags", tags);
+            Image_Exif_Tool.list_tags(tags);
+          }
+        );
+      };
 
       // get the original unresized image.
       Image_Util.read_image_file_as_base64(file)

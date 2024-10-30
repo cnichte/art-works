@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, shell } from "electron";
+import { BrowserWindow, ipcMain, shell,  Notification } from "electron";
 import { DatabaseCRUD_Interface } from "./framework/types";
 import { Crypto_Manager, Database_Backup } from "./framework/tools";
 
@@ -75,6 +75,8 @@ export class IPC_Request_Dispatcher {
       console.log("MAIN says: asyncPing received. I send a 'asyncPong'.");
       event.sender.send("asyncPong", "asyncPong");
       // das landet nur in preload.ts
+      new Notification({ title: "NOTIFICATION_TITLE", body: "NOTIFICATION_BODY" }).show();
+
     });
 
     ipcMain.on("syncPing", (event, args) => {
